@@ -7,31 +7,91 @@
 //
 
 import UIKit
+import LGSideMenuController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
+    var window: UIWindow?
+    var sideMenu : LGSideMenuController?
+    var navVC:UINavigationController?
+    var dashboardVc: DashboardViewController!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        LanguageManger.shared.defaultLanguage = .en
+        let userDefaults = Foundation.UserDefaults.standard
+        if userDefaults.string(forKey: "language") == nil || userDefaults.string(forKey: "language") == "" {
+            
+            if(LanguageManger.shared.isRightToLeft==true)
+            {
+                language = "ar"
+                userDefaults.set( language, forKey: "language")
+                LanguageManger.shared.defaultLanguage = .ar
+            }
+            else {
+                language = "en"
+                userDefaults.set( language, forKey: "language")
+                LanguageManger.shared.defaultLanguage = .en
+            }
+        } else {
+            language = userDefaults.string(forKey: "language")!
+            if language == "ar" {
+                LanguageManger.shared.defaultLanguage = .ar
+            } else {
+                LanguageManger.shared.defaultLanguage = .en
+            }
+            
+        }
+        self.window = UIWindow(frame:UIScreen.main.bounds)
+        if  !UserDefaults.standard.bool(forKey: "isLoggedIn")  {
+            
+            self.window?.rootViewController = self.getLandingPageWithSideMenu()
+        } else {
+            let centerVC = LoginViewController()
+            let navVC:UINavigationController = UINavigationController(rootViewController: centerVC)
+            self.window?.rootViewController = navVC;
+        }
+        self.window?.tintColor = UIColor.white
+        self.window?.makeKeyAndVisible()
         return true
     }
-
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    
+    
+    func getLandingPageWithSideMenu()->UIViewController {
+        
+        self.navVC = self.getNavControllerWithRootController(controller: DashboardViewController())
+        var leftController: UIViewController? = nil
+        var rightController: UIViewController? = nil
+        if LanguageManger.shared.isRightToLeft {
+            
+            rightController = MenuViewController()
+        }
+        else{
+            
+            leftController = MenuViewController()
+        }
+        sideMenu = LGSideMenuController.init(rootViewController: navVC, leftViewController: leftController, rightViewController: rightController)
+        
+        return sideMenu!
     }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    
+    
+    func getInstance()->AppDelegate{
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate
     }
-
-
+    func getSideMenuController ()-> MenuViewController {
+        
+        let controller:MenuViewController = LanguageManger.shared.isRightToLeft == true ? sideMenu!.rightViewController as! MenuViewController : sideMenu!.leftViewController as! MenuViewController
+        
+        return controller
+    }
+    func getNavControllerWithRootController(controller : UIViewController)->UINavigationController{
+        self.navVC = UINavigationController(rootViewController: controller)
+        self.navVC?.interactivePopGestureRecognizer?.isEnabled = true
+        return self.navVC!
+    }
+    
 }
 

@@ -14,8 +14,8 @@ class APIClient {
     
     // MARK: - Typealias
     fileprivate typealias JSONFormat = [String: Any]
-        
-
+    
+    
     @discardableResult
     private static func performRequest<T: Mappable>(route: URLRequestConvertible) -> Future<T> {
         return Future(operation: { completion in
@@ -23,15 +23,15 @@ class APIClient {
             Alamofire.request(route).responseJSON { (data) in
                 
                 // If we have a 401 on the login screen we can skip this logic since its a invalid login
-//                if data.response?.statusCode == 401 {
-//                        self.token(refresh: {
-//                            self.request(convertible: convertible, success: success, error: error, emptyResponse: emptyResponse, failure: failure)
-//                        })
-//                    } else {
-//                        (UIApplication.shared.delegate as? AppDelegate)?.userLoggedOut()
-//                    }
-//                    return
-//                }
+                //                if data.response?.statusCode == 401 {
+                //                        self.token(refresh: {
+                //                            self.request(convertible: convertible, success: success, error: error, emptyResponse: emptyResponse, failure: failure)
+                //                        })
+                //                    } else {
+                //                        (UIApplication.shared.delegate as? AppDelegate)?.userLoggedOut()
+                //                    }
+                //                    return
+                //                }
                 
                 switch data.result {
                 case .success:
@@ -44,9 +44,9 @@ class APIClient {
             }
         })
     }
-
-//    static func getLastLocation(email: String, password: String) -> Future<LastLocation> {
-//        return performRequest(route: APIRouter.login(email: email, password: password))
-//    }
-
+    
+    //    static func getLastLocation(email: String, password: String) -> Future<LastLocation> {
+    //        return performRequest(route: APIRouter.login(email: email, password: password))
+    //    }
+    
 }

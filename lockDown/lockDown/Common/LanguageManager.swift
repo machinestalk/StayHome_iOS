@@ -173,11 +173,11 @@ extension UIApplication {
     static var topViewController:UIViewController? {
         get{
             let keyWindows = UIApplication.shared.connectedScenes
-            .filter({$0.activationState == .foregroundActive})
-            .map({$0 as? UIWindowScene})
-            .compactMap({$0})
-            .first?.windows
-            .filter({$0.isKeyWindow}).first
+                .filter({$0.activationState == .foregroundActive})
+                .map({$0 as? UIWindowScene})
+                .compactMap({$0})
+                .first?.windows
+                .filter({$0.isKeyWindow}).first
             
             if var topController = keyWindows?.rootViewController {
                 while let presentedViewController = topController.presentedViewController {

@@ -27,6 +27,12 @@
 		FA6E98A424329B83000F2C2E /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E989C24329B83000F2C2E /* TextField.swift */; };
 		FA6E98A524329B83000F2C2E /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E989D24329B83000F2C2E /* Checkbox.swift */; };
 		FA6E98A624329B83000F2C2E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E989E24329B83000F2C2E /* Button.swift */; };
+		FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E98A824329CEA000F2C2E /* LoginViewController.swift */; };
+		FA6E98AB24329CEA000F2C2E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98A924329CEA000F2C2E /* LoginViewController.xib */; };
+		FA6E98AF24329D15000F2C2E /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E98AD24329D15000F2C2E /* DashboardViewController.swift */; };
+		FA6E98B024329D15000F2C2E /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98AE24329D15000F2C2E /* DashboardViewController.xib */; };
+		FA6E98B424329DA0000F2C2E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E98B224329DA0000F2C2E /* MenuViewController.swift */; };
+		FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B324329DA0000F2C2E /* MenuViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +84,12 @@
 		FA6E989C24329B83000F2C2E /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		FA6E989D24329B83000F2C2E /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		FA6E989E24329B83000F2C2E /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		FA6E98A824329CEA000F2C2E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FA6E98A924329CEA000F2C2E /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		FA6E98AD24329D15000F2C2E /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		FA6E98AE24329D15000F2C2E /* DashboardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardViewController.xib; sourceTree = "<group>"; };
+		FA6E98B224329DA0000F2C2E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		FA6E98B324329DA0000F2C2E /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,6 +169,9 @@
 		FA6E9855243293F5000F2C2E /* lockDown */ = {
 			isa = PBXGroup;
 			children = (
+				FA6E98B124329D7D000F2C2E /* Menu */,
+				FA6E98AC24329CFA000F2C2E /* Dashboard */,
+				FA6E98A724329CCF000F2C2E /* Login */,
 				FA6E989124329B7B000F2C2E /* Network */,
 				FA6E989624329B83000F2C2E /* Common */,
 				FA6E9856243293F5000F2C2E /* AppDelegate.swift */,
@@ -225,6 +240,33 @@
 			children = (
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FA6E98A724329CCF000F2C2E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				FA6E98A824329CEA000F2C2E /* LoginViewController.swift */,
+				FA6E98A924329CEA000F2C2E /* LoginViewController.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		FA6E98AC24329CFA000F2C2E /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				FA6E98AD24329D15000F2C2E /* DashboardViewController.swift */,
+				FA6E98AE24329D15000F2C2E /* DashboardViewController.xib */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		FA6E98B124329D7D000F2C2E /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				FA6E98B224329DA0000F2C2E /* MenuViewController.swift */,
+				FA6E98B324329DA0000F2C2E /* MenuViewController.xib */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,7 +378,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA6E98AB24329CEA000F2C2E /* LoginViewController.xib in Resources */,
+				FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */,
 				FA6E9863243293FB000F2C2E /* LaunchScreen.storyboard in Resources */,
+				FA6E98B024329D15000F2C2E /* DashboardViewController.xib in Resources */,
 				FA6E9860243293FB000F2C2E /* Assets.xcassets in Resources */,
 				FA6E985E243293F5000F2C2E /* Main.storyboard in Resources */,
 			);
@@ -467,6 +512,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA6E98A524329B83000F2C2E /* Checkbox.swift in Sources */,
+				FA6E98B424329DA0000F2C2E /* MenuViewController.swift in Sources */,
+				FA6E98AF24329D15000F2C2E /* DashboardViewController.swift in Sources */,
 				FA6E98A024329B83000F2C2E /* Constants.swift in Sources */,
 				FA6E989524329B7B000F2C2E /* APIRouter.swift in Sources */,
 				FA6E98A424329B83000F2C2E /* TextField.swift in Sources */,
@@ -477,6 +524,7 @@
 				FA6E9859243293F5000F2C2E /* SceneDelegate.swift in Sources */,
 				FA6E98A324329B83000F2C2E /* NormalTextField.swift in Sources */,
 				FA6E989424329B7B000F2C2E /* APIClient.swift in Sources */,
+				FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */,
 				FA6E98A624329B83000F2C2E /* Button.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

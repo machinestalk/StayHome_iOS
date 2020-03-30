@@ -7,6 +7,7 @@
 //
 
 import Foundation
+var language = String()
 
 struct LockDown {
     
