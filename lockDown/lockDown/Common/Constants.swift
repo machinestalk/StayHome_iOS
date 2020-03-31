@@ -29,7 +29,7 @@ struct LockDown {
     }
     
     struct GoogleMaps {
-        static let key = "AIzaSyC9qRn0-NjZPfkmuBgvdAEMaKsThdX_fAg"
+        static let key = "AIzaSyBhIvUAZ8WTsmSUehqhgYplev2ZVdLkPbk"
     }
 
     struct APIParameterKey {

@@ -34,6 +34,9 @@
 		FA6E98B424329DA0000F2C2E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E98B224329DA0000F2C2E /* MenuViewController.swift */; };
 		FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B324329DA0000F2C2E /* MenuViewController.xib */; };
 		FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */; };
+		FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3D72433674400061AE5 /* Extensions.swift */; };
+		FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */; };
+		FAB7F3E5243371E800061AE5 /* RequestLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +96,9 @@
 		FA6E98B324329DA0000F2C2E /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA6E98B824335647000F2C2E /* lockDown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lockDown.entitlements; sourceTree = "<group>"; };
+		FAB7F3D72433674400061AE5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
+		FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestLocationViewController.xib; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,6 +178,7 @@
 		FA6E9855243293F5000F2C2E /* lockDown */ = {
 			isa = PBXGroup;
 			children = (
+				FAB7F3E12433719800061AE5 /* BottomViews */,
 				FA6E98B824335647000F2C2E /* lockDown.entitlements */,
 				FA6E98B124329D7D000F2C2E /* Menu */,
 				FA6E98AC24329CFA000F2C2E /* Dashboard */,
@@ -220,6 +227,7 @@
 		FA6E989624329B83000F2C2E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FAB7F3D72433674400061AE5 /* Extensions.swift */,
 				FA6E989724329B83000F2C2E /* Constants.swift */,
 				FA6E989824329B83000F2C2E /* LanguageManager.swift */,
 				FA6E989924329B83000F2C2E /* Component */,
@@ -274,6 +282,15 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		FAB7F3E12433719800061AE5 /* BottomViews */ = {
+			isa = PBXGroup;
+			children = (
+				FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */,
+				FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */,
+			);
+			path = BottomViews;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -286,6 +303,7 @@
 				FA6E9850243293F5000F2C2E /* Frameworks */,
 				FA6E9851243293F5000F2C2E /* Resources */,
 				E78C9E365C9EC2157399A5F7 /* [CP] Embed Pods Frameworks */,
+				D5CD65256F375D4B516DBC50 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -324,6 +342,7 @@
 				FA6E9871243293FB000F2C2E /* Frameworks */,
 				FA6E9872243293FB000F2C2E /* Resources */,
 				D8BCF101915279D6BACDDDAC /* [CP] Embed Pods Frameworks */,
+				6F9495E44168FA9994361A75 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -384,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA6E98AB24329CEA000F2C2E /* LoginViewController.xib in Resources */,
+				FAB7F3E5243371E800061AE5 /* RequestLocationViewController.xib in Resources */,
 				FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */,
 				FA6E9863243293FB000F2C2E /* LaunchScreen.storyboard in Resources */,
 				FA6E98B024329D15000F2C2E /* DashboardViewController.xib in Resources */,
@@ -410,6 +430,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6F9495E44168FA9994361A75 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lockDown-lockDownUITests/Pods-lockDown-lockDownUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lockDown-lockDownUITests/Pods-lockDown-lockDownUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lockDown-lockDownUITests/Pods-lockDown-lockDownUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A04566D42F7EA7ECCCE86B48 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -430,6 +467,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D5CD65256F375D4B516DBC50 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lockDown/Pods-lockDown-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lockDown/Pods-lockDown-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lockDown/Pods-lockDown-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8BCF101915279D6BACDDDAC /* [CP] Embed Pods Frameworks */ = {
@@ -525,9 +579,11 @@
 				FA6E98A424329B83000F2C2E /* TextField.swift in Sources */,
 				FA6E98A124329B83000F2C2E /* LanguageManager.swift in Sources */,
 				FA6E985B243293F5000F2C2E /* ViewController.swift in Sources */,
+				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
 				FA6E9857243293F5000F2C2E /* AppDelegate.swift in Sources */,
 				FA6E9859243293F5000F2C2E /* SceneDelegate.swift in Sources */,
+				FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */,
 				FA6E98A324329B83000F2C2E /* NormalTextField.swift in Sources */,
 				FA6E989424329B7B000F2C2E /* APIClient.swift in Sources */,
 				FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */,
