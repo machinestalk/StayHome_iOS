@@ -9,6 +9,23 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+        
+    //@IBOutlet weak var  userNameInputView: CustomInputView!
+    @IBOutlet weak var  titleLabel: Label!
+    @IBOutlet weak var  titleTextField: Label!
+    @IBOutlet weak var  recentPinBtn: Button!
+    @IBOutlet weak var  loginBtn: Button!
+    @IBOutlet weak var  text1: TextField!
+    @IBOutlet weak var  text2: TextField!
+    @IBOutlet weak var  text3: TextField!
+    @IBOutlet weak var  text4: TextField!
+    @IBOutlet weak var  text5: TextField!
+    @IBOutlet weak var  text6: TextField!
+    @IBOutlet weak var  dialCodeLbl: UILabel!
+    @IBOutlet weak var  viewLogin: UIView!
+    @IBOutlet weak var  dialCodeHolder: UIView!
+    @IBOutlet weak var  dialCodeWidth: NSLayoutConstraint!
+    @IBOutlet weak var  otpStackView: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
