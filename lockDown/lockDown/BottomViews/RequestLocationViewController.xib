@@ -50,11 +50,11 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgc-AI-phG" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="25" y="50" width="364" height="70"/>
+                    <rect key="frame" x="25" y="35" width="364" height="70"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="70" id="Gvn-n5-5HK"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -65,7 +65,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="gUS-UM-rxq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" constant="38" id="6E5-Fv-olP"/>
-                <constraint firstItem="lgc-AI-phG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="8Kh-z6-rKt"/>
+                <constraint firstItem="lgc-AI-phG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="35" id="8Kh-z6-rKt"/>
                 <constraint firstItem="gUS-UM-rxq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="AMh-8o-dNs"/>
                 <constraint firstItem="QNh-sl-EeJ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="CfJ-4y-uWo"/>
                 <constraint firstItem="QNh-sl-EeJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-10" id="Kan-AK-zZs"/>
