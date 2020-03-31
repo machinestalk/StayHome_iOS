@@ -33,6 +33,7 @@
 		FA6E98B024329D15000F2C2E /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98AE24329D15000F2C2E /* DashboardViewController.xib */; };
 		FA6E98B424329DA0000F2C2E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E98B224329DA0000F2C2E /* MenuViewController.swift */; };
 		FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B324329DA0000F2C2E /* MenuViewController.xib */; };
+		FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,8 @@
 		FA6E98AE24329D15000F2C2E /* DashboardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardViewController.xib; sourceTree = "<group>"; };
 		FA6E98B224329DA0000F2C2E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		FA6E98B324329DA0000F2C2E /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
+		FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA6E98B824335647000F2C2E /* lockDown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lockDown.entitlements; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +172,7 @@
 		FA6E9855243293F5000F2C2E /* lockDown */ = {
 			isa = PBXGroup;
 			children = (
+				FA6E98B824335647000F2C2E /* lockDown.entitlements */,
 				FA6E98B124329D7D000F2C2E /* Menu */,
 				FA6E98AC24329CFA000F2C2E /* Dashboard */,
 				FA6E98A724329CCF000F2C2E /* Login */,
@@ -181,6 +185,7 @@
 				FA6E985F243293FB000F2C2E /* Assets.xcassets */,
 				FA6E9861243293FB000F2C2E /* LaunchScreen.storyboard */,
 				FA6E9864243293FB000F2C2E /* Info.plist */,
+				FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */,
 			);
 			path = lockDown;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				FA6E98B024329D15000F2C2E /* DashboardViewController.xib in Resources */,
 				FA6E9860243293FB000F2C2E /* Assets.xcassets in Resources */,
 				FA6E985E243293F5000F2C2E /* Main.storyboard in Resources */,
+				FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +705,8 @@
 			baseConfigurationReference = E7DE332401585B97E3467E89 /* Pods-lockDown.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
@@ -706,8 +714,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.machinestalk.lockDown;
+				PRODUCT_BUNDLE_IDENTIFIER = com.machinestalk.StayAtHome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -718,6 +727,8 @@
 			baseConfigurationReference = F261705A9F8FED30AE760D35 /* Pods-lockDown.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
@@ -725,8 +736,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.machinestalk.lockDown;
+				PRODUCT_BUNDLE_IDENTIFIER = com.machinestalk.StayAtHome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
