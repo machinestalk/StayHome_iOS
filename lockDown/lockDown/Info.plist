@@ -45,5 +45,32 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>UIAppFonts</key>
+    <array>
+        <string>OpenSans-Bold.ttf</string>
+        <string>OpenSans-BoldItalic.ttf</string>
+        <string>OpenSans-ExtraBold.ttf</string>
+        <string>OpenSans-ExtraBoldItalic.ttf</string>
+        <string>OpenSans-Italic.ttf</string>
+        <string>OpenSans-Light.ttf</string>
+        <string>OpenSans-LightItalic.ttf</string>
+        <string>OpenSans-Regular.ttf</string>
+        <string>OpenSans-SemiBold.ttf</string>
+        <string>OpenSans-SemiBoldItalic.ttf</string>
+        <string>AvenirLTStd-Book.otf</string>
+        <string>AvenirLTStd-Light.otf</string>
+        <string>AvenirLTStd-Roman.otf</string>
+        <string>Avenir Roman.otf</string>
+    </array>
+    <key>NSLocationAlwaysAndWhenInUsageDescription</key>
+    <string>This app needs your location to locate nearest asset to you</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app needs your location to locate nearest asset to you</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>This app needs your location to locate nearest asset to you</string>
+    <key>NSLocationUsageDescription</key>
+    <string>This app needs your location to locate nearest asset to you</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs your location to locate nearest asset to you</string>
 </dict>
 </plist>

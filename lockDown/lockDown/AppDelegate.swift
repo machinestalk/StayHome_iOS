@@ -9,6 +9,7 @@
 import UIKit
 import LGSideMenuController
 import Firebase
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -72,6 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         self.window?.tintColor = UIColor.white
         self.window?.makeKeyAndVisible()
+        GMSServices.provideAPIKey(LockDown.GoogleMaps.key)
+
         return true
     }
        

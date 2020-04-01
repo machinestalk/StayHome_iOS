@@ -10,6 +10,7 @@
 		469911621E7D434DEE14800B /* Pods_lockDown_lockDownUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07CA6D2D03D9DFBEFA5E85B7 /* Pods_lockDown_lockDownUITests.framework */; };
 		C127F5BF6723479FAE29EC8B /* Pods_lockDownTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BCCF1BC0A16076FE3EF369 /* Pods_lockDownTests.framework */; };
 		CD3412B45A2D09888AE1582D /* Pods_lockDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA45852916987272EE4010E3 /* Pods_lockDown.framework */; };
+		FA66D6442434B8880036D137 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA66D6432434B8880036D137 /* BaseController.swift */; };
 		FA6E9857243293F5000F2C2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E9856243293F5000F2C2E /* AppDelegate.swift */; };
 		FA6E9859243293F5000F2C2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E9858243293F5000F2C2E /* SceneDelegate.swift */; };
 		FA6E985B243293F5000F2C2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E985A243293F5000F2C2E /* ViewController.swift */; };
@@ -34,6 +35,24 @@
 		FA6E98B424329DA0000F2C2E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E98B224329DA0000F2C2E /* MenuViewController.swift */; };
 		FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B324329DA0000F2C2E /* MenuViewController.xib */; };
 		FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */; };
+		FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3D72433674400061AE5 /* Extensions.swift */; };
+		FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */; };
+		FAB7F3E5243371E800061AE5 /* RequestLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */; };
+		FAB7F3EC2433989F00061AE5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F3EA2433989F00061AE5 /* Localizable.strings */; };
+		FAB7F41324339B0500061AE5 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F3FD24339B0500061AE5 /* OpenSans-SemiBold.ttf */; };
+		FAB7F41524339B0600061AE5 /* Avenir Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F3FF24339B0500061AE5 /* Avenir Roman.otf */; };
+		FAB7F41624339B0600061AE5 /* AvenirLTStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40024339B0500061AE5 /* AvenirLTStd-Light.otf */; };
+		FAB7F41724339B0600061AE5 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40124339B0500061AE5 /* OpenSans-Light.ttf */; };
+		FAB7F41824339B0600061AE5 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40224339B0500061AE5 /* OpenSans-Italic.ttf */; };
+		FAB7F41A24339B0600061AE5 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40424339B0500061AE5 /* OpenSans-ExtraBold.ttf */; };
+		FAB7F41B24339B0600061AE5 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40524339B0500061AE5 /* OpenSans-LightItalic.ttf */; };
+		FAB7F41C24339B0600061AE5 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40624339B0500061AE5 /* OpenSans-Bold.ttf */; };
+		FAB7F41D24339B0600061AE5 /* AvenirLTStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40724339B0500061AE5 /* AvenirLTStd-Book.otf */; };
+		FAB7F41E24339B0600061AE5 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40824339B0500061AE5 /* OpenSans-SemiBoldItalic.ttf */; };
+		FAB7F41F24339B0600061AE5 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40924339B0500061AE5 /* OpenSans-ExtraBoldItalic.ttf */; };
+		FAB7F42024339B0600061AE5 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40A24339B0500061AE5 /* OpenSans-Regular.ttf */; };
+		FAB7F42124339B0600061AE5 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40B24339B0500061AE5 /* OpenSans-BoldItalic.ttf */; };
+		FAB7F42224339B0600061AE5 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +81,7 @@
 		E7DE332401585B97E3467E89 /* Pods-lockDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDown.debug.xcconfig"; path = "Target Support Files/Pods-lockDown/Pods-lockDown.debug.xcconfig"; sourceTree = "<group>"; };
 		EA45852916987272EE4010E3 /* Pods_lockDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lockDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F261705A9F8FED30AE760D35 /* Pods-lockDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDown.release.xcconfig"; path = "Target Support Files/Pods-lockDown/Pods-lockDown.release.xcconfig"; sourceTree = "<group>"; };
+		FA66D6432434B8880036D137 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		FA6E9853243293F5000F2C2E /* lockDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lockDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6E9856243293F5000F2C2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA6E9858243293F5000F2C2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +113,28 @@
 		FA6E98B324329DA0000F2C2E /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA6E98B824335647000F2C2E /* lockDown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lockDown.entitlements; sourceTree = "<group>"; };
+		FAB7F3D72433674400061AE5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
+		FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestLocationViewController.xib; sourceTree = "<group>"; };
+		FAB7F3E62433982100061AE5 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		FAB7F3E72433982100061AE5 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		FAB7F3EB2433989F00061AE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FAB7F3ED243398BA00061AE5 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FAB7F3EE243398BB00061AE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FAB7F3FD24339B0500061AE5 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		FAB7F3FF24339B0500061AE5 /* Avenir Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir Roman.otf"; sourceTree = "<group>"; };
+		FAB7F40024339B0500061AE5 /* AvenirLTStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Light.otf"; sourceTree = "<group>"; };
+		FAB7F40124339B0500061AE5 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		FAB7F40224339B0500061AE5 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		FAB7F40424339B0500061AE5 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		FAB7F40524339B0500061AE5 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		FAB7F40624339B0500061AE5 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		FAB7F40724339B0500061AE5 /* AvenirLTStd-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Book.otf"; sourceTree = "<group>"; };
+		FAB7F40824339B0500061AE5 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		FAB7F40924339B0500061AE5 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		FAB7F40A24339B0500061AE5 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		FAB7F40B24339B0500061AE5 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Roman.otf"; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,6 +214,8 @@
 		FA6E9855243293F5000F2C2E /* lockDown */ = {
 			isa = PBXGroup;
 			children = (
+				FAB7F3EF24339B0500061AE5 /* Resources */,
+				FAB7F3E12433719800061AE5 /* BottomViews */,
 				FA6E98B824335647000F2C2E /* lockDown.entitlements */,
 				FA6E98B124329D7D000F2C2E /* Menu */,
 				FA6E98AC24329CFA000F2C2E /* Dashboard */,
@@ -186,6 +230,7 @@
 				FA6E9861243293FB000F2C2E /* LaunchScreen.storyboard */,
 				FA6E9864243293FB000F2C2E /* Info.plist */,
 				FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */,
+				FAB7F3EA2433989F00061AE5 /* Localizable.strings */,
 			);
 			path = lockDown;
 			sourceTree = "<group>";
@@ -220,6 +265,8 @@
 		FA6E989624329B83000F2C2E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FA66D6432434B8880036D137 /* BaseController.swift */,
+				FAB7F3D72433674400061AE5 /* Extensions.swift */,
 				FA6E989724329B83000F2C2E /* Constants.swift */,
 				FA6E989824329B83000F2C2E /* LanguageManager.swift */,
 				FA6E989924329B83000F2C2E /* Component */,
@@ -274,6 +321,36 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		FAB7F3E12433719800061AE5 /* BottomViews */ = {
+			isa = PBXGroup;
+			children = (
+				FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */,
+				FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */,
+			);
+			path = BottomViews;
+			sourceTree = "<group>";
+		};
+		FAB7F3EF24339B0500061AE5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FAB7F3FD24339B0500061AE5 /* OpenSans-SemiBold.ttf */,
+				FAB7F3FF24339B0500061AE5 /* Avenir Roman.otf */,
+				FAB7F40024339B0500061AE5 /* AvenirLTStd-Light.otf */,
+				FAB7F40124339B0500061AE5 /* OpenSans-Light.ttf */,
+				FAB7F40224339B0500061AE5 /* OpenSans-Italic.ttf */,
+				FAB7F40424339B0500061AE5 /* OpenSans-ExtraBold.ttf */,
+				FAB7F40524339B0500061AE5 /* OpenSans-LightItalic.ttf */,
+				FAB7F40624339B0500061AE5 /* OpenSans-Bold.ttf */,
+				FAB7F40724339B0500061AE5 /* AvenirLTStd-Book.otf */,
+				FAB7F40824339B0500061AE5 /* OpenSans-SemiBoldItalic.ttf */,
+				FAB7F40924339B0500061AE5 /* OpenSans-ExtraBoldItalic.ttf */,
+				FAB7F40A24339B0500061AE5 /* OpenSans-Regular.ttf */,
+				FAB7F40B24339B0500061AE5 /* OpenSans-BoldItalic.ttf */,
+				FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -286,6 +363,7 @@
 				FA6E9850243293F5000F2C2E /* Frameworks */,
 				FA6E9851243293F5000F2C2E /* Resources */,
 				E78C9E365C9EC2157399A5F7 /* [CP] Embed Pods Frameworks */,
+				D5CD65256F375D4B516DBC50 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -324,6 +402,7 @@
 				FA6E9871243293FB000F2C2E /* Frameworks */,
 				FA6E9872243293FB000F2C2E /* Resources */,
 				D8BCF101915279D6BACDDDAC /* [CP] Embed Pods Frameworks */,
+				6F9495E44168FA9994361A75 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -365,6 +444,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = FA6E984A243293F5000F2C2E;
 			productRefGroup = FA6E9854243293F5000F2C2E /* Products */;
@@ -384,12 +464,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA6E98AB24329CEA000F2C2E /* LoginViewController.xib in Resources */,
+				FAB7F3E5243371E800061AE5 /* RequestLocationViewController.xib in Resources */,
+				FAB7F42024339B0600061AE5 /* OpenSans-Regular.ttf in Resources */,
+				FAB7F41A24339B0600061AE5 /* OpenSans-ExtraBold.ttf in Resources */,
+				FAB7F41324339B0500061AE5 /* OpenSans-SemiBold.ttf in Resources */,
+				FAB7F41524339B0600061AE5 /* Avenir Roman.otf in Resources */,
+				FAB7F41824339B0600061AE5 /* OpenSans-Italic.ttf in Resources */,
+				FAB7F41E24339B0600061AE5 /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */,
 				FA6E9863243293FB000F2C2E /* LaunchScreen.storyboard in Resources */,
+				FAB7F3EC2433989F00061AE5 /* Localizable.strings in Resources */,
+				FAB7F41624339B0600061AE5 /* AvenirLTStd-Light.otf in Resources */,
+				FAB7F41D24339B0600061AE5 /* AvenirLTStd-Book.otf in Resources */,
+				FAB7F41F24339B0600061AE5 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				FA6E98B024329D15000F2C2E /* DashboardViewController.xib in Resources */,
+				FAB7F41B24339B0600061AE5 /* OpenSans-LightItalic.ttf in Resources */,
 				FA6E9860243293FB000F2C2E /* Assets.xcassets in Resources */,
+				FAB7F41C24339B0600061AE5 /* OpenSans-Bold.ttf in Resources */,
+				FAB7F42124339B0600061AE5 /* OpenSans-BoldItalic.ttf in Resources */,
 				FA6E985E243293F5000F2C2E /* Main.storyboard in Resources */,
+				FAB7F42224339B0600061AE5 /* AvenirLTStd-Roman.otf in Resources */,
 				FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */,
+				FAB7F41724339B0600061AE5 /* OpenSans-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +506,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6F9495E44168FA9994361A75 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lockDown-lockDownUITests/Pods-lockDown-lockDownUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lockDown-lockDownUITests/Pods-lockDown-lockDownUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lockDown-lockDownUITests/Pods-lockDown-lockDownUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A04566D42F7EA7ECCCE86B48 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -430,6 +543,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D5CD65256F375D4B516DBC50 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lockDown/Pods-lockDown-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lockDown/Pods-lockDown-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lockDown/Pods-lockDown-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8BCF101915279D6BACDDDAC /* [CP] Embed Pods Frameworks */ = {
@@ -525,9 +655,12 @@
 				FA6E98A424329B83000F2C2E /* TextField.swift in Sources */,
 				FA6E98A124329B83000F2C2E /* LanguageManager.swift in Sources */,
 				FA6E985B243293F5000F2C2E /* ViewController.swift in Sources */,
+				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
+				FA66D6442434B8880036D137 /* BaseController.swift in Sources */,
 				FA6E9857243293F5000F2C2E /* AppDelegate.swift in Sources */,
 				FA6E9859243293F5000F2C2E /* SceneDelegate.swift in Sources */,
+				FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */,
 				FA6E98A324329B83000F2C2E /* NormalTextField.swift in Sources */,
 				FA6E989424329B7B000F2C2E /* APIClient.swift in Sources */,
 				FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */,
@@ -571,6 +704,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA6E985D243293F5000F2C2E /* Base */,
+				FAB7F3E62433982100061AE5 /* ar */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -579,8 +713,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA6E9862243293FB000F2C2E /* Base */,
+				FAB7F3E72433982100061AE5 /* ar */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FAB7F3EA2433989F00061AE5 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FAB7F3EB2433989F00061AE5 /* Base */,
+				FAB7F3ED243398BA00061AE5 /* ar */,
+				FAB7F3EE243398BB00061AE5 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -590,6 +735,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -650,6 +796,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
