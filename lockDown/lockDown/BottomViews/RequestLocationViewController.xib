@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RequestLocationViewController" customModule="lockDown" customModuleProvider="target">
+            <connections>
+                <outlet property="handleArea" destination="QNh-sl-EeJ" id="tXE-2T-pUh"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_raduis" translatesAutoresizingMaskIntoConstraints="NO" id="gUS-UM-rxq">
+                    <rect key="frame" x="-19" y="-10" width="452" height="43.5"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNh-sl-EeJ">
+                    <rect key="frame" x="0.0" y="-10" width="414" height="70"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9c-Rw-B9h">
+                            <rect key="frame" x="-19" y="0.0" width="452" height="70"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <connections>
+                                <action selector="swipeUp:" destination="-1" eventType="touchUpInside" id="51M-jn-Zld"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYL-aM-ZMR">
+                            <rect key="frame" x="182" y="20" width="50" height="2"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="2" id="6fM-Am-NWQ"/>
+                                <constraint firstAttribute="width" constant="50" id="etm-hq-sFg"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="TYL-aM-ZMR" firstAttribute="centerX" secondItem="QNh-sl-EeJ" secondAttribute="centerX" id="5ze-u5-ut2"/>
+                        <constraint firstAttribute="height" constant="70" id="f6o-8g-nWf"/>
+                        <constraint firstItem="TYL-aM-ZMR" firstAttribute="top" secondItem="QNh-sl-EeJ" secondAttribute="top" constant="20" id="fYo-2q-tXS"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgc-AI-phG" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="25" y="35" width="364" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="Gvn-n5-5HK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="RequestLocation_txt"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j47-MX-YFP" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="142" y="130" width="130" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="HtQ-P3-tDH"/>
+                        <constraint firstAttribute="width" constant="130" id="SAk-ef-ksA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                    <state key="normal" backgroundImage="red_button">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="nextBtn_txt"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="nextBtnAction:" destination="-1" eventType="touchUpInside" id="pNq-1z-pFG"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="j47-MX-YFP" firstAttribute="top" secondItem="lgc-AI-phG" secondAttribute="bottom" constant="25" id="0Mn-Po-CGj"/>
+                <constraint firstItem="j47-MX-YFP" firstAttribute="centerX" secondItem="lgc-AI-phG" secondAttribute="centerX" id="537-oQ-f81"/>
+                <constraint firstItem="gUS-UM-rxq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" constant="38" id="6E5-Fv-olP"/>
+                <constraint firstItem="lgc-AI-phG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="35" id="8Kh-z6-rKt"/>
+                <constraint firstItem="gUS-UM-rxq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="AMh-8o-dNs"/>
+                <constraint firstItem="QNh-sl-EeJ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="CfJ-4y-uWo"/>
+                <constraint firstItem="QNh-sl-EeJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-10" id="Kan-AK-zZs"/>
+                <constraint firstItem="lgc-AI-phG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="WW1-1d-kk2"/>
+                <constraint firstItem="QNh-sl-EeJ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="YrX-pX-ron"/>
+                <constraint firstItem="gUS-UM-rxq" firstAttribute="top" secondItem="QNh-sl-EeJ" secondAttribute="top" id="sVZ-vM-qw3"/>
+                <constraint firstItem="lgc-AI-phG" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" constant="-50" id="tbk-sU-1WA"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="102"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_raduis" width="116" height="43.5"/>
+        <image name="red_button" width="134.5" height="47"/>
+    </resources>
+</document>

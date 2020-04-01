@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>391010251961-raof1t17c16dvquluvvf2vkbjq869mc6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.391010251961-raof1t17c16dvquluvvf2vkbjq869mc6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDkgAA5cxInEmi9awc_gZ3ZJeElfXKYLAw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>391010251961</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.machinestalk.StayAtHome</string>
+	<key>PROJECT_ID</key>
+	<string>stayinhome-c59b6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>stayinhome-c59b6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:391010251961:ios:f7c81934d82720517fd768</string>
+	<key>DATABASE_URL</key>
+	<string>https://stayinhome-c59b6.firebaseio.com</string>
+</dict>
+</plist>
