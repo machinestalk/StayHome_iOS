@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import NKVPhonePicker
 import MBProgressHUD
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
@@ -135,7 +134,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
@@ -163,12 +162,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
        
     }
     
-//    func setErrorMsg(msg : String)  {
+    func setErrorMsg(msg : String)  {
 //        self.errorView.isHidden = false
 //        self.errorLbl.text = msg
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
 //            self.errorView.isHidden = true
 //        }
-//    }
+    }
 }
 
