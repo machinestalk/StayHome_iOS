@@ -11,6 +11,7 @@ target 'lockDown' do
   pod 'Alamofire'
   pod 'ObjectMapper'
   pod 'PromisedFuture'
+  
   target 'lockDownTests' do
     inherit! :search_paths
     # Pods for testing
