@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BiometricsAuthViewController" customModule="lockDown" customModuleProvider="target">
+            <connections>
+                <outlet property="faceIDLabel" destination="Pfk-om-QMK" id="uZ3-CH-bco"/>
+                <outlet property="loginButton" destination="XJS-ne-Xz2" id="YV5-n4-Dc9"/>
+                <outlet property="stateView" destination="Uc6-kV-m0e" id="61H-U3-hrr"/>
+                <outlet property="view" destination="6Q6-50-74m" id="3ef-Mx-OTP"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="6Q6-50-74m">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uc6-kV-m0e">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yN2-Kd-74r">
+                            <rect key="frame" x="30" y="60" width="354" height="776"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJS-ne-Xz2">
+                                    <rect key="frame" x="147.5" y="368.5" width="59" height="39"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                    <state key="normal" title="Log In"/>
+                                    <state key="highlighted" title="Log Out"/>
+                                </button>
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Authenticate with Face ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfk-om-QMK">
+                                    <rect key="frame" x="53.5" y="427.5" width="247" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="XJS-ne-Xz2" firstAttribute="centerX" secondItem="yN2-Kd-74r" secondAttribute="centerX" id="HAc-eE-UaD"/>
+                                <constraint firstItem="XJS-ne-Xz2" firstAttribute="centerY" secondItem="yN2-Kd-74r" secondAttribute="centerY" id="MQ2-Pa-r3X"/>
+                                <constraint firstItem="Pfk-om-QMK" firstAttribute="top" secondItem="XJS-ne-Xz2" secondAttribute="bottom" constant="20" id="dFe-rh-y09"/>
+                                <constraint firstItem="Pfk-om-QMK" firstAttribute="centerX" secondItem="yN2-Kd-74r" secondAttribute="centerX" id="tkb-1Y-VEV"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="yN2-Kd-74r" firstAttribute="top" secondItem="Uc6-kV-m0e" secondAttribute="top" constant="60" id="ILd-5l-Cbm"/>
+                        <constraint firstItem="yN2-Kd-74r" firstAttribute="centerY" secondItem="Uc6-kV-m0e" secondAttribute="centerY" id="ffg-8a-Nfs"/>
+                        <constraint firstItem="yN2-Kd-74r" firstAttribute="leading" secondItem="Uc6-kV-m0e" secondAttribute="leading" constant="30" id="lCq-HG-yZp"/>
+                        <constraint firstItem="yN2-Kd-74r" firstAttribute="centerX" secondItem="Uc6-kV-m0e" secondAttribute="centerX" id="nbf-iv-54U"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="kdz-f7-w9X" firstAttribute="trailing" secondItem="Uc6-kV-m0e" secondAttribute="trailing" id="HzC-rI-8KE"/>
+                <constraint firstAttribute="bottom" secondItem="Uc6-kV-m0e" secondAttribute="bottom" id="edN-cG-522"/>
+                <constraint firstItem="Uc6-kV-m0e" firstAttribute="top" secondItem="6Q6-50-74m" secondAttribute="top" id="jGd-PO-ZiO"/>
+                <constraint firstItem="Uc6-kV-m0e" firstAttribute="leading" secondItem="kdz-f7-w9X" secondAttribute="leading" id="jwb-lf-YOi"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="kdz-f7-w9X"/>
+            <point key="canvasLocation" x="183" y="135"/>
+        </view>
+    </objects>
+</document>

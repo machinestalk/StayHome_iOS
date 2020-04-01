@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         self.window = UIWindow(frame:UIScreen.main.bounds)
-        if  !UserDefaults.standard.bool(forKey: "isLoggedIn")  {
+        if  UserDefaults.standard.bool(forKey: "isLoggedIn")  {
             
             self.window?.rootViewController = self.getLandingPageWithSideMenu()
         } else {
