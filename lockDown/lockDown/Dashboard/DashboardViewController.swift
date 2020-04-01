@@ -31,30 +31,48 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var currentLocation: CLLocationCoordinate2D!
     var cameraa : GMSCameraPosition!
     
+    @IBOutlet weak var addressLbl: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var recenterButton: Button!
     
+    @IBOutlet weak var searchtxt: TextField!
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var satBtn: UIButton!
+    @IBOutlet weak var menuBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.transparentNavigationBar()
         self.mapView.bringSubviewToFront(recenterButton)
-        setuprequestLocationVC()
+        self.mapView.bringSubviewToFront(menuBtn)
+        self.mapView.bringSubviewToFront(satBtn)
+        self.mapView.bringSubviewToFront(searchView)
+        self.mapView.bringSubviewToFront(addressLbl)
+       
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.leftBarButtonItem = nil
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
+        self.title = "HomeTxt".localiz()
         //Location Manager code to fetch current location
-        let image = UIImage(named: "ic_sattelite")?.withRenderingMode(.alwaysOriginal)
-        let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(changeMapStatus))
-        self.navigationItem.rightBarButtonItem  = button
+        
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
             
             locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
             self.locationManager.delegate = self
             self.locationManager.startUpdatingLocation()
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            
+            let camera = GMSCameraPosition.camera(withLatitude: locValue.latitude, longitude: locValue.longitude, zoom: 16.0)
+            cameraa = camera
+            self.mapView?.animate(to: camera)
+            let marker = GMSMarker()
+            marker.icon = UIImage(named: "red_marker")
+            marker.position = locValue
+            marker.map = self.mapView
+            getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
             
         }
         else {
@@ -64,7 +82,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         
         
     }
-    
+   
     @IBAction func navigateToMyLocation(_ sender: UIButton) {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
             if  let userLocation = locValue{
@@ -83,10 +101,71 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             checkUsersLocationServicesAuthorization()
         }
     }
-    @objc func changeMapStatus() {
+    
+    func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
+            var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+            let ceo: CLGeocoder = CLGeocoder()
+            center.latitude = pdblLatitude
+            center.longitude = pdblLongitude
+
+            let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+
+
+            ceo.reverseGeocodeLocation(loc, completionHandler:
+                {(placemarks, error) in
+                    if (error != nil)
+                    {
+                        print("reverse geodcode fail: \(error!.localizedDescription)")
+                    }
+                    let pm = placemarks! as [CLPlacemark]
+
+                    if pm.count > 0 {
+                        let pm = placemarks![0]
+                        print(pm.country)
+                        print(pm.locality)
+                        print(pm.subLocality)
+                        print(pm.thoroughfare)
+                        print(pm.postalCode)
+                        print(pm.subThoroughfare)
+                        var addressString : String = ""
+                        if pm.subLocality != nil {
+                            addressString = addressString + pm.subLocality! + ", "
+                        }
+                        if pm.thoroughfare != nil {
+                            addressString = addressString + pm.thoroughfare! + ", "
+                        }
+                        if pm.locality != nil {
+                            addressString = addressString + pm.locality! + ", "
+                        }
+                        if pm.country != nil {
+                            addressString = addressString + pm.country! + ", "
+                        }
+                        if pm.postalCode != nil {
+                            addressString = addressString + pm.postalCode! + " "
+                        }
+
+                        self.addressLbl.text = addressString
+                        print(addressString)
+                  }
+            })
+
+        }
+ 
+
+    @IBAction  func changeMapStatus() {
         if self.mapView.mapType == .normal {self.mapView.mapType = .hybrid}
         else {self.mapView.mapType = .normal}
         
+    }
+    @IBAction func menuDidTap(_ sender: Any) {
+        if(LanguageManger.shared.isRightToLeft==true){
+            
+            self.sideMenuController?.toggleRightViewAnimated()
+            
+        }
+        else {
+            self.sideMenuController?.toggleLeftViewAnimated()
+        }
     }
     
     //Location Manager delegates
@@ -182,7 +261,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         recenterButton.setImage(UIImage(named: "userLocation"), for: .normal)
-
+        
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 16.0)
         return true
     }
@@ -198,7 +277,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         
     }
     
-
+    
     // MARK: - Bottom Views Methods
     func setuprequestLocationVC() {
         requestLocationVC.delegate = self

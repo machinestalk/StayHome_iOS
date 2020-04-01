@@ -7,3 +7,7 @@
 */
 "RequestLocation_txt"                       = "For your safety,Please register \n your Home location";
 "nextBtn_txt"                               = "Next" ; 
+"locationAlert_txt"                                                = "Turn on your location services from the settings";
+"Ok_text"                                                        = "Ok";
+"Settings_txt"                                                          = "Settings";
+"HomeTxt"                                                           = "Home";
