@@ -10,9 +10,15 @@ import UIKit
 import BottomPopup
 import DeviceKit
 
+protocol RequestLocationProtocol {
+    func requestlocation()
+
+}
+
+
 class RequestLocationViewController: BottomPopupViewController {
     @IBOutlet weak var handleArea: UIView!
-    
+    var delegate: RequestLocationProtocol?
     var fullView: CGFloat {
         if isItIPhoneX(){
             return UIScreen.main.bounds.height - 250
@@ -47,6 +53,9 @@ class RequestLocationViewController: BottomPopupViewController {
         })
     }
     
+    @IBAction func nextBtnAction(_ sender: Any) {
+        self.delegate?.requestlocation()
+    }
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {
         
         let translation = recognizer.translation(in: self.view)

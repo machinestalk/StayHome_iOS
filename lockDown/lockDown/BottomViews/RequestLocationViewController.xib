@@ -61,9 +61,28 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="key" value="RequestLocation_txt"/>
                     </userDefinedRuntimeAttributes>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j47-MX-YFP" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="142" y="130" width="130" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="HtQ-P3-tDH"/>
+                        <constraint firstAttribute="width" constant="130" id="SAk-ef-ksA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                    <state key="normal" backgroundImage="red_button">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="nextBtn_txt"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="nextBtnAction:" destination="-1" eventType="touchUpInside" id="pNq-1z-pFG"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="j47-MX-YFP" firstAttribute="top" secondItem="lgc-AI-phG" secondAttribute="bottom" constant="25" id="0Mn-Po-CGj"/>
+                <constraint firstItem="j47-MX-YFP" firstAttribute="centerX" secondItem="lgc-AI-phG" secondAttribute="centerX" id="537-oQ-f81"/>
                 <constraint firstItem="gUS-UM-rxq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" constant="38" id="6E5-Fv-olP"/>
                 <constraint firstItem="lgc-AI-phG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="35" id="8Kh-z6-rKt"/>
                 <constraint firstItem="gUS-UM-rxq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="AMh-8o-dNs"/>
@@ -79,5 +98,6 @@
     </objects>
     <resources>
         <image name="bg_raduis" width="116" height="43.5"/>
+        <image name="red_button" width="134.5" height="47"/>
     </resources>
 </document>

@@ -62,5 +62,15 @@
         <string>AvenirLTStd-Roman.otf</string>
         <string>Avenir Roman.otf</string>
     </array>
+    <key>NSLocationAlwaysAndWhenInUsageDescription</key>
+    <string>This app needs your location to locate nearest asset to you</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app needs your location to locate nearest asset to you</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>This app needs your location to locate nearest asset to you</string>
+    <key>NSLocationUsageDescription</key>
+    <string>This app needs your location to locate nearest asset to you</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs your location to locate nearest asset to you</string>
 </dict>
 </plist>

@@ -10,6 +10,7 @@
 		469911621E7D434DEE14800B /* Pods_lockDown_lockDownUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07CA6D2D03D9DFBEFA5E85B7 /* Pods_lockDown_lockDownUITests.framework */; };
 		C127F5BF6723479FAE29EC8B /* Pods_lockDownTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BCCF1BC0A16076FE3EF369 /* Pods_lockDownTests.framework */; };
 		CD3412B45A2D09888AE1582D /* Pods_lockDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA45852916987272EE4010E3 /* Pods_lockDown.framework */; };
+		FA66D6442434B8880036D137 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA66D6432434B8880036D137 /* BaseController.swift */; };
 		FA6E9857243293F5000F2C2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E9856243293F5000F2C2E /* AppDelegate.swift */; };
 		FA6E9859243293F5000F2C2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E9858243293F5000F2C2E /* SceneDelegate.swift */; };
 		FA6E985B243293F5000F2C2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E985A243293F5000F2C2E /* ViewController.swift */; };
@@ -80,6 +81,7 @@
 		E7DE332401585B97E3467E89 /* Pods-lockDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDown.debug.xcconfig"; path = "Target Support Files/Pods-lockDown/Pods-lockDown.debug.xcconfig"; sourceTree = "<group>"; };
 		EA45852916987272EE4010E3 /* Pods_lockDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lockDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F261705A9F8FED30AE760D35 /* Pods-lockDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDown.release.xcconfig"; path = "Target Support Files/Pods-lockDown/Pods-lockDown.release.xcconfig"; sourceTree = "<group>"; };
+		FA66D6432434B8880036D137 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		FA6E9853243293F5000F2C2E /* lockDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lockDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6E9856243293F5000F2C2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA6E9858243293F5000F2C2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		FA6E989624329B83000F2C2E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FA66D6432434B8880036D137 /* BaseController.swift */,
 				FAB7F3D72433674400061AE5 /* Extensions.swift */,
 				FA6E989724329B83000F2C2E /* Constants.swift */,
 				FA6E989824329B83000F2C2E /* LanguageManager.swift */,
@@ -654,6 +657,7 @@
 				FA6E985B243293F5000F2C2E /* ViewController.swift in Sources */,
 				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
+				FA66D6442434B8880036D137 /* BaseController.swift in Sources */,
 				FA6E9857243293F5000F2C2E /* AppDelegate.swift in Sources */,
 				FA6E9859243293F5000F2C2E /* SceneDelegate.swift in Sources */,
 				FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */,
