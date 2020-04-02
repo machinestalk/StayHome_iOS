@@ -222,15 +222,15 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
         let distance = circleLocation.distance(from: location!)
         
-        
+        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         
         if(distance >= circle.radius)
         {
             print("user out of zone")
             
-            let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+            
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
                     print(Msg)
                 } ,onFailure : { (error) in
                     print(error)
@@ -246,6 +246,19 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         else
         {
             print("user in zone")
+            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
+                    print(Msg)
+                } ,onFailure : { (error) in
+                    print(error)
+                }
+                )
+                let alert = UIAlertView()
+                alert.title = "StayAthomeTitle".localiz()
+                alert.message = "stayAthome_txt".localiz()
+                alert.addButton(withTitle: "Ok")
+                alert.show()
+            }
         }
         
         locValue = currentLocation
