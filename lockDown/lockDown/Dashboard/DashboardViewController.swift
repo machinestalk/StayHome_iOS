@@ -62,7 +62,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         
-        self.title = "HomeTxt".localiz()
+        self.title = "SignUpTitle".localiz()
         //Location Manager code to fetch current location
         if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
             setLocationView()
@@ -247,17 +247,13 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         {
             print("user in zone")
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
+           /*     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
                     print(Msg)
                 } ,onFailure : { (error) in
                     print(error)
                 }
-                )
-                let alert = UIAlertView()
-                alert.title = "StayAthomeTitle".localiz()
-                alert.message = "stayAthome_txt".localiz()
-                alert.addButton(withTitle: "Ok")
-                alert.show()
+                )*/
+               
             }
         }
         
@@ -471,7 +467,9 @@ extension DashboardViewController: RequestLocationProtocol {
             print(error)
         }
         )
-        
+        let FinishSignupVC = FinishSignupViewController(nibName: "FinishSignupViewController", bundle: nil)
+        self.navigationController!.pushViewController(FinishSignupVC, animated: true)
+
         
     }
     

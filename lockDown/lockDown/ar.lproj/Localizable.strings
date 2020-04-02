@@ -16,3 +16,10 @@
 "HomeTxt"                                                           = "منطقتي";
 "stayAthome_txt"                                                  ="You are out of your home please return back for your safety";
 "StayAthomeTitle"                                                   = "Stay at home";
+"instrutionsTxt"                                                    ="1. ابق في المنزل \ n 2. حافظ على تشغيل هاتفك وبطارية كافية طوال الوقت \ n 3. استمر في تشغيل تطبيق STAYHOME \ n 4. حافظ على تفعيل GPS و Wifi و Bluetooth";
+"instrutionsTitle"                                                  = "وفقًا لتعليمات وزارة الصحة ، وخلال فترة الحجر الصحي ، يجب عليك:";
+
+"agreedBtnTitle"                                                    = "متفق عليه";
+"SignUpSuccessLbl"                  =   "لقد قمت بالتسجيل بنجاح";
+"StayAThomeSignUpTxt"                   = "يرجى البقاء في المنزل وكن آمنا";
+"SignUpTitle"                           ="التسجيل";

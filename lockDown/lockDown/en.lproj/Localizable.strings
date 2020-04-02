@@ -16,3 +16,11 @@
 "HomeTxt"                                                           = "My Zone";
 "stayAthome_txt"                                                  ="You are out of your home please return back for your safety";
 "StayAthomeTitle"                                                   = "Stay at home";
+"instrutionsTxt"                                                    ="1.Stay at home \n2.Keep your Phone ON and had enough battery all the time \n3.Keep STAYHOME application working \n4.Keep your GPS,Wifi and Bluetooth activated";
+"instrutionsTitle"                                                  = "As per as the instructions of Ministry of Health,\n during the quarantine period,you must :";
+
+"agreedBtnTitle"                                                    = "Agreed";
+
+"SignUpSuccessLbl"                  =   "You are successfully Signed Up";
+"StayAThomeSignUpTxt"                   = "Please Stay home and be safe";
+"SignUpTitle"                           ="Sign up";

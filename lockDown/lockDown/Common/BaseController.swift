@@ -63,7 +63,7 @@ class BaseController: UIViewController ,UITextFieldDelegate  {
                     viewController = (viewController as! LGSideMenuController).rootViewController!
                     
                     viewController = (viewController as! UINavigationController).visibleViewController!
-                    if(viewController is DashboardViewController ||  self.navigationController?.viewControllers.count == 1 ){
+                    if(viewController is DashboardViewController || viewController is FinishSignupViewController  || self.navigationController?.viewControllers.count == 1 ){
                         let image = UIImage(named: "ic_menu")?.withRenderingMode(.alwaysOriginal)
 
                         button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(menuButtonPressed))
