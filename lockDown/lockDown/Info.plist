@@ -8,8 +8,6 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -20,12 +18,46 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<true/>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSLocationAlwaysAndWhenInUsageDescription</key>
+	<string>This app needs your location to locate nearest asset to you</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs your location to locate nearest asset to you</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs your location to locate nearest asset to you</string>
+	<key>NSLocationUsageDescription</key>
+	<string>This app needs your location to locate nearest asset to you</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs your location to locate nearest asset to you</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>OpenSans-Bold.ttf</string>
+		<string>OpenSans-BoldItalic.ttf</string>
+		<string>OpenSans-ExtraBold.ttf</string>
+		<string>OpenSans-ExtraBoldItalic.ttf</string>
+		<string>OpenSans-Italic.ttf</string>
+		<string>OpenSans-Light.ttf</string>
+		<string>OpenSans-LightItalic.ttf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-SemiBold.ttf</string>
+		<string>OpenSans-SemiBoldItalic.ttf</string>
+		<string>AvenirLTStd-Book.otf</string>
+		<string>AvenirLTStd-Light.otf</string>
+		<string>AvenirLTStd-Roman.otf</string>
+		<string>Avenir Roman.otf</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -45,32 +77,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>UIAppFonts</key>
-    <array>
-        <string>OpenSans-Bold.ttf</string>
-        <string>OpenSans-BoldItalic.ttf</string>
-        <string>OpenSans-ExtraBold.ttf</string>
-        <string>OpenSans-ExtraBoldItalic.ttf</string>
-        <string>OpenSans-Italic.ttf</string>
-        <string>OpenSans-Light.ttf</string>
-        <string>OpenSans-LightItalic.ttf</string>
-        <string>OpenSans-Regular.ttf</string>
-        <string>OpenSans-SemiBold.ttf</string>
-        <string>OpenSans-SemiBoldItalic.ttf</string>
-        <string>AvenirLTStd-Book.otf</string>
-        <string>AvenirLTStd-Light.otf</string>
-        <string>AvenirLTStd-Roman.otf</string>
-        <string>Avenir Roman.otf</string>
-    </array>
-    <key>NSLocationAlwaysAndWhenInUsageDescription</key>
-    <string>This app needs your location to locate nearest asset to you</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>This app needs your location to locate nearest asset to you</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>This app needs your location to locate nearest asset to you</string>
-    <key>NSLocationUsageDescription</key>
-    <string>This app needs your location to locate nearest asset to you</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app needs your location to locate nearest asset to you</string>
 </dict>
 </plist>

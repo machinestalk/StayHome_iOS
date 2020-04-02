@@ -11,39 +11,35 @@ import Alamofire
 
 enum APIRouter: URLRequestConvertible {
     
-    case login(email:String, password:String)
-    case articles(userId: Int)
-    case article(id: Int)
+    case login(phoneNumber:String, phoneOtp:String, phoneUdid:String)
+    case signIn(phoneNumber: String)
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .login:
+        case .login,.signIn:
             return .post
-        case .articles, .article:
-            return .get
         }
     }
     
     // MARK: - Path
     private var path: String {
+        
         switch self {
         case .login:
-            return "/login"
-        case .articles(let userId):
-            return "/articles/all.json?userID=\(userId)"
-        case .article(let id):
-            return "/article/article.json?id=\(id)"
+            return "api/noauth/loginMobile"
+        case .signIn:
+            return "api/noauth/signInCustomer"
         }
     }
     
     // MARK: - Parameters
     private var parameters: Parameters? {
         switch self {
-        case .login(let email, let password):
-            return [LockDown.APIParameterKey.email: email, LockDown.APIParameterKey.password: password]
-        case .articles, .article:
-            return nil
+        case .login(let phoneNumber, let phoneOtp, let phoneUdid):
+            return [LockDown.APIParameterKey.phoneNumber: phoneNumber, LockDown.APIParameterKey.phoneOtp: phoneOtp, LockDown.APIParameterKey.phoneOtp:phoneUdid]
+            case .signIn(let phoneNumber):
+            return [LockDown.APIParameterKey.phoneNumber: phoneNumber]
         }
     }
     

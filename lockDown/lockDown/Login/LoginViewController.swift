@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: BaseController {
         
    
     @IBOutlet weak var  titleLabel: Label!
@@ -29,6 +29,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var  dialCodeWidth: NSLayoutConstraint!
     @IBOutlet weak var  otpStackView: UIStackView!
     @IBOutlet weak var  scrollView: UIScrollView!
+    @IBOutlet weak var errorLbl: UILabel!
+    @IBOutlet weak var usernameSeparator : UILabel!
+    @IBOutlet weak var errorView: UIView!
+    @IBOutlet weak var heightErrorView: NSLayoutConstraint!
+    @IBOutlet weak var errorLblTop: NSLayoutConstraint!
     
     let kPhoneSubscriptWithZero = "+966"
 
@@ -37,6 +42,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.isHidden = true
+        userNameInputView.becomeFirstResponder()
+        
         
         if ( language == "ar"){
             //Text Aligment
@@ -46,6 +53,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // For keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        if !isItIPhoneX() {
+            heightErrorView.constant = 70
+            errorLblTop.constant = 0
+            errorLbl.frame.size.height = errorView.frame.size.height
+        }
     }
 
 
@@ -62,12 +75,59 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - UITextField Delegate
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return true;
+        
+        if string.count == 1 {
+            if textField == text1 {
+                text2.becomeFirstResponder()
+                text1.text = textField.text
+            }
+            if textField == text2 {
+                text3.becomeFirstResponder()
+                text2.text = textField.text
+            }
+            if textField == text3 {
+                text4.becomeFirstResponder()
+                text3.text = textField.text
+            }
+            if textField == text4 {
+                text5.becomeFirstResponder()
+                text4.text = textField.text
+            }
+            if textField == text5 {
+                text6.becomeFirstResponder()
+                text5.text = textField.text
+            }
+            if textField == text6 {
+                text6.text = textField.text
+                text6.resignFirstResponder()
+            }
+            textField.text = string
+            return false
+        }else{
+            if textField == text2 {
+                text1.becomeFirstResponder()
+            }
+            if textField == text3 {
+                text2.becomeFirstResponder()
+            }
+            if textField == text4 {
+                text3.becomeFirstResponder()
+            }
+            if textField == text5 {
+                text4.becomeFirstResponder()
+            }
+            if textField == text6 {
+                text5.text = textField.text
+            }
+            textField.text = string
+            return false
+        }
     }
     
     // MARK: - Keyboard handling
         
         @objc func keyboardWillShow(notification: NSNotification) {
+            userNameInputView.maxLength = 9
             let userInfo: NSDictionary = notification.userInfo! as NSDictionary
             let keyboardInfo = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue
             let keyboardSize = keyboardInfo.cgRectValue.size
@@ -118,6 +178,44 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func changeView(){
+        
+        titleLabel.text = "SgIn_SgIn_Lbl_login_verifyPin".localiz()
+        titleTextField.text = "SgIn_SgIn_Lbl_login_pin".localiz()
+        dialCodeHolder.isHidden = true
+        userNameInputView.isHidden = true
+        userNameInputView.resignFirstResponder()
+        otpStackView.isHidden = false
+        if #available(iOS 12.0, *) {
+            text1.textContentType = .oneTimeCode
+        }
+        text1.addTarget(self, action: #selector(textFieldDidChange(_ :)), for: .editingChanged)
+        text1.becomeFirstResponder()
+        loginBtn.isHidden = true
+        usernameSeparator.isHidden = true
+        //Clear TextFields OTP
+        //clearTextFieldOTP()
+    }
+    
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+
+        if #available(iOS 12.0, *) {
+
+            if textField.textContentType == .oneTimeCode {
+                if (textField.text?.count ?? 0) > 3 {
+
+                    text1.text = (textField.text as NSString?)?.substring(with: NSRange(location: 0, length: 1))
+                    text2.text = (textField.text as NSString?)?.substring(with: NSRange(location: 1, length: 1))
+                    text3.text = (textField.text as NSString?)?.substring(with: NSRange(location: 2, length: 1))
+                    text4.text = (textField.text as NSString?)?.substring(with: NSRange(location: 3, length: 1))
+                    text5.text = (textField.text as NSString?)?.substring(with: NSRange(location: 4, length: 1))
+                    text6.text = (textField.text as NSString?)?.substring(with: NSRange(location: 5, length: 1))
+                }
+            }
+        }
+    }
+    
     @IBAction func LoginAction(_ sender: Any) {
         
         if self.validateFields() {
@@ -126,15 +224,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             {
                 let newCountrycode = kPhoneSubscriptWithZero.replacingOccurrences(of: "+", with: "00", options: .literal, range: nil)
                 let phoneString = newCountrycode + userNameInputView.text!
-                self.validateNumber(username: phoneString)
-                UserDefaults.standard.set(phoneString, forKey:"UserNameSignUp")
+                APIClient.singUp(phoneNumber: phoneString, onSuccess: {(success) in
+                    print(success)
+                    UserDefaults.standard.set(phoneString, forKey:"UserNameSignUp")
+                    self.changeView()
+                }, onFailure: {(error) in
+                    print(error)
+                })
             }
-            
         }
-        
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
@@ -158,16 +259,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
-    func openOtpViewController() {
-       
-    }
     
     func setErrorMsg(msg : String)  {
-//        self.errorView.isHidden = false
-//        self.errorLbl.text = msg
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-//            self.errorView.isHidden = true
-//        }
+        self.errorView.isHidden = false
+        self.errorLbl.text = msg
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.errorView.isHidden = true
+        }
     }
 }
 

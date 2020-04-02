@@ -49,4 +49,23 @@ class APIClient {
     //        return performRequest(route: APIRouter.login(email: email, password: password))
     //    }
     
+    private static func SendRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
+        Alamofire.request(route).responseString { response in
+            switch response.result {
+            case .success(let value):
+                successCallback?(value)
+            case .failure(let error):
+                failureCallback?(error.localizedDescription)
+            }
+        }
+    }
+
+    static func singUp(phoneNumber : String ,onSuccess successCallback: ((_ successMessage: String) -> Void)?, onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.signIn(phoneNumber: phoneNumber), onSuccess: { (responseObject: String) -> Void in
+            successCallback?("successMessage")
+        },onFailure: {(errorMessage: String) -> Void in
+            failureCallback?("errorMessage")
+        })
+    }
 }
