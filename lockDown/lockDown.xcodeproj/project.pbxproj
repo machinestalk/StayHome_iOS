@@ -55,6 +55,7 @@
 		FAB7F42024339B0600061AE5 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40A24339B0500061AE5 /* OpenSans-Regular.ttf */; };
 		FAB7F42124339B0600061AE5 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40B24339B0500061AE5 /* OpenSans-BoldItalic.ttf */; };
 		FAB7F42224339B0600061AE5 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */; };
+		FAC36C812435DCFC002B4928 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C802435DCFC002B4928 /* UserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		FAB7F40A24339B0500061AE5 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		FAB7F40B24339B0500061AE5 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Roman.otf"; sourceTree = "<group>"; };
+		FAC36C802435DCFC002B4928 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +229,7 @@
 		FA6E9855243293F5000F2C2E /* lockDown */ = {
 			isa = PBXGroup;
 			children = (
+				FAC36C7F2435DCB0002B4928 /* Entities */,
 				FAB7F3EF24339B0500061AE5 /* Resources */,
 				FAB7F3E12433719800061AE5 /* BottomViews */,
 				FA6E98B824335647000F2C2E /* lockDown.entitlements */,
@@ -355,6 +358,14 @@
 				FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		FAC36C7F2435DCB0002B4928 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				FAC36C802435DCFC002B4928 /* UserData.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -673,6 +684,7 @@
 				FA6E98A324329B83000F2C2E /* NormalTextField.swift in Sources */,
 				FA6E989424329B7B000F2C2E /* APIClient.swift in Sources */,
 				FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */,
+				FAC36C812435DCFC002B4928 /* UserData.swift in Sources */,
 				FA6E98A624329B83000F2C2E /* Button.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

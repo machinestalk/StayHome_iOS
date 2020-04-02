@@ -45,10 +45,6 @@ class APIClient {
         })
     }
     
-    //    static func getLastLocation(email: String, password: String) -> Future<LastLocation> {
-    //        return performRequest(route: APIRouter.login(email: email, password: password))
-    //    }
-    
     private static func SendRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         Alamofire.request(route).responseString { response in
             switch response.result {
@@ -62,10 +58,23 @@ class APIClient {
 
     static func singUp(phoneNumber : String ,onSuccess successCallback: ((_ successMessage: String) -> Void)?, onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
-        return SendRequest(route: APIRouter.signIn(phoneNumber: phoneNumber), onSuccess: { (responseObject: String) -> Void in
+        return SendRequest(route: APIRouter.signUp(phoneNumber: phoneNumber), onSuccess: { (responseObject: String) -> Void in
             successCallback?("successMessage")
         },onFailure: {(errorMessage: String) -> Void in
             failureCallback?("errorMessage")
         })
     }
+    
+    static func signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String) -> Future<UserData> {
+        return performRequest(route: APIRouter.signIn(phoneNumber: phoneNumber, phoneOtp: phoneOtp, phoneUdid: phoneUdid))
+    }
+    
+//    static func signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String, onSuccess successCallback: ((_ successMessage: String) -> Void)?, onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+//
+//        return SendRequest(route: APIRouter.signIn(phoneNumber: phoneNumber, phoneOtp: phoneOtp, phoneUdid: phoneUdid), onSuccess: { (responseObject: String) -> Void in
+//            successCallback?(responseObject)
+//        },onFailure: {(errorMessage: String) -> Void in
+//            failureCallback?(errorMessage)
+//        })
+//    }
 }

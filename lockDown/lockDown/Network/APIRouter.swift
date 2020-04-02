@@ -11,13 +11,13 @@ import Alamofire
 
 enum APIRouter: URLRequestConvertible {
     
-    case login(phoneNumber:String, phoneOtp:String, phoneUdid:String)
-    case signIn(phoneNumber: String)
+    case signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String)
+    case signUp(phoneNumber: String)
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .login,.signIn:
+        case .signUp,.signIn:
             return .post
         }
     }
@@ -26,9 +26,9 @@ enum APIRouter: URLRequestConvertible {
     private var path: String {
         
         switch self {
-        case .login:
-            return "api/noauth/loginMobile"
         case .signIn:
+            return "api/noauth/loginMobile"
+        case .signUp:
             return "api/noauth/signInCustomer"
         }
     }
@@ -36,9 +36,9 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - Parameters
     private var parameters: Parameters? {
         switch self {
-        case .login(let phoneNumber, let phoneOtp, let phoneUdid):
-            return [LockDown.APIParameterKey.phoneNumber: phoneNumber, LockDown.APIParameterKey.phoneOtp: phoneOtp, LockDown.APIParameterKey.phoneOtp:phoneUdid]
-            case .signIn(let phoneNumber):
+        case .signIn(let phoneNumber, let phoneOtp, let phoneUdid):
+            return [LockDown.APIParameterKey.phoneNumber: phoneNumber, LockDown.APIParameterKey.phoneOtp: phoneOtp, LockDown.APIParameterKey.phoneUdid:phoneUdid]
+            case .signUp(let phoneNumber):
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber]
         }
     }

@@ -98,8 +98,12 @@ class LoginViewController: BaseController {
                 text5.text = textField.text
             }
             if textField == text6 {
+                
                 text6.text = textField.text
                 text6.resignFirstResponder()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.verifyOTP()
+                }
             }
             textField.text = string
             return false
@@ -186,6 +190,8 @@ class LoginViewController: BaseController {
         userNameInputView.isHidden = true
         userNameInputView.resignFirstResponder()
         otpStackView.isHidden = false
+        recentPinBtn.isHidden = false
+    
         if #available(iOS 12.0, *) {
             text1.textContentType = .oneTimeCode
         }
@@ -194,7 +200,18 @@ class LoginViewController: BaseController {
         loginBtn.isHidden = true
         usernameSeparator.isHidden = true
         //Clear TextFields OTP
-        //clearTextFieldOTP()
+        clearTextFieldOTP()
+    }
+    
+    func clearTextFieldOTP(){
+        
+        text1.text = ""
+        text2.text = ""
+        text3.text = ""
+        text4.text = ""
+        text5.text = ""
+        text6.text = ""
+        text1.becomeFirstResponder()
     }
     
     
@@ -214,6 +231,19 @@ class LoginViewController: BaseController {
                 }
             }
         }
+    }
+    
+    func verifyOTP(){
+        
+        let deviceUDIDString = UIDevice.current.identifierForVendor!.uuidString
+        let otpString = String(format:"%@%@%@%@%@%@", text1.text!, text2.text!, text3.text!, text4.text!, text5.text!, text6.text!)
+        let userDataFuture = APIClient.signIn(phoneNumber: UserDefaults.standard.value(forKey: "UserNameSignUp") as! String, phoneOtp: otpString, phoneUdid: deviceUDIDString)
+        userDataFuture.execute(onSuccess: { userData in
+            print(userData)
+            UserDefaults.standard.set(userData, forKey:"UserData")
+        }, onFailure: {error in
+            print(error)
+        })
     }
     
     @IBAction func LoginAction(_ sender: Any) {
