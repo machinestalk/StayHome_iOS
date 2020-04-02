@@ -254,7 +254,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xnB-ST-EU2" customClass="TextField" customModule="lockDown" customModuleProvider="target">
                                                     <rect key="frame" x="57" y="0.0" width="47" height="47"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="47" id="ALw-DZ-MRg"/>
                                                         <constraint firstAttribute="height" constant="47" id="jBc-Ik-8nr"/>
@@ -275,7 +275,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ckz-Sl-z7i" customClass="TextField" customModule="lockDown" customModuleProvider="target">
                                                     <rect key="frame" x="114" y="0.0" width="47" height="47"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="47" id="IUP-Dc-Scv"/>
                                                         <constraint firstAttribute="width" constant="47" id="PrD-LD-C9o"/>
@@ -296,7 +296,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ejl-Nj-8Vl" customClass="TextField" customModule="lockDown" customModuleProvider="target">
                                                     <rect key="frame" x="171" y="0.0" width="47" height="47"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="47" id="HDL-nf-AKe"/>
                                                         <constraint firstAttribute="height" constant="47" id="Rfe-lt-p4Y"/>
@@ -317,7 +317,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q7b-T2-6Br" customClass="TextField" customModule="lockDown" customModuleProvider="target">
                                                     <rect key="frame" x="228" y="0.0" width="47" height="47"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="47" id="F24-pS-png"/>
                                                         <constraint firstAttribute="height" constant="47" id="XSX-uj-Xq7"/>
@@ -338,7 +338,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="Tpo-J1-SEs" customClass="TextField" customModule="lockDown" customModuleProvider="target">
                                                     <rect key="frame" x="285" y="0.0" width="47" height="47"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="47" id="Dxw-J4-ffr"/>
                                                         <constraint firstAttribute="width" constant="47" id="utb-sY-WjW"/>

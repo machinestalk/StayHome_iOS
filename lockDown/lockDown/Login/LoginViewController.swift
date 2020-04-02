@@ -240,7 +240,11 @@ class LoginViewController: BaseController {
         let userDataFuture = APIClient.signIn(phoneNumber: UserDefaults.standard.value(forKey: "UserNameSignUp") as! String, phoneOtp: otpString, phoneUdid: deviceUDIDString)
         userDataFuture.execute(onSuccess: { userData in
             print(userData)
-            UserDefaults.standard.set(userData, forKey:"UserData")
+            UserDefaults.standard.set(true, forKey: "isLoggedIn")
+            UserDefaults.standard.set(userData.deviceToken, forKey:"DeviceToken")
+            UserDefaults.standard.set(userData.token, forKey:"Token")
+            UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
+            self.displayHomePage()
         }, onFailure: {error in
             print(error)
         })
@@ -296,6 +300,12 @@ class LoginViewController: BaseController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.errorView.isHidden = true
         }
+    }
+    
+    func displayHomePage(){
+        
+        let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()
     }
 }
 
