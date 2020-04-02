@@ -32,7 +32,7 @@ enum APIRouter: URLRequestConvertible {
         case .signUp:
             return "api/noauth/signInCustomer"
         case . sendIsComplaint(let parameters):
-            return "api/\(parameters.deviceToken)/telemetry"
+            return "api/v1/\(parameters.deviceToken)/telemetry"
         }
     }
     

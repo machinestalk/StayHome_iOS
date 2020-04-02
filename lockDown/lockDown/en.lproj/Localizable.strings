@@ -5,7 +5,10 @@
   Created by Ahmed Mh on 31/03/2020.
   Copyright © 2020 Ahmed Mh. All rights reserved.
 */
-"RequestLocation_txt"                       = "For your safety,Please register \n your Home location";
+"RequestLocation_txt"                       = "As per the authority instruction and for your safety,\n Please register your Home location";
+"confirmLocationTxt"                       = "Are you sure,this is your home \n location?";
+"noBtn_Txt"                                 = "No";
+"yesBtn_txt"                                = "Yes";
 "nextBtn_txt"                               = "Next" ; 
 "locationAlert_txt"                                                = "Turn on your location services from the settings";
 "Ok_text"                                                        = "Ok";

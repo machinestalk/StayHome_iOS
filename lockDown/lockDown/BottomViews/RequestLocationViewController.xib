@@ -9,7 +9,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RequestLocationViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
                 <outlet property="handleArea" destination="QNh-sl-EeJ" id="tXE-2T-pUh"/>
+                <outlet property="msgLbl" destination="lgc-AI-phG" id="YKh-CI-9Ou"/>
+                <outlet property="nextBtn" destination="j47-MX-YFP" id="znl-WA-IqI"/>
+                <outlet property="noBtn" destination="ook-Cr-exi" id="uVe-EV-yV6"/>
+                <outlet property="stackview" destination="OAg-kB-srd" id="vu8-pq-t64"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="yesBtn" destination="MrL-I8-nfn" id="mw7-hZ-AeH"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -50,11 +55,11 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgc-AI-phG" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="25" y="35" width="364" height="70"/>
+                    <rect key="frame" x="10" y="35" width="394" height="70"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="70" id="Gvn-n5-5HK"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -68,7 +73,7 @@
                         <constraint firstAttribute="width" constant="130" id="SAk-ef-ksA"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
-                    <state key="normal" backgroundImage="red_button">
+                    <state key="normal" backgroundImage="green_button">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -78,26 +83,62 @@
                         <action selector="nextBtnAction:" destination="-1" eventType="touchUpInside" id="pNq-1z-pFG"/>
                     </connections>
                 </button>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="OAg-kB-srd">
+                    <rect key="frame" x="20" y="130" width="374" height="45"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ook-Cr-exi" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="162" height="45"/>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                            <state key="normal" backgroundImage="red_button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="key" value="noBtn_Txt"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="noBtnDidTap:" destination="-1" eventType="touchUpInside" id="3Ll-lC-Gva"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MrL-I8-nfn" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="212" y="0.0" width="162" height="45"/>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                            <state key="normal" backgroundImage="green_button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="key" value="yesBtn_txt"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="yesBtnDidTap:" destination="-1" eventType="touchUpInside" id="aoj-lh-kdA"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="j47-MX-YFP" firstAttribute="top" secondItem="lgc-AI-phG" secondAttribute="bottom" constant="25" id="0Mn-Po-CGj"/>
+                <constraint firstItem="OAg-kB-srd" firstAttribute="centerX" secondItem="j47-MX-YFP" secondAttribute="centerX" id="0Y9-lf-mLc"/>
                 <constraint firstItem="j47-MX-YFP" firstAttribute="centerX" secondItem="lgc-AI-phG" secondAttribute="centerX" id="537-oQ-f81"/>
                 <constraint firstItem="gUS-UM-rxq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" constant="38" id="6E5-Fv-olP"/>
                 <constraint firstItem="lgc-AI-phG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="35" id="8Kh-z6-rKt"/>
                 <constraint firstItem="gUS-UM-rxq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="AMh-8o-dNs"/>
                 <constraint firstItem="QNh-sl-EeJ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="CfJ-4y-uWo"/>
+                <constraint firstItem="OAg-kB-srd" firstAttribute="height" secondItem="j47-MX-YFP" secondAttribute="height" id="IWR-E4-Jeo"/>
                 <constraint firstItem="QNh-sl-EeJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-10" id="Kan-AK-zZs"/>
                 <constraint firstItem="lgc-AI-phG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="WW1-1d-kk2"/>
+                <constraint firstItem="OAg-kB-srd" firstAttribute="centerY" secondItem="j47-MX-YFP" secondAttribute="centerY" id="WWu-fe-7TJ"/>
                 <constraint firstItem="QNh-sl-EeJ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="YrX-pX-ron"/>
+                <constraint firstItem="OAg-kB-srd" firstAttribute="width" secondItem="lgc-AI-phG" secondAttribute="width" constant="-20" id="l9P-6T-ftn"/>
                 <constraint firstItem="gUS-UM-rxq" firstAttribute="top" secondItem="QNh-sl-EeJ" secondAttribute="top" id="sVZ-vM-qw3"/>
-                <constraint firstItem="lgc-AI-phG" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" constant="-50" id="tbk-sU-1WA"/>
+                <constraint firstItem="lgc-AI-phG" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" constant="-20" id="tbk-sU-1WA"/>
             </constraints>
             <point key="canvasLocation" x="132" y="102"/>
         </view>
     </objects>
     <resources>
         <image name="bg_raduis" width="116" height="43.5"/>
+        <image name="green_button" width="134.5" height="47"/>
         <image name="red_button" width="134.5" height="47"/>
     </resources>
 </document>

@@ -1543,3 +1543,21 @@ func appendPath(path : GMSPath?) {
     }
 }
 }
+extension UserDefaults {
+    
+    func set(location:CLLocationCoordinate2D, forKey key: String){
+        let locationLat = NSNumber(value:location.latitude)
+        let locationLon = NSNumber(value:location.longitude)
+        self.set(["lat": locationLat, "lon": locationLon], forKey:key)
+    }
+    
+    func location(forKey key: String) -> CLLocationCoordinate2D?
+    {
+        if let locationDictionary = self.object(forKey: key) as? Dictionary<String,NSNumber> {
+            let locationLat = locationDictionary["lat"]!.doubleValue
+            let locationLon = locationDictionary["lon"]!.doubleValue
+            return CLLocationCoordinate2D(latitude: locationLat, longitude: locationLon)
+        }
+        return nil
+    }
+}
