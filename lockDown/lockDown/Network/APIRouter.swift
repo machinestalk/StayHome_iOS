@@ -14,11 +14,12 @@ enum APIRouter: URLRequestConvertible {
     case signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String)
     case signUp(phoneNumber: String)
     case sendIsComplaint(deviceToken : String,iscomplaint: Int)
+    case sendZoneLocations(deviceid : String,latitude: String ,longitude : String , radius : String)
 
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .signUp,.signIn,.sendIsComplaint:
+        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations:
             return .post
         }
     }
@@ -33,6 +34,8 @@ enum APIRouter: URLRequestConvertible {
             return "api/noauth/signInCustomer"
         case . sendIsComplaint(let parameters):
             return "api/v1/\(parameters.deviceToken)/telemetry"
+        case .sendZoneLocations(let parameters):
+            return "api/plugins/telemetry/CUSTOMER/\(parameters.deviceid)/timeseries"
         }
     }
     
@@ -45,6 +48,8 @@ enum APIRouter: URLRequestConvertible {
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber]
          case . sendIsComplaint(let parameters):
                 return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint]
+        case . sendZoneLocations(let parameters):
+            return [LockDown.APIParameterKey.latitude : parameters.latitude , LockDown.APIParameterKey.longitude : parameters.longitude ,LockDown.APIParameterKey.radius : parameters.radius ]
         }
     }
     

@@ -81,4 +81,18 @@ static func sendTelimetry(deviceToken : String , iscomplaint : Int,onSuccess suc
        }
        )
    }
+    
+    
+    static func sendLocationTelimetry(deviceid : String,latitude: String ,longitude : String , radius : String,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.sendZoneLocations(deviceid: deviceid, latitude: latitude, longitude: longitude, radius: radius), onSuccess: { (responseObject: String) -> Void in
+            successCallback?("successMessage")
+        },
+           onFailure: {(errorMessage: String) -> Void in
+             print(errorMessage)
+             failureCallback?("errorMessage")
+        }
+        )
+    }
 }
