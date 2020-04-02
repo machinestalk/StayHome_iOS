@@ -12,7 +12,7 @@ var language = String()
 struct LockDown {
     
     struct ProductionServer {
-        static let baseURL = "https://apis.motorna.sa/v21/api/v1"
+        static let baseURL = "http://ci.thingstalk.io/"
         static let identityServerURL = "https://auth.motorna.sa/v21"
     }
     struct DeveloppementServer {
@@ -33,8 +33,10 @@ struct LockDown {
     }
 
     struct APIParameterKey {
-        static let password = "password"
-        static let email = "email"
+        
+        static let phoneOtp = "phoneOtp"
+        static let phoneUdid = "phoneUdid"
+        static let phoneNumber = "phoneNumber"
     }
 }
 
