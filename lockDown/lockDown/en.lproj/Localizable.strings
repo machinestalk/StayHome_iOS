@@ -10,4 +10,6 @@
 "locationAlert_txt"                                                = "Turn on your location services from the settings";
 "Ok_text"                                                        = "Ok";
 "Settings_txt"                                                          = "Settings";
-"HomeTxt"                                                           = "Home";
+"HomeTxt"                                                           = "My Zone";
+"stayAthome_txt"                                                  ="You are out of your home please return back for your safety";
+"StayAthomeTitle"                                                   = "Stay at home";

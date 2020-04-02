@@ -30,10 +30,11 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var locationManager = CLLocationManager()
     var currentLocation: CLLocationCoordinate2D!
     var cameraa : GMSCameraPosition!
-    
+    var circle = GMSCircle()
     @IBOutlet weak var addressLbl: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var recenterButton: Button!
+    @IBOutlet weak var searchViewTop: NSLayoutConstraint!
     
     @IBOutlet weak var searchtxt: TextField!
     @IBOutlet weak var searchView: UIView!
@@ -43,16 +44,18 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         self.mapView.bringSubviewToFront(recenterButton)
-        self.mapView.bringSubviewToFront(menuBtn)
         self.mapView.bringSubviewToFront(satBtn)
         self.mapView.bringSubviewToFront(searchView)
         self.mapView.bringSubviewToFront(addressLbl)
-       
+        if isItIPhoneX(){
+            searchViewTop.constant = 110
+        }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationItem.rightBarButtonItem = nil
-        self.navigationItem.leftBarButtonItem = nil
+       
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         
@@ -73,7 +76,13 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             marker.position = locValue
             marker.map = self.mapView
             getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
+            circle = GMSCircle()
+            circle.radius = 100 // Meters
+            circle.position = locValue // user  position
+            circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
+            circle.strokeColor = .clear
             
+            circle.map = mapView; // Add it to the map
         }
         else {
             locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -82,7 +91,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         
         
     }
-   
+    
     @IBAction func navigateToMyLocation(_ sender: UIButton) {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
             if  let userLocation = locValue{
@@ -103,55 +112,55 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     
     func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
-            var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
-            let ceo: CLGeocoder = CLGeocoder()
-            center.latitude = pdblLatitude
-            center.longitude = pdblLongitude
-
-            let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
-
-
-            ceo.reverseGeocodeLocation(loc, completionHandler:
-                {(placemarks, error) in
-                    if (error != nil)
-                    {
-                        print("reverse geodcode fail: \(error!.localizedDescription)")
+        var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+        let ceo: CLGeocoder = CLGeocoder()
+        center.latitude = pdblLatitude
+        center.longitude = pdblLongitude
+        
+        let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+        
+        
+        ceo.reverseGeocodeLocation(loc, completionHandler:
+            {(placemarks, error) in
+                if (error != nil)
+                {
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                }
+                let pm = placemarks! as [CLPlacemark]
+                
+                if pm.count > 0 {
+                    let pm = placemarks![0]
+                    print(pm.country)
+                    print(pm.locality)
+                    print(pm.subLocality)
+                    print(pm.thoroughfare)
+                    print(pm.postalCode)
+                    print(pm.subThoroughfare)
+                    var addressString : String = ""
+                    if pm.subLocality != nil {
+                        addressString = addressString + pm.subLocality! + ", "
                     }
-                    let pm = placemarks! as [CLPlacemark]
-
-                    if pm.count > 0 {
-                        let pm = placemarks![0]
-                        print(pm.country)
-                        print(pm.locality)
-                        print(pm.subLocality)
-                        print(pm.thoroughfare)
-                        print(pm.postalCode)
-                        print(pm.subThoroughfare)
-                        var addressString : String = ""
-                        if pm.subLocality != nil {
-                            addressString = addressString + pm.subLocality! + ", "
-                        }
-                        if pm.thoroughfare != nil {
-                            addressString = addressString + pm.thoroughfare! + ", "
-                        }
-                        if pm.locality != nil {
-                            addressString = addressString + pm.locality! + ", "
-                        }
-                        if pm.country != nil {
-                            addressString = addressString + pm.country! + ", "
-                        }
-                        if pm.postalCode != nil {
-                            addressString = addressString + pm.postalCode! + " "
-                        }
-
-                        self.addressLbl.text = addressString
-                        print(addressString)
-                  }
-            })
-
-        }
- 
-
+                    if pm.thoroughfare != nil {
+                        addressString = addressString + pm.thoroughfare! + ", "
+                    }
+                    if pm.locality != nil {
+                        addressString = addressString + pm.locality! + ", "
+                    }
+                    if pm.country != nil {
+                        addressString = addressString + pm.country! + ", "
+                    }
+                    if pm.postalCode != nil {
+                        addressString = addressString + pm.postalCode! + " "
+                    }
+                    
+                    self.addressLbl.text = addressString
+                    print(addressString)
+                }
+        })
+        
+    }
+    
+    
     @IBAction  func changeMapStatus() {
         if self.mapView.mapType == .normal {self.mapView.mapType = .hybrid}
         else {self.mapView.mapType = .normal}
@@ -180,8 +189,31 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         //let camera = GMSCameraPosition.camera(withLatitude: 10.197235, longitude: 36.850652, zoom: 1.0)
         //  self.mapView?.animate(to: camera)
         //self.locationManager.stopUpdatingLocation()
+        let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
+        let distance = circleLocation.distance(from: location!)
         
         
+        
+        if(distance >= circle.radius)
+        {
+            print("user out of zone")
+          
+            APIClient.sendTelimetry(deviceToken: "8IS5GlD41GvfTgs6tETq", iscomplaint: 1, onSuccess: { (Msg) in
+                print(Msg)
+            } ,onFailure : { (error) in
+                print(error)
+            }
+            )
+            let alert = UIAlertView()
+            alert.title = "StayAthomeTitle".localiz()
+            alert.message = "stayAthome_txt".localiz()
+            alert.addButton(withTitle: "Ok")
+            alert.show()
+        }
+        else
+        {
+            print("user in zone")
+        }
         
         locValue = currentLocation
         

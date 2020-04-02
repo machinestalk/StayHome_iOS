@@ -69,12 +69,16 @@ class APIClient {
         return performRequest(route: APIRouter.signIn(phoneNumber: phoneNumber, phoneOtp: phoneOtp, phoneUdid: phoneUdid))
     }
     
-//    static func signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String, onSuccess successCallback: ((_ successMessage: String) -> Void)?, onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
-//
-//        return SendRequest(route: APIRouter.signIn(phoneNumber: phoneNumber, phoneOtp: phoneOtp, phoneUdid: phoneUdid), onSuccess: { (responseObject: String) -> Void in
-//            successCallback?(responseObject)
-//        },onFailure: {(errorMessage: String) -> Void in
-//            failureCallback?(errorMessage)
-//        })
-//    }
+static func sendTelimetry(deviceToken : String , iscomplaint : Int,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                             onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+       
+       return SendRequest(route: APIRouter.sendIsComplaint(deviceToken : deviceToken , iscomplaint: iscomplaint), onSuccess: { (responseObject: String) -> Void in
+           successCallback?("successMessage")
+       },
+          onFailure: {(errorMessage: String) -> Void in
+            print(errorMessage)
+            failureCallback?("errorMessage")
+       }
+       )
+   }
 }

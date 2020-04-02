@@ -10,4 +10,6 @@
 "Settings_txt"                                                          = "الإعدادات";
 "Ok_text"                                                        = "حسنا";
 "locationAlert_txt"                                                = "يرجى تفعيل خدمات الموقع الخاصة بجهازك من الاعدادات";
-"HomeTxt"                                                           = "الصفحة الرئيسية";
+"HomeTxt"                                                           = "منطقتي";
+"stayAthome_txt"                                                  ="You are out of your home please return back for your safety";
+"StayAthomeTitle"                                                   = "Stay at home";

@@ -13,11 +13,12 @@ enum APIRouter: URLRequestConvertible {
     
     case signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String)
     case signUp(phoneNumber: String)
-    
+    case sendIsComplaint(deviceToken : String,iscomplaint: Int)
+
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .signUp,.signIn:
+        case .signUp,.signIn,.sendIsComplaint:
             return .post
         }
     }
@@ -30,6 +31,8 @@ enum APIRouter: URLRequestConvertible {
             return "api/noauth/loginMobile"
         case .signUp:
             return "api/noauth/signInCustomer"
+        case . sendIsComplaint(let parameters):
+            return "api/\(parameters.deviceToken)/telemetry"
         }
     }
     
@@ -40,6 +43,8 @@ enum APIRouter: URLRequestConvertible {
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber, LockDown.APIParameterKey.phoneOtp: phoneOtp, LockDown.APIParameterKey.phoneUdid:phoneUdid]
             case .signUp(let phoneNumber):
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber]
+         case . sendIsComplaint(let parameters):
+                return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint]
         }
     }
     
