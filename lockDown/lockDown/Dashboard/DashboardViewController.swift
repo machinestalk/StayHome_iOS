@@ -494,6 +494,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
 // MARK: RequestLocation delagates methods
 
 extension DashboardViewController: RequestLocationProtocol {
+    
     func requestlocation() {
         requestLocationVC.view.removeFromSuperview()
         UserDefaults.standard.set(true, forKey: "isLocationSetted")
@@ -507,18 +508,8 @@ extension DashboardViewController: RequestLocationProtocol {
             print(error)
         }
         )
-        let FinishSignupVC = FinishSignupViewController(nibName: "FinishSignupViewController", bundle: nil)
-        self.navigationController!.pushViewController(FinishSignupVC, animated: true)
-        
-        
-    }
-    
-}
-// MARK: ChangeLocation delagates methods
-
-extension DashboardViewController: ChangeLocationProtocol {
-    func ContactUs() {
-        print("ContactUs")
+        let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
+        self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
     }
     
     
