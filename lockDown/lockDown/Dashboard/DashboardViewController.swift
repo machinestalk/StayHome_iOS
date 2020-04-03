@@ -454,23 +454,19 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
 // MARK: RequestLocation delagates methods
 
 extension DashboardViewController: RequestLocationProtocol {
+    
     func requestlocation() {
         requestLocationVC.view.removeFromSuperview()
         UserDefaults.standard.set(true, forKey: "isLocationSetted")
         UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
         let deviceId = UserDefaults.standard.string(forKey: "deviceId")
-        
-        
         APIClient.sendLocationTelimetry(deviceid: deviceId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
             print(Msg)
         } ,onFailure : { (error) in
             print(error)
         }
         )
-        let FinishSignupVC = FinishSignupViewController(nibName: "FinishSignupViewController", bundle: nil)
-        self.navigationController!.pushViewController(FinishSignupVC, animated: true)
-
-        
+        let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
+        self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
     }
-    
 }

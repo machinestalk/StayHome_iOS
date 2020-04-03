@@ -9,8 +9,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BiometricsAuthViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
-                <outlet property="faceIDLabel" destination="Pfk-om-QMK" id="uZ3-CH-bco"/>
-                <outlet property="loginButton" destination="XJS-ne-Xz2" id="YV5-n4-Dc9"/>
                 <outlet property="stateView" destination="Uc6-kV-m0e" id="61H-U3-hrr"/>
                 <outlet property="view" destination="6Q6-50-74m" id="3ef-Mx-OTP"/>
             </connections>
@@ -23,49 +21,55 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uc6-kV-m0e">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yN2-Kd-74r">
-                            <rect key="frame" x="30" y="60" width="354" height="776"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJS-ne-Xz2">
-                                    <rect key="frame" x="147.5" y="368.5" width="59" height="39"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                    <state key="normal" title="Log In"/>
-                                    <state key="highlighted" title="Log Out"/>
-                                </button>
-                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Authenticate with Face ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfk-om-QMK">
-                                    <rect key="frame" x="53.5" y="427.5" width="247" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circles_step2" translatesAutoresizingMaskIntoConstraints="NO" id="u41-aa-GAY">
+                            <rect key="frame" x="5" y="100" width="404" height="17"/>
                             <constraints>
-                                <constraint firstItem="XJS-ne-Xz2" firstAttribute="centerX" secondItem="yN2-Kd-74r" secondAttribute="centerX" id="HAc-eE-UaD"/>
-                                <constraint firstItem="XJS-ne-Xz2" firstAttribute="centerY" secondItem="yN2-Kd-74r" secondAttribute="centerY" id="MQ2-Pa-r3X"/>
-                                <constraint firstItem="Pfk-om-QMK" firstAttribute="top" secondItem="XJS-ne-Xz2" secondAttribute="bottom" constant="20" id="dFe-rh-y09"/>
-                                <constraint firstItem="Pfk-om-QMK" firstAttribute="centerX" secondItem="yN2-Kd-74r" secondAttribute="centerX" id="tkb-1Y-VEV"/>
+                                <constraint firstAttribute="height" constant="17" id="9Yr-14-DrB"/>
                             </constraints>
-                        </view>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blach_faceid" translatesAutoresizingMaskIntoConstraints="NO" id="qS0-3U-UQV">
+                            <rect key="frame" x="131" y="237" width="152" height="152"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="152" id="ZdW-Wl-4vk"/>
+                                <constraint firstAttribute="height" constant="152" id="td0-BI-WIK"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Face ID registration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ZR-YL-Dod">
+                            <rect key="frame" x="5" y="439" width="404" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="nKe-FW-ZdP"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.92538958790000003" green="0.92554813619999998" blue="0.92537957429999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="yN2-Kd-74r" firstAttribute="top" secondItem="Uc6-kV-m0e" secondAttribute="top" constant="60" id="ILd-5l-Cbm"/>
-                        <constraint firstItem="yN2-Kd-74r" firstAttribute="centerY" secondItem="Uc6-kV-m0e" secondAttribute="centerY" id="ffg-8a-Nfs"/>
-                        <constraint firstItem="yN2-Kd-74r" firstAttribute="leading" secondItem="Uc6-kV-m0e" secondAttribute="leading" constant="30" id="lCq-HG-yZp"/>
-                        <constraint firstItem="yN2-Kd-74r" firstAttribute="centerX" secondItem="Uc6-kV-m0e" secondAttribute="centerX" id="nbf-iv-54U"/>
+                        <constraint firstItem="u41-aa-GAY" firstAttribute="top" secondItem="Uc6-kV-m0e" secondAttribute="top" constant="100" id="JNv-ff-Oau"/>
+                        <constraint firstAttribute="trailing" secondItem="u41-aa-GAY" secondAttribute="trailing" constant="5" id="Nlo-tL-3P5"/>
+                        <constraint firstItem="u41-aa-GAY" firstAttribute="leading" secondItem="Uc6-kV-m0e" secondAttribute="leading" constant="5" id="PKz-Nt-wDt"/>
+                        <constraint firstItem="qS0-3U-UQV" firstAttribute="centerX" secondItem="Uc6-kV-m0e" secondAttribute="centerX" id="YWh-zt-zqB"/>
+                        <constraint firstItem="9ZR-YL-Dod" firstAttribute="top" secondItem="qS0-3U-UQV" secondAttribute="bottom" constant="50" id="buO-GS-wQX"/>
+                        <constraint firstItem="qS0-3U-UQV" firstAttribute="top" secondItem="u41-aa-GAY" secondAttribute="bottom" constant="120" id="nBP-gl-frZ"/>
+                        <constraint firstItem="9ZR-YL-Dod" firstAttribute="leading" secondItem="Uc6-kV-m0e" secondAttribute="leading" constant="5" id="nJO-mk-fp0"/>
+                        <constraint firstAttribute="trailing" secondItem="9ZR-YL-Dod" secondAttribute="trailing" constant="5" id="sO9-O5-73Q"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="kdz-f7-w9X" firstAttribute="trailing" secondItem="Uc6-kV-m0e" secondAttribute="trailing" id="HzC-rI-8KE"/>
+                <constraint firstAttribute="trailing" secondItem="Uc6-kV-m0e" secondAttribute="trailing" id="HzC-rI-8KE"/>
                 <constraint firstAttribute="bottom" secondItem="Uc6-kV-m0e" secondAttribute="bottom" id="edN-cG-522"/>
                 <constraint firstItem="Uc6-kV-m0e" firstAttribute="top" secondItem="6Q6-50-74m" secondAttribute="top" id="jGd-PO-ZiO"/>
-                <constraint firstItem="Uc6-kV-m0e" firstAttribute="leading" secondItem="kdz-f7-w9X" secondAttribute="leading" id="jwb-lf-YOi"/>
+                <constraint firstItem="Uc6-kV-m0e" firstAttribute="leading" secondItem="6Q6-50-74m" secondAttribute="leading" id="jwb-lf-YOi"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="kdz-f7-w9X"/>
-            <point key="canvasLocation" x="183" y="135"/>
+            <viewLayoutGuide key="safeArea" id="4OZ-Go-RCr"/>
+            <point key="canvasLocation" x="-312" y="-19"/>
         </view>
     </objects>
+    <resources>
+        <image name="blach_faceid" width="151.5" height="151.5"/>
+        <image name="circles_step2" width="316.5" height="17"/>
+    </resources>
 </document>

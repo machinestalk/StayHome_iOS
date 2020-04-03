@@ -10,11 +10,24 @@ import UIKit
 
 import LocalAuthentication
 
-class BiometricsAuthViewController: UIViewController {
+class BiometricsAuthViewController: BaseController {
 
-    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var stateView: UIView!
-    @IBOutlet weak var faceIDLabel: UILabel!
+    
+    enum CardState {
+        case expanded
+        case collapsed
+    }
+    var biometricsBottomVC = BiometricsBottomViewController()
+    let cardHeight:CGFloat = 300
+    let cardHandleAreaHeight:CGFloat = 65
+    var cardVisible = false
+    var nextState:CardState {
+        return cardVisible ? .collapsed : .expanded
+    }
+    
+    var runningAnimations = [UIViewPropertyAnimator]()
+    var animationProgressWhenInterrupted:CGFloat = 0
 
     /// An authentication context stored at class scope so it's available for use during UI updates.
     var context = LAContext()
@@ -29,13 +42,12 @@ class BiometricsAuthViewController: UIViewController {
 
         // Update the UI on a change.
         didSet {
-            loginButton.isHighlighted = state == .loggedin  // The button text changes on highlight.
-            stateView.backgroundColor = state == .loggedin ? .green : .red
-
+            //loginButton.isHighlighted = state == .loggedin  // The button text changes on highlight.
+            //stateView.backgroundColor = state == .loggedin ? .green : .red
             // FaceID runs right away on evaluation, so you might want to warn the user.
             //  In this app, show a special Face ID prompt if the user is logged out, but
             //  only if the device supports that kind of authentication.
-            faceIDLabel.isHidden = (state == .loggedin) || (context.biometryType != .faceID)
+            //faceIDLabel.isHidden = (state == .loggedin) || (context.biometryType != .faceID)
         }
     }
 
@@ -51,10 +63,13 @@ class BiometricsAuthViewController: UIViewController {
 
         // Set the initial app state. This impacts the initial state of the UI as well.
         state = .loggedout
+        
+        setupBiometricsBottomVC()
     }
 
     /// Logs out or attempts to log in when the user taps the button.
-    @IBAction func tapButton(_ sender: UIButton) {
+
+    func tapButton() {
 
         if state == .loggedin {
 
@@ -83,6 +98,7 @@ class BiometricsAuthViewController: UIViewController {
                         // Move to the main thread because a state update triggers UI changes.
                         DispatchQueue.main.async { [unowned self] in
                             self.state = .loggedin
+                            self.setupSuccessBiometricsBottomVC()
                         }
 
                     } else {
@@ -90,6 +106,7 @@ class BiometricsAuthViewController: UIViewController {
 
                         // Fall back to a asking for username and password.
                         // ...
+                        self.setupFailBiometricsBottomVC()
                     }
                 }
             } else {
@@ -99,5 +116,63 @@ class BiometricsAuthViewController: UIViewController {
                 // ...
             }
         }
+    }
+    
+    // MARK: - Bottom Views Methods
+    func setupBiometricsBottomVC() {
+        biometricsBottomVC.delegate = self
+        let height = view.frame.height
+        let width  = view.frame.width
+        biometricsBottomVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        self.addChild(biometricsBottomVC)
+        self.view.addSubview(biometricsBottomVC.view)
+        biometricsBottomVC.didMove(toParent: self)
+    }
+    
+    func setupFailBiometricsBottomVC(){
+        
+        biometricsBottomVC.titleLbl.isHidden = true
+        biometricsBottomVC.successImage.image = UIImage(named: "red_fail")
+        biometricsBottomVC.successImage.isHidden = false
+        biometricsBottomVC.nextBtn.setBackgroundImage(UIImage(named: "red_button"), for: .normal)
+        biometricsBottomVC.nextBtn.titleLabel?.text = "Retry"
+//        biometricsBottomVC.delegate = self
+//        let height = view.frame.height
+//        let width  = view.frame.width
+//        biometricsBottomVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+//        self.addChild(biometricsBottomVC)
+//        self.view.addSubview(biometricsBottomVC.view)
+//        biometricsBottomVC.didMove(toParent: self)
+    }
+    func setupSuccessBiometricsBottomVC(){
+        
+        biometricsBottomVC.titleLbl.isHidden = true
+        biometricsBottomVC.successImage.image = UIImage(named: "big_green_check")
+        biometricsBottomVC.successImage.isHidden = false
+        biometricsBottomVC.nextBtn.setBackgroundImage(UIImage(named: "green_button"), for: .normal)
+        biometricsBottomVC.nextBtn.titleLabel?.text = "Next"
+//        biometricsBottomVC.delegate = self
+//        let height = view.frame.height
+//        let width  = view.frame.width
+//        biometricsBottomVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+//        self.addChild(biometricsBottomVC)
+//        self.view.addSubview(biometricsBottomVC.view)
+//        biometricsBottomVC.didMove(toParent: self)
+    }
+}
+
+// MARK: RequestLocation delagates methods
+
+extension BiometricsAuthViewController: BiometricsAuthProtocol {
+    
+    func requestRecognition() {
+        switch state {
+        case .loggedin:
+            let FinishSignupVC = FinishSignupViewController(nibName: "FinishSignupViewController", bundle: nil)
+            self.navigationController!.pushViewController(FinishSignupVC, animated: true)
+        case .loggedout:
+            self.tapButton()
+        }
+        
     }
 }

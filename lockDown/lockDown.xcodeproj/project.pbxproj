@@ -58,6 +58,8 @@
 		FAB7F42124339B0600061AE5 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40B24339B0500061AE5 /* OpenSans-BoldItalic.ttf */; };
 		FAB7F42224339B0600061AE5 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */; };
 		FAC36C812435DCFC002B4928 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C802435DCFC002B4928 /* UserData.swift */; };
+		FAC36C8424375E50002B4928 /* BiometricsBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C8224375E50002B4928 /* BiometricsBottomViewController.swift */; };
+		FAC36C8524375E50002B4928 /* BiometricsBottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC36C8324375E50002B4928 /* BiometricsBottomViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +147,8 @@
 		FAB7F40B24339B0500061AE5 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Roman.otf"; sourceTree = "<group>"; };
 		FAC36C802435DCFC002B4928 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		FAC36C8224375E50002B4928 /* BiometricsBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsBottomViewController.swift; sourceTree = "<group>"; };
+		FAC36C8324375E50002B4928 /* BiometricsBottomViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricsBottomViewController.xib; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,6 +208,8 @@
 			children = (
 				FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */,
 				FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */,
+				FAC36C8224375E50002B4928 /* BiometricsBottomViewController.swift */,
+				FAC36C8324375E50002B4928 /* BiometricsBottomViewController.xib */,
 			);
 			path = BiometricsAuthentication;
 			sourceTree = "<group>";
@@ -493,6 +499,7 @@
 				FAB7F41A24339B0600061AE5 /* OpenSans-ExtraBold.ttf in Resources */,
 				FAB7F41324339B0500061AE5 /* OpenSans-SemiBold.ttf in Resources */,
 				FAB7F41524339B0600061AE5 /* Avenir Roman.otf in Resources */,
+				FAC36C8524375E50002B4928 /* BiometricsBottomViewController.xib in Resources */,
 				FAB7F41824339B0600061AE5 /* OpenSans-Italic.ttf in Resources */,
 				FAB7F41E24339B0600061AE5 /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */,
@@ -683,6 +690,7 @@
 				FA6E985B243293F5000F2C2E /* ViewController.swift in Sources */,
 				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
+				FAC36C8424375E50002B4928 /* BiometricsBottomViewController.swift in Sources */,
 				FA7ED09624364D1100C0060D /* FinishSignupViewController.swift in Sources */,
 				FA66D6442434B8880036D137 /* BaseController.swift in Sources */,
 				FA6E9857243293F5000F2C2E /* AppDelegate.swift in Sources */,
@@ -897,7 +905,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -921,7 +929,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
