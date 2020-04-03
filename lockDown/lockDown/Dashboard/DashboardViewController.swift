@@ -512,6 +512,10 @@ extension DashboardViewController: RequestLocationProtocol {
         self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
     }
     
-    
-    
+}
+
+extension DashboardViewController : ChangeLocationProtocol {
+    func ContactUs() {
+        print("ContactUs")
+    }
 }
