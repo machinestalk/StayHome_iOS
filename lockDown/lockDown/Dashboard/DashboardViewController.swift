@@ -16,6 +16,8 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         case collapsed
     }
     var requestLocationVC = RequestLocationViewController()
+    var ChangeLocationVC = ChangeLocationViewController()
+
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
@@ -58,14 +60,16 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationItem.rightBarButtonItem = nil
-        
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
+
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         
-        self.title = "SignUpTitle".localiz()
+        
         //Location Manager code to fetch current location
         if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
             setLocationView()
+            self.title = "SignUpTitle".localiz()
             if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
                 
                 locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -95,7 +99,8 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
         else {
             if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
-                
+                setupChangeLocationVC()
+                self.title = "MyZone_txt".localiz()
                 locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
                 self.locationManager.delegate = self
                 self.locationManager.startUpdatingLocation()
@@ -450,6 +455,16 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         requestLocationVC.didMove(toParent: self)
     }
     
+    // MARK: - changeLocation View
+     func setupChangeLocationVC() {
+         ChangeLocationVC.delegate = self
+         let height = view.frame.height
+         let width  = view.frame.width
+         ChangeLocationVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+         self.addChild(ChangeLocationVC)
+         self.view.addSubview(ChangeLocationVC.view)
+         ChangeLocationVC.didMove(toParent: self)
+     }
 }
 // MARK: RequestLocation delagates methods
 
@@ -458,10 +473,10 @@ extension DashboardViewController: RequestLocationProtocol {
         requestLocationVC.view.removeFromSuperview()
         UserDefaults.standard.set(true, forKey: "isLocationSetted")
         UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
-        let deviceId = UserDefaults.standard.string(forKey: "deviceId")
+        let customerId = UserDefaults.standard.string(forKey: "customerId")
         
         
-        APIClient.sendLocationTelimetry(deviceid: deviceId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
+        APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
             print(Msg)
         } ,onFailure : { (error) in
             print(error)
@@ -472,5 +487,15 @@ extension DashboardViewController: RequestLocationProtocol {
 
         
     }
+    
+}
+// MARK: ChangeLocation delagates methods
+
+extension DashboardViewController: ChangeLocationProtocol {
+    func ContactUs() {
+        print("ContactUs")
+    }
+    
+
     
 }

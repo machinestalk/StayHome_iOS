@@ -25,3 +25,10 @@
 "StayAThomeSignUpTxt"                   = "Please Stay home and be safe";
 "SignUpTitle"                           ="Sign up";
 "covidUserTXT"                            = "COVID USER";
+"MyZone_txt"                                = "My Zone";
+"checkIn_txt"                               = "Check In";
+"emergency_txt"                             = "Emergency";
+"tecSupport_txt"                            = "Technical Support";
+"aboutAs_txt"                                   = "About us";
+"ChangeLocation_txt"                            ="if your home location is wrong \n and you want to change it, \n Please contact the technical support team";
+"contactUsTxt"                                  = "Contact Us";

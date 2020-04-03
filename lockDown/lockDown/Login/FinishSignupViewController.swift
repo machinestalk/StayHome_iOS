@@ -17,6 +17,7 @@ class FinishSignupViewController: BaseController {
         super.viewDidLoad()
         instrictionsTxt.text = "instrutionsTxt".localiz()
         self.title = "SignUpTitle".localiz()
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
         // Do any additional setup after loading the view.
     }
 

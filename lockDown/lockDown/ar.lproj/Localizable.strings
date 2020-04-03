@@ -24,3 +24,10 @@
 "StayAThomeSignUpTxt"                   = "يرجى البقاء في المنزل وكن آمنا";
 "SignUpTitle"                           ="التسجيل";
 "covidUserTXT"                            = "COVID USER";
+"MyZone_txt"                                = "منطقتي";
+"checkIn_txt"                               = "تحقق في";
+"emergency_txt"                             = "حالة طوارئ";
+"tecSupport_txt"                            = "دعم فني";
+"aboutAs_txt"                                   = "معلومات عنا";
+"ChangeLocation_txt"                            ="إذا كان موقع منزلك خاطئًا \ n وتريد تغييره ، \ n يرجى الاتصال بفريق الدعم الفني";
+"contactUsTxt"                                  = "اتصل بنا";
