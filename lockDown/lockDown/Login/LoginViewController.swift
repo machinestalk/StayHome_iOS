@@ -245,7 +245,8 @@ class LoginViewController: BaseController {
             UserDefaults.standard.set(userData.token, forKey:"Token")
             UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
             UserDefaults.standard.set(userData.deviceID, forKey:"deviceId")
-            
+            let userDictionary = self.decode(jwtToken:userData.token!)
+            UserDefaults.standard.set(userDictionary["customerId"], forKey:"customerId")
             self.displayHomePage()
         }, onFailure: {error in
             print(error)

@@ -28,3 +28,10 @@
 
 "BiometricsAuth_title_txt" = "Please verify your identity";
 "BiometricsAuth_msg_txt" = "* Please note that your face ID will not be shared or stored in any server expect your phone";
+"MyZone_txt"                                = "My Zone";
+"checkIn_txt"                               = "Check In";
+"emergency_txt"                             = "Emergency";
+"tecSupport_txt"                            = "Technical Support";
+"aboutAs_txt"                                   = "About us";
+"ChangeLocation_txt"                            ="if your home location is wrong \n and you want to change it, \n Please contact the technical support team";
+"contactUsTxt"                                  = "Contact Us";

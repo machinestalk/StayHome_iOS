@@ -27,3 +27,10 @@
 
 //"BiometricsAuth_title_txt" = "Please verify your identity"
 //"BiometricsAuth_msg_txt" = "* Please note that your face ID will not be shared or stored in any server expect your phone"
+"MyZone_txt"                                = "منطقتي";
+"checkIn_txt"                               = "تحقق في";
+"emergency_txt"                             = "حالة طوارئ";
+"tecSupport_txt"                            = "دعم فني";
+"aboutAs_txt"                                   = "معلومات عنا";
+"ChangeLocation_txt"                            ="إذا كان موقع منزلك خاطئًا \ n وتريد تغييره ، \ n يرجى الاتصال بفريق الدعم الفني";
+"contactUsTxt"                                  = "اتصل بنا";

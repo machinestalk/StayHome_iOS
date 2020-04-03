@@ -35,7 +35,7 @@ enum APIRouter: URLRequestConvertible {
         case . sendIsComplaint(let parameters):
             return "api/v1/\(parameters.deviceToken)/telemetry"
         case .sendZoneLocations(let parameters):
-            return "api/plugins/telemetry/CUSTOMER/\(parameters.deviceid)/timeseries"
+            return "api/plugins/telemetry/CUSTOMER/\(parameters.deviceid)/timeseries/LATEST_TELEMETRY"
         }
     }
     
@@ -61,7 +61,7 @@ enum APIRouter: URLRequestConvertible {
         
         // HTTP Method
         urlRequest.httpMethod = method.rawValue
-        let accessToken = UserDefaults.standard.string(forKey: "access_token")
+        let accessToken = UserDefaults.standard.string(forKey: "Token")
         
         // Common Headers
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)

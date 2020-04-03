@@ -8,6 +8,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MenuViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
+                <outlet property="VersionLbl" destination="o0G-4s-3yB" id="uG4-4N-LnV"/>
+                <outlet property="tableView" destination="wXK-Gt-FCk" id="cza-7Y-msS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -38,17 +40,38 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="key" value="covidUserTXT"/>
                     </userDefinedRuntimeAttributes>
                 </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wXK-Gt-FCk">
+                    <rect key="frame" x="0.0" y="260" width="414" height="566"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="NfB-Pt-3xp"/>
+                        <outlet property="delegate" destination="-1" id="azA-9u-XVx"/>
+                    </connections>
+                </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0G-4s-3yB">
+                    <rect key="frame" x="20.5" y="838" width="373" height="18"/>
+                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="13"/>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="5ie-0m-XzD" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="23b-g8-3Qy"/>
                 <constraint firstItem="5JZ-u6-O0s" firstAttribute="centerX" secondItem="5ie-0m-XzD" secondAttribute="centerX" id="8CT-yy-owY"/>
+                <constraint firstAttribute="bottom" secondItem="wXK-Gt-FCk" secondAttribute="bottom" constant="70" id="Azh-Rd-FDc"/>
+                <constraint firstItem="o0G-4s-3yB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Bnl-so-BO0"/>
                 <constraint firstItem="fqE-bP-DNg" firstAttribute="top" secondItem="5JZ-u6-O0s" secondAttribute="bottom" constant="20" id="Iao-zm-l6k"/>
+                <constraint firstItem="o0G-4s-3yB" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.9" id="NOX-PZ-s2Y"/>
+                <constraint firstItem="wXK-Gt-FCk" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="R46-WP-nTp"/>
                 <constraint firstItem="5ie-0m-XzD" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="RqJ-Sn-wJ3"/>
+                <constraint firstItem="wXK-Gt-FCk" firstAttribute="top" secondItem="5ie-0m-XzD" secondAttribute="bottom" constant="10" id="VjN-zK-1b4"/>
                 <constraint firstItem="fqE-bP-DNg" firstAttribute="width" secondItem="5ie-0m-XzD" secondAttribute="width" id="Zsz-hA-xo3"/>
+                <constraint firstItem="wXK-Gt-FCk" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fCS-WO-PZq"/>
                 <constraint firstItem="5ie-0m-XzD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="juU-oM-gao"/>
                 <constraint firstItem="fqE-bP-DNg" firstAttribute="centerX" secondItem="5JZ-u6-O0s" secondAttribute="centerX" id="kZO-3U-HHR"/>
                 <constraint firstItem="5JZ-u6-O0s" firstAttribute="centerY" secondItem="5ie-0m-XzD" secondAttribute="centerY" constant="-20" id="rrV-ch-rmL"/>
+                <constraint firstAttribute="bottom" secondItem="o0G-4s-3yB" secondAttribute="bottom" constant="40" id="wov-Rp-cEm"/>
             </constraints>
             <point key="canvasLocation" x="133" y="114"/>
         </view>

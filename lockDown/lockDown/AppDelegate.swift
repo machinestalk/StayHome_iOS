@@ -144,8 +144,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
-    func applicationWillEnterForeground(_ application: UIApplication) {
-      
+   func applicationWillEnterForeground(_ application: UIApplication) {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+            NotificationCenter.default.post(name: Notification.Name("NotificationLocation"), object: nil)
+
+            }
+        else {
+             NotificationCenter.default.post(name: Notification.Name("NotificationNoneLocation"), object: nil)
+        }
+        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

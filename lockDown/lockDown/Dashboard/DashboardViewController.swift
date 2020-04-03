@@ -16,6 +16,8 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         case collapsed
     }
     var requestLocationVC = RequestLocationViewController()
+    var ChangeLocationVC = ChangeLocationViewController()
+    
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
@@ -57,15 +59,23 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.getNotificationNoneLocation(notification:)), name: Notification.Name("NotificationNoneLocation"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationLocation"), object: nil)
         self.navigationItem.rightBarButtonItem = nil
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
         
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+        setLocation()
         
-        self.title = "SignUpTitle".localiz()
+    }
+    
+    // MARK: setLocations
+    func setLocation() {
         //Location Manager code to fetch current location
         if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
             setLocationView()
+            self.title = "SignUpTitle".localiz()
             if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
                 
                 locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -95,7 +105,8 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
         else {
             if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
-                
+                setupChangeLocationVC()
+                self.title = "MyZone_txt".localiz()
                 locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
                 self.locationManager.delegate = self
                 self.locationManager.startUpdatingLocation()
@@ -119,9 +130,19 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 checkUsersLocationServicesAuthorization()
             }
         }
-        
     }
     
+    
+    
+    @objc func getNotificationNoneLocation(notification: Notification) {
+        setLocation()
+        
+    }
+    @objc func methodOfReceivedNotification(notification: Notification) {
+        
+        
+        
+    }
     @IBAction func navigateToMyLocation(_ sender: UIButton) {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
             if  let userLocation = locValue{
@@ -228,7 +249,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         {
             print("user out of zone")
             
-            
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
                     print(Msg)
@@ -236,24 +256,19 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                     print(error)
                 }
                 )
-                let alert = UIAlertView()
-                alert.title = "StayAthomeTitle".localiz()
-                alert.message = "stayAthome_txt".localiz()
-                alert.addButton(withTitle: "Ok")
-                alert.show()
             }
         }
         else
         {
             print("user in zone")
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-           /*     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
-                    print(Msg)
-                } ,onFailure : { (error) in
-                    print(error)
-                }
-                )*/
-               
+                /*     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
+                 print(Msg)
+                 } ,onFailure : { (error) in
+                 print(error)
+                 }
+                 )*/
+                
             }
         }
         
@@ -274,6 +289,22 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         switch status {
         case .notDetermined:
             // manager.requestLocation()
+            break
+        case .restricted, .denied:
+            let alert = UIAlertController(title: "", message: "locationAlert_txt".localiz(), preferredStyle: UIAlertController.Style.alert)
+            
+            // Button to Open Settings
+            alert.addAction(UIAlertAction(title: "Settings_txt".localiz(), style: UIAlertAction.Style.default, handler: { action in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        print("Settings opened: \(success)")
+                    })
+                }
+            }))
+            self.present(alert, animated: true, completion: nil)
             break
         case .authorizedAlways, .authorizedWhenInUse:
             if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
@@ -358,7 +389,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                     })
                 }
             }))
-            alert.addAction(UIAlertAction(title: "Ok_text".localiz(), style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             
             break
@@ -450,6 +480,16 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         requestLocationVC.didMove(toParent: self)
     }
     
+    // MARK: - changeLocation View
+    func setupChangeLocationVC() {
+        ChangeLocationVC.delegate = self
+        let height = view.frame.height
+        let width  = view.frame.width
+        ChangeLocationVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        self.addChild(ChangeLocationVC)
+        self.view.addSubview(ChangeLocationVC.view)
+        ChangeLocationVC.didMove(toParent: self)
+    }
 }
 // MARK: RequestLocation delagates methods
 
@@ -459,8 +499,10 @@ extension DashboardViewController: RequestLocationProtocol {
         requestLocationVC.view.removeFromSuperview()
         UserDefaults.standard.set(true, forKey: "isLocationSetted")
         UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
-        let deviceId = UserDefaults.standard.string(forKey: "deviceId")
-        APIClient.sendLocationTelimetry(deviceid: deviceId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
+        let customerId = UserDefaults.standard.string(forKey: "customerId")
+        
+        
+        APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
             print(Msg)
         } ,onFailure : { (error) in
             print(error)
@@ -469,4 +511,7 @@ extension DashboardViewController: RequestLocationProtocol {
         let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
         self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
     }
+    
+    
+    
 }
