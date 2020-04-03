@@ -31,11 +31,14 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var currentLocation: CLLocationCoordinate2D!
     var cameraa : GMSCameraPosition!
     var circle = GMSCircle()
+    var marker = GMSMarker()
     @IBOutlet weak var addressLbl: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var recenterButton: Button!
     @IBOutlet weak var searchViewTop: NSLayoutConstraint!
     
+    @IBOutlet weak var statusImg: UIImageView!
+    @IBOutlet weak var statusImgTop: NSLayoutConstraint!
     @IBOutlet weak var searchtxt: TextField!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var satBtn: UIButton!
@@ -55,40 +58,67 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationItem.rightBarButtonItem = nil
-       
+        
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         
-        self.title = "HomeTxt".localiz()
+        self.title = "SignUpTitle".localiz()
         //Location Manager code to fetch current location
-        
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
-            
-            locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
-            self.locationManager.delegate = self
-            self.locationManager.startUpdatingLocation()
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            let camera = GMSCameraPosition.camera(withLatitude: locValue.latitude, longitude: locValue.longitude, zoom: 16.0)
-            cameraa = camera
-            self.mapView?.animate(to: camera)
-            let marker = GMSMarker()
-            marker.icon = UIImage(named: "red_marker")
-            marker.position = locValue
-            marker.map = self.mapView
-            getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
-            circle = GMSCircle()
-            circle.radius = 100 // Meters
-            circle.position = locValue // user  position
-            circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
-            circle.strokeColor = .clear
-            
-            circle.map = mapView; // Add it to the map
+        if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+            setLocationView()
+            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+                
+                locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+                self.locationManager.delegate = self
+                self.locationManager.startUpdatingLocation()
+                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                let camera = GMSCameraPosition.camera(withLatitude: locValue.latitude, longitude: locValue.longitude, zoom: 16.0)
+                cameraa = camera
+                self.mapView?.animate(to: camera)
+                marker.icon = UIImage(named: "red_marker")
+                marker.position = locValue
+                marker.isDraggable =  true
+                marker.map = self.mapView
+                getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
+                circle = GMSCircle()
+                circle.radius = 100 // Meters
+                circle.position = locValue // user  position
+                circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
+                circle.strokeColor = .clear
+                circle.map = mapView; // Add it to the map
+                // Add it to the map
+            }
+            else {
+                locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+                checkUsersLocationServicesAuthorization()
+            }
         }
         else {
-            locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
-            checkUsersLocationServicesAuthorization()
+            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+                
+                locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
+                self.locationManager.delegate = self
+                self.locationManager.startUpdatingLocation()
+                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                let camera = GMSCameraPosition.camera(withLatitude: locValue.latitude, longitude: locValue.longitude, zoom: 16.0)
+                cameraa = camera
+                self.mapView?.animate(to: camera)
+                marker.icon = UIImage(named: "red_marker")
+                marker.position = locValue
+                marker.map = self.mapView
+                getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
+                circle = GMSCircle()
+                circle.radius = 100 // Meters
+                circle.position = locValue // user  position
+                circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
+                circle.strokeColor = .clear
+                circle.map = mapView; // Add it to the map
+            }
+            else {
+                locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+                checkUsersLocationServicesAuthorization()
+            }
         }
-        
         
     }
     
@@ -192,27 +222,39 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
         let distance = circleLocation.distance(from: location!)
         
-        
+        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         
         if(distance >= circle.radius)
         {
             print("user out of zone")
-          
-            APIClient.sendTelimetry(deviceToken: "8IS5GlD41GvfTgs6tETq", iscomplaint: 1, onSuccess: { (Msg) in
-                print(Msg)
-            } ,onFailure : { (error) in
-                print(error)
+            
+            
+            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+                    print(Msg)
+                } ,onFailure : { (error) in
+                    print(error)
+                }
+                )
+                let alert = UIAlertView()
+                alert.title = "StayAthomeTitle".localiz()
+                alert.message = "stayAthome_txt".localiz()
+                alert.addButton(withTitle: "Ok")
+                alert.show()
             }
-            )
-            let alert = UIAlertView()
-            alert.title = "StayAthomeTitle".localiz()
-            alert.message = "stayAthome_txt".localiz()
-            alert.addButton(withTitle: "Ok")
-            alert.show()
         }
         else
         {
             print("user in zone")
+            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+           /*     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
+                    print(Msg)
+                } ,onFailure : { (error) in
+                    print(error)
+                }
+                )*/
+               
+            }
         }
         
         locValue = currentLocation
@@ -234,11 +276,49 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             // manager.requestLocation()
             break
         case .authorizedAlways, .authorizedWhenInUse:
-            
-            self.mapView.delegate = self
-            self.mapView?.isMyLocationEnabled = true
-            self.mapView.bringSubviewToFront(recenterButton)
-            
+            if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                self.mapView.delegate = self
+                self.mapView?.isMyLocationEnabled = true
+                self.mapView.bringSubviewToFront(recenterButton)
+                locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+                self.locationManager.delegate = self
+                self.locationManager.startUpdatingLocation()
+                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                let camera = GMSCameraPosition.camera(withLatitude: locValue.latitude, longitude: locValue.longitude, zoom: 16.0)
+                cameraa = camera
+                self.mapView?.animate(to: camera)
+                marker.icon = UIImage(named: "red_marker")
+                marker.position = locValue
+                marker.isDraggable =  true
+                marker.map = self.mapView
+                getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
+                circle = GMSCircle()
+                circle.radius = 100 // Meters
+                circle.position = locValue // user  position
+                circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
+                circle.strokeColor = .clear
+                circle.map = mapView; // Add it to the map
+            }
+            else {
+                locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
+                self.locationManager.delegate = self
+                self.locationManager.startUpdatingLocation()
+                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                let camera = GMSCameraPosition.camera(withLatitude: locValue.latitude, longitude: locValue.longitude, zoom: 16.0)
+                cameraa = camera
+                self.mapView?.animate(to: camera)
+                marker.icon = UIImage(named: "red_marker")
+                marker.position = locValue
+                marker.map = self.mapView
+                getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
+                circle = GMSCircle()
+                circle.radius = 100 // Meters
+                circle.position = locValue // user  position
+                circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
+                circle.strokeColor = .clear
+                circle.map = mapView; // Add it to the map
+                
+            }
             
             break
         default: break
@@ -285,7 +365,25 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             
         case .authorizedWhenInUse, .authorizedAlways:
             // Enable features that require location services here.
-            print("Full Access")
+            
+            locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+            self.locationManager.delegate = self
+            self.locationManager.startUpdatingLocation()
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            let camera = GMSCameraPosition.camera(withLatitude: locValue.latitude, longitude: locValue.longitude, zoom: 16.0)
+            cameraa = camera
+            self.mapView?.animate(to: camera)
+            
+            marker.icon = UIImage(named: "red_marker")
+            marker.position = locValue
+            marker.map = self.mapView
+            getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
+            circle = GMSCircle()
+            circle.radius = 100 // Meters
+            circle.position = locValue // user  position
+            circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
+            circle.strokeColor = .clear
+            circle.map = mapView; // Add it to the map
             break
         }
         
@@ -297,6 +395,22 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 16.0)
         return true
     }
+    func mapView(_ mapView: GMSMapView, didDrag marker: GMSMarker) {
+        print("didDrag")
+    }
+    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
+        getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
+        locValue = marker.position
+        circle.map = nil
+        circle = GMSCircle()
+        
+        circle.radius = 100 // Meters
+        circle.position = marker.position // user  position
+        circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
+        circle.strokeColor = .clear
+        circle.map = mapView;
+    }
+    
     
     
     
@@ -308,7 +422,22 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         
         
     }
-    
+    // MARK: - set LocationForFirst Time
+    func setLocationView() {
+        setuprequestLocationVC()
+        statusImg.isHidden = false
+        mapView.bringSubviewToFront(statusImg)
+        if isItIPhoneX() {
+            statusImgTop.constant = 110
+            searchViewTop.constant = 140
+        }
+        else {
+            statusImgTop.constant = 70
+            searchViewTop.constant = 100
+        }
+        
+        
+    }
     
     // MARK: - Bottom Views Methods
     func setuprequestLocationVC() {
@@ -327,6 +456,21 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
 extension DashboardViewController: RequestLocationProtocol {
     func requestlocation() {
         requestLocationVC.view.removeFromSuperview()
+        UserDefaults.standard.set(true, forKey: "isLocationSetted")
+        UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
+        let deviceId = UserDefaults.standard.string(forKey: "deviceId")
+        
+        
+        APIClient.sendLocationTelimetry(deviceid: deviceId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
+            print(Msg)
+        } ,onFailure : { (error) in
+            print(error)
+        }
+        )
+        let FinishSignupVC = FinishSignupViewController(nibName: "FinishSignupViewController", bundle: nil)
+        self.navigationController!.pushViewController(FinishSignupVC, animated: true)
+
+        
     }
     
 }

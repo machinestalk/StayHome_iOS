@@ -38,6 +38,9 @@ struct LockDown {
         static let phoneUdid = "phoneUdid"
         static let phoneNumber = "phoneNumber"
         static let iscomplaint = "compliant"
+        static let latitude = "latitude"
+        static let longitude = "longitude"
+        static let radius = "radius"
 
     }
 }

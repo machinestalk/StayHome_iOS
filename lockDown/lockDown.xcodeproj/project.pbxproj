@@ -37,6 +37,8 @@
 		FA6E98B424329DA0000F2C2E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E98B224329DA0000F2C2E /* MenuViewController.swift */; };
 		FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B324329DA0000F2C2E /* MenuViewController.xib */; };
 		FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */; };
+		FA7ED09624364D1100C0060D /* FinishSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7ED09424364D1100C0060D /* FinishSignupViewController.swift */; };
+		FA7ED09724364D1100C0060D /* FinishSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7ED09524364D1100C0060D /* FinishSignupViewController.xib */; };
 		FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3D72433674400061AE5 /* Extensions.swift */; };
 		FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */; };
 		FAB7F3E5243371E800061AE5 /* RequestLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */; };
@@ -118,6 +120,8 @@
 		FA6E98B324329DA0000F2C2E /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA6E98B824335647000F2C2E /* lockDown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lockDown.entitlements; sourceTree = "<group>"; };
+		FA7ED09424364D1100C0060D /* FinishSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishSignupViewController.swift; sourceTree = "<group>"; };
+		FA7ED09524364D1100C0060D /* FinishSignupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FinishSignupViewController.xib; sourceTree = "<group>"; };
 		FAB7F3D72433674400061AE5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
 		FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestLocationViewController.xib; sourceTree = "<group>"; };
@@ -308,6 +312,8 @@
 				FA17C4BA2433377E000516EF /* BiometricsAuthentication */,
 				FA6E98A824329CEA000F2C2E /* LoginViewController.swift */,
 				FA6E98A924329CEA000F2C2E /* LoginViewController.xib */,
+				FA7ED09424364D1100C0060D /* FinishSignupViewController.swift */,
+				FA7ED09524364D1100C0060D /* FinishSignupViewController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -505,6 +511,7 @@
 				FAB7F42224339B0600061AE5 /* AvenirLTStd-Roman.otf in Resources */,
 				FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */,
 				FAB7F41724339B0600061AE5 /* OpenSans-Light.ttf in Resources */,
+				FA7ED09724364D1100C0060D /* FinishSignupViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,6 +683,7 @@
 				FA6E985B243293F5000F2C2E /* ViewController.swift in Sources */,
 				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
+				FA7ED09624364D1100C0060D /* FinishSignupViewController.swift in Sources */,
 				FA66D6442434B8880036D137 /* BaseController.swift in Sources */,
 				FA6E9857243293F5000F2C2E /* AppDelegate.swift in Sources */,
 				FA6E9859243293F5000F2C2E /* SceneDelegate.swift in Sources */,

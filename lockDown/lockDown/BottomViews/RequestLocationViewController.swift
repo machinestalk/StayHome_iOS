@@ -17,6 +17,11 @@ protocol RequestLocationProtocol {
 
 
 class RequestLocationViewController: BottomPopupViewController {
+    @IBOutlet weak var stackview: UIStackView!
+    @IBOutlet weak var msgLbl: Label!
+    @IBOutlet weak var noBtn: Button!
+    @IBOutlet weak var yesBtn: Button!
+    @IBOutlet weak var nextBtn: Button!
     @IBOutlet weak var handleArea: UIView!
     var delegate: RequestLocationProtocol?
     var fullView: CGFloat {
@@ -41,6 +46,9 @@ class RequestLocationViewController: BottomPopupViewController {
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(self.panGesture))
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
+        nextBtn.isHidden = false
+        stackview.isHidden = true
+        msgLbl.text = "RequestLocation_txt".localiz()
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -54,6 +62,16 @@ class RequestLocationViewController: BottomPopupViewController {
     }
     
     @IBAction func nextBtnAction(_ sender: Any) {
+        nextBtn.isHidden = true
+        stackview.isHidden = false
+        msgLbl.text = "confirmLocationTxt".localiz()
+    }
+    @IBAction func noBtnDidTap(_ sender: Any) {
+        nextBtn.isHidden = false
+        stackview.isHidden = true
+        msgLbl.text = "RequestLocation_txt".localiz()
+    }
+    @IBAction func yesBtnDidTap(_ sender: Any) {
         self.delegate?.requestlocation()
     }
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {

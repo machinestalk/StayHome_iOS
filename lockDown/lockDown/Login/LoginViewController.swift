@@ -244,6 +244,8 @@ class LoginViewController: BaseController {
             UserDefaults.standard.set(userData.deviceToken, forKey:"DeviceToken")
             UserDefaults.standard.set(userData.token, forKey:"Token")
             UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
+            UserDefaults.standard.set(userData.deviceID, forKey:"deviceId")
+            
             self.displayHomePage()
         }, onFailure: {error in
             print(error)
