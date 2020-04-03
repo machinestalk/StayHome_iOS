@@ -458,10 +458,10 @@ extension DashboardViewController: RequestLocationProtocol {
         requestLocationVC.view.removeFromSuperview()
         UserDefaults.standard.set(true, forKey: "isLocationSetted")
         UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
-        let deviceId = UserDefaults.standard.string(forKey: "deviceId")
+        let customerId = UserDefaults.standard.string(forKey: "customerId")
         
         
-        APIClient.sendLocationTelimetry(deviceid: deviceId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
+        APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
             print(Msg)
         } ,onFailure : { (error) in
             print(error)
