@@ -18,8 +18,7 @@ class BaseController: UIViewController ,UITextFieldDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupNavigationBar()
-        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),
-                                                                           for: .default)
+    
         
     }
     override func viewWillAppear(_ animated: Bool) {
