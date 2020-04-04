@@ -64,6 +64,12 @@
 		FAC36C812435DCFC002B4928 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C802435DCFC002B4928 /* UserData.swift */; };
 		FAC36C8424375E50002B4928 /* BiometricsBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C8224375E50002B4928 /* BiometricsBottomViewController.swift */; };
 		FAC36C8524375E50002B4928 /* BiometricsBottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC36C8324375E50002B4928 /* BiometricsBottomViewController.xib */; };
+		FAC36C9824388868002B4928 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C9624388868002B4928 /* WelcomeViewController.swift */; };
+		FAC36C9924388868002B4928 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC36C9724388868002B4928 /* WelcomeViewController.xib */; };
+		FAC36C9D24388894002B4928 /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C9B24388894002B4928 /* SurveyViewController.swift */; };
+		FAC36C9E24388894002B4928 /* SurveyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC36C9C24388894002B4928 /* SurveyViewController.xib */; };
+		FAC36CA1243888BA002B4928 /* SurveyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C9F243888BA002B4928 /* SurveyCell.swift */; };
+		FAC36CA2243888BA002B4928 /* SurveyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC36CA0243888BA002B4928 /* SurveyCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +163,12 @@
 		FAC36C802435DCFC002B4928 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		FAC36C8224375E50002B4928 /* BiometricsBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsBottomViewController.swift; sourceTree = "<group>"; };
 		FAC36C8324375E50002B4928 /* BiometricsBottomViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricsBottomViewController.xib; sourceTree = "<group>"; };
+		FAC36C9624388868002B4928 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		FAC36C9724388868002B4928 /* WelcomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
+		FAC36C9B24388894002B4928 /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
+		FAC36C9C24388894002B4928 /* SurveyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SurveyViewController.xib; sourceTree = "<group>"; };
+		FAC36C9F243888BA002B4928 /* SurveyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyCell.swift; sourceTree = "<group>"; };
+		FAC36CA0243888BA002B4928 /* SurveyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SurveyCell.xib; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -247,6 +259,7 @@
 		FA6E9855243293F5000F2C2E /* lockDown */ = {
 			isa = PBXGroup;
 			children = (
+				FAC36C9524388829002B4928 /* SignUp */,
 				FAC36C7F2435DCB0002B4928 /* Entities */,
 				FAB7F3EF24339B0500061AE5 /* Resources */,
 				FAB7F3E12433719800061AE5 /* BottomViews */,
@@ -392,6 +405,27 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		FAC36C9524388829002B4928 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				FAC36C9A2438887A002B4928 /* Survey */,
+				FAC36C9624388868002B4928 /* WelcomeViewController.swift */,
+				FAC36C9724388868002B4928 /* WelcomeViewController.xib */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		FAC36C9A2438887A002B4928 /* Survey */ = {
+			isa = PBXGroup;
+			children = (
+				FAC36C9B24388894002B4928 /* SurveyViewController.swift */,
+				FAC36C9C24388894002B4928 /* SurveyViewController.xib */,
+				FAC36C9F243888BA002B4928 /* SurveyCell.swift */,
+				FAC36CA0243888BA002B4928 /* SurveyCell.xib */,
+			);
+			path = Survey;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -510,7 +544,9 @@
 				FAB7F42024339B0600061AE5 /* OpenSans-Regular.ttf in Resources */,
 				FAB7F41A24339B0600061AE5 /* OpenSans-ExtraBold.ttf in Resources */,
 				FAB7F41324339B0500061AE5 /* OpenSans-SemiBold.ttf in Resources */,
+				FAC36C9924388868002B4928 /* WelcomeViewController.xib in Resources */,
 				FAB7F41524339B0600061AE5 /* Avenir Roman.otf in Resources */,
+				FAC36CA2243888BA002B4928 /* SurveyCell.xib in Resources */,
 				FAC36C8524375E50002B4928 /* BiometricsBottomViewController.xib in Resources */,
 				FAB7F41824339B0600061AE5 /* OpenSans-Italic.ttf in Resources */,
 				FAB7F41E24339B0600061AE5 /* OpenSans-SemiBoldItalic.ttf in Resources */,
@@ -532,6 +568,7 @@
 				FAB7F42224339B0600061AE5 /* AvenirLTStd-Roman.otf in Resources */,
 				FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */,
 				FAB7F41724339B0600061AE5 /* OpenSans-Light.ttf in Resources */,
+				FAC36C9E24388894002B4928 /* SurveyViewController.xib in Resources */,
 				FA7ED09724364D1100C0060D /* FinishSignupViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -700,9 +737,12 @@
 				FA6E98A024329B83000F2C2E /* Constants.swift in Sources */,
 				FA6E989524329B7B000F2C2E /* APIRouter.swift in Sources */,
 				FA6E98A424329B83000F2C2E /* TextField.swift in Sources */,
+				FAC36C9824388868002B4928 /* WelcomeViewController.swift in Sources */,
 				FA6E98A124329B83000F2C2E /* LanguageManager.swift in Sources */,
 				FA7ED09E24376D3B00C0060D /* ChangeLocationViewController.swift in Sources */,
+				FAC36CA1243888BA002B4928 /* SurveyCell.swift in Sources */,
 				FA6E985B243293F5000F2C2E /* ViewController.swift in Sources */,
+				FAC36C9D24388894002B4928 /* SurveyViewController.swift in Sources */,
 				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
 				FAC36C8424375E50002B4928 /* BiometricsBottomViewController.swift in Sources */,

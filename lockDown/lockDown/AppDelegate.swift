@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func getLandingPageWithSideMenu()->UIViewController {
         
-        self.navVC = self.getNavControllerWithRootController(controller: DashboardViewController())
+        self.navVC = self.getNavControllerWithRootController(controller: WelcomeViewController())
         var leftController: UIViewController? = nil
         var rightController: UIViewController? = nil
         if LanguageManger.shared.isRightToLeft {
