@@ -23,7 +23,7 @@ class SurveyViewController: BaseController {
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            self.navigationController?.setNavigationBarHidden(true, animated: false)
+            self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
         }
         
         @IBAction func switchButtonTapped(_ sender: Any) {

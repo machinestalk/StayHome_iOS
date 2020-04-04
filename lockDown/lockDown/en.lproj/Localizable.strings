@@ -9,7 +9,7 @@
 "confirmLocationTxt"                       = "Are you sure,this is your home \n location?";
 "noBtn_Txt"                                 = "No";
 "yesBtn_txt"                                = "Yes";
-"nextBtn_txt"                               = "Next" ; 
+"nextBtn_txt"                               = "Next" ;
 "locationAlert_txt"                                                = "Turn on your location services from the settings";
 "Ok_text"                                                        = "Ok";
 "Settings_txt"                                                          = "Settings";
@@ -47,6 +47,6 @@
 "survey_no_symtoms_txt" = "I do not suffer from any of above symtoms.";
 
 //Welcome Screen
-
+"startBtn_txt" = "Start" ;
 "welcome_lbl_text0_txt" = "Welcome to the STAYHOME application launched by the Saudi Ministry of Health to ensure your safety and health from COVID-19 VIRUS.";
 "welcome_lbl_text1_txt" = "Please start the Sign Up Process which will include adding your home location and Face ID to the application.";

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -15,22 +15,22 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sick_patient" translatesAutoresizingMaskIntoConstraints="NO" id="b28-Xo-yKG">
-                    <rect key="frame" x="160.5" y="94" width="93" height="102"/>
+                    <rect key="frame" x="141" y="30" width="93" height="102"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="102" id="9Us-pP-OiE"/>
                         <constraint firstAttribute="width" constant="93" id="KZP-2w-Gp9"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Self Diagnose Questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOr-Cq-snf" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="20" y="216" width="374" height="40"/>
+                    <rect key="frame" x="20" y="142" width="335" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="wMK-GH-Mvp"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="30"/>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="25"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -38,11 +38,11 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To keep yourself and others healthy.This survey aims to acquaint you with the best guidelines." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRH-SW-u3b" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="20" y="276" width="374" height="100"/>
+                    <rect key="frame" x="20" y="192" width="335" height="67"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="100" id="nRT-kC-bBP"/>
+                        <constraint firstAttribute="height" constant="67" id="nRT-kC-bBP"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="21"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -50,7 +50,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLO-zn-5pm" customClass="Button" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="132" y="782" width="150" height="50"/>
+                    <rect key="frame" x="112.5" y="587" width="150" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="150" id="9lp-p3-Yii"/>
                         <constraint firstAttribute="height" constant="50" id="ThT-Xd-Ljv"/>
@@ -58,11 +58,11 @@
                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                     <state key="normal" backgroundImage="green_button"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="agreedBtnTitle"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="nextBtn_txt"/>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="J1d-d8-Usr">
-                    <rect key="frame" x="0.0" y="396" width="414" height="366"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="J1d-d8-Usr">
+                    <rect key="frame" x="0.0" y="259" width="375" height="318"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <connections>
@@ -73,23 +73,23 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="J1d-d8-Usr" firstAttribute="top" secondItem="WRH-SW-u3b" secondAttribute="bottom" constant="20" id="0un-SM-Sqi"/>
-                <constraint firstItem="WRH-SW-u3b" firstAttribute="top" secondItem="mOr-Cq-snf" secondAttribute="bottom" constant="20" id="3cG-WI-ENY"/>
+                <constraint firstItem="J1d-d8-Usr" firstAttribute="top" secondItem="WRH-SW-u3b" secondAttribute="bottom" id="0un-SM-Sqi"/>
+                <constraint firstItem="WRH-SW-u3b" firstAttribute="top" secondItem="mOr-Cq-snf" secondAttribute="bottom" constant="10" id="3cG-WI-ENY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="kLO-zn-5pm" secondAttribute="bottom" constant="30" id="85k-Am-zQp"/>
-                <constraint firstItem="kLO-zn-5pm" firstAttribute="top" secondItem="J1d-d8-Usr" secondAttribute="bottom" constant="20" id="9Tl-Ne-fq4"/>
+                <constraint firstItem="kLO-zn-5pm" firstAttribute="top" secondItem="J1d-d8-Usr" secondAttribute="bottom" constant="10" id="9Tl-Ne-fq4"/>
                 <constraint firstItem="WRH-SW-u3b" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="FLH-2m-PCC"/>
-                <constraint firstItem="mOr-Cq-snf" firstAttribute="top" secondItem="b28-Xo-yKG" secondAttribute="bottom" constant="20" id="Gme-ZG-R2W"/>
+                <constraint firstItem="mOr-Cq-snf" firstAttribute="top" secondItem="b28-Xo-yKG" secondAttribute="bottom" constant="10" id="Gme-ZG-R2W"/>
                 <constraint firstItem="mOr-Cq-snf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Her-Bz-imm"/>
                 <constraint firstItem="J1d-d8-Usr" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="LY9-wy-1AT"/>
                 <constraint firstItem="kLO-zn-5pm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="aec-Cf-sBI"/>
-                <constraint firstItem="b28-Xo-yKG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="b1b-f6-MIK"/>
+                <constraint firstItem="b28-Xo-yKG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="b1b-f6-MIK"/>
                 <constraint firstItem="J1d-d8-Usr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="biR-k1-AxS"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mOr-Cq-snf" secondAttribute="trailing" constant="20" id="eIZ-Px-p11"/>
                 <constraint firstItem="b28-Xo-yKG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="o3V-TO-Hze"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WRH-SW-u3b" secondAttribute="trailing" constant="20" id="x1H-aU-NSE"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="-555" y="-40"/>
+            <point key="canvasLocation" x="-556" y="-40.929535232383813"/>
         </view>
     </objects>
     <resources>
