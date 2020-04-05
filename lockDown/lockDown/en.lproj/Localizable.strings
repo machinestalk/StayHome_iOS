@@ -12,6 +12,7 @@
 "nextBtn_txt"                               = "Next" ;
 "locationAlert_txt"                                                = "Turn on your location services from the settings";
 "Ok_text"                                                        = "Ok";
+"Warning_txt" = "Warning";
 "Settings_txt"                                                          = "Settings";
 "HomeTxt"                                                           = "My Zone";
 "stayAthome_txt"                                                  ="You are out of your home please return back for your safety";
@@ -26,9 +27,10 @@
 "StayAThomeSignUpTxt"                   = "Please Stay home and be safe";
 "SignUpTitle"                           ="Sign up";
 "covidUserTXT"                            = "COVID USER";
+"signin_singnup_txt"                      = "SignIn/SignUp";
 
 "BiometricsAuth_title_txt" = "Please verify your identity";
-"BiometricsAuth_msg_txt" = "* Please note that your face ID will not be shared or stored in any server expect your phone";
+"BiometricsAuth_msg_txt" = "* Please note that your face ID will not be shared or stored in any server except your phone";
 "MyZone_txt"                                = "My Zone";
 "checkIn_txt"                               = "Check In";
 "emergency_txt"                             = "Emergency";
@@ -46,6 +48,7 @@
 "survey_fever_txt" = "Do you have High fever ?";
 "survey_breath_txt" = "Do you have Shortness of breath ?";
 "survey_no_symtoms_txt" = "I do not suffer from any of above symtoms.";
+"survey_invalidSurvey_txt" = "Invalid inputs.";
 
 //Welcome Screen
 "startBtn_txt" = "Start" ;

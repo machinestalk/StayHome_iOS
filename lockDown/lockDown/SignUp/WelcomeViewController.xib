@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -14,18 +14,18 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_ministry" translatesAutoresizingMaskIntoConstraints="NO" id="cTY-i4-sO2">
-                    <rect key="frame" x="82" y="50" width="156" height="119"/>
+                    <rect key="frame" x="109.66666666666669" y="94" width="156" height="119"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="119" id="GYx-GE-JIP"/>
                         <constraint firstAttribute="width" constant="156" id="UW0-b5-ltA"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uof-bU-Y4G" customClass="Button" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="85" y="488" width="150" height="50"/>
+                    <rect key="frame" x="112.66666666666669" y="698" width="150" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="150" id="A8s-IA-I2h"/>
                         <constraint firstAttribute="height" constant="50" id="xxX-rC-z9j"/>
@@ -40,7 +40,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Yq-7F-9n4" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="20" y="219" width="280" height="100"/>
+                    <rect key="frame" x="20" y="263" width="335" height="100"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="100" id="jJr-Ci-DDA"/>
                     </constraints>
@@ -52,7 +52,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCt-sT-CKN" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="20" y="358" width="280" height="100"/>
+                    <rect key="frame" x="20" y="424" width="335" height="100"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="100" id="bHb-qu-DW9"/>
                     </constraints>
@@ -64,7 +64,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iio-uX-Bee">
-                    <rect key="frame" x="50" y="349" width="220" height="1"/>
+                    <rect key="frame" x="50" y="393" width="275" height="1"/>
                     <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="QuZ-uH-S76"/>
@@ -75,10 +75,10 @@
             <constraints>
                 <constraint firstItem="yCt-sT-CKN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="22c-cg-IQn"/>
                 <constraint firstItem="Uof-bU-Y4G" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="6Xd-i1-PzH"/>
+                <constraint firstItem="yCt-sT-CKN" firstAttribute="top" secondItem="iio-uX-Bee" secondAttribute="bottom" constant="30" id="7a2-r9-f34"/>
                 <constraint firstItem="cTY-i4-sO2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="95J-p2-E6h"/>
                 <constraint firstItem="7Yq-7F-9n4" firstAttribute="top" secondItem="cTY-i4-sO2" secondAttribute="bottom" constant="50" id="D2x-c4-CZH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Uof-bU-Y4G" secondAttribute="bottom" constant="30" id="DWi-Vj-Ah4"/>
-                <constraint firstItem="Uof-bU-Y4G" firstAttribute="top" secondItem="yCt-sT-CKN" secondAttribute="bottom" constant="30" id="Djf-IC-Wqy"/>
                 <constraint firstItem="7Yq-7F-9n4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="OQd-os-qY1"/>
                 <constraint firstItem="cTY-i4-sO2" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="PC0-8T-jUM"/>
                 <constraint firstItem="iio-uX-Bee" firstAttribute="top" secondItem="7Yq-7F-9n4" secondAttribute="bottom" constant="30" id="VFs-0o-E4z"/>
@@ -93,7 +93,7 @@
         </view>
     </objects>
     <resources>
-        <image name="green_button" width="134.5" height="47"/>
-        <image name="logo_ministry" width="155.5" height="119"/>
+        <image name="green_button" width="134.33332824707031" height="47"/>
+        <image name="logo_ministry" width="155.33332824707031" height="118.66666412353516"/>
     </resources>
 </document>

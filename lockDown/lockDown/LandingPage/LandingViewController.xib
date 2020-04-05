@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LandingViewController" customModule="lockDown" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="rrf-A9-zgr" id="wbQ-Hr-rbF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="rrf-A9-zgr">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_xsmax" translatesAutoresizingMaskIntoConstraints="NO" id="I4T-8A-Wml">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_ministry" translatesAutoresizingMaskIntoConstraints="NO" id="oNS-dd-uMK">
+                    <rect key="frame" x="129" y="94" width="156" height="119"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="119" id="KK2-Ic-MzN"/>
+                        <constraint firstAttribute="width" constant="156" id="VFn-t3-jMr"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XYu-Gb-nlz" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="57" y="782" width="300" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="GNz-gX-Ibq"/>
+                        <constraint firstAttribute="width" constant="300" id="swo-9k-Yhj"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                    <state key="normal" backgroundImage="green_button"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="signin_singnup_txt"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="signInSignUPDidTap:" destination="-1" eventType="touchUpInside" id="eGf-WD-IAc"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="XYu-Gb-nlz" firstAttribute="top" secondItem="I4T-8A-Wml" secondAttribute="bottom" constant="-114" id="2FC-LD-1Pz"/>
+                <constraint firstItem="oNS-dd-uMK" firstAttribute="top" secondItem="wUd-Ut-zWp" secondAttribute="top" constant="50" id="5UA-Li-MJV"/>
+                <constraint firstItem="wUd-Ut-zWp" firstAttribute="trailing" secondItem="I4T-8A-Wml" secondAttribute="trailing" id="AVa-D9-xLE"/>
+                <constraint firstItem="I4T-8A-Wml" firstAttribute="leading" secondItem="wUd-Ut-zWp" secondAttribute="leading" id="PHv-OU-Bhl"/>
+                <constraint firstItem="XYu-Gb-nlz" firstAttribute="centerX" secondItem="rrf-A9-zgr" secondAttribute="centerX" id="QLB-eG-b17"/>
+                <constraint firstItem="oNS-dd-uMK" firstAttribute="centerX" secondItem="rrf-A9-zgr" secondAttribute="centerX" id="Wbu-JK-WGV"/>
+                <constraint firstItem="wUd-Ut-zWp" firstAttribute="bottom" secondItem="XYu-Gb-nlz" secondAttribute="bottom" constant="30" id="hEa-iW-pyx"/>
+                <constraint firstItem="I4T-8A-Wml" firstAttribute="top" secondItem="oNS-dd-uMK" secondAttribute="bottom" constant="-213" id="mQF-Mh-1zy"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="wUd-Ut-zWp"/>
+            <point key="canvasLocation" x="-139.13043478260872" y="-36.160714285714285"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="green_button" width="134.5" height="47"/>
+        <image name="logo_ministry" width="155.5" height="119"/>
+        <image name="splash_xsmax" width="414" height="896"/>
+    </resources>
+</document>

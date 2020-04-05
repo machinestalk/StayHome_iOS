@@ -41,7 +41,7 @@ class LoginViewController: BaseController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.navigationController?.navigationBar.isHidden = true
+        //self.navigationController?.navigationBar.isHidden = true
         userNameInputView.becomeFirstResponder()
         
         
@@ -307,8 +307,10 @@ class LoginViewController: BaseController {
     
     func displayHomePage(){
         
-        let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
-        appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()
+        let welcomeViewController = WelcomeViewController(nibName: "WelcomeViewController", bundle: nil)
+        self.navigationController!.pushViewController(welcomeViewController, animated: true)
+//        let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
+//        appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()
     }
     
     

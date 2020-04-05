@@ -89,7 +89,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     // MARK: setLocations
     func setLocation() {
         //Location Manager code to fetch current location
-        if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+        if  !UserDefaults.standard.bool(forKey: "isSignedUp")  {
             setLocationView()
             self.title = "SignUpTitle".localiz()
             if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {

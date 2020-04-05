@@ -64,12 +64,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         self.window = UIWindow(frame:UIScreen.main.bounds)
         if  UserDefaults.standard.bool(forKey: "isLoggedIn")  {
-            
-            self.window?.rootViewController = self.getLandingPageWithSideMenu()
+            if UserDefaults.standard.bool(forKey: "isSignedUp") {
+                self.window?.rootViewController = self.getLandingPageWithSideMenu()
+            } else {
+                self.window?.rootViewController = self.getNavControllerWithRootController(controller: WelcomeViewController())
+            }
         } else {
-            let centerVC = LoginViewController()
-            let navVC:UINavigationController = UINavigationController(rootViewController: centerVC)
-            self.window?.rootViewController = navVC;
+            
+                let centerVC = LandingViewController()
+                let navVC:UINavigationController = UINavigationController(rootViewController: centerVC)
+                self.window?.rootViewController = navVC;
+            
         }
         self.window?.tintColor = UIColor.white
         self.window?.makeKeyAndVisible()

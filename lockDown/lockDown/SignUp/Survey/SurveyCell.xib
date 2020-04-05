@@ -30,6 +30,7 @@
                         <rect key="frame" x="43" y="0.0" width="210" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="Xdi-r7-Z2p"/>
+                            <constraint firstAttribute="width" constant="210" id="qfd-A1-ej7"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                         <nil key="textColor"/>
@@ -41,7 +42,6 @@
                     <constraint firstItem="KXG-Gq-Rqe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="BhR-62-GZN"/>
                     <constraint firstItem="KXG-Gq-Rqe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="HZR-ry-6i7"/>
                     <constraint firstItem="UoX-e8-heQ" firstAttribute="leading" secondItem="KXG-Gq-Rqe" secondAttribute="trailing" constant="8" id="PRO-Qp-snc"/>
-                    <constraint firstItem="wE7-vp-pZR" firstAttribute="leading" secondItem="UoX-e8-heQ" secondAttribute="trailing" constant="8" id="aE2-jd-XMr"/>
                     <constraint firstItem="UoX-e8-heQ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ckg-5F-WcX"/>
                     <constraint firstAttribute="trailing" secondItem="wE7-vp-pZR" secondAttribute="trailing" constant="10" id="o43-JN-Vj2"/>
                 </constraints>
@@ -52,7 +52,7 @@
                 <outlet property="switchButton" destination="wE7-vp-pZR" id="qS7-4Y-V2q"/>
                 <outlet property="textCellLabel" destination="UoX-e8-heQ" id="T89-3w-KAk"/>
             </connections>
-            <point key="canvasLocation" x="24.637681159420293" y="62.946428571428569"/>
+            <point key="canvasLocation" x="-36" y="-29"/>
         </tableViewCell>
     </objects>
 </document>

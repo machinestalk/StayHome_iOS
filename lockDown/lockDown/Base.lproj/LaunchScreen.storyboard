@@ -24,9 +24,9 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="vDv-8J-I3q" firstAttribute="top" secondItem="3FK-Ue-76a" secondAttribute="bottom" constant="-34" id="GX3-3c-suT"/>
+                            <constraint firstItem="3FK-Ue-76a" firstAttribute="top" secondItem="5mr-vL-oOe" secondAttribute="bottom" constant="-44" id="GxC-7E-QKs"/>
                             <constraint firstItem="3FK-Ue-76a" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Kxi-hX-Uo0"/>
-                            <constraint firstItem="3FK-Ue-76a" firstAttribute="top" secondItem="5mr-vL-oOe" secondAttribute="bottom" constant="-44" id="SNi-4l-ija"/>
-                            <constraint firstItem="vDv-8J-I3q" firstAttribute="top" secondItem="3FK-Ue-76a" secondAttribute="bottom" constant="-34" id="XK1-gj-eaS"/>
                             <constraint firstAttribute="trailing" secondItem="3FK-Ue-76a" secondAttribute="trailing" id="eO5-Ba-AMc"/>
                         </constraints>
                     </view>
