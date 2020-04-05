@@ -9,15 +9,29 @@
 import UIKit
 
 class FinishSignupViewController: BaseController {
-
+   
+    var isFromCheckIn = false
     @IBOutlet weak var instrictionsTxt: UITextView!
     @IBOutlet weak var SignUpfinishedView: UIView!
     @IBOutlet weak var instrictionsView: UIView!
+    @IBOutlet weak var successMsg: Label!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         instrictionsTxt.text = "instrutionsTxt".localiz()
-        self.title = "SignUpTitle".localiz()
+        
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
+        if isFromCheckIn {
+            successMsg.text = "FinishSuccessLbl".localiz()
+            instrictionsView.isHidden = true
+            SignUpfinishedView.isHidden = false
+            self.title = "Check In"
+        }
+        else {
+            instrictionsView.isHidden = false
+            SignUpfinishedView.isHidden = true
+            self.title = "SignUpTitle".localiz()
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -33,7 +47,8 @@ class FinishSignupViewController: BaseController {
     */
     @IBAction func agreedBtnDidTap(_ sender: Any) {
         instrictionsView.isHidden = true
-        SignUpfinishedView.isHidden = false 
+        SignUpfinishedView.isHidden = false
+      
     }
     
 }

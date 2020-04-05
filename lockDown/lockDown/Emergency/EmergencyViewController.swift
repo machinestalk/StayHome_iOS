@@ -12,7 +12,7 @@ class EmergencyViewController: BaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "Emergency"
         // Do any additional setup after loading the view.
     }
     

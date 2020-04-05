@@ -11,13 +11,13 @@ import LGSideMenuController
 
 
 class MenuViewController: BaseController {
-    fileprivate var menuItems = ["MyZone_txt" , "checkIn_txt","emergency_txt","","", "tecSupport_txt", "aboutAs_txt" ]
-    let menuIconsArray = ["zones_black","check_black","emergency_black","","","support_black","about_black"]
-      let menuSelectedIconsArray = ["zones_green","check_green","emergency_green","","","support_green","about_green"]
+    fileprivate var menuItems = ["MyZone_txt" , "checkIn_txt","emergency_txt","", "tecSupport_txt", "aboutAs_txt" ]
+    let menuIconsArray = ["zones_black","check_black","emergency_black","","support_black","about_black"]
+    let menuSelectedIconsArray = ["zones_green","check_green","emergency_green","","support_green","about_green"]
     var selectedItem = 0
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var VersionLbl: UILabel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setMenu(menuItems: self.menuItems as NSArray)
@@ -26,7 +26,7 @@ class MenuViewController: BaseController {
         self.tableView.backgroundColor = UIColor.clear
         self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: UIScreen.main.bounds.size.height)
         self.tableView.separatorColor = .clear
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,12 +35,12 @@ class MenuViewController: BaseController {
     }
     
     @IBAction func switchToEnglish(_ sender: Any) {
-       /* let modalViewController = LanguageSettingsViewController()
-        modalViewController.modalPresentationStyle = .overCurrentContext
-        present(modalViewController, animated: false, completion: nil)*/
+        /* let modalViewController = LanguageSettingsViewController()
+         modalViewController.modalPresentationStyle = .overCurrentContext
+         present(modalViewController, animated: false, completion: nil)*/
     }
     
-  
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -87,7 +87,61 @@ extension MenuViewController: UITableViewDelegate {
                 hideMenu()
                 break
             }
-      
+        case 1:
+            do {
+                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: CheckInViewController.self)) {
+                    
+                    
+                    let vc = CheckInViewController(nibName: "CheckInViewController", bundle: nil)
+                    let navC = self.sideMenuController?.rootViewController as! UINavigationController
+                    navC.setViewControllers([vc], animated: true)
+                    selectedItem = 1
+                }
+                hideMenu()
+                break
+            }
+        case 2:
+            do {
+                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: EmergencyViewController.self)) {
+                    
+                    
+                    let vc = EmergencyViewController(nibName: "EmergencyViewController", bundle: nil)
+                    let navC = self.sideMenuController?.rootViewController as! UINavigationController
+                    navC.setViewControllers([vc], animated: true)
+                    selectedItem = 2
+                }
+                hideMenu()
+                break
+            }
+        case 3:
+            do {
+                
+            }
+            
+            break
+            
+        case 4:
+            do {
+                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: ContactUsViewController.self)) {
+                    
+                    
+                    let vc = ContactUsViewController(nibName: "ContactUsViewController", bundle: nil)
+                    let navC = self.sideMenuController?.rootViewController as! UINavigationController
+                    navC.setViewControllers([vc], animated: true)
+                    selectedItem = 4
+                }
+                hideMenu()
+                break
+                
+            }
+        case 5:
+            do {
+                
+                
+                hideMenu()
+                break
+                
+            }
         default:
             print("Default")
         }
@@ -95,7 +149,7 @@ extension MenuViewController: UITableViewDelegate {
         
     }
     
-   
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
     }
