@@ -12,7 +12,7 @@ class ContactUsViewController: BaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "contactUsTxt".localiz()
         // Do any additional setup after loading the view.
     }
     

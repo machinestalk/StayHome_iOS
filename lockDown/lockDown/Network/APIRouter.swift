@@ -40,7 +40,7 @@ enum APIRouter: URLRequestConvertible {
         case .sendFirebaseToken(let parameters) :
             return "api/plugins/telemetry/DEVICE/\(parameters.deviceid)/attributes/SERVER_SCOPE"
         case .sendSurvey(let parameters):
-             return "api/plugins/telemetry/CUSTOMER/\(parameters.deviceid)/timeseries/LATEST_TELEMETRY"
+            return "api/plugins/telemetry/CUSTOMER/\(parameters.deviceid)/timeseries/LATEST_TELEMETRY"
         }
     }
     
@@ -49,10 +49,10 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .signIn(let phoneNumber, let phoneOtp, let phoneUdid):
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber, LockDown.APIParameterKey.phoneOtp: phoneOtp, LockDown.APIParameterKey.phoneUdid:phoneUdid]
-            case .signUp(let phoneNumber):
+        case .signUp(let phoneNumber):
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber]
-         case . sendIsComplaint(let parameters):
-                return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint]
+        case . sendIsComplaint(let parameters):
+            return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint]
         case . sendZoneLocations(let parameters):
             return [LockDown.APIParameterKey.latitude : parameters.latitude , LockDown.APIParameterKey.longitude : parameters.longitude ,LockDown.APIParameterKey.radius : parameters.radius ]
         case .sendFirebaseToken(let parameters):
