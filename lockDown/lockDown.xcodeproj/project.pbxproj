@@ -78,6 +78,8 @@
 		FAC81E772438CF29002DBADE /* ContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E752438CF29002DBADE /* ContactUsViewController.xib */; };
 		FAC81E7B243A1EB2002DBADE /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC81E79243A1EB2002DBADE /* LandingViewController.swift */; };
 		FAC81E7C243A1EB2002DBADE /* LandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E7A243A1EB2002DBADE /* LandingViewController.xib */; };
+		FAC81E80243A84A7002DBADE /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC81E7E243A84A7002DBADE /* ContentViewController.swift */; };
+		FAC81E81243A84A7002DBADE /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E7F243A84A7002DBADE /* ContentViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +187,8 @@
 		FAC81E752438CF29002DBADE /* ContactUsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactUsViewController.xib; sourceTree = "<group>"; };
 		FAC81E79243A1EB2002DBADE /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		FAC81E7A243A1EB2002DBADE /* LandingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LandingViewController.xib; sourceTree = "<group>"; };
+		FAC81E7E243A84A7002DBADE /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		FAC81E7F243A84A7002DBADE /* ContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -275,6 +279,7 @@
 		FA6E9855243293F5000F2C2E /* lockDown */ = {
 			isa = PBXGroup;
 			children = (
+				FAC81E7D243A83DD002DBADE /* WebContainer */,
 				FAC81E78243A1E8F002DBADE /* LandingPage */,
 				FAC81E732438CEF5002DBADE /* ContactUs */,
 				FAC81E6E2438CEE9002DBADE /* Emergency */,
@@ -482,6 +487,15 @@
 			path = LandingPage;
 			sourceTree = "<group>";
 		};
+		FAC81E7D243A83DD002DBADE /* WebContainer */ = {
+			isa = PBXGroup;
+			children = (
+				FAC81E7E243A84A7002DBADE /* ContentViewController.swift */,
+				FAC81E7F243A84A7002DBADE /* ContentViewController.xib */,
+			);
+			path = WebContainer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -615,6 +629,7 @@
 				FAB7F3EC2433989F00061AE5 /* Localizable.strings in Resources */,
 				FAB7F41624339B0600061AE5 /* AvenirLTStd-Light.otf in Resources */,
 				FAB7F41D24339B0600061AE5 /* AvenirLTStd-Book.otf in Resources */,
+				FAC81E81243A84A7002DBADE /* ContentViewController.xib in Resources */,
 				FAB7F41F24339B0600061AE5 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				FA6E98B024329D15000F2C2E /* DashboardViewController.xib in Resources */,
 				FAB7F41B24339B0600061AE5 /* OpenSans-LightItalic.ttf in Resources */,
@@ -807,6 +822,7 @@
 				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
 				FAC36C8424375E50002B4928 /* BiometricsBottomViewController.swift in Sources */,
+				FAC81E80243A84A7002DBADE /* ContentViewController.swift in Sources */,
 				FA7ED09A243762D200C0060D /* MenuTableViewCell.swift in Sources */,
 				FA7ED09624364D1100C0060D /* FinishSignupViewController.swift in Sources */,
 				FA66D6442434B8880036D137 /* BaseController.swift in Sources */,
