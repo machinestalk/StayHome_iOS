@@ -34,6 +34,11 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var cameraa : GMSCameraPosition!
     var circle = GMSCircle()
     var marker = GMSMarker()
+    var countdownTimer: Timer!
+    var totalTime : Int!
+    let file = "Log.csv" //this is the file. we will write to and read from it
+    var fileURL : URL?
+    var Colons = [String]()
     @IBOutlet weak var addressLbl: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var recenterButton: Button!
@@ -66,8 +71,19 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            fileURL = dir.appendingPathComponent(file)
+        }
         setLocation()
-        
+        startTimer()
+        let deviceId = UserDefaults.standard.string(forKey: "deviceId")
+        let firebaseToken = UserDefaults.standard.string(forKey: "firebaseToken")
+        APIClient.sendFirebaseToken(deviceId: deviceId!, firebase_token: firebaseToken!, onSuccess: { (Msg) in
+            print(Msg)
+        } ,onFailure : { (error) in
+            print(error)
+        }
+        )
     }
     
     // MARK: setLocations
@@ -230,18 +246,14 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
     //Location Manager delegates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         let location = locations.last
         if let lastLocation = locations.last {
             currentLocation = lastLocation.coordinate
         }
-        
-        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 1.0)
-        //let camera = GMSCameraPosition.camera(withLatitude: 10.197235, longitude: 36.850652, zoom: 1.0)
-        //  self.mapView?.animate(to: camera)
-        //self.locationManager.stopUpdatingLocation()
+        locValue = currentLocation
         let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
-        let distance = circleLocation.distance(from: location!)
+        let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        let distance = circleLocation.distance(from: myLocation)
         
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         
@@ -258,33 +270,8 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 )
             }
         }
-        else
-        {
-            print("user in zone")
-            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                /*     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
-                 print(Msg)
-                 } ,onFailure : { (error) in
-                 print(error)
-                 }
-                 )*/
-                
-            }
-        }
-        
-        locValue = currentLocation
-        
-        
-        
-        
-        
-        
-        
-        //  let distanceInMeters = coordinateVeh.distance(from: coordinateUser)
-        
-        
-        
     }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:
@@ -490,6 +477,131 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         self.view.addSubview(ChangeLocationVC.view)
         ChangeLocationVC.didMove(toParent: self)
     }
+    
+    // MARK: Send data with counter
+    
+    func sendData() {
+        let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
+        let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        let distance = circleLocation.distance(from: myLocation)
+        
+        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+        
+        if(distance >= circle.radius)
+        {
+            print("user out of zone")
+            logToFile(value: "user out of zone , \(locValue.latitude),\(locValue.longitude) \n")
+            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+                    print(Msg)
+                } ,onFailure : { (error) in
+                    print(error)
+                }
+                )
+            }
+        }
+        else
+        {
+            print("user in zone")
+           logToFile(value: "user in zone , \(locValue.latitude),\(locValue.longitude) \n")
+            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
+                    print(Msg)
+                } ,onFailure : { (error) in
+                    print(error)
+                }
+                )
+                
+            }
+        }
+        
+        
+    }
+    
+    // MARK : Set counter for Check In
+    
+    //MARK : Add Timer
+    
+    func startTimer() {
+        if(countdownTimer != nil ){
+            countdownTimer.invalidate()
+            countdownTimer = nil
+        }
+        totalTime = 60
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTime() {
+        if(countdownTimer != nil){
+            let secondes = (totalTime % 60)
+            let minutes : Int = Int(totalTime / 60)
+            
+            if totalTime != 0 {
+                totalTime -= 1
+                UserDefaults.standard.set(totalTime, forKey: "counter")
+                print(String(format: "%02d:%02d", minutes, secondes))
+                
+            } else if secondes == 0 {
+                
+                sendData()
+                desactivateTimer()
+                startTimer()
+            }
+            else {
+                
+                //endTimer()
+            }
+            
+        }
+    }
+    
+    // MARK : Desactivate Timer
+    func desactivateTimer()  {
+        if(countdownTimer != nil ){
+            countdownTimer.invalidate()
+            countdownTimer = nil
+        }
+    }
+    
+   // MARK : Log in File
+    func logToFile(value : String)  {
+    let titleString = "Status, latitude, longitude"
+               var dataString: String
+               
+        Colons.append(value)
+
+               do {
+                   try "\(titleString)\n".write(to: fileURL!, atomically: false, encoding: String.Encoding.utf8)
+               } catch {
+                   print(error)
+               }
+               //writing
+
+        for i in 0...Colons.count-1 {
+                
+                   dataString =  String(Colons[i])
+                   //Check if file exists
+                   do {
+                       let fileHandle = try FileHandle(forWritingTo: fileURL!)
+                           fileHandle.seekToEndOfFile()
+                           fileHandle.write(dataString.data(using: .utf8)!)
+                           fileHandle.closeFile()
+                   } catch {
+                       print("Error writing to file \(error)")
+                   }
+                  // print(dataString)
+               }
+               print("Saving data in: \(fileURL!.path)")
+
+
+               //reading
+               do {
+                   let text2 = try String(contentsOf: fileURL!, encoding: .utf8)
+                   print(text2)
+               }
+               catch {/* error handling here */}
+           
+    }
 }
 // MARK: RequestLocation delagates methods
 
@@ -504,6 +616,7 @@ extension DashboardViewController: RequestLocationProtocol {
         
         APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
             print(Msg)
+            self.startTimer()
         } ,onFailure : { (error) in
             print(error)
         }

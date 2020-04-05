@@ -61,6 +61,8 @@
 		FAB7F42024339B0600061AE5 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40A24339B0500061AE5 /* OpenSans-Regular.ttf */; };
 		FAB7F42124339B0600061AE5 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40B24339B0500061AE5 /* OpenSans-BoldItalic.ttf */; };
 		FAB7F42224339B0600061AE5 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */; };
+		FAB9B83F2438FC85007364E7 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9B83D2438FC85007364E7 /* CheckInViewController.swift */; };
+		FAB9B8402438FC85007364E7 /* CheckInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB9B83E2438FC85007364E7 /* CheckInViewController.xib */; };
 		FAC36C812435DCFC002B4928 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C802435DCFC002B4928 /* UserData.swift */; };
 		FAC36C8424375E50002B4928 /* BiometricsBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C8224375E50002B4928 /* BiometricsBottomViewController.swift */; };
 		FAC36C8524375E50002B4928 /* BiometricsBottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC36C8324375E50002B4928 /* BiometricsBottomViewController.xib */; };
@@ -164,6 +166,8 @@
 		FAB7F40A24339B0500061AE5 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		FAB7F40B24339B0500061AE5 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Roman.otf"; sourceTree = "<group>"; };
+		FAB9B83D2438FC85007364E7 /* CheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
+		FAB9B83E2438FC85007364E7 /* CheckInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckInViewController.xib; sourceTree = "<group>"; };
 		FAC36C802435DCFC002B4928 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		FAC36C8224375E50002B4928 /* BiometricsBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsBottomViewController.swift; sourceTree = "<group>"; };
 		FAC36C8324375E50002B4928 /* BiometricsBottomViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricsBottomViewController.xib; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 			children = (
 				FAC81E732438CEF5002DBADE /* ContactUs */,
 				FAC81E6E2438CEE9002DBADE /* Emergency */,
+				FAB9B83C2438FC3E007364E7 /* CheckIn */,
 				FAC36C9524388829002B4928 /* SignUp */,
 				FAC36C7F2435DCB0002B4928 /* Entities */,
 				FAB7F3EF24339B0500061AE5 /* Resources */,
@@ -405,6 +410,15 @@
 				FAB7F40C24339B0500061AE5 /* AvenirLTStd-Roman.otf */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		FAB9B83C2438FC3E007364E7 /* CheckIn */ = {
+			isa = PBXGroup;
+			children = (
+				FAB9B83D2438FC85007364E7 /* CheckInViewController.swift */,
+				FAB9B83E2438FC85007364E7 /* CheckInViewController.xib */,
+			);
+			path = CheckIn;
 			sourceTree = "<group>";
 		};
 		FAC36C7F2435DCB0002B4928 /* Entities */ = {
@@ -599,6 +613,7 @@
 				FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */,
 				FAB7F41724339B0600061AE5 /* OpenSans-Light.ttf in Resources */,
 				FAC36C9E24388894002B4928 /* SurveyViewController.xib in Resources */,
+				FAB9B8402438FC85007364E7 /* CheckInViewController.xib in Resources */,
 				FA7ED09724364D1100C0060D /* FinishSignupViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -767,6 +782,7 @@
 				FA6E98A024329B83000F2C2E /* Constants.swift in Sources */,
 				FA6E989524329B7B000F2C2E /* APIRouter.swift in Sources */,
 				FA6E98A424329B83000F2C2E /* TextField.swift in Sources */,
+				FAB9B83F2438FC85007364E7 /* CheckInViewController.swift in Sources */,
 				FAC36C9824388868002B4928 /* WelcomeViewController.swift in Sources */,
 				FA6E98A124329B83000F2C2E /* LanguageManager.swift in Sources */,
 				FA7ED09E24376D3B00C0060D /* ChangeLocationViewController.swift in Sources */,

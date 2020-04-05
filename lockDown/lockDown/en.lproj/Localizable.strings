@@ -50,3 +50,11 @@
 "startBtn_txt" = "Start" ;
 "welcome_lbl_text0_txt" = "Welcome to the STAYHOME application launched by the Saudi Ministry of Health to ensure your safety and health from COVID-19 VIRUS.";
 "welcome_lbl_text1_txt" = "Please start the Sign Up Process which will include adding your home location and Face ID to the application.";
+
+//Check In
+
+"CheckIn_text0_txt"        = "As per as the instructions of Ministry of Health, during the quarantine period,";
+
+"CheckIn_text1_txt"        = "You must confirm your identity regularly.\n The data will be stored on your phone.";
+"checkIn_text2_txt"        = "Hi,are you there ?";
+"yesThere_txt"             = "Yes I'am here";

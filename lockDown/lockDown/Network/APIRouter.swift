@@ -15,11 +15,11 @@ enum APIRouter: URLRequestConvertible {
     case signUp(phoneNumber: String)
     case sendIsComplaint(deviceToken : String,iscomplaint: Int)
     case sendZoneLocations(deviceid : String,latitude: String ,longitude : String , radius : String)
-
+    case sendFirebaseToken(deviceid : String, firebase_token : String)
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations:
+        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken:
             return .post
         }
     }
@@ -36,6 +36,8 @@ enum APIRouter: URLRequestConvertible {
             return "api/v1/\(parameters.deviceToken)/telemetry"
         case .sendZoneLocations(let parameters):
             return "api/plugins/telemetry/CUSTOMER/\(parameters.deviceid)/timeseries/LATEST_TELEMETRY"
+        case .sendFirebaseToken(let parameters) :
+            return "api/plugins/telemetry/DEVICE/\(parameters.deviceid)/attributes/SERVER_SCOPE"
         }
     }
     
@@ -50,6 +52,8 @@ enum APIRouter: URLRequestConvertible {
                 return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint]
         case . sendZoneLocations(let parameters):
             return [LockDown.APIParameterKey.latitude : parameters.latitude , LockDown.APIParameterKey.longitude : parameters.longitude ,LockDown.APIParameterKey.radius : parameters.radius ]
+        case .sendFirebaseToken(let parameters):
+            return [LockDown.APIParameterKey.firebase_token : parameters.firebase_token]
         }
     }
     

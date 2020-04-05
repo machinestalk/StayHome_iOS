@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func getLandingPageWithSideMenu()->UIViewController {
         
-        self.navVC = self.getNavControllerWithRootController(controller: WelcomeViewController())
+        self.navVC = self.getNavControllerWithRootController(controller: DashboardViewController())
         var leftController: UIViewController? = nil
         var rightController: UIViewController? = nil
         if LanguageManger.shared.isRightToLeft {
@@ -152,6 +152,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
              NotificationCenter.default.post(name: Notification.Name("NotificationNoneLocation"), object: nil)
         }
+    let VC = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
+    VC.updateTime()
+   
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
     
@@ -160,9 +163,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
+        print("WillTerminate")
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
       
+    }
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if let VC = window?.rootViewController as? DashboardViewController {
+            // Update JSON data
+            VC.updateTime()
+            completionHandler(.newData)
+        }
     }
     // [START receive_message]
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
@@ -211,6 +222,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
     }
+    func getNotificationSettings() {
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                guard settings.authorizationStatus == .authorized else { return }
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.registerForRemoteNotifications()
+                })
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
 }
 
 // [START ios_10_message_handling]
@@ -264,7 +288,7 @@ extension AppDelegate : MessagingDelegate {
     // [START refresh_token]
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(fcmToken)")
-        
+     
         UserDefaults.standard.set(fcmToken, forKey: "firebaseToken")
         let dataDict:[String: String] = ["token": fcmToken]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)

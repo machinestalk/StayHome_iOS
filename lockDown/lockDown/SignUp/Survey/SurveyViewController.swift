@@ -12,7 +12,7 @@ class SurveyViewController: BaseController {
     
     let surveyIconsArray  = ["Scough","Sheadache","Sfever","Sbreath","Sno_sympthoms"]
     let surveyLabelsKeyArray = ["survey_cough_txt","survey_headache_txt","survey_fever_txt","survey_breath_txt","survey_no_symtoms_txt"]
-
+  
     @IBOutlet weak var tableView: UITableView!
 
         override func viewDidLoad() {
@@ -38,6 +38,12 @@ class SurveyViewController: BaseController {
             // Dispose of any resources that can be recreated.
         }
         
+    @IBAction func nextBtnDidTap(_ sender: Any) {
+       let DashboardVC = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
+       self.navigationController!.pushViewController(DashboardVC, animated: true)
+    }
+    
+  
     // extensions related to UItableView
 }
 
