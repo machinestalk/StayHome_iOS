@@ -136,7 +136,14 @@ extension MenuViewController: UITableViewDelegate {
             }
         case 5:
             do {
-                
+                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: ContentViewController.self)) {
+                    
+                    
+                    let vc = ContentViewController(nibName: "ContentViewController", bundle: nil)
+                    let navC = self.sideMenuController?.rootViewController as! UINavigationController
+                    navC.setViewControllers([vc], animated: true)
+                    selectedItem = 5
+                }
                 
                 hideMenu()
                 break
