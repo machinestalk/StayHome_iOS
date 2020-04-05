@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -53,7 +53,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter you phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfm-id-5dm" customClass="Label">
-                                    <rect key="frame" x="41" y="181" width="332" height="44"/>
+                                    <rect key="frame" x="41" y="165" width="332" height="60"/>
                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="31"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -61,8 +61,8 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Enter_your_Phone"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oc-hK-Wdi" customClass="Label">
-                                    <rect key="frame" x="41" y="245" width="46" height="22"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oc-hK-Wdi" customClass="Label">
+                                    <rect key="frame" x="41" y="245" width="332" height="22"/>
                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -228,7 +228,7 @@
                                             </constraints>
                                         </view>
                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e7L-cX-E93">
-                                            <rect key="frame" x="0.0" y="53" width="332" height="47"/>
+                                            <rect key="frame" x="0.0" y="96" width="332" height="47"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oSd-c3-onb" customClass="TextField" customModule="lockDown" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="47" height="47"/>
@@ -360,11 +360,11 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </stackView>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-eK-2AL" customClass="Button" customModule="lockDown" customModuleProvider="target">
-                                            <rect key="frame" x="116" y="120" width="100" height="32"/>
+                                            <rect key="frame" x="116" y="163" width="100" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="4cb-yy-eOo"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                             <state key="normal" title="Resend OTP">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -372,30 +372,42 @@
                                                 <userDefinedRuntimeAttribute type="string" keyPath="key" value="SgIn_SgIn_SuBtn_ResendPin"/>
                                             </userDefinedRuntimeAttributes>
                                         </button>
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rf5-bO-S3y">
+                                            <rect key="frame" x="116" y="191" width="100" height="1"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="Th2-8U-KRm"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="Dkp-eK-2AL" firstAttribute="centerX" secondItem="WtQ-gu-6tU" secondAttribute="centerX" id="D3y-4B-HDh"/>
+                                        <constraint firstItem="rf5-bO-S3y" firstAttribute="top" secondItem="Dkp-eK-2AL" secondAttribute="bottom" constant="-8" id="GdR-cO-JN0"/>
                                         <constraint firstItem="oi9-qG-CKV" firstAttribute="leading" secondItem="WtQ-gu-6tU" secondAttribute="leading" id="Gf0-AV-car"/>
                                         <constraint firstItem="oi9-qG-CKV" firstAttribute="top" secondItem="WtQ-gu-6tU" secondAttribute="top" constant="28" id="Hdb-hR-81Q"/>
                                         <constraint firstAttribute="trailing" secondItem="oi9-qG-CKV" secondAttribute="trailing" id="Jpo-dI-72g"/>
                                         <constraint firstItem="e7L-cX-E93" firstAttribute="leading" secondItem="WtQ-gu-6tU" secondAttribute="leading" id="O0e-j8-VJ6"/>
                                         <constraint firstAttribute="trailing" secondItem="e7L-cX-E93" secondAttribute="trailing" id="RBd-EM-Gcn"/>
-                                        <constraint firstItem="e7L-cX-E93" firstAttribute="centerY" secondItem="WtQ-gu-6tU" secondAttribute="centerY" constant="-69" id="Wfi-eD-Bca"/>
+                                        <constraint firstItem="e7L-cX-E93" firstAttribute="centerY" secondItem="WtQ-gu-6tU" secondAttribute="centerY" constant="-26" id="Wfi-eD-Bca"/>
+                                        <constraint firstItem="rf5-bO-S3y" firstAttribute="trailing" secondItem="Dkp-eK-2AL" secondAttribute="trailing" id="cpr-qg-t4B"/>
                                         <constraint firstItem="iLz-HJ-Vzg" firstAttribute="leading" secondItem="WtQ-gu-6tU" secondAttribute="leading" id="dhB-bh-aD6"/>
                                         <constraint firstItem="Dkp-eK-2AL" firstAttribute="top" secondItem="e7L-cX-E93" secondAttribute="bottom" constant="20" id="oO4-ek-hte"/>
                                         <constraint firstItem="oi9-qG-CKV" firstAttribute="centerY" secondItem="WtQ-gu-6tU" secondAttribute="centerY" id="r9D-SL-GTp"/>
+                                        <constraint firstItem="rf5-bO-S3y" firstAttribute="width" secondItem="Dkp-eK-2AL" secondAttribute="width" id="rXS-LQ-VCB"/>
+                                        <constraint firstItem="rf5-bO-S3y" firstAttribute="leading" secondItem="Dkp-eK-2AL" secondAttribute="leading" id="srT-Eq-x4U"/>
                                     </constraints>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="e7L-cX-E93" firstAttribute="top" secondItem="6oc-hK-Wdi" secondAttribute="bottom" constant="11" id="Brs-FN-dcE"/>
+                                <constraint firstItem="e7L-cX-E93" firstAttribute="top" secondItem="6oc-hK-Wdi" secondAttribute="bottom" constant="54" id="Brs-FN-dcE"/>
                                 <constraint firstItem="6oc-hK-Wdi" firstAttribute="leading" secondItem="e7L-cX-E93" secondAttribute="leading" id="If1-TA-hn4"/>
                                 <constraint firstItem="6oc-hK-Wdi" firstAttribute="top" secondItem="kfm-id-5dm" secondAttribute="bottom" constant="20" id="T37-5b-khi"/>
                                 <constraint firstItem="WtQ-gu-6tU" firstAttribute="leading" secondItem="0Xi-28-WQf" secondAttribute="leading" constant="41" id="bDY-1I-5om"/>
                                 <constraint firstItem="WtQ-gu-6tU" firstAttribute="top" secondItem="0Xi-28-WQf" secondAttribute="top" constant="225" id="hJo-Hs-kpJ"/>
-                                <constraint firstItem="kfm-id-5dm" firstAttribute="top" secondItem="0Xi-28-WQf" secondAttribute="top" constant="181" id="kyv-fS-GA3"/>
+                                <constraint firstItem="6oc-hK-Wdi" firstAttribute="trailing" secondItem="e7L-cX-E93" secondAttribute="trailing" id="hRr-gG-mrx"/>
+                                <constraint firstItem="kfm-id-5dm" firstAttribute="top" secondItem="0Xi-28-WQf" secondAttribute="top" constant="165" id="kyv-fS-GA3"/>
                                 <constraint firstItem="kfm-id-5dm" firstAttribute="width" secondItem="0Xi-28-WQf" secondAttribute="width" constant="-82" id="s1m-76-0yX"/>
                                 <constraint firstAttribute="trailing" secondItem="WtQ-gu-6tU" secondAttribute="trailing" constant="41" id="uAg-J8-Nmn"/>
                                 <constraint firstItem="kfm-id-5dm" firstAttribute="leading" secondItem="e7L-cX-E93" secondAttribute="leading" id="wMO-tM-3bz"/>
@@ -449,7 +461,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-713.04347826086962" y="-25.446428571428569"/>
+            <point key="canvasLocation" x="-713.60000000000002" y="-26.086956521739133"/>
         </view>
     </objects>
     <resources>

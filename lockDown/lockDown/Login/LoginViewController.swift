@@ -235,6 +235,7 @@ class LoginViewController: BaseController {
     
     func verifyOTP(){
         
+        self.startLoading()
         let deviceUDIDString = UIDevice.current.identifierForVendor!.uuidString
         let otpString = String(format:"%@%@%@%@%@%@", text1.text!, text2.text!, text3.text!, text4.text!, text5.text!, text6.text!)
         let userDataFuture = APIClient.signIn(phoneNumber: UserDefaults.standard.value(forKey: "UserNameSignUp") as! String, phoneOtp: otpString, phoneUdid: deviceUDIDString)
@@ -247,6 +248,7 @@ class LoginViewController: BaseController {
             UserDefaults.standard.set(userData.deviceID, forKey:"deviceId")
             let userDictionary = self.decode(jwtToken:userData.token!)
             UserDefaults.standard.set(userDictionary["customerId"], forKey:"customerId")
+            self.finishLoading()
             self.displayHomePage()
         }, onFailure: {error in
             print(error)
@@ -259,13 +261,16 @@ class LoginViewController: BaseController {
             //Case Phone Number
             if userNameInputView.text!.isDigits
             {
+                self.startLoading()
                 let newCountrycode = kPhoneSubscriptWithZero.replacingOccurrences(of: "+", with: "00", options: .literal, range: nil)
                 let phoneString = newCountrycode + userNameInputView.text!
                 APIClient.singUp(phoneNumber: phoneString, onSuccess: {(success) in
                     print(success)
+                    self.finishLoading()
                     UserDefaults.standard.set(phoneString, forKey:"UserNameSignUp")
                     self.changeView()
                 }, onFailure: {(error) in
+                    self.finishLoading()
                     print(error)
                 })
             }

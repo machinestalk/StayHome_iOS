@@ -15,10 +15,14 @@ class WelcomeViewController: BaseController {
 
         // Do any additional setup after loading the view.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
-        self.navigationController!.navigationBar.isHidden = true
+        self.navigationController!.navigationBar.isHidden = false
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
+        self.navigationItem.setHidesBackButton(true, animated: true);
+
+        self.title = "SignUpTitle".localiz()
     }
     
     @IBAction func showSurveyScreen(_ sender: Any) {

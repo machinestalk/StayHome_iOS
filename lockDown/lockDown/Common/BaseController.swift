@@ -92,7 +92,10 @@ class BaseController: UIViewController ,UITextFieldDelegate  {
                 }
                 var leftNavigationButtons = NSMutableArray(array: self.navigationBarLeftButtons())
                 leftNavigationButtons.add(button)
-                self.navigationItem.leftBarButtonItems  = leftNavigationButtons as! [UIBarButtonItem]
+                if !(viewController is WelcomeViewController) {
+                    self.navigationItem.leftBarButtonItems  = leftNavigationButtons as! [UIBarButtonItem]
+                }
+                
             }
         }
     }

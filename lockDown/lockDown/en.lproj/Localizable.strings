@@ -39,8 +39,12 @@
 "ChangeLocation_txt"                            ="if your home location is wrong \n and you want to change it, \n Please contact the technical support team";
 "contactUsTxt"                                  = "Contact Us";
 
-//Survey Screen
+//Login Screen
+"SgIn_SgIn_Lbl_login_verifyPin" = "Enter OTP";
+"SgIn_SgIn_Lbl_login_pin" = "Enter the OTP send to verification by email or phone number.";
+"SgIn_SgIn_SuBtn_ResendPin" = "Resend OTP";
 
+//Survey Screen
 "survey_lbl_title_txt" = "Self Diagnose Questions";
 "survey_lbl_text_txt" = "To keep yourself and others healthy.This survey aims to acquaint you with the best guidelines.";
 "survey_cough_txt" = "Do you have Cough ?";
@@ -56,9 +60,7 @@
 "welcome_lbl_text1_txt" = "Please start the Sign Up Process which will include adding your home location and Face ID to the application.";
 
 //Check In
-
 "CheckIn_text0_txt"        = "As per as the instructions of Ministry of Health, during the quarantine period,";
-
 "CheckIn_text1_txt"        = "You must confirm your identity regularly.\n The data will be stored on your phone.";
 "checkIn_text2_txt"        = "Hi,are you there ?";
 "yesThere_txt"             = "Yes I'am here";
@@ -68,3 +70,6 @@
 "survey_lbl_text0_txt"                 = "If you have any symptoms : ";
 "survey_lbl_text1_txt"                  = "And you need assistant, please";
 "emergency_callBtn_txt"                 = "Call Emergency";
+
+//Contact US
+"contactUS_lbl_txt" = "Contact Technical Support if you have any issue with the application.";
