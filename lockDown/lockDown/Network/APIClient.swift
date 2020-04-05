@@ -95,4 +95,18 @@ static func sendTelimetry(deviceToken : String , iscomplaint : Int,onSuccess suc
         }
         )
     }
+    
+    
+    static func sendFirebaseToken(deviceId : String , firebase_token : String,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.sendFirebaseToken(deviceid: deviceId,firebase_token : firebase_token), onSuccess: { (responseObject: String) -> Void in
+            successCallback?("successMessage")
+        },
+           onFailure: {(errorMessage: String) -> Void in
+             print(errorMessage)
+             failureCallback?("errorMessage")
+        }
+        )
+    }
 }

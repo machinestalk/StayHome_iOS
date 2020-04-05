@@ -41,6 +41,7 @@ struct LockDown {
         static let latitude = "latitude"
         static let longitude = "longitude"
         static let radius = "radius"
+        static let firebase_token = "firebase_token"
 
     }
 }

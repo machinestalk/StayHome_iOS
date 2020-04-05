@@ -36,6 +36,9 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var marker = GMSMarker()
     var countdownTimer: Timer!
     var totalTime : Int!
+    let file = "Log.csv" //this is the file. we will write to and read from it
+    var fileURL : URL?
+    var Colons = [String]()
     @IBOutlet weak var addressLbl: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var recenterButton: Button!
@@ -68,9 +71,19 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            fileURL = dir.appendingPathComponent(file)
+        }
         setLocation()
         startTimer()
-        
+        let deviceId = UserDefaults.standard.string(forKey: "deviceId")
+        let firebaseToken = UserDefaults.standard.string(forKey: "firebaseToken")
+        APIClient.sendFirebaseToken(deviceId: deviceId!, firebase_token: firebaseToken!, onSuccess: { (Msg) in
+            print(Msg)
+        } ,onFailure : { (error) in
+            print(error)
+        }
+        )
     }
     
     // MARK: setLocations
@@ -477,7 +490,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         if(distance >= circle.radius)
         {
             print("user out of zone")
-            
+            logToFile(value: "user out of zone , \(locValue.latitude),\(locValue.longitude) \n")
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
                     print(Msg)
@@ -490,13 +503,14 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         else
         {
             print("user in zone")
+           logToFile(value: "user in zone , \(locValue.latitude),\(locValue.longitude) \n")
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
-                 print(Msg)
-                 } ,onFailure : { (error) in
-                 print(error)
-                 }
-                 )
+                    print(Msg)
+                } ,onFailure : { (error) in
+                    print(error)
+                }
+                )
                 
             }
         }
@@ -507,50 +521,87 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     // MARK : Set counter for Check In
     
     //MARK : Add Timer
-      
-      func startTimer() {
-          if(countdownTimer != nil ){
-              countdownTimer.invalidate()
-              countdownTimer = nil
-          }
-          totalTime = 60
-          countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-      }
-      
-      @objc func updateTime() {
-          if(countdownTimer != nil){
-              let secondes = (totalTime % 60)
-              let minutes : Int = Int(totalTime / 60)
-              
-              if totalTime != 0 {
-                  totalTime -= 1
+    
+    func startTimer() {
+        if(countdownTimer != nil ){
+            countdownTimer.invalidate()
+            countdownTimer = nil
+        }
+        totalTime = 60
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTime() {
+        if(countdownTimer != nil){
+            let secondes = (totalTime % 60)
+            let minutes : Int = Int(totalTime / 60)
+            
+            if totalTime != 0 {
+                totalTime -= 1
+                UserDefaults.standard.set(totalTime, forKey: "counter")
                 print(String(format: "%02d:%02d", minutes, secondes))
-                  
-              } else if secondes == 0 {
                 
-                 sendData()
-                 desactivateTimer()
-                 startTimer()
-              }
-              else {
-                   
-                  //endTimer()
-                  }
-                  
-              }
-          }
-      
-      // MARK : Desactivate Timer
-      func desactivateTimer()  {
-          if(countdownTimer != nil ){
-              countdownTimer.invalidate()
-              countdownTimer = nil
-          }
-      }
+            } else if secondes == 0 {
+                
+                sendData()
+                desactivateTimer()
+                startTimer()
+            }
+            else {
+                
+                //endTimer()
+            }
+            
+        }
+    }
     
+    // MARK : Desactivate Timer
+    func desactivateTimer()  {
+        if(countdownTimer != nil ){
+            countdownTimer.invalidate()
+            countdownTimer = nil
+        }
+    }
     
-    
-    
+   // MARK : Log in File
+    func logToFile(value : String)  {
+    let titleString = "Status, latitude, longitude"
+               var dataString: String
+               
+        Colons.append(value)
+
+               do {
+                   try "\(titleString)\n".write(to: fileURL!, atomically: false, encoding: String.Encoding.utf8)
+               } catch {
+                   print(error)
+               }
+               //writing
+
+        for i in 0...Colons.count-1 {
+                
+                   dataString =  String(Colons[i])
+                   //Check if file exists
+                   do {
+                       let fileHandle = try FileHandle(forWritingTo: fileURL!)
+                           fileHandle.seekToEndOfFile()
+                           fileHandle.write(dataString.data(using: .utf8)!)
+                           fileHandle.closeFile()
+                   } catch {
+                       print("Error writing to file \(error)")
+                   }
+                  // print(dataString)
+               }
+               print("Saving data in: \(fileURL!.path)")
+
+
+               //reading
+               do {
+                   let text2 = try String(contentsOf: fileURL!, encoding: .utf8)
+                   print(text2)
+               }
+               catch {/* error handling here */}
+           
+    }
 }
 // MARK: RequestLocation delagates methods
 
