@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckInViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
+                <outlet property="counter" destination="aW8-d3-eJU" id="8XG-vL-Y0N"/>
                 <outlet property="view" destination="6sZ-Dw-ovZ" id="PYC-VG-aea"/>
             </connections>
         </placeholder>
@@ -52,7 +53,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZG-RT-T1p" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="20" y="333" width="374" height="100"/>
+                    <rect key="frame" x="20" y="318" width="374" height="100"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="100" id="0Qx-ep-Ylu"/>
                     </constraints>
@@ -64,23 +65,23 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sick_patient" translatesAutoresizingMaskIntoConstraints="NO" id="7ZF-P1-siB">
-                    <rect key="frame" x="160.5" y="484" width="93" height="102"/>
+                    <rect key="frame" x="160.5" y="423" width="93" height="102"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="93" id="OC5-Lf-wt2"/>
                         <constraint firstAttribute="height" constant="102" id="o6b-mQ-DVW"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aW8-d3-eJU">
-                    <rect key="frame" x="20" y="596" width="374" height="50"/>
+                    <rect key="frame" x="20" y="535" width="374" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="Bu0-5h-r3Z"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="37"/>
+                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="38"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3E-At-4HG" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="20" y="666" width="374" height="25"/>
+                    <rect key="frame" x="20" y="605" width="374" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="Pye-fc-rqF"/>
                     </constraints>
@@ -94,7 +95,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="7ZF-P1-siB" firstAttribute="top" secondItem="rZG-RT-T1p" secondAttribute="bottom" constant="51" id="1Ot-Eo-Ryc"/>
+                <constraint firstItem="7ZF-P1-siB" firstAttribute="top" secondItem="rZG-RT-T1p" secondAttribute="bottom" constant="5" id="1Ot-Eo-Ryc"/>
                 <constraint firstItem="EvE-Wm-Ssa" firstAttribute="centerX" secondItem="6sZ-Dw-ovZ" secondAttribute="centerX" id="9DS-91-J8d"/>
                 <constraint firstItem="rZG-RT-T1p" firstAttribute="leading" secondItem="XF9-F8-Zv8" secondAttribute="leading" constant="20" id="EzF-oB-643"/>
                 <constraint firstItem="r3E-At-4HG" firstAttribute="width" secondItem="aW8-d3-eJU" secondAttribute="width" id="Fti-TP-Eqp"/>
@@ -108,7 +109,7 @@
                 <constraint firstItem="aW8-d3-eJU" firstAttribute="top" secondItem="7ZF-P1-siB" secondAttribute="bottom" constant="10" id="dbI-8S-dlI"/>
                 <constraint firstItem="7ZF-P1-siB" firstAttribute="centerX" secondItem="rZG-RT-T1p" secondAttribute="centerX" id="eQD-Fl-Wh4"/>
                 <constraint firstItem="J1X-xO-ouY" firstAttribute="top" secondItem="PBA-Dz-uLu" secondAttribute="bottom" constant="50" id="oWZ-eX-o7q"/>
-                <constraint firstItem="rZG-RT-T1p" firstAttribute="top" secondItem="J1X-xO-ouY" secondAttribute="bottom" constant="10" id="qSh-k4-uVi"/>
+                <constraint firstItem="rZG-RT-T1p" firstAttribute="top" secondItem="J1X-xO-ouY" secondAttribute="bottom" constant="-5" id="qSh-k4-uVi"/>
                 <constraint firstItem="r3E-At-4HG" firstAttribute="top" secondItem="aW8-d3-eJU" secondAttribute="bottom" constant="20" id="seo-sN-8ZJ"/>
                 <constraint firstItem="aW8-d3-eJU" firstAttribute="centerX" secondItem="rZG-RT-T1p" secondAttribute="centerX" id="v5y-Pa-9WZ"/>
                 <constraint firstItem="J1X-xO-ouY" firstAttribute="leading" secondItem="XF9-F8-Zv8" secondAttribute="leading" constant="20" id="xox-Ao-rkJ"/>
