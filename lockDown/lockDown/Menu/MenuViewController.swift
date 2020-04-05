@@ -175,7 +175,7 @@ extension MenuViewController: UITableViewDataSource {
             cell.menuIcon.image = UIImage(named:menuIconsArray[indexPath.row])
             cell.selectedView.isHidden = true
         }
-        cell.topLbl.isHidden = (indexPath.row != 5)
+        cell.topLbl.isHidden = (indexPath.row != 4)
         return cell
     }
 }

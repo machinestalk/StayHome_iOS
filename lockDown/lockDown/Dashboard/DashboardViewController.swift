@@ -629,6 +629,8 @@ extension DashboardViewController: RequestLocationProtocol {
 
 extension DashboardViewController : ChangeLocationProtocol {
     func ContactUs() {
-        print("ContactUs")
+        let contactUsVC = ContactUsViewController(nibName: "ContactUsViewController", bundle: nil)
+      
+        self.navigationController!.pushViewController(contactUsVC, animated: true)
     }
 }
