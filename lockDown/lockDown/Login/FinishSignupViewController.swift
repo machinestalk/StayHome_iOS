@@ -27,6 +27,7 @@ class FinishSignupViewController: BaseController {
             successMsg.text = "FinishSuccessLbl".localiz()
             instrictionsView.isHidden = true
             SignUpfinishedView.isHidden = false
+            agreedButton.isHidden = true
             self.title = "Check In"
         }
         else {

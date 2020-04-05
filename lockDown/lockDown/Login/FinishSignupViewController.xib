@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FinishSignupViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
                 <outlet property="SignUpfinishedView" destination="sVt-SA-xHT" id="aoi-gq-KDn"/>
+                <outlet property="agreedButton" destination="9Jg-E2-W2u" id="YAS-Ah-xWv"/>
                 <outlet property="instrictionsTxt" destination="rk0-rZ-nTm" id="VCC-sB-QAD"/>
                 <outlet property="instrictionsView" destination="M0Z-B7-wJ0" id="ceA-Ue-Qjb"/>
                 <outlet property="successMsg" destination="soM-Em-L6U" id="kGy-ta-z2n"/>
