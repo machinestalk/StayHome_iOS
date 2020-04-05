@@ -21,7 +21,8 @@ class FinishSignupViewController: BaseController {
         super.viewDidLoad()
         instrictionsTxt.text = "instrutionsTxt".localiz()
         
-        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
         if isFromCheckIn {
             successMsg.text = "FinishSuccessLbl".localiz()
             instrictionsView.isHidden = true
