@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>StayHome KSA</string>
+	<string>stayhome KSA</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
@@ -34,15 +34,15 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>This app needs Face ID to recognize you</string>
 	<key>NSLocationAlwaysAndWhenInUsageDescription</key>
-	<string>Allow "StayHome KSA" to access your location while you are using the app?</string>
+	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow "StayHome KSA" to access your location while you are using the app?</string>
+	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow "StayHome KSA" to access your location while you are using the app?</string>
+	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Allow "StayHome KSA" to access your location while you are using the app?</string>
+	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow "StayHome KSA" to access your location while you are using the app?</string>
+	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Bold.ttf</string>
