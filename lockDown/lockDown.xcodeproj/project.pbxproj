@@ -70,6 +70,10 @@
 		FAC36C9E24388894002B4928 /* SurveyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC36C9C24388894002B4928 /* SurveyViewController.xib */; };
 		FAC36CA1243888BA002B4928 /* SurveyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC36C9F243888BA002B4928 /* SurveyCell.swift */; };
 		FAC36CA2243888BA002B4928 /* SurveyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC36CA0243888BA002B4928 /* SurveyCell.xib */; };
+		FAC81E712438CEE9002DBADE /* EmergencyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E6F2438CEE9002DBADE /* EmergencyViewController.xib */; };
+		FAC81E722438CEE9002DBADE /* EmergencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC81E702438CEE9002DBADE /* EmergencyViewController.swift */; };
+		FAC81E762438CF29002DBADE /* ContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC81E742438CF29002DBADE /* ContactUsViewController.swift */; };
+		FAC81E772438CF29002DBADE /* ContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E752438CF29002DBADE /* ContactUsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +173,10 @@
 		FAC36C9C24388894002B4928 /* SurveyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SurveyViewController.xib; sourceTree = "<group>"; };
 		FAC36C9F243888BA002B4928 /* SurveyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyCell.swift; sourceTree = "<group>"; };
 		FAC36CA0243888BA002B4928 /* SurveyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SurveyCell.xib; sourceTree = "<group>"; };
+		FAC81E6F2438CEE9002DBADE /* EmergencyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmergencyViewController.xib; sourceTree = "<group>"; };
+		FAC81E702438CEE9002DBADE /* EmergencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyViewController.swift; sourceTree = "<group>"; };
+		FAC81E742438CF29002DBADE /* ContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewController.swift; sourceTree = "<group>"; };
+		FAC81E752438CF29002DBADE /* ContactUsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactUsViewController.xib; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -259,6 +267,8 @@
 		FA6E9855243293F5000F2C2E /* lockDown */ = {
 			isa = PBXGroup;
 			children = (
+				FAC81E732438CEF5002DBADE /* ContactUs */,
+				FAC81E6E2438CEE9002DBADE /* Emergency */,
 				FAC36C9524388829002B4928 /* SignUp */,
 				FAC36C7F2435DCB0002B4928 /* Entities */,
 				FAB7F3EF24339B0500061AE5 /* Resources */,
@@ -426,6 +436,24 @@
 			path = Survey;
 			sourceTree = "<group>";
 		};
+		FAC81E6E2438CEE9002DBADE /* Emergency */ = {
+			isa = PBXGroup;
+			children = (
+				FAC81E702438CEE9002DBADE /* EmergencyViewController.swift */,
+				FAC81E6F2438CEE9002DBADE /* EmergencyViewController.xib */,
+			);
+			path = Emergency;
+			sourceTree = "<group>";
+		};
+		FAC81E732438CEF5002DBADE /* ContactUs */ = {
+			isa = PBXGroup;
+			children = (
+				FAC81E742438CF29002DBADE /* ContactUsViewController.swift */,
+				FAC81E752438CF29002DBADE /* ContactUsViewController.xib */,
+			);
+			path = ContactUs;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -549,6 +577,7 @@
 				FAC36CA2243888BA002B4928 /* SurveyCell.xib in Resources */,
 				FAC36C8524375E50002B4928 /* BiometricsBottomViewController.xib in Resources */,
 				FAB7F41824339B0600061AE5 /* OpenSans-Italic.ttf in Resources */,
+				FAC81E712438CEE9002DBADE /* EmergencyViewController.xib in Resources */,
 				FAB7F41E24339B0600061AE5 /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				FA7ED09B243762D200C0060D /* MenuTableViewCell.xib in Resources */,
 				FA7ED09F24376D3B00C0060D /* ChangeLocationViewController.xib in Resources */,
@@ -565,6 +594,7 @@
 				FAB7F41C24339B0600061AE5 /* OpenSans-Bold.ttf in Resources */,
 				FAB7F42124339B0600061AE5 /* OpenSans-BoldItalic.ttf in Resources */,
 				FA6E985E243293F5000F2C2E /* Main.storyboard in Resources */,
+				FAC81E772438CF29002DBADE /* ContactUsViewController.xib in Resources */,
 				FAB7F42224339B0600061AE5 /* AvenirLTStd-Roman.otf in Resources */,
 				FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */,
 				FAB7F41724339B0600061AE5 /* OpenSans-Light.ttf in Resources */,
@@ -753,8 +783,10 @@
 				FA6E9859243293F5000F2C2E /* SceneDelegate.swift in Sources */,
 				FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */,
 				FA17C4BD243337B9000516EF /* BiometricsAuthViewController.swift in Sources */,
+				FAC81E722438CEE9002DBADE /* EmergencyViewController.swift in Sources */,
 				FA6E98A324329B83000F2C2E /* NormalTextField.swift in Sources */,
 				FA6E989424329B7B000F2C2E /* APIClient.swift in Sources */,
+				FAC81E762438CF29002DBADE /* ContactUsViewController.swift in Sources */,
 				FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */,
 				FAC36C812435DCFC002B4928 /* UserData.swift in Sources */,
 				FA6E98A624329B83000F2C2E /* Button.swift in Sources */,
