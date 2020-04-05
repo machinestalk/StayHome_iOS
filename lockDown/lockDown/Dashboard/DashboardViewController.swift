@@ -21,6 +21,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
+    var isfirstTime = false
     var nextState:CardState {
         return cardVisible ? .collapsed : .expanded
     }
@@ -75,7 +76,11 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             fileURL = dir.appendingPathComponent(file)
         }
         setLocation()
-        startTimer()
+        if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
+           if  !UserDefaults.standard.bool(forKey: "isFirstTime")  {
+                startTimer()
+            }
+        }
         let deviceId = UserDefaults.standard.string(forKey: "deviceId")
         let firebaseToken = UserDefaults.standard.string(forKey: "firebaseToken")
         APIClient.sendFirebaseToken(deviceId: deviceId!, firebase_token: firebaseToken!, onSuccess: { (Msg) in
@@ -523,6 +528,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     //MARK : Add Timer
     
     func startTimer() {
+        UserDefaults.standard.set(true, forKey: "isFirstTime")
         if(countdownTimer != nil ){
             countdownTimer.invalidate()
             countdownTimer = nil
