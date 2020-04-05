@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BiometricsAuthViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
                 <outlet property="stateView" destination="Uc6-kV-m0e" id="61H-U3-hrr"/>
+                <outlet property="stepsImg" destination="u41-aa-GAY" id="8er-Ph-lRu"/>
                 <outlet property="view" destination="6Q6-50-74m" id="3ef-Mx-OTP"/>
             </connections>
         </placeholder>

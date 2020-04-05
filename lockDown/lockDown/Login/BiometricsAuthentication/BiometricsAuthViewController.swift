@@ -12,7 +12,8 @@ import LocalAuthentication
 
 class BiometricsAuthViewController: BaseController {
     var isFromCheckIn = false
-
+    @IBOutlet weak var stepsImg: UIImageView!
+    
     @IBOutlet weak var stateView: UIView!
     
     enum CardState {
@@ -54,8 +55,13 @@ class BiometricsAuthViewController: BaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(isFromCheckIn){
+            self.title = "checkIn_txt".localiz()
+            stepsImg.isHidden = true
+        }
+        else {
         self.title = "SignUpTitle".localiz()
-
+        }
         // The biometryType, which affects this app's UI when state changes, is only meaningful
         //  after running canEvaluatePolicy. But make sure not to run this test from inside a
         //  policy evaluation callback (for example, don't put next line in the state's didSet
