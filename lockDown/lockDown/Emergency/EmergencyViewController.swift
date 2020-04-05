@@ -8,14 +8,18 @@
 
 import UIKit
 
-class EmergencyViewController: UIViewController {
+class EmergencyViewController: BaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
+    }
 
     /*
     // MARK: - Navigation
