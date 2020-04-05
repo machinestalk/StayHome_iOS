@@ -23,7 +23,8 @@ class BaseController: UIViewController ,UITextFieldDelegate  {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
   
     override func didReceiveMemoryWarning() {
@@ -80,7 +81,18 @@ class BaseController: UIViewController ,UITextFieldDelegate  {
                     leftNavigationButtons.add(button)
                     self.navigationItem.leftBarButtonItems  = leftNavigationButtons as! [UIBarButtonItem]
                     
+                }else {
+                    if ( language == "ar"){
+                        button = UIBarButtonItem(image: UIImage(named: "back-arrow-ar"), style: .plain, target: self, action: #selector(backButtonPressed))
+                        
+                    }
+                    else {
+                        button = UIBarButtonItem(image: UIImage(named: "back-arrow"), style: .plain, target: self, action: #selector(backButtonPressed))
+                    }
                 }
+                var leftNavigationButtons = NSMutableArray(array: self.navigationBarLeftButtons())
+                leftNavigationButtons.add(button)
+                self.navigationItem.leftBarButtonItems  = leftNavigationButtons as! [UIBarButtonItem]
             }
         }
     }

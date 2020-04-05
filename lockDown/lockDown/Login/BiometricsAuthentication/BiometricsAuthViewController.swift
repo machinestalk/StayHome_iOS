@@ -53,6 +53,7 @@ class BiometricsAuthViewController: BaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "SignUpTitle".localiz()
 
         // The biometryType, which affects this app's UI when state changes, is only meaningful
         //  after running canEvaluatePolicy. But make sure not to run this test from inside a
@@ -136,13 +137,6 @@ class BiometricsAuthViewController: BaseController {
         biometricsBottomVC.successImage.isHidden = false
         biometricsBottomVC.nextBtn.setBackgroundImage(UIImage(named: "red_button"), for: .normal)
         biometricsBottomVC.nextBtn.titleLabel?.text = "Retry"
-//        biometricsBottomVC.delegate = self
-//        let height = view.frame.height
-//        let width  = view.frame.width
-//        biometricsBottomVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-//        self.addChild(biometricsBottomVC)
-//        self.view.addSubview(biometricsBottomVC.view)
-//        biometricsBottomVC.didMove(toParent: self)
     }
     func setupSuccessBiometricsBottomVC(){
         
@@ -151,13 +145,6 @@ class BiometricsAuthViewController: BaseController {
         biometricsBottomVC.successImage.isHidden = false
         biometricsBottomVC.nextBtn.setBackgroundImage(UIImage(named: "green_button"), for: .normal)
         biometricsBottomVC.nextBtn.titleLabel?.text = "Next"
-//        biometricsBottomVC.delegate = self
-//        let height = view.frame.height
-//        let width  = view.frame.width
-//        biometricsBottomVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-//        self.addChild(biometricsBottomVC)
-//        self.view.addSubview(biometricsBottomVC.view)
-//        biometricsBottomVC.didMove(toParent: self)
     }
 }
 

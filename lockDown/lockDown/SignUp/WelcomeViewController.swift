@@ -17,7 +17,8 @@ class WelcomeViewController: BaseController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
+        //self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
+        self.navigationController!.navigationBar.isHidden = true
     }
     
     @IBAction func showSurveyScreen(_ sender: Any) {

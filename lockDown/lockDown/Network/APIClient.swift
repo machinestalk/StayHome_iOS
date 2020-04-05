@@ -109,4 +109,17 @@ static func sendTelimetry(deviceToken : String , iscomplaint : Int,onSuccess suc
         }
         )
     }
+    
+    static func sendSurveyTelimetry(deviceid : String, data:[String:Any],onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.sendSurvey(deviceid: deviceid, data: data), onSuccess: { (responseObject: String) -> Void in
+            successCallback?("successMessage")
+        },
+           onFailure: {(errorMessage: String) -> Void in
+             print(errorMessage)
+             failureCallback?("errorMessage")
+        }
+        )
+    }
 }

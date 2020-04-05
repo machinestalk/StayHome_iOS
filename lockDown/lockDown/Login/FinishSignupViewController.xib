@@ -59,21 +59,6 @@
                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Jg-E2-W2u" customClass="Button" customModule="lockDown" customModuleProvider="target">
-                            <rect key="frame" x="132" y="530" width="150" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="150" id="fed-Mn-dv8"/>
-                                <constraint firstAttribute="height" constant="50" id="pD1-GE-gPC"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                            <state key="normal" backgroundImage="green_button"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="key" value="agreedBtnTitle"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="agreedBtnDidTap:" destination="-1" eventType="touchUpInside" id="AO4-Fh-ChU"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
@@ -83,13 +68,11 @@
                         <constraint firstItem="7ZL-rw-z18" firstAttribute="top" secondItem="M0Z-B7-wJ0" secondAttribute="top" constant="80" id="CYS-jL-07d"/>
                         <constraint firstItem="EAg-xj-VPy" firstAttribute="top" secondItem="7ZL-rw-z18" secondAttribute="bottom" constant="30" id="CfM-FT-jjo"/>
                         <constraint firstItem="2b3-zS-nxr" firstAttribute="width" secondItem="7ZL-rw-z18" secondAttribute="width" id="NYu-Jh-dXB"/>
-                        <constraint firstItem="9Jg-E2-W2u" firstAttribute="top" secondItem="rk0-rZ-nTm" secondAttribute="bottom" id="XG0-KC-mYW"/>
                         <constraint firstItem="2b3-zS-nxr" firstAttribute="top" secondItem="EAg-xj-VPy" secondAttribute="bottom" constant="40" id="Zoq-fE-4ml"/>
                         <constraint firstItem="rk0-rZ-nTm" firstAttribute="centerX" secondItem="2b3-zS-nxr" secondAttribute="centerX" id="kIZ-oq-XJC"/>
                         <constraint firstItem="7ZL-rw-z18" firstAttribute="centerX" secondItem="M0Z-B7-wJ0" secondAttribute="centerX" id="ri8-7R-pIt"/>
                         <constraint firstItem="2b3-zS-nxr" firstAttribute="centerX" secondItem="EAg-xj-VPy" secondAttribute="centerX" id="uWP-PG-jnO"/>
                         <constraint firstItem="EAg-xj-VPy" firstAttribute="centerX" secondItem="7ZL-rw-z18" secondAttribute="centerX" id="v8p-fc-ps7"/>
-                        <constraint firstItem="9Jg-E2-W2u" firstAttribute="centerX" secondItem="rk0-rZ-nTm" secondAttribute="centerX" id="yC8-iZ-VC0"/>
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sVt-SA-xHT">
@@ -146,6 +129,22 @@
                         <constraint firstItem="wfX-jM-ZvU" firstAttribute="centerX" secondItem="sVt-SA-xHT" secondAttribute="centerX" id="uq9-xe-akl"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Jg-E2-W2u" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="132" y="782" width="150" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="Mah-4n-ssg"/>
+                        <constraint firstAttribute="height" constant="50" id="vlf-FT-IPT"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="5IE-J7-lS1"/>
+                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                    <state key="normal" backgroundImage="green_button"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="agreedBtnTitle"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="agreedBtnDidTap:" destination="-1" eventType="touchUpInside" id="AO4-Fh-ChU"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -155,7 +154,9 @@
                 <constraint firstItem="M0Z-B7-wJ0" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="FPd-Oh-mNG"/>
                 <constraint firstItem="M0Z-B7-wJ0" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="HeA-WJ-oTR"/>
                 <constraint firstItem="sVt-SA-xHT" firstAttribute="width" secondItem="M0Z-B7-wJ0" secondAttribute="width" id="apY-iO-z4Z"/>
+                <constraint firstItem="9Jg-E2-W2u" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cTy-xw-Afb"/>
                 <constraint firstItem="M0Z-B7-wJ0" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="gfB-BV-6sN"/>
+                <constraint firstItem="9Jg-E2-W2u" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-30" id="k8H-hl-UeQ"/>
                 <constraint firstItem="M0Z-B7-wJ0" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="oW2-OP-hTB"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

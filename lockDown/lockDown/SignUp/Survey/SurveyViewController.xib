@@ -19,14 +19,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sick_patient" translatesAutoresizingMaskIntoConstraints="NO" id="b28-Xo-yKG">
-                    <rect key="frame" x="160.66666666666666" y="74" width="93" height="102"/>
+                    <rect key="frame" x="160.66666666666666" y="64" width="93" height="102"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="102" id="9Us-pP-OiE"/>
                         <constraint firstAttribute="width" constant="93" id="KZP-2w-Gp9"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Self Diagnose Questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOr-Cq-snf" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="20" y="186" width="374" height="40"/>
+                    <rect key="frame" x="20" y="176" width="374" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="wMK-GH-Mvp"/>
                     </constraints>
@@ -38,7 +38,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To keep yourself and others healthy.This survey aims to acquaint you with the best guidelines." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRH-SW-u3b" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="20" y="236" width="374" height="67"/>
+                    <rect key="frame" x="20" y="226" width="374" height="67"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="67" id="nRT-kC-bBP"/>
                     </constraints>
@@ -65,7 +65,7 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="J1d-d8-Usr">
-                    <rect key="frame" x="0.0" y="303" width="414" height="469"/>
+                    <rect key="frame" x="0.0" y="293" width="414" height="479"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <connections>
@@ -85,7 +85,7 @@
                 <constraint firstItem="mOr-Cq-snf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Her-Bz-imm"/>
                 <constraint firstItem="J1d-d8-Usr" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="LY9-wy-1AT"/>
                 <constraint firstItem="kLO-zn-5pm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="aec-Cf-sBI"/>
-                <constraint firstItem="b28-Xo-yKG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="b1b-f6-MIK"/>
+                <constraint firstItem="b28-Xo-yKG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="b1b-f6-MIK"/>
                 <constraint firstItem="J1d-d8-Usr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="biR-k1-AxS"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mOr-Cq-snf" secondAttribute="trailing" constant="20" id="eIZ-Px-p11"/>
                 <constraint firstItem="b28-Xo-yKG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="o3V-TO-Hze"/>

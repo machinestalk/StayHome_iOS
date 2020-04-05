@@ -13,6 +13,8 @@ class FinishSignupViewController: BaseController {
     @IBOutlet weak var instrictionsTxt: UITextView!
     @IBOutlet weak var SignUpfinishedView: UIView!
     @IBOutlet weak var instrictionsView: UIView!
+    @IBOutlet weak var agreedButton: Button!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         instrictionsTxt.text = "instrutionsTxt".localiz()
@@ -32,8 +34,17 @@ class FinishSignupViewController: BaseController {
     }
     */
     @IBAction func agreedBtnDidTap(_ sender: Any) {
-        instrictionsView.isHidden = true
-        SignUpfinishedView.isHidden = false 
+        let agreedButton = sender as! Button
+        if agreedButton.tag == 0 {
+            agreedButton.tag = 1
+            instrictionsView.isHidden = true
+            SignUpfinishedView.isHidden = false
+        } else {
+            UserDefaults.standard.set(true, forKey:"isSignedUp")
+            let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()
+        }
+         
     }
     
 }
