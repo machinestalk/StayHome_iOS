@@ -60,6 +60,9 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="key" value="nextBtn_txt"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="nextBtnDidTap:" destination="-1" eventType="touchUpInside" id="R7O-gA-phZ"/>
+                    </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="J1d-d8-Usr">
                     <rect key="frame" x="0.0" y="259" width="375" height="318"/>

@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func getLandingPageWithSideMenu()->UIViewController {
         
-        self.navVC = self.getNavControllerWithRootController(controller: WelcomeViewController())
+        self.navVC = self.getNavControllerWithRootController(controller: DashboardViewController())
         var leftController: UIViewController? = nil
         var rightController: UIViewController? = nil
         if LanguageManger.shared.isRightToLeft {
@@ -211,6 +211,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
     }
+    func getNotificationSettings() {
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                guard settings.authorizationStatus == .authorized else { return }
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.registerForRemoteNotifications()
+                })
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
 }
 
 // [START ios_10_message_handling]

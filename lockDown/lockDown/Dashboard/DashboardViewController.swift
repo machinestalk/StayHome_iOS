@@ -34,6 +34,8 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var cameraa : GMSCameraPosition!
     var circle = GMSCircle()
     var marker = GMSMarker()
+    var countdownTimer: Timer!
+    var totalTime : Int!
     @IBOutlet weak var addressLbl: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var recenterButton: Button!
@@ -67,6 +69,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         setLocation()
+        startTimer()
         
     }
     
@@ -230,18 +233,14 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
     //Location Manager delegates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         let location = locations.last
         if let lastLocation = locations.last {
             currentLocation = lastLocation.coordinate
         }
-        
-        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 1.0)
-        //let camera = GMSCameraPosition.camera(withLatitude: 10.197235, longitude: 36.850652, zoom: 1.0)
-        //  self.mapView?.animate(to: camera)
-        //self.locationManager.stopUpdatingLocation()
+        locValue = currentLocation
         let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
-        let distance = circleLocation.distance(from: location!)
+        let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        let distance = circleLocation.distance(from: myLocation)
         
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         
@@ -258,33 +257,8 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 )
             }
         }
-        else
-        {
-            print("user in zone")
-            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                /*     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
-                 print(Msg)
-                 } ,onFailure : { (error) in
-                 print(error)
-                 }
-                 )*/
-                
-            }
-        }
-        
-        locValue = currentLocation
-        
-        
-        
-        
-        
-        
-        
-        //  let distanceInMeters = coordinateVeh.distance(from: coordinateUser)
-        
-        
-        
     }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:
@@ -490,6 +464,93 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         self.view.addSubview(ChangeLocationVC.view)
         ChangeLocationVC.didMove(toParent: self)
     }
+    
+    // MARK: Send data with counter
+    
+    func sendData() {
+        let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
+        let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        let distance = circleLocation.distance(from: myLocation)
+        
+        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+        
+        if(distance >= circle.radius)
+        {
+            print("user out of zone")
+            
+            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+                    print(Msg)
+                } ,onFailure : { (error) in
+                    print(error)
+                }
+                )
+            }
+        }
+        else
+        {
+            print("user in zone")
+            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
+                 print(Msg)
+                 } ,onFailure : { (error) in
+                 print(error)
+                 }
+                 )
+                
+            }
+        }
+        
+        
+    }
+    
+    // MARK : Set counter for Check In
+    
+    //MARK : Add Timer
+      
+      func startTimer() {
+          if(countdownTimer != nil ){
+              countdownTimer.invalidate()
+              countdownTimer = nil
+          }
+          totalTime = 60
+          countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+      }
+      
+      @objc func updateTime() {
+          if(countdownTimer != nil){
+              let secondes = (totalTime % 60)
+              let minutes : Int = Int(totalTime / 60)
+              
+              if totalTime != 0 {
+                  totalTime -= 1
+                print(String(format: "%02d:%02d", minutes, secondes))
+                  
+              } else if secondes == 0 {
+                
+                 sendData()
+                 desactivateTimer()
+                 startTimer()
+              }
+              else {
+                   
+                  //endTimer()
+                  }
+                  
+              }
+          }
+      
+      // MARK : Desactivate Timer
+      func desactivateTimer()  {
+          if(countdownTimer != nil ){
+              countdownTimer.invalidate()
+              countdownTimer = nil
+          }
+      }
+    
+    
+    
+    
 }
 // MARK: RequestLocation delagates methods
 
@@ -504,6 +565,7 @@ extension DashboardViewController: RequestLocationProtocol {
         
         APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
             print(Msg)
+            self.startTimer()
         } ,onFailure : { (error) in
             print(error)
         }

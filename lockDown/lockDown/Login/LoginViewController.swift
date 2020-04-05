@@ -34,7 +34,7 @@ class LoginViewController: BaseController {
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var heightErrorView: NSLayoutConstraint!
     @IBOutlet weak var errorLblTop: NSLayoutConstraint!
-    
+  
     let kPhoneSubscriptWithZero = "+966"
 
     override func viewDidLoad() {
@@ -240,7 +240,7 @@ class LoginViewController: BaseController {
         let userDataFuture = APIClient.signIn(phoneNumber: UserDefaults.standard.value(forKey: "UserNameSignUp") as! String, phoneOtp: otpString, phoneUdid: deviceUDIDString)
         userDataFuture.execute(onSuccess: { userData in
             print(userData)
-            UserDefaults.standard.set(false, forKey: "isLoggedIn")
+            UserDefaults.standard.set(true, forKey: "isLoggedIn")
             UserDefaults.standard.set(userData.deviceToken, forKey:"DeviceToken")
             UserDefaults.standard.set(userData.token, forKey:"Token")
             UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
@@ -310,5 +310,9 @@ class LoginViewController: BaseController {
         let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
         appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()
     }
+    
+    
+    
+    
 }
 

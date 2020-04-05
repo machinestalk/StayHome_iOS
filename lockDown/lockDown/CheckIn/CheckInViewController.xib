@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckInViewController" customModule="lockDown" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="6sZ-Dw-ovZ" id="PYC-VG-aea"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="6sZ-Dw-ovZ">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_ministry" translatesAutoresizingMaskIntoConstraints="NO" id="PBA-Dz-uLu">
+                    <rect key="frame" x="129" y="94" width="156" height="119"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="119" id="L4Z-JY-Ihf"/>
+                        <constraint firstAttribute="width" constant="156" id="gXu-wG-xs6"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EvE-Wm-Ssa" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="132" y="782" width="150" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="H60-pF-MKc"/>
+                        <constraint firstAttribute="height" constant="50" id="yqs-38-BOq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                    <state key="normal" backgroundImage="green_button"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="yesThere_txt"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="yesBtnDidTap:" destination="-1" eventType="touchUpInside" id="oSm-SQ-9yE"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1X-xO-ouY" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="20" y="263" width="374" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="s2m-sC-aEB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="CheckIn_text0_txt"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZG-RT-T1p" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="20" y="333" width="374" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="0Qx-ep-Ylu"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="CheckIn_text1_txt"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sick_patient" translatesAutoresizingMaskIntoConstraints="NO" id="7ZF-P1-siB">
+                    <rect key="frame" x="160.5" y="484" width="93" height="102"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="93" id="OC5-Lf-wt2"/>
+                        <constraint firstAttribute="height" constant="102" id="o6b-mQ-DVW"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aW8-d3-eJU">
+                    <rect key="frame" x="20" y="596" width="374" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="Bu0-5h-r3Z"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="37"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3E-At-4HG" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="20" y="666" width="374" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="Pye-fc-rqF"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="checkIn_text2_txt"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="7ZF-P1-siB" firstAttribute="top" secondItem="rZG-RT-T1p" secondAttribute="bottom" constant="51" id="1Ot-Eo-Ryc"/>
+                <constraint firstItem="EvE-Wm-Ssa" firstAttribute="centerX" secondItem="6sZ-Dw-ovZ" secondAttribute="centerX" id="9DS-91-J8d"/>
+                <constraint firstItem="rZG-RT-T1p" firstAttribute="leading" secondItem="XF9-F8-Zv8" secondAttribute="leading" constant="20" id="EzF-oB-643"/>
+                <constraint firstItem="r3E-At-4HG" firstAttribute="width" secondItem="aW8-d3-eJU" secondAttribute="width" id="Fti-TP-Eqp"/>
+                <constraint firstItem="XF9-F8-Zv8" firstAttribute="bottom" secondItem="EvE-Wm-Ssa" secondAttribute="bottom" constant="30" id="GiR-av-3aA"/>
+                <constraint firstItem="PBA-Dz-uLu" firstAttribute="top" secondItem="XF9-F8-Zv8" secondAttribute="top" constant="50" id="IVl-aM-GbV"/>
+                <constraint firstItem="XF9-F8-Zv8" firstAttribute="trailing" secondItem="J1X-xO-ouY" secondAttribute="trailing" constant="20" id="OKk-S0-28j"/>
+                <constraint firstItem="PBA-Dz-uLu" firstAttribute="centerX" secondItem="6sZ-Dw-ovZ" secondAttribute="centerX" id="UDE-XR-zZs"/>
+                <constraint firstItem="XF9-F8-Zv8" firstAttribute="trailing" secondItem="rZG-RT-T1p" secondAttribute="trailing" constant="20" id="WKB-0I-FtD"/>
+                <constraint firstItem="r3E-At-4HG" firstAttribute="centerX" secondItem="aW8-d3-eJU" secondAttribute="centerX" id="byr-Cy-GMc"/>
+                <constraint firstItem="aW8-d3-eJU" firstAttribute="width" secondItem="rZG-RT-T1p" secondAttribute="width" id="dMs-Ta-Eno"/>
+                <constraint firstItem="aW8-d3-eJU" firstAttribute="top" secondItem="7ZF-P1-siB" secondAttribute="bottom" constant="10" id="dbI-8S-dlI"/>
+                <constraint firstItem="7ZF-P1-siB" firstAttribute="centerX" secondItem="rZG-RT-T1p" secondAttribute="centerX" id="eQD-Fl-Wh4"/>
+                <constraint firstItem="J1X-xO-ouY" firstAttribute="top" secondItem="PBA-Dz-uLu" secondAttribute="bottom" constant="50" id="oWZ-eX-o7q"/>
+                <constraint firstItem="rZG-RT-T1p" firstAttribute="top" secondItem="J1X-xO-ouY" secondAttribute="bottom" constant="10" id="qSh-k4-uVi"/>
+                <constraint firstItem="r3E-At-4HG" firstAttribute="top" secondItem="aW8-d3-eJU" secondAttribute="bottom" constant="20" id="seo-sN-8ZJ"/>
+                <constraint firstItem="aW8-d3-eJU" firstAttribute="centerX" secondItem="rZG-RT-T1p" secondAttribute="centerX" id="v5y-Pa-9WZ"/>
+                <constraint firstItem="J1X-xO-ouY" firstAttribute="leading" secondItem="XF9-F8-Zv8" secondAttribute="leading" constant="20" id="xox-Ao-rkJ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="XF9-F8-Zv8"/>
+            <point key="canvasLocation" x="-139" y="-36"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="green_button" width="134.5" height="47"/>
+        <image name="logo_ministry" width="155.5" height="119"/>
+        <image name="sick_patient" width="92.5" height="102"/>
+    </resources>
+</document>
