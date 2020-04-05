@@ -22,6 +22,7 @@
 "agreedBtnTitle"                                                    = "Agreed";
 
 "SignUpSuccessLbl"                  =   "You are successfully Signed Up";
+"FinishSuccessLbl"                  =   "You are successfully checked In";
 "StayAThomeSignUpTxt"                   = "Please Stay home and be safe";
 "SignUpTitle"                           ="Sign up";
 "covidUserTXT"                            = "COVID USER";
@@ -58,3 +59,9 @@
 "CheckIn_text1_txt"        = "You must confirm your identity regularly.\n The data will be stored on your phone.";
 "checkIn_text2_txt"        = "Hi,are you there ?";
 "yesThere_txt"             = "Yes I'am here";
+
+// Emergency
+"emergency_lbl_title_txt"           = "NEED HELP";
+"survey_lbl_text0_txt"                 = "If you have any symptoms : ";
+"survey_lbl_text1_txt"                  = "And you need assistant, please";
+"emergency_callBtn_txt"                 = "Call Emergency";

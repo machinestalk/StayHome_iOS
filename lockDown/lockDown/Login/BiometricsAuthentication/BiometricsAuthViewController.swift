@@ -11,6 +11,7 @@ import UIKit
 import LocalAuthentication
 
 class BiometricsAuthViewController: BaseController {
+    var isFromCheckIn = false
 
     @IBOutlet weak var stateView: UIView!
     
@@ -97,8 +98,24 @@ class BiometricsAuthViewController: BaseController {
 
                         // Move to the main thread because a state update triggers UI changes.
                         DispatchQueue.main.async { [unowned self] in
-                            self.state = .loggedin
-                            self.setupSuccessBiometricsBottomVC()
+                          if (UserDefaults.standard.data(forKey: "currentbiometricstate") != nil){
+                                if UserDefaults.standard.data(forKey: "currentbiometricstate") == self.context.evaluatedPolicyDomainState  {
+                                    self.state = .loggedin
+                                    self.setupSuccessBiometricsBottomVC()
+                                }
+                                else {
+                                    print("Not same user")
+                                    self.state = .loggedin
+                                    self.setupSuccessBiometricsBottomVC()
+                                }
+                            }
+                            else {
+                                let currentbiometricstate = self.context.evaluatedPolicyDomainState
+                                                          UserDefaults.standard.set(currentbiometricstate, forKey: "currentbiometricstate")
+                                self.state = .loggedin
+                                self.setupSuccessBiometricsBottomVC()
+                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                            }
                         }
 
                     } else {
@@ -169,7 +186,9 @@ extension BiometricsAuthViewController: BiometricsAuthProtocol {
         switch state {
         case .loggedin:
             let FinishSignupVC = FinishSignupViewController(nibName: "FinishSignupViewController", bundle: nil)
+                FinishSignupVC.isFromCheckIn = self.isFromCheckIn
             self.navigationController!.pushViewController(FinishSignupVC, animated: true)
+            
         case .loggedout:
             self.tapButton()
         }

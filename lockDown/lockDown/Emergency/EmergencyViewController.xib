@@ -96,7 +96,7 @@
                             <rect key="frame" x="0.0" y="108" width="187.5" height="100"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headache" translatesAutoresizingMaskIntoConstraints="NO" id="Cub-Fa-MtF">
-                                    <rect key="frame" x="10" y="36.5" width="52.000000000000014" height="52.000000000000014"/>
+                                    <rect key="frame" x="10" y="36.5" width="52" height="52"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="52" id="30X-Io-4Rm"/>
                                         <constraint firstAttribute="width" constant="52" id="Kkv-Tv-rls"/>
@@ -150,7 +150,7 @@
                             <rect key="frame" x="189.5" y="0.0" width="187.5" height="100"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="breath" translatesAutoresizingMaskIntoConstraints="NO" id="BEi-JA-L6d">
-                                    <rect key="frame" x="10" y="24" width="52.000000000000014" height="52"/>
+                                    <rect key="frame" x="10" y="24" width="52" height="52"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="52" id="o9H-ft-iGk"/>
                                         <constraint firstAttribute="height" constant="52" id="z3t-7d-gx1"/>
