@@ -20,9 +20,26 @@ class EmergencyViewController: BaseController {
         super.viewWillAppear(animated)
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(named:"Bg_navBar"),for: .default)
     }
+    
+    @IBAction func callBtnDidTap(_ sender: Any) {
+        
+        makePhoneCall(phoneNumber:"937")
+    }
+    
+    func makePhoneCall(phoneNumber: String) {
+
+        if let phoneURL = NSURL(string: ("tel://" + phoneNumber)) {
+            
+            UIApplication.shared.open(phoneURL as URL, options: [:], completionHandler: nil)
+        }
+    }
 
     /*
     // MARK: - Navigation
+     
+     if let url = NSURL(string: "tel://\(busPhone)") where UIApplication.sharedApplication().canOpenURL(url) {
+       UIApplication.sharedApplication().openURL(url)
+     }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
