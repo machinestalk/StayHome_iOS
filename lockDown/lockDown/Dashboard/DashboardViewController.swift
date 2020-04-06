@@ -9,6 +9,8 @@
 import UIKit
 import GoogleMaps
 import SystemConfiguration.CaptiveNetwork
+import CoreBluetooth
+import SystemConfiguration.CaptiveNetwork
 
 class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationManagerDelegate{
     enum CardState {
@@ -25,7 +27,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var nextState:CardState {
         return cardVisible ? .collapsed : .expanded
     }
-    
+    //Bluetooth
+    var centralManager: CBCentralManager?
+    var peripherals = Array<CBPeripheral>()
+    //
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted:CGFloat = 0
     var locValue: CLLocationCoordinate2D!
@@ -61,7 +66,9 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         if isItIPhoneX(){
             searchViewTop.constant = 110
         }
-        
+        //Initialise CoreBluetooth Central Manager
+        centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.main)
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -90,6 +97,21 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
         )
     }
+    
+    //getAllWiFiNameList
+    func getAllWiFiNameList() -> String? {
+              var ssid: String?
+              if let interfaces = CNCopySupportedInterfaces() as NSArray? {
+              for interface in interfaces {
+              if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
+                          ssid = interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
+                          break
+                      }
+                  }
+              }
+              return ssid
+          }
+    
     
     // MARK: setLocations
     func setLocation() {
@@ -491,11 +513,13 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         let distance = circleLocation.distance(from: myLocation)
         
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-        
+        let ssid = self.getAllWiFiNameList()
+        print("SSID: \(ssid ?? "nil")")
         if(distance >= circle.radius)
         {
             print("user out of zone")
-            logToFile(value: "user out of zone , \(locValue.latitude),\(locValue.longitude) \n")
+            logToFile(value: "user out of zone , \(locValue.latitude),\(locValue.longitude),\(Array(Set(peripherals))),\(ssid ?? "nil") \n")
+            peripherals.removeAll()
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
                     print(Msg)
@@ -507,8 +531,11 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
         else
         {
+            print(Array(Set(peripherals)))
+
             print("user in zone")
-           logToFile(value: "user in zone , \(locValue.latitude),\(locValue.longitude) \n")
+           logToFile(value: "user in zone , \(locValue.latitude),\(locValue.longitude),\(Array(Set(peripherals))),\(ssid ?? "nil") \n")
+            peripherals.removeAll()
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
                     print(Msg)
@@ -571,7 +598,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
    // MARK : Log in File
     func logToFile(value : String)  {
-    let titleString = "Status, latitude, longitude"
+    let titleString = "Status, latitude, longitude, bluetooth, wifi"
                var dataString: String
                
         Colons.append(value)
@@ -640,3 +667,21 @@ extension DashboardViewController : ChangeLocationProtocol {
         self.navigationController!.pushViewController(contactUsVC, animated: true)
     }
 }
+
+//Bluetooth
+extension DashboardViewController: CBCentralManagerDelegate {
+func centralManagerDidUpdateState(_ central: CBCentralManager) {
+if (central.state == .poweredOn){
+self.centralManager?.scanForPeripherals(withServices: nil, options: nil)
+}
+else {
+// do something like alert the user that ble is not on
+}
+}
+func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    peripherals.append(peripheral)
+    
+
+}
+}
+ 

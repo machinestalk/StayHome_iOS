@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00AF8DCC243B58F6002AD458 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AF8DCB243B58F6002AD458 /* CoreBluetooth.framework */; };
 		469911621E7D434DEE14800B /* Pods_lockDown_lockDownUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07CA6D2D03D9DFBEFA5E85B7 /* Pods_lockDown_lockDownUITests.framework */; };
 		C127F5BF6723479FAE29EC8B /* Pods_lockDownTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BCCF1BC0A16076FE3EF369 /* Pods_lockDownTests.framework */; };
 		CD3412B45A2D09888AE1582D /* Pods_lockDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA45852916987272EE4010E3 /* Pods_lockDown.framework */; };
@@ -100,6 +101,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00AF8DCB243B58F6002AD458 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		07CA6D2D03D9DFBEFA5E85B7 /* Pods_lockDown_lockDownUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lockDown_lockDownUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C13EC0E87A2759A3921A8D /* Pods-lockDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.release.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.release.xcconfig"; sourceTree = "<group>"; };
 		2344FD5529BBC0EA5178F562 /* Pods-lockDown-lockDownUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDown-lockDownUITests.release.xcconfig"; path = "Target Support Files/Pods-lockDown-lockDownUITests/Pods-lockDown-lockDownUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00AF8DCC243B58F6002AD458 /* CoreBluetooth.framework in Frameworks */,
 				CD3412B45A2D09888AE1582D /* Pods_lockDown.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,6 +226,7 @@
 		68425B7AF763525B531592C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				00AF8DCB243B58F6002AD458 /* CoreBluetooth.framework */,
 				EA45852916987272EE4010E3 /* Pods_lockDown.framework */,
 				07CA6D2D03D9DFBEFA5E85B7 /* Pods_lockDown_lockDownUITests.framework */,
 				D2BCCF1BC0A16076FE3EF369 /* Pods_lockDownTests.framework */,
@@ -1031,6 +1035,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1056,6 +1061,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
