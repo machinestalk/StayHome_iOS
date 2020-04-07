@@ -24,12 +24,19 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
     var isfirstTime = false
+    var isNextBtnTapped = false
     var nextState:CardState {
         return cardVisible ? .collapsed : .expanded
     }
     //Bluetooth
     var centralManager: CBCentralManager?
     var peripherals = Array<CBPeripheral>()
+    //Wifi
+    var currentNetworkInfos: Array<NetworkInfo>? {
+        get {
+            return  SSID.fetchNetworkInfo()
+        }
+    }
     //
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted:CGFloat = 0
@@ -40,6 +47,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var cameraa : GMSCameraPosition!
     var circle = GMSCircle()
     var marker = GMSMarker()
+    var markerPosition : CGPoint!
     var countdownTimer: Timer!
     var totalTime : Int!
     let file = "Log.csv" //this is the file. we will write to and read from it
@@ -68,7 +76,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
         //Initialise CoreBluetooth Central Manager
         centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.main)
-
+       
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -84,9 +92,12 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
         setLocation()
         if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-           if  !UserDefaults.standard.bool(forKey: "isFirstTime")  {
+           //if  !UserDefaults.standard.bool(forKey: "isFirstTime")  {
                 startTimer()
-            }
+           // }
+          // else {
+           // updateTime()
+            //}
         }
         let deviceId = UserDefaults.standard.string(forKey: "deviceId")
         let firebaseToken = UserDefaults.standard.string(forKey: "firebaseToken")
@@ -130,16 +141,9 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 self.mapView?.animate(to: camera)
                 marker.icon = UIImage(named: "red_marker")
                 marker.position = locValue
-                marker.isDraggable =  true
                 marker.map = self.mapView
                 getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
-                circle = GMSCircle()
-                circle.radius = 100 // Meters
-                circle.position = locValue // user  position
-                circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
-                circle.strokeColor = .clear
-                circle.map = mapView; // Add it to the map
-                // Add it to the map
+          
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -162,11 +166,11 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 marker.map = self.mapView
                 getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
                 circle = GMSCircle()
-                circle.radius = 100 // Meters
-                circle.position = locValue // user  position
-                circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
-                circle.strokeColor = .clear
-                circle.map = mapView; // Add it to the map
+                       circle.radius = 100 // Meters
+                       circle.position = marker.position // user  position
+                       circle.fillColor = UIColorFromHex(hex: "#FBBBBC").withAlphaComponent(0.8)
+                       circle.strokeColor = .clear
+                       circle.map = mapView;
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -220,7 +224,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 {
                     print("reverse geodcode fail: \(error!.localizedDescription)")
                 }
-                let pm = placemarks! as [CLPlacemark]
+                guard let pm = placemarks else {return}
                 
                 if pm.count > 0 {
                     let pm = placemarks![0]
@@ -287,14 +291,15 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         if(distance >= circle.radius)
         {
             print("user out of zone")
-            
-            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
-                    print(Msg)
-                } ,onFailure : { (error) in
-                    print(error)
+             if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
+                if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+                        print(Msg)
+                    } ,onFailure : { (error) in
+                        print(error)
+                    }
+                    )
                 }
-                )
             }
         }
     }
@@ -333,16 +338,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 cameraa = camera
                 self.mapView?.animate(to: camera)
                 marker.icon = UIImage(named: "red_marker")
-                marker.position = locValue
-                marker.isDraggable =  true
                 marker.map = self.mapView
-                getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
-                circle = GMSCircle()
-                circle.radius = 100 // Meters
-                circle.position = locValue // user  position
-                circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
-                circle.strokeColor = .clear
-                circle.map = mapView; // Add it to the map
+               getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
+                marker.position = locValue
+
             }
             else {
                 locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
@@ -353,15 +352,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 cameraa = camera
                 self.mapView?.animate(to: camera)
                 marker.icon = UIImage(named: "red_marker")
-                marker.position = locValue
                 marker.map = self.mapView
                 getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
-                circle = GMSCircle()
-                circle.radius = 100 // Meters
-                circle.position = locValue // user  position
-                circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
-                circle.strokeColor = .clear
-                circle.map = mapView; // Add it to the map
+                marker.position = locValue
+         
                 
             }
             
@@ -422,12 +416,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             marker.position = locValue
             marker.map = self.mapView
             getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
-            circle = GMSCircle()
-            circle.radius = 100 // Meters
-            circle.position = locValue // user  position
-            circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
-            circle.strokeColor = .clear
-            circle.map = mapView; // Add it to the map
+           
             break
         }
         
@@ -442,19 +431,22 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     func mapView(_ mapView: GMSMapView, didDrag marker: GMSMarker) {
         print("didDrag")
     }
-    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
-        getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
-        locValue = marker.position
-        circle.map = nil
-        circle = GMSCircle()
-        
-        circle.radius = 100 // Meters
-        circle.position = marker.position // user  position
-        circle.fillColor = UIColorFromHex(hex: "#FBBBBC")
-        circle.strokeColor = .clear
-        circle.map = mapView;
-    }
     
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        if !isNextBtnTapped {
+            if self.markerPosition == nil {
+                //To set pin into the center of mapview
+                marker.position = position.target
+                getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
+            }else{
+                //To set pin into the any particular point of the screen on mapview
+              
+                let coordinate = self.mapView.projection.coordinate(for: self.markerPosition)
+                marker.position = coordinate
+                  getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
+            }
+        }
+    }
     
     
     
@@ -518,7 +510,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         if(distance >= circle.radius)
         {
             print("user out of zone")
-            logToFile(value: "user out of zone , \(locValue.latitude),\(locValue.longitude),\(Array(Set(peripherals))),\(ssid ?? "nil") \n")
+            logToFile(value: "user out of zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(currentNetworkInfos?.first?.ssid ??  "nil") \n")
             peripherals.removeAll()
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
@@ -534,7 +526,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             print(Array(Set(peripherals)))
 
             print("user in zone")
-           logToFile(value: "user in zone , \(locValue.latitude),\(locValue.longitude),\(Array(Set(peripherals))),\(ssid ?? "nil") \n")
+            logToFile(value: "user in zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(ssid ?? "nil") \n")
             peripherals.removeAll()
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
@@ -598,7 +590,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
    // MARK : Log in File
     func logToFile(value : String)  {
-    let titleString = "Status, latitude, longitude, bluetooth, wifi"
+    let titleString = "Status; latitude; longitude; bluetooth; wifi"
                var dataString: String
                
         Colons.append(value)
@@ -639,6 +631,26 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
 // MARK: RequestLocation delagates methods
 
 extension DashboardViewController: RequestLocationProtocol {
+    func noBtnDidTap() {
+        circle.map = nil
+        isNextBtnTapped = false
+    }
+    
+    func nextBtnDidTap() {
+        isNextBtnTapped = true
+        self.markerPosition = self.mapView.projection.point(for: CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude))
+        getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
+         locValue = self.mapView.projection.coordinate(for: self.markerPosition)
+        UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
+        circle = GMSCircle()
+        circle.radius = 100 // Meters
+        circle.position = marker.position // user  position
+        circle.fillColor = UIColorFromHex(hex: "#FBBBBC").withAlphaComponent(0.8)
+        circle.strokeColor = .clear
+        circle.map = mapView;
+        
+    }
+    
     
     func requestlocation() {
         requestLocationVC.view.removeFromSuperview()
@@ -657,6 +669,7 @@ extension DashboardViewController: RequestLocationProtocol {
         let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
         self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
     }
+    
     
 }
 
@@ -680,8 +693,67 @@ else {
 }
 func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
     peripherals.append(peripheral)
-    
+    print(peripheral)
 
 }
 }
  
+public class SSID {
+    class func fetchNetworkInfo() -> [NetworkInfo]? {
+        if let interfaces: NSArray = CNCopySupportedInterfaces() {
+            var networkInfos = [NetworkInfo]()
+            for interface in interfaces {
+                let interfaceName = interface as! String
+                var networkInfo = NetworkInfo(interface: interfaceName,
+                                              success: false,
+                                              ssid: nil,
+                                              bssid: nil)
+                if let dict = CNCopyCurrentNetworkInfo(interfaceName as CFString) as NSDictionary? {
+                    networkInfo.success = true
+                    networkInfo.ssid = dict[kCNNetworkInfoKeySSID as String] as? String
+                    networkInfo.bssid = dict[kCNNetworkInfoKeyBSSID as String] as? String
+                }
+                networkInfos.append(networkInfo)
+            }
+            return networkInfos
+        }
+        return nil
+    }
+   class func getAllWiFiNameList() -> String? {
+        var ssid: String?
+        if let interfaces = CNCopySupportedInterfaces() as NSArray? {
+        for interface in interfaces {
+        if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
+                    ssid = interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
+                    print(ssid)
+                }
+            }
+        }
+        return ssid
+    }
+    class func fetchSSIDInfo() -> String {
+           var currentSSID = ""
+           if let interfaces = CNCopySupportedInterfaces() {
+               for i in 0..<CFArrayGetCount(interfaces) {
+                   let interfaceName: UnsafeRawPointer = CFArrayGetValueAtIndex(interfaces, i)
+                   let rec = unsafeBitCast(interfaceName, to: AnyObject.self)
+                   let unsafeInterfaceData = CNCopyCurrentNetworkInfo("\(rec)" as CFString)
+                   if let interfaceData = unsafeInterfaceData as? [String: AnyObject] {
+                       currentSSID = interfaceData["SSID"] as! String
+                       let BSSID = interfaceData["BSSID"] as! String
+                       let SSIDDATA = interfaceData["SSIDDATA"]
+                       print("ssid=\(currentSSID), BSSID=\(BSSID), SSIDDATA=\(SSIDDATA)")
+                   }
+               }
+           }
+           return currentSSID
+       }
+   
+}
+
+struct NetworkInfo {
+    var interface: String
+    var success: Bool = false
+    var ssid: String?
+    var bssid: String?
+}
