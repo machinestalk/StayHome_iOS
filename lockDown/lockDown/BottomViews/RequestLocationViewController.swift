@@ -12,6 +12,9 @@ import DeviceKit
 
 protocol RequestLocationProtocol {
     func requestlocation()
+    func nextBtnDidTap()
+    func noBtnDidTap()
+    
 
 }
 
@@ -65,11 +68,13 @@ class RequestLocationViewController: BottomPopupViewController {
         nextBtn.isHidden = true
         stackview.isHidden = false
         msgLbl.text = "confirmLocationTxt".localiz()
+        self.delegate?.nextBtnDidTap()
     }
     @IBAction func noBtnDidTap(_ sender: Any) {
         nextBtn.isHidden = false
         stackview.isHidden = true
         msgLbl.text = "RequestLocation_txt".localiz()
+        self.delegate?.noBtnDidTap()
     }
     @IBAction func yesBtnDidTap(_ sender: Any) {
         self.delegate?.requestlocation()

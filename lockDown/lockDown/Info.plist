@@ -34,15 +34,15 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>This app needs Face ID to recognize you</string>
 	<key>NSLocationAlwaysAndWhenInUsageDescription</key>
-	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<string>Allow &quot;stayhome KSA&quot; to access your location while you are using the app?</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<string>Allow &quot;stayhome KSA&quot; to access your location while you are using the app?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<string>Allow &quot;stayhome KSA&quot; to access your location while you are using the app?</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<string>Allow &quot;stayhome KSA&quot; to access your location while you are using the app?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<string>Allow &quot;stayhome KSA&quot; to access your location while you are using the app?</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Bold.ttf</string>
@@ -86,6 +86,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Allow &quot;stayhome KSA&quot; to  use the bluetooth ?</string>
 </dict>
 </plist>
