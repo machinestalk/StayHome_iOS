@@ -81,6 +81,7 @@
 		FAC81E7C243A1EB2002DBADE /* LandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E7A243A1EB2002DBADE /* LandingViewController.xib */; };
 		FAC81E80243A84A7002DBADE /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC81E7E243A84A7002DBADE /* ContentViewController.swift */; };
 		FAC81E81243A84A7002DBADE /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E7F243A84A7002DBADE /* ContentViewController.xib */; };
+		FAE627DB243CE4A90011B7A1 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +192,7 @@
 		FAC81E7A243A1EB2002DBADE /* LandingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LandingViewController.xib; sourceTree = "<group>"; };
 		FAC81E7E243A84A7002DBADE /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		FAC81E7F243A84A7002DBADE /* ContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
+		FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -341,6 +343,7 @@
 		FA6E989624329B83000F2C2E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */,
 				FA66D6432434B8880036D137 /* BaseController.swift */,
 				FAB7F3D72433674400061AE5 /* Extensions.swift */,
 				FA6E989724329B83000F2C2E /* Constants.swift */,
@@ -822,6 +825,7 @@
 				FA7ED09E24376D3B00C0060D /* ChangeLocationViewController.swift in Sources */,
 				FAC36CA1243888BA002B4928 /* SurveyCell.swift in Sources */,
 				FA6E985B243293F5000F2C2E /* ViewController.swift in Sources */,
+				FAE627DB243CE4A90011B7A1 /* CustomTimer.swift in Sources */,
 				FAC36C9D24388894002B4928 /* SurveyViewController.swift in Sources */,
 				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
