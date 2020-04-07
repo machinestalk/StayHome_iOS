@@ -19,7 +19,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     var requestLocationVC = RequestLocationViewController()
     var ChangeLocationVC = ChangeLocationViewController()
-    
+    let t = CustomTimer(timeInterval: 3)
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
@@ -76,6 +76,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
         //Initialise CoreBluetooth Central Manager
         centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.main)
+        startCustomTimer()
        
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -93,7 +94,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         setLocation()
         if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
            //if  !UserDefaults.standard.bool(forKey: "isFirstTime")  {
-                startTimer()
+               // startTimer()
            // }
           // else {
            // updateTime()
@@ -546,6 +547,14 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
     //MARK : Add Timer
     
+    func startCustomTimer() {
+        
+        t.eventHandler = {
+            self.sendData()
+        }
+        t.resume()
+    }
+    
     func startTimer() {
         UserDefaults.standard.set(true, forKey: "isFirstTime")
         if(countdownTimer != nil ){
@@ -557,27 +566,27 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     
     @objc func updateTime() {
-        if(countdownTimer != nil){
-            let secondes = (totalTime % 60)
-            let minutes : Int = Int(totalTime / 60)
-            
-            if totalTime != 0 {
-                totalTime -= 1
-                UserDefaults.standard.set(totalTime, forKey: "counter")
-                print(String(format: "%02d:%02d", minutes, secondes))
-                
-            } else if secondes == 0 {
-                
-                sendData()
-                desactivateTimer()
-                startTimer()
-            }
-            else {
-                
-                //endTimer()
-            }
-            
-        }
+//        if(countdownTimer != nil){
+//            let secondes = (totalTime % 60)
+//            let minutes : Int = Int(totalTime / 60)
+//
+//            if totalTime != 0 {
+//                totalTime -= 1
+//                UserDefaults.standard.set(totalTime, forKey: "counter")
+//                print(String(format: "%02d:%02d", minutes, secondes))
+//
+//            } else if secondes == 0 {
+//
+//                sendData()
+//                desactivateTimer()
+//                //startTimer()
+//            }
+//            else {
+//
+//                //endTimer()
+//            }
+//
+//        }
     }
     
     // MARK : Desactivate Timer
@@ -661,7 +670,7 @@ extension DashboardViewController: RequestLocationProtocol {
         
         APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
             print(Msg)
-            self.startTimer()
+            //self.startTimer()
         } ,onFailure : { (error) in
             print(error)
         }
