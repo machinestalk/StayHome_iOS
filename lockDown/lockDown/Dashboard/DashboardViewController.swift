@@ -86,7 +86,25 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
        UIDevice.current.isBatteryMonitoringEnabled = true
 
         startCustomTimer()
-       
+        
+        // wifi changed
+       do{
+           Network.reachability = try CustomReachability(hostname: "www.google.com")
+           NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged), name: .flagsChanged, object: Network.reachability)
+           
+           do {
+               try Network.reachability?.start()
+           } catch let error as Network.Error {
+               print(error)
+           } catch {
+               print(error)
+           }
+       } catch {
+           print(error)
+       }
+        if(!isInternetAvailable()){
+            showAlertInternet()
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -352,9 +370,17 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         
         if(distance >= circle.radius)
         {
-            print("user out of zone")
+             print("user out of zone")
              if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
                 if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                    //Alert please come back
+                     let alert = UIAlertController(title: "zone", message: "you are out of zone, please come back", preferredStyle: .alert)
+
+                                                  alert.addAction(UIAlertAction(title: "Yes", style: .default,handler: {action in self.showAlertInternet()}))
+                                                                              
+
+                                                  self.present(alert, animated: true)
+                    
                     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: " out of zone ", onSuccess: { (Msg) in
                         print(Msg)
                     } ,onFailure : { (error) in
@@ -371,7 +397,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         case .notDetermined:
             // manager.requestLocation()
             break
-        case .restricted, .denied:
+        case .restricted, .denied, .authorizedWhenInUse:
             let alert = UIAlertController(title: "", message: "locationAlert_txt".localiz(), preferredStyle: UIAlertController.Style.alert)
             
             // Button to Open Settings
@@ -387,7 +413,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             }))
             self.present(alert, animated: true, completion: nil)
             break
-        case .authorizedAlways, .authorizedWhenInUse:
+        case .authorizedAlways:
             if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 self.mapView.delegate = self
                 self.mapView?.isMyLocationEnabled = true
@@ -427,7 +453,37 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
     }
     
-    
+    //internet state change
+    var isInternetOK = false
+    @objc func reachabilityChanged(_ note: NSNotification) {
+           //V1
+           guard let status = Network.reachability?.status else { return }
+           switch status {
+           case .unreachable:
+            isInternetOK = false
+               print("Not reachable")
+           showAlertInternet()
+               
+           case .wifi:
+            isInternetOK = true
+               print("wifi reachable")
+           case .wwan:
+            isInternetOK = true
+               print("wwan reachable")
+           }
+           
+       }
+   func showAlertInternet(){
+        if(!isInternetOK){
+            let alert = UIAlertController(title: "No internet", message: "Please open your internet connection", preferredStyle: .alert)
+
+                              alert.addAction(UIAlertAction(title: "Yes", style: .default,handler: {action in self.showAlertInternet()}))
+                                                          
+
+                              self.present(alert, animated: true)
+              
+        }
+        }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
@@ -781,6 +837,7 @@ if (central.state == .poweredOn){
 }
 else {
     self.bluetoothEnabled = false
+    showAlertBluetooth()
 // do something like alert the user that ble is not on
 }
 }
@@ -789,8 +846,17 @@ func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPerip
     print(peripheral)
 
 }
+    func showAlertBluetooth(){
+        if(bluetoothEnabled == false){
+        let alert = UIAlertController(title: "No Bluetooth", message: "Please open Bluetooth", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in self.showAlertBluetooth()}))
+
+        self.present(alert, animated: true)
+        }
+    }
 }
- 
+
 public class SSID {
     class func fetchNetworkInfo() -> [NetworkInfo]? {
         if let interfaces: NSArray = CNCopySupportedInterfaces() {
