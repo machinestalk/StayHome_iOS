@@ -421,8 +421,8 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
        }
     @objc func getSpeed(){
 
-        var speed: CLLocationSpeed = CLLocationSpeed()
-            speed = Double((locationManager.location?.speed)!)
+        
+        let speed = Double((locationManager.location?.speed)!)
 
             print(String(format: "%.0f km/h", speed * 3.6)) //Current speed in km/h
 

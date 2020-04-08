@@ -22,6 +22,10 @@ class CheckInViewController: BaseController {
         super.viewWillAppear(animated)
         startTimer()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        desactivateTimer()
+    }
     @IBAction func yesBtnDidTap(_ sender: Any) {
         let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
         biometricsAuthVC.isFromCheckIn = true

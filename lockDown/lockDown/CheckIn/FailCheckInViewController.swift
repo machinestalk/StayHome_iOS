@@ -19,7 +19,10 @@ class FailCheckInViewController: BaseController {
         startTimer()
         // Do any additional setup after loading the view.
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        desactivateTimer()
+    }
     @IBAction func tryAgainDidTap(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
