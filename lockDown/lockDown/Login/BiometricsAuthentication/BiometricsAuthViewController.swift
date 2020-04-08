@@ -12,6 +12,7 @@ import LocalAuthentication
 
 class BiometricsAuthViewController: BaseController {
     var isFromCheckIn = false
+    var isFromNotif = false
     @IBOutlet weak var stepsImg: UIImageView!
     
     @IBOutlet weak var stateView: UIView!
@@ -118,6 +119,9 @@ class BiometricsAuthViewController: BaseController {
                                     } ,onFailure : { (error) in
                                         print(error)
                                     })
+                                    if self.isFromNotif {
+                                        self.navigationController?.dismiss(animated: true, completion: nil)
+                                    }
                                 }
                             }
                             else {
@@ -184,6 +188,7 @@ extension BiometricsAuthViewController: BiometricsAuthProtocol {
         case .loggedin:
             let FinishSignupVC = FinishSignupViewController(nibName: "FinishSignupViewController", bundle: nil)
             FinishSignupVC.isFromCheckIn = self.isFromCheckIn
+            FinishSignupVC.isFromNotif = self.isFromNotif
             self.navigationController!.pushViewController(FinishSignupVC, animated: true)
             
         case .loggedout:
