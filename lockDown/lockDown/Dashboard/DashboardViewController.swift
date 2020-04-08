@@ -21,6 +21,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var ChangeLocationVC = ChangeLocationViewController()
     var biometricsBottomVc = BiometricsBottomViewController()
     
+    let t = CustomTimer(timeInterval: 3)
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
@@ -32,12 +33,16 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     //Bluetooth
     var centralManager: CBCentralManager?
     var peripherals = Array<CBPeripheral>()
+    var bluetoothEnabled = false
     //Wifi
     var currentNetworkInfos: Array<NetworkInfo>? {
         get {
             return  SSID.fetchNetworkInfo()
         }
     }
+  
+
+ 
     //
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted:CGFloat = 0
@@ -77,6 +82,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
         //Initialise CoreBluetooth Central Manager
         centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.main)
+        //is Battery Monitoring Enabled
+       UIDevice.current.isBatteryMonitoringEnabled = true
+
+        startCustomTimer()
        
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -94,7 +103,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         setLocation()
         if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
            //if  !UserDefaults.standard.bool(forKey: "isFirstTime")  {
-                startTimer()
+               // startTimer()
            // }
           // else {
            // updateTime()
@@ -124,6 +133,36 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
               return ssid
           }
     
+    //Check if location services are enabled
+
+      func checkIfLocationEnabled() -> String{
+          if CLLocationManager.locationServicesEnabled() {
+                switch CLLocationManager.authorizationStatus() {
+                   case .notDetermined:
+                        print("notDetermined")
+                        return "notDetermined"
+                    case .restricted :
+                        print("restricted")
+                        return "restricted"
+                    case .denied:
+                        print("denied")
+                        return "denied"
+                   case .authorizedAlways:
+                       print("authorizedAlways")
+                       return "authorizedAlways"
+                    case .authorizedWhenInUse:
+                        print("authorizedWhenInUse")
+                        return "authorizedWhenInUse"
+                @unknown default:
+                     print("default")
+                     return "no one"
+            }
+               } else {
+                   print("Location services are not enabled")
+                    return "notEnabled"
+
+           }
+      }
     
     // MARK: setLocations
     func setLocation() {
@@ -209,7 +248,29 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             checkUsersLocationServicesAuthorization()
         }
     }
-    
+    //is Internet Available
+     func isInternetAvailable() -> Bool
+       {
+           var zeroAddress = sockaddr_in()
+           zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+           zeroAddress.sin_family = sa_family_t(AF_INET)
+           
+           let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+               $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                   SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+               }
+           }
+           
+           var flags = SCNetworkReachabilityFlags()
+           if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+               return false
+           }
+           let isReachable = flags.contains(.reachable)
+           let needsConnection = flags.contains(.connectionRequired)
+           return (isReachable && !needsConnection)
+       }
+       
+    //
     func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
         var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
         let ceo: CLGeocoder = CLGeocoder()
@@ -508,10 +569,13 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         let ssid = self.getAllWiFiNameList()
         print("SSID: \(ssid ?? "nil")")
+        let batteryLevel = UIDevice.current.batteryLevel
+        let locationState = checkIfLocationEnabled()
+
         if(distance >= circle.radius)
         {
             print("user out of zone")
-            logToFile(value: "user out of zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(currentNetworkInfos?.first?.ssid ??  "nil") \n")
+            logToFile(value: "user out of zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(currentNetworkInfos?.first?.ssid ??  "nil");\(batteryLevel);\(locationState);     \(bluetoothEnabled);\(isInternetAvailable()) \n")
             peripherals.removeAll()
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
@@ -527,7 +591,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             print(Array(Set(peripherals)))
 
             print("user in zone")
-            logToFile(value: "user in zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(ssid ?? "nil") \n")
+            logToFile(value: "user in zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(ssid ?? "nil");\(batteryLevel);\(locationState); \(bluetoothEnabled);\(isInternetAvailable())  \n")
             peripherals.removeAll()
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
@@ -547,6 +611,14 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
     //MARK : Add Timer
     
+    func startCustomTimer() {
+        
+        t.eventHandler = {
+            self.sendData()
+        }
+        t.resume()
+    }
+    
     func startTimer() {
         UserDefaults.standard.set(true, forKey: "isFirstTime")
         if(countdownTimer != nil ){
@@ -558,27 +630,27 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     
     @objc func updateTime() {
-        if(countdownTimer != nil){
-            let secondes = (totalTime % 60)
-            let minutes : Int = Int(totalTime / 60)
-            
-            if totalTime != 0 {
-                totalTime -= 1
-                UserDefaults.standard.set(totalTime, forKey: "counter")
-                print(String(format: "%02d:%02d", minutes, secondes))
-                
-            } else if secondes == 0 {
-                
-                sendData()
-                desactivateTimer()
-                startTimer()
-            }
-            else {
-                
-                //endTimer()
-            }
-            
-        }
+//        if(countdownTimer != nil){
+//            let secondes = (totalTime % 60)
+//            let minutes : Int = Int(totalTime / 60)
+//
+//            if totalTime != 0 {
+//                totalTime -= 1
+//                UserDefaults.standard.set(totalTime, forKey: "counter")
+//                print(String(format: "%02d:%02d", minutes, secondes))
+//
+//            } else if secondes == 0 {
+//
+//                sendData()
+//                desactivateTimer()
+//                //startTimer()
+//            }
+//            else {
+//
+//                //endTimer()
+//            }
+//
+//        }
     }
     
     // MARK : Desactivate Timer
@@ -591,7 +663,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
    // MARK : Log in File
     func logToFile(value : String)  {
-    let titleString = "Status; latitude; longitude; bluetooth; wifi"
+        let titleString = "Status; latitude; longitude; bluetooth; wifi; batteryLevel; locationState; bluetoothEnabled; isInternetAvailable"
                var dataString: String
                
         Colons.append(value)
@@ -703,9 +775,12 @@ extension DashboardViewController : BiometricsAuthProtocol{
 extension DashboardViewController: CBCentralManagerDelegate {
 func centralManagerDidUpdateState(_ central: CBCentralManager) {
 if (central.state == .poweredOn){
-self.centralManager?.scanForPeripherals(withServices: nil, options: nil)
+    self.centralManager?.scanForPeripherals(withServices: nil, options: nil)
+    self.bluetoothEnabled = true
+
 }
 else {
+    self.bluetoothEnabled = false
 // do something like alert the user that ble is not on
 }
 }

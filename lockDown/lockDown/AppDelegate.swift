@@ -208,17 +208,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Message ID: \(messageID)")
         }
         
-       let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-        let state = UIApplication.shared.applicationState
-        if state == .background || state == .active {
-            NotificationCenter.default.post(name: Notification.Name("AppDidReceiveRemoteNotification"), object: nil)
-        } else if state == .inactive {
-            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "backgroud", onSuccess: { (Msg) in
-                print(Msg)
-            } ,onFailure : { (error) in
-                print(error)
-            })
-        }
+        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+        
+        APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+            print(Msg)
+        } ,onFailure : { (error) in
+            print(error)
+        })
         completionHandler(UIBackgroundFetchResult.newData)
     }
     // [END receive_message]
@@ -285,18 +281,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         if let messageID = userInfo["id"] {
             print("Message ID: \(messageID)")
         }
-        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-        let state = UIApplication.shared.applicationState
-        if state == .background || state == .active {
-            NotificationCenter.default.post(name: Notification.Name("AppDidReceiveRemoteNotification"), object: nil)
-        } else if state == .inactive {
-            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "background", onSuccess: { (Msg) in
-                print(Msg)
-            } ,onFailure : { (error) in
-                print(error)
-            })
-        }
-                completionHandler()
+        completionHandler()
     }
 }
 // [END ios_10_message_handling]
