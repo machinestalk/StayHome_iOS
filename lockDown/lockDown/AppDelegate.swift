@@ -24,20 +24,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         if #available(iOS 10.0, *) {
-          // For iOS 10 display notification (sent via APNS)
-          UNUserNotificationCenter.current().delegate = self
-
-          let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-          UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions,
-            completionHandler: {_, _ in })
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
         } else {
-          let settings: UIUserNotificationSettings =
-          UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-          application.registerUserNotificationSettings(settings)
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
         }
         application.registerForRemoteNotifications()
-
+        
         LanguageManger.shared.defaultLanguage = .en
         let userDefaults = Foundation.UserDefaults.standard
         if userDefaults.string(forKey: "language") == nil || userDefaults.string(forKey: "language") == "" {
@@ -71,18 +71,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         } else {
             
-                let centerVC = LandingViewController()
-                let navVC:UINavigationController = UINavigationController(rootViewController: centerVC)
-                self.window?.rootViewController = navVC;
+            let centerVC = LandingViewController()
+            let navVC:UINavigationController = UINavigationController(rootViewController: centerVC)
+            self.window?.rootViewController = navVC;
             
         }
         self.window?.tintColor = UIColor.white
         self.window?.makeKeyAndVisible()
         GMSServices.provideAPIKey(LockDown.GoogleMaps.key)
-
+        
         return true
     }
-       
+    
     
     func getLandingPageWithSideMenu()->UIViewController {
         
@@ -149,17 +149,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
-   func applicationWillEnterForeground(_ application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
             NotificationCenter.default.post(name: Notification.Name("NotificationLocation"), object: nil)
-
-            }
-        else {
-             NotificationCenter.default.post(name: Notification.Name("NotificationNoneLocation"), object: nil)
+            
         }
-    let VC = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
-    VC.updateTime()
-   
+        else {
+            NotificationCenter.default.post(name: Notification.Name("NotificationNoneLocation"), object: nil)
+        }
+        let VC = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
+        VC.updateTime()
+        
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
     
@@ -171,7 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("WillTerminate")
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-      
+        
     }
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let VC = window?.rootViewController as? DashboardViewController {
@@ -208,9 +208,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Message ID: \(messageID)")
         }
         
-        // Print full message.
-        print(userInfo)
+        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         
+        APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+            print(Msg)
+        } ,onFailure : { (error) in
+            print(error)
+        })
         completionHandler(UIBackgroundFetchResult.newData)
     }
     // [END receive_message]
@@ -223,7 +227,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // the FCM registration token.
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("APNs token retrieved: \(deviceToken)")
-       
+        
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
     }
@@ -260,11 +264,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         guard let value = aps.value(forKey: "alert") as? NSDictionary else { return;}
         guard let body = value.value(forKey: "body") as? String else { return;}
         
-       
-
+        
+        
         // Print full message.
         print(userInfo)
-
+        
         // Change this to your preferred presentation option
         completionHandler([])
     }
@@ -277,10 +281,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         if let messageID = userInfo["id"] {
             print("Message ID: \(messageID)")
         }
-        
-        // Print full message.
-        print(userInfo)
-        
         completionHandler()
     }
 }
@@ -293,7 +293,7 @@ extension AppDelegate : MessagingDelegate {
     // [START refresh_token]
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(fcmToken)")
-     
+        
         UserDefaults.standard.set(fcmToken, forKey: "firebaseToken")
         let dataDict:[String: String] = ["token": fcmToken]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
