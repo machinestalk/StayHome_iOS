@@ -30,18 +30,18 @@ class BiometricsAuthViewController: BaseController {
     
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted:CGFloat = 0
-
+    
     /// An authentication context stored at class scope so it's available for use during UI updates.
     var context = LAContext()
-
+    
     /// The available states of being logged in or not.
     enum AuthenticationState {
         case loggedin, loggedout
     }
-
+    
     /// The current authentication state.
     var state = AuthenticationState.loggedout {
-
+        
         // Update the UI on a change.
         didSet {
             //loginButton.isHighlighted = state == .loggedin  // The button text changes on highlight.
@@ -52,7 +52,7 @@ class BiometricsAuthViewController: BaseController {
             //faceIDLabel.isHidden = (state == .loggedin) || (context.biometryType != .faceID)
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if(isFromCheckIn){
@@ -60,7 +60,7 @@ class BiometricsAuthViewController: BaseController {
             stepsImg.isHidden = true
         }
         else {
-        self.title = "SignUpTitle".localiz()
+            self.title = "SignUpTitle".localiz()
         }
         // The biometryType, which affects this app's UI when state changes, is only meaningful
         //  after running canEvaluatePolicy. But make sure not to run this test from inside a
@@ -68,66 +68,70 @@ class BiometricsAuthViewController: BaseController {
         //  method, which is triggered as a result of the state change made in the callback),
         //  because that might result in deadlock.
         context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
-
+        
         // Set the initial app state. This impacts the initial state of the UI as well.
         state = .loggedout
         
         setupBiometricsBottomVC()
     }
-
+    
     /// Logs out or attempts to log in when the user taps the button.
-
+    
     func tapButton() {
-
+        
         if state == .loggedin {
-
+            
             // Log out immediately.
             state = .loggedout
-
+            
         } else {
-
+            
             // Get a fresh context for each login. If you use the same context on multiple attempts
             //  (by commenting out the next line), then a previously successful authentication
             //  causes the next policy evaluation to succeed without testing biometry again.
             //  That's usually not what you want.
             context = LAContext()
-
+            
             context.localizedCancelTitle = "Cancel"
-
+            
             // First check if we have the needed hardware support.
             var error: NSError?
             if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
-
+                
                 let reason = "Log in to your account"
                 context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason ) { success, error in
-
+                    
                     if success {
-
+                        
                         // Move to the main thread because a state update triggers UI changes.
                         DispatchQueue.main.async { [unowned self] in
-                          if (UserDefaults.standard.data(forKey: "currentbiometricstate") != nil){
+                            if (UserDefaults.standard.data(forKey: "currentbiometricstate") != nil){
                                 if UserDefaults.standard.data(forKey: "currentbiometricstate") == self.context.evaluatedPolicyDomainState  {
                                     self.state = .loggedin
                                     self.setupSuccessBiometricsBottomVC()
                                 }
                                 else {
                                     print("Not same user")
-                                    self.state = .loggedin
-                                    self.setupSuccessBiometricsBottomVC()
+                                    let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+                                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0,raison:"faceId doesn't match", onSuccess: { (Msg) in
+                                        print(Msg)
+                                    } ,onFailure : { (error) in
+                                        print(error)
+                                    })
                                 }
                             }
                             else {
                                 let currentbiometricstate = self.context.evaluatedPolicyDomainState
-                                                          UserDefaults.standard.set(currentbiometricstate, forKey: "currentbiometricstate")
+                                UserDefaults.standard.set(currentbiometricstate, forKey: "currentbiometricstate")
                                 self.state = .loggedin
                                 self.setupSuccessBiometricsBottomVC()
                                 UserDefaults.standard.set(true, forKey: "isLoggedIn")
                             }
                         }
-
+                        
                     } else {
                         print(error?.localizedDescription ?? "Failed to authenticate")
-
+                        
                         // Fall back to a asking for username and password.
                         // ...
                         self.setupFailBiometricsBottomVC()
@@ -135,7 +139,7 @@ class BiometricsAuthViewController: BaseController {
                 }
             } else {
                 print(error?.localizedDescription ?? "Can't evaluate policy")
-
+                
                 // Fall back to a asking for username and password.
                 // ...
             }
@@ -179,7 +183,7 @@ extension BiometricsAuthViewController: BiometricsAuthProtocol {
         switch state {
         case .loggedin:
             let FinishSignupVC = FinishSignupViewController(nibName: "FinishSignupViewController", bundle: nil)
-                FinishSignupVC.isFromCheckIn = self.isFromCheckIn
+            FinishSignupVC.isFromCheckIn = self.isFromCheckIn
             self.navigationController!.pushViewController(FinishSignupVC, animated: true)
             
         case .loggedout:

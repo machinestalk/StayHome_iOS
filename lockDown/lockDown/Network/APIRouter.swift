@@ -13,7 +13,7 @@ enum APIRouter: URLRequestConvertible {
     
     case signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String)
     case signUp(phoneNumber: String)
-    case sendIsComplaint(deviceToken : String,iscomplaint: Int)
+    case sendIsComplaint(deviceToken : String,iscomplaint: Int,raison :String)
     case sendZoneLocations(deviceid : String,latitude: String ,longitude : String , radius : String)
     case sendSurvey(deviceid : String, data:[String:Any])
     case sendFirebaseToken(deviceid : String, firebase_token : String)
@@ -52,7 +52,7 @@ enum APIRouter: URLRequestConvertible {
         case .signUp(let phoneNumber):
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber]
         case . sendIsComplaint(let parameters):
-            return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint]
+            return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint , LockDown.APIParameterKey.raison : parameters.raison ]
         case . sendZoneLocations(let parameters):
             return [LockDown.APIParameterKey.latitude : parameters.latitude , LockDown.APIParameterKey.longitude : parameters.longitude ,LockDown.APIParameterKey.radius : parameters.radius ]
         case .sendFirebaseToken(let parameters):

@@ -41,3 +41,6 @@
 "CheckIn_text1_txt"        = "يجب تأكيد هويتك بانتظام. \ n سيتم تخزين البيانات على هاتفك.";
 "checkIn_text2_txt"        = "مرحبا أنت هناك ؟";
 "yesThere_txt"             = "نعم انا هنا";
+// My zone
+"locationStoredTxt"   =  "تم تسجيل موقع منزلك بنجاح";
+
