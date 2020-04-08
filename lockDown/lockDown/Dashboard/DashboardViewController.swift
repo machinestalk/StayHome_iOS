@@ -109,7 +109,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
         
         //getSpeed
-        scheduledTimerWithTimeInterval() //Calling function with timer
         // Do any additional setup after loading the view, typically from a nib.
        
 

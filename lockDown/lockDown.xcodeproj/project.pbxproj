@@ -1049,6 +1049,7 @@
 				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 20040901;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1075,6 +1076,7 @@
 				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 20040901;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
