@@ -112,6 +112,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         scheduledTimerWithTimeInterval() //Calling function with timer
         // Do any additional setup after loading the view, typically from a nib.
        
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -212,7 +213,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 marker.position = locValue
                 marker.map = self.mapView
                 getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
-          
+                scheduledTimerWithTimeInterval()
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -235,11 +236,12 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 marker.map = self.mapView
                 getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
                 circle = GMSCircle()
-                       circle.radius = 100 // Meters
-                       circle.position = marker.position // user  position
-                       circle.fillColor = UIColorFromHex(hex: "#FBBBBC").withAlphaComponent(0.8)
-                       circle.strokeColor = .clear
-                       circle.map = mapView;
+                circle.radius = 100 // Meters
+                circle.position = marker.position // user  position
+                circle.fillColor = UIColorFromHex(hex: "#FBBBBC").withAlphaComponent(0.8)
+                circle.strokeColor = .clear
+                circle.map = mapView;
+                scheduledTimerWithTimeInterval()
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -315,35 +317,36 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 {
                     print("reverse geodcode fail: \(error!.localizedDescription)")
                 }
-                guard let pm = placemarks else {return}
+                if let pm = placemarks {
                 
-                if pm.count > 0 {
-                    let pm = placemarks![0]
-                    print(pm.country)
-                    print(pm.locality)
-                    print(pm.subLocality)
-                    print(pm.thoroughfare)
-                    print(pm.postalCode)
-                    print(pm.subThoroughfare)
-                    var addressString : String = ""
-                    if pm.subLocality != nil {
-                        addressString = addressString + pm.subLocality! + ", "
+                    if pm.count > 0 {
+                        let pm = placemarks![0]
+                        print(pm.country)
+                        print(pm.locality)
+                        print(pm.subLocality)
+                        print(pm.thoroughfare)
+                        print(pm.postalCode)
+                        print(pm.subThoroughfare)
+                        var addressString : String = ""
+                        if pm.subLocality != nil {
+                            addressString = addressString + pm.subLocality! + ", "
+                        }
+                        if pm.thoroughfare != nil {
+                            addressString = addressString + pm.thoroughfare! + ", "
+                        }
+                        if pm.locality != nil {
+                            addressString = addressString + pm.locality! + ", "
+                        }
+                        if pm.country != nil {
+                            addressString = addressString + pm.country! + ", "
+                        }
+                        if pm.postalCode != nil {
+                            addressString = addressString + pm.postalCode! + " "
+                        }
+                        
+                        self.addressLbl.text = addressString
+                        print(addressString)
                     }
-                    if pm.thoroughfare != nil {
-                        addressString = addressString + pm.thoroughfare! + ", "
-                    }
-                    if pm.locality != nil {
-                        addressString = addressString + pm.locality! + ", "
-                    }
-                    if pm.country != nil {
-                        addressString = addressString + pm.country! + ", "
-                    }
-                    if pm.postalCode != nil {
-                        addressString = addressString + pm.postalCode! + " "
-                    }
-                    
-                    self.addressLbl.text = addressString
-                    print(addressString)
                 }
         })
         
@@ -387,7 +390,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                     //Alert please come back
                      let alert = UIAlertController(title: "zone", message: "you are out of zone, please come back", preferredStyle: .alert)
 
-                                                  alert.addAction(UIAlertAction(title: "Yes", style: .default,handler: {action in self.showAlertInternet()}))
+                                                  alert.addAction(UIAlertAction(title: "Ok", style: .default,handler: {action in self.showAlertInternet()}))
                                                                               
 
                                                   self.present(alert, animated: true)
@@ -418,15 +421,15 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
            if(bluetoothEnabled == false){
            let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
 
-           alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+           alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 
            self.present(alert, animated: true)
            }
        }
     @objc func getSpeed(){
 
-        var speed: CLLocationSpeed = CLLocationSpeed()
-            speed = Double((locationManager.location?.speed)!)
+        
+        let speed = Double((locationManager.location?.speed)!)
 
             print(String(format: "%.0f km/h", speed * 3.6)) //Current speed in km/h
 
@@ -542,7 +545,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         if(!isInternetOK){
             let alert = UIAlertController(title: "No internet", message: "Please open your internet connection", preferredStyle: .alert)
 
-                              alert.addAction(UIAlertAction(title: "Yes", style: .default,handler: {action in self.showAlertInternet()}))
+                              alert.addAction(UIAlertAction(title: "OK", style: .default,handler: {action in self.showAlertInternet()}))
                                                           
 
                               self.present(alert, animated: true)
@@ -914,7 +917,7 @@ func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPerip
         if(bluetoothEnabled == false){
         let alert = UIAlertController(title: "No Bluetooth", message: "Please open Bluetooth", preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in self.showAlertBluetooth()}))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.showAlertBluetooth()}))
 
         self.present(alert, animated: true)
         }
