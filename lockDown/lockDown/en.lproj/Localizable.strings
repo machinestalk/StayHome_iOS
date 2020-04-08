@@ -10,7 +10,7 @@
 "noBtn_Txt"                                 = "No";
 "yesBtn_txt"                                = "Yes";
 "nextBtn_txt"                               = "Next" ;
-"locationAlert_txt"                                                = "Turn on your location services from the settings";
+"locationAlert_txt"                                                = "Turn on your location services from the settings to \"Always\"";
 "Ok_text"                                                        = "Ok";
 "Warning_txt" = "Warning";
 "Settings_txt"                                                          = "Settings";
