@@ -14,11 +14,14 @@ class CheckInViewController: BaseController {
     @IBOutlet weak var counter: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Check In"
-        startTimer()
+        self.title = "CheckInTxt".localiz()
+        
         // Do any additional setup after loading the view.
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        startTimer()
+    }
     @IBAction func yesBtnDidTap(_ sender: Any) {
         let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
         biometricsAuthVC.isFromCheckIn = true
@@ -41,14 +44,14 @@ class CheckInViewController: BaseController {
             
             if totalTime != 0 {
                 totalTime -= 1
-                UserDefaults.standard.set(totalTime, forKey: "counter")
                 counter.text =  String(format: "%02d:%02d", minutes, secondes) + " min"
                 
             } else if secondes == 0 {
                 
 
                 desactivateTimer()
-                startTimer()
+                let FailCheckInVC = FailCheckInViewController(nibName: "FailCheckInViewController", bundle: nil)
+                self.navigationController!.pushViewController(FailCheckInVC, animated: true)
             }
             else {
                 

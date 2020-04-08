@@ -21,7 +21,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var ChangeLocationVC = ChangeLocationViewController()
     var biometricsBottomVc = BiometricsBottomViewController()
     
-    let t = CustomTimer(timeInterval: 3)
+    let t = CustomTimer(timeInterval: 60)
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
