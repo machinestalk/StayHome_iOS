@@ -213,7 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if state == .background || state == .active {
             NotificationCenter.default.post(name: Notification.Name("AppDidReceiveRemoteNotification"), object: nil)
         } else if state == .inactive {
-            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "backgroud", onSuccess: { (Msg) in
                 print(Msg)
             } ,onFailure : { (error) in
                 print(error)
@@ -290,7 +290,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         if state == .background || state == .active {
             NotificationCenter.default.post(name: Notification.Name("AppDidReceiveRemoteNotification"), object: nil)
         } else if state == .inactive {
-            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "background", onSuccess: { (Msg) in
                 print(Msg)
             } ,onFailure : { (error) in
                 print(error)

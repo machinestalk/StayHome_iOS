@@ -73,3 +73,5 @@
 
 //Contact US
 "contactUS_lbl_txt" = "Contact Technical Support if you have any issue with the application.";
+// My Zone
+"locationStoredTxt"   ="Your home location was stored successfully";
