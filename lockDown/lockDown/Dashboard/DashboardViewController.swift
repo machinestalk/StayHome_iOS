@@ -11,6 +11,8 @@ import GoogleMaps
 import SystemConfiguration.CaptiveNetwork
 import CoreBluetooth
 import SystemConfiguration.CaptiveNetwork
+import CoreMotion
+import CoreLocation
 
 class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationManagerDelegate{
     enum CardState {
@@ -105,6 +107,11 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         if(!isInternetAvailable()){
             showAlertInternet()
         }
+        
+        //getSpeed
+        scheduledTimerWithTimeInterval() //Calling function with timer
+        // Do any additional setup after loading the view, typically from a nib.
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -381,6 +388,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
 
                                                   self.present(alert, animated: true)
                     
+                   
                     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: " out of zone ", onSuccess: { (Msg) in
                         print(Msg)
                     } ,onFailure : { (error) in
@@ -391,7 +399,60 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             }
         }
     }
+    // acceleration
     
+
+    var timer = Timer()
+    let motionManager = CMMotionManager()
+
+    func scheduledTimerWithTimeInterval(){
+        // Scheduling timer to Call the function **getSpeed** with the interval of 1 seconds
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(getSpeed), userInfo: nil, repeats: true)
+    }
+
+    func showAlertSpeed(){
+           if(bluetoothEnabled == false){
+           let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
+
+           alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+
+           self.present(alert, animated: true)
+           }
+       }
+    @objc func getSpeed(){
+
+        var speed: CLLocationSpeed = CLLocationSpeed()
+            speed = Double((locationManager.location?.speed)!)
+
+            print(String(format: "%.0f km/h", speed * 3.6)) //Current speed in km/h
+
+        //If speed is over 10 km/h
+        if(speed * 3.6 > 10 ){
+            showAlertSpeed()
+            //Getting the accelerometer data
+            if motionManager.isAccelerometerAvailable{
+                let queue = OperationQueue()
+                motionManager.startAccelerometerUpdates(to: queue, withHandler:
+                    {data, error in
+
+                        guard let data = data else{
+                            return
+                        }
+
+                        print("X = \(data.acceleration.x)")
+                        print("Y = \(data.acceleration.y)")
+                        print("Z = \(data.acceleration.z)")
+
+                    }
+                )
+            } else {
+                print("Accelerometer is not available")
+            }
+
+        }
+    }
+
+    //
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:
