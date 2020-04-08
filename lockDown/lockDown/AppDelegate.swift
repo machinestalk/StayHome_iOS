@@ -210,7 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         
-        APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+        APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "app in background", onSuccess: { (Msg) in
             print(Msg)
         } ,onFailure : { (error) in
             print(error)
@@ -268,7 +268,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         
         // Print full message.
         print(userInfo)
-        
+        if body == "check_in" {
+             let CheckInVC = CheckInViewController(nibName: "CheckInViewController", bundle: nil)
+            self.navVC!.pushViewController(CheckInVC, animated: true)
+        }
         // Change this to your preferred presentation option
         completionHandler([])
     }

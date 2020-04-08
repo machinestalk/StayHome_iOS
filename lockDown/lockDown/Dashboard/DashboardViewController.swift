@@ -19,7 +19,9 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     var requestLocationVC = RequestLocationViewController()
     var ChangeLocationVC = ChangeLocationViewController()
-    let t = CustomTimer(timeInterval: 3)
+    var biometricsBottomVc = BiometricsBottomViewController()
+    
+    let customTimer = CustomTimer(timeInterval: 60)
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
@@ -379,7 +381,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
 
                                                   self.present(alert, animated: true)
                     
-                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: " out of zone ", onSuccess: { (Msg) in
                         print(Msg)
                     } ,onFailure : { (error) in
                         print(error)
@@ -632,7 +634,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             logToFile(value: "user out of zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(currentNetworkInfos?.first?.ssid ??  "nil");\(batteryLevel);\(locationState);     \(bluetoothEnabled);\(isInternetAvailable()) \n")
             peripherals.removeAll()
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, onSuccess: { (Msg) in
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
                     print(Msg)
                 } ,onFailure : { (error) in
                     print(error)
@@ -648,7 +650,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             logToFile(value: "user in zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(ssid ?? "nil");\(batteryLevel);\(locationState); \(bluetoothEnabled);\(isInternetAvailable())  \n")
             peripherals.removeAll()
             if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, onSuccess: { (Msg) in
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
                     print(Msg)
                 } ,onFailure : { (error) in
                     print(error)
@@ -667,10 +669,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
     func startCustomTimer() {
         
-        t.eventHandler = {
+        customTimer.eventHandler = {
             self.sendData()
         }
-        t.resume()
+        customTimer.resume()
     }
     
     func startTimer() {
@@ -781,20 +783,16 @@ extension DashboardViewController: RequestLocationProtocol {
     
     func requestlocation() {
         requestLocationVC.view.removeFromSuperview()
-        UserDefaults.standard.set(true, forKey: "isLocationSetted")
-        UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
-        let customerId = UserDefaults.standard.string(forKey: "customerId")
-        
-        
-        APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
-            print(Msg)
-            //self.startTimer()
-        } ,onFailure : { (error) in
-            print(error)
-        }
-        )
-        let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
-        self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
+        biometricsBottomVc.delegate = self
+        let height = view.frame.height
+        let width  = view.frame.width
+        biometricsBottomVc.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        self.addChild(biometricsBottomVc)
+        self.view.addSubview(biometricsBottomVc.view)
+        biometricsBottomVc.msgLbl.text = "locationStoredTxt".localiz()
+        biometricsBottomVc.titleLbl.isHidden = true
+        biometricsBottomVc.successImage.isHidden = false 
+        biometricsBottomVc.didMove(toParent: self)
     }
     
     
@@ -808,6 +806,27 @@ extension DashboardViewController : ChangeLocationProtocol {
     }
 }
 
+
+extension DashboardViewController : BiometricsAuthProtocol{
+    func requestRecognition(){
+               UserDefaults.standard.set(true, forKey: "isLocationSetted")
+               UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
+               let customerId = UserDefaults.standard.string(forKey: "customerId")
+               
+               
+               APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
+                   print(Msg)
+                self.biometricsBottomVc.view.removeFromSuperview()
+                   self.startTimer()
+               } ,onFailure : { (error) in
+                   print(error)
+               }
+               )
+               let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
+               self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
+           }
+    
+}
 //Bluetooth
 extension DashboardViewController: CBCentralManagerDelegate {
 func centralManagerDidUpdateState(_ central: CBCentralManager) {

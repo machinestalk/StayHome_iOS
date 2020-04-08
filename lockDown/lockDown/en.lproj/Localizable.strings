@@ -64,7 +64,11 @@
 "CheckIn_text1_txt"        = "You must confirm your identity regularly.\n The data will be stored on your phone.";
 "checkIn_text2_txt"        = "Hi,are you there ?";
 "yesThere_txt"             = "Yes I'am here";
-
+"CheckInTxt"                = "Check In";
+"FailCheckTxt"              = "Your check in fails !";
+"tryAgainTxt"               = "Try Again";
+"remainingTimeTxt"          = "Remaining time to Check In.";
+"minTxt"                    = "min";
 // Emergency
 "emergency_lbl_title_txt"           = "NEED HELP";
 "survey_lbl_text0_txt"                 = "If you have any symptoms : ";
@@ -73,3 +77,5 @@
 
 //Contact US
 "contactUS_lbl_txt" = "Contact Technical Support if you have any issue with the application.";
+// My Zone
+"locationStoredTxt"   ="Your home location was stored successfully";

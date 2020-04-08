@@ -81,6 +81,8 @@
 		FAC81E7C243A1EB2002DBADE /* LandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E7A243A1EB2002DBADE /* LandingViewController.xib */; };
 		FAC81E80243A84A7002DBADE /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC81E7E243A84A7002DBADE /* ContentViewController.swift */; };
 		FAC81E81243A84A7002DBADE /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E7F243A84A7002DBADE /* ContentViewController.xib */; };
+		FADB80F4243DFDFB00A31CC1 /* FailCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB80F2243DFDFA00A31CC1 /* FailCheckInViewController.swift */; };
+		FADB80F5243DFDFB00A31CC1 /* FailCheckInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADB80F3243DFDFA00A31CC1 /* FailCheckInViewController.xib */; };
 		FAE627DB243CE4A90011B7A1 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */; };
 /* End PBXBuildFile section */
 
@@ -192,6 +194,8 @@
 		FAC81E7A243A1EB2002DBADE /* LandingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LandingViewController.xib; sourceTree = "<group>"; };
 		FAC81E7E243A84A7002DBADE /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		FAC81E7F243A84A7002DBADE /* ContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
+		FADB80F2243DFDFA00A31CC1 /* FailCheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailCheckInViewController.swift; sourceTree = "<group>"; };
+		FADB80F3243DFDFA00A31CC1 /* FailCheckInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailCheckInViewController.xib; sourceTree = "<group>"; };
 		FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
 		FF396EA1F94943DCDE0350F6 /* Pods-lockDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.debug.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -434,6 +438,8 @@
 			children = (
 				FAB9B83D2438FC85007364E7 /* CheckInViewController.swift */,
 				FAB9B83E2438FC85007364E7 /* CheckInViewController.xib */,
+				FADB80F2243DFDFA00A31CC1 /* FailCheckInViewController.swift */,
+				FADB80F3243DFDFA00A31CC1 /* FailCheckInViewController.xib */,
 			);
 			path = CheckIn;
 			sourceTree = "<group>";
@@ -651,6 +657,7 @@
 				FAB7F41724339B0600061AE5 /* OpenSans-Light.ttf in Resources */,
 				FAC36C9E24388894002B4928 /* SurveyViewController.xib in Resources */,
 				FAB9B8402438FC85007364E7 /* CheckInViewController.xib in Resources */,
+				FADB80F5243DFDFB00A31CC1 /* FailCheckInViewController.xib in Resources */,
 				FA7ED09724364D1100C0060D /* FinishSignupViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -843,6 +850,7 @@
 				FA6E98A324329B83000F2C2E /* NormalTextField.swift in Sources */,
 				FA6E989424329B7B000F2C2E /* APIClient.swift in Sources */,
 				FAC81E762438CF29002DBADE /* ContactUsViewController.swift in Sources */,
+				FADB80F4243DFDFB00A31CC1 /* FailCheckInViewController.swift in Sources */,
 				FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */,
 				FAC36C812435DCFC002B4928 /* UserData.swift in Sources */,
 				FA6E98A624329B83000F2C2E /* Button.swift in Sources */,
