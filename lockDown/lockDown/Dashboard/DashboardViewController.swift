@@ -107,6 +107,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         if(!isInternetAvailable()){
             showAlertInternet()
         }
+        
+        //getSpeed
+        scheduledTimerWithTimeInterval() //Calling function with timer
+        // Do any additional setup after loading the view, typically from a nib.
        
 
     }
@@ -139,6 +143,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             print(error)
         }
         )
+        
+        
+        //Create log file if not yet created
+               createLogFile()
     }
     
     //getAllWiFiNameList
@@ -777,43 +785,42 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
     }
     
+    
    // MARK : Log in File
-    func logToFile(value : String)  {
-        let titleString = "Status; latitude; longitude; bluetooth; wifi; batteryLevel; locationState; bluetoothEnabled; isInternetAvailable"
-               var dataString: String
-               
-        Colons.append(value)
+    
+    //create file
+    func createLogFile(){
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+          let url = URL(fileURLWithPath: path)
 
-               do {
-                   try "\(titleString)\n".write(to: fileURL!, atomically: false, encoding: String.Encoding.utf8)
-               } catch {
-                   print(error)
-               }
-               //writing
+          let filePath = url.appendingPathComponent(file).path
+          let fileManager = FileManager.default
+          if fileManager.fileExists(atPath: filePath) {
+              print("FILE AVAILABLE")
+          } else {
+              print("FILE NOT AVAILABLE")
+            let titleString = "Status; latitude; longitude; bluetooth; wifi; batteryLevel; locationState; bluetoothEnabled; isInternetAvailable"
+                   
 
-        for i in 0...Colons.count-1 {
-                
-                   dataString =  String(Colons[i])
-                   //Check if file exists
                    do {
-                       let fileHandle = try FileHandle(forWritingTo: fileURL!)
-                           fileHandle.seekToEndOfFile()
-                           fileHandle.write(dataString.data(using: .utf8)!)
-                           fileHandle.closeFile()
+                       try "\(titleString)\n".write(to: fileURL!, atomically: false, encoding: String.Encoding.utf8)
                    } catch {
-                       print("Error writing to file \(error)")
+                       print(error)
                    }
-                  // print(dataString)
-               }
-               print("Saving data in: \(fileURL!.path)")
-
-
-               //reading
-               do {
-                   let text2 = try String(contentsOf: fileURL!, encoding: .utf8)
-                   print(text2)
-               }
-               catch {/* error handling here */}
+          }
+    }
+    //add data to log file
+    func logToFile(value : String)  {
+        
+               //writing
+        do {
+                           let fileHandle = try FileHandle(forWritingTo: fileURL!)
+                               fileHandle.seekToEndOfFile()
+                               fileHandle.write(value.data(using: .utf8)!)
+                               fileHandle.closeFile()
+                       } catch {
+                           print("Error writing to file \(error)")
+                       }
            
     }
 }
