@@ -35,8 +35,6 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>"stayhome KSA" wants to take pictures.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This app needs Face ID to recognize you</string>
 	<key>NSLocationAlwaysAndWhenInUsageDescription</key>
@@ -49,8 +47,6 @@
 	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>"stayhome KSA" wants to use your picture library.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Bold.ttf</string>
