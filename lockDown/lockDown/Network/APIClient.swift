@@ -43,7 +43,8 @@ class APIClient {
                     }
                 }
                 else {
-                    completion(.failure(data.result.error!))
+                   // should be fixed or user will get always loading
+                    
                 }
             }
         })
