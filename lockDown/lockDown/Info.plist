@@ -37,6 +37,8 @@
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Allow "StayhomeKSA" to access your bluetooth while your are using the app?</string>
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>Allow "StayhomeKSA" to access your bluetooth while your are using the app?</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This app needs Face ID to recognize you</string>
 	<key>NSLocationAlwaysAndWhenInUsageDescription</key>
