@@ -17,10 +17,11 @@ enum APIRouter: URLRequestConvertible {
     case sendZoneLocations(deviceid : String,latitude: String ,longitude : String , radius : String)
     case sendSurvey(deviceid : String, data:[String:Any])
     case sendFirebaseToken(deviceid : String, firebase_token : String)
+    case refrechToken(refreshToken : String)
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey:
+        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken:
             return .post
         }
     }
@@ -33,6 +34,8 @@ enum APIRouter: URLRequestConvertible {
             return "api/noauth/loginMobile"
         case .signUp:
             return "api/noauth/signInCustomer"
+        case .refrechToken:
+            return "api/auth/token"
         case .sendIsComplaint(let parameters):
             return "api/v1/\(parameters.deviceToken)/telemetry"
         case .sendZoneLocations(let parameters):
@@ -51,6 +54,8 @@ enum APIRouter: URLRequestConvertible {
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber, LockDown.APIParameterKey.phoneOtp: phoneOtp, LockDown.APIParameterKey.phoneUdid:phoneUdid]
         case .signUp(let phoneNumber):
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber]
+        case .refrechToken(let refreshToken):
+            return [LockDown.APIParameterKey.refreshToken: refreshToken]
         case . sendIsComplaint(let parameters):
             return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint , LockDown.APIParameterKey.raison : parameters.raison ]
         case . sendZoneLocations(let parameters):

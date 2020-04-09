@@ -32,14 +32,18 @@ class APIClient {
                 //                    }
                 //                    return
                 //                }
-                
-                switch data.result {
-                case .success:
-                    if let value = data.result.value as? JSONFormat, let result = T(JSON: value) {
-                        completion(.success(result))
+                if data.response?.statusCode == 200 {
+                    switch data.result {
+                    case .success:
+                        if let value = data.result.value as? JSONFormat, let result = T(JSON: value) {
+                            completion(.success(result))
+                        }
+                    case .failure(let error):
+                        completion(.failure(error))
                     }
-                case .failure(let error):
-                    completion(.failure(error))
+                }
+                else {
+                    completion(.failure(data.result.error!))
                 }
             }
         })
@@ -47,15 +51,20 @@ class APIClient {
     
     private static func SendRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         Alamofire.request(route).responseString { response in
-            switch response.result {
-            case .success(let value):
-                successCallback?(value)
-            case .failure(let error):
-                failureCallback?(error.localizedDescription)
+            if response.response?.statusCode == 200 {
+                switch response.result {
+                case .success(let value):
+                    successCallback?(value)
+                case .failure(let error):
+                    failureCallback?(error.localizedDescription)
+                }
+            }
+            else {
+                failureCallback?(response.result.error!.localizedDescription)
             }
         }
     }
-
+    
     static func singUp(phoneNumber : String ,onSuccess successCallback: ((_ successMessage: String) -> Void)?, onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
         return SendRequest(route: APIRouter.signUp(phoneNumber: phoneNumber), onSuccess: { (responseObject: String) -> Void in
@@ -68,57 +77,61 @@ class APIClient {
     static func signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String) -> Future<UserData> {
         return performRequest(route: APIRouter.signIn(phoneNumber: phoneNumber, phoneOtp: phoneOtp, phoneUdid: phoneUdid))
     }
+    static func getRefreshToken(refreshToken : String) -> Future<UserData> {
+        return performRequest(route: APIRouter.refrechToken(refreshToken: refreshToken))
+    }
+    
     
     static func sendTelimetry(deviceToken : String , iscomplaint : Int ,raison : String,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
-                             onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
-       
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
         return SendRequest(route: APIRouter.sendIsComplaint(deviceToken : deviceToken , iscomplaint: iscomplaint, raison: raison), onSuccess: { (responseObject: String) -> Void in
-           successCallback?("successMessage")
-       },
-          onFailure: {(errorMessage: String) -> Void in
-            print(errorMessage)
-            failureCallback?("errorMessage")
-       }
-       )
-   }
+            successCallback?("successMessage")
+        },
+                           onFailure: {(errorMessage: String) -> Void in
+                            print(errorMessage)
+                            failureCallback?("errorMessage")
+        }
+        )
+    }
     
     
     static func sendLocationTelimetry(deviceid : String,latitude: String ,longitude : String , radius : String,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
-                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+                                      onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
         return SendRequest(route: APIRouter.sendZoneLocations(deviceid: deviceid, latitude: latitude, longitude: longitude, radius: radius), onSuccess: { (responseObject: String) -> Void in
             successCallback?("successMessage")
         },
-           onFailure: {(errorMessage: String) -> Void in
-             print(errorMessage)
-             failureCallback?("errorMessage")
+                           onFailure: {(errorMessage: String) -> Void in
+                            print(errorMessage)
+                            failureCallback?("errorMessage")
         }
         )
     }
     
     
     static func sendFirebaseToken(deviceId : String , firebase_token : String,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
-                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+                                  onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
         return SendRequest(route: APIRouter.sendFirebaseToken(deviceid: deviceId,firebase_token : firebase_token), onSuccess: { (responseObject: String) -> Void in
             successCallback?("successMessage")
         },
-           onFailure: {(errorMessage: String) -> Void in
-             print(errorMessage)
-             failureCallback?("errorMessage")
+                           onFailure: {(errorMessage: String) -> Void in
+                            print(errorMessage)
+                            failureCallback?("errorMessage")
         }
         )
     }
     
     static func sendSurveyTelimetry(deviceid : String, data:[String:Any],onSuccess successCallback: ((_ successMessage: String) -> Void)?,
-                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+                                    onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
         return SendRequest(route: APIRouter.sendSurvey(deviceid: deviceid, data: data), onSuccess: { (responseObject: String) -> Void in
             successCallback?("successMessage")
         },
-           onFailure: {(errorMessage: String) -> Void in
-             print(errorMessage)
-             failureCallback?("errorMessage")
+                           onFailure: {(errorMessage: String) -> Void in
+                            print(errorMessage)
+                            failureCallback?("errorMessage")
         }
         )
     }
