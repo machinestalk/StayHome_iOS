@@ -204,6 +204,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
+      
+        
         if let messageID = userInfo["id"] {
             print("Message ID: \(messageID)")
         }
@@ -269,8 +271,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Print full message.
         print(userInfo)
         if body == "check_in" {
-             let CheckInVC = CheckInViewController(nibName: "CheckInViewController", bundle: nil)
-            self.navVC!.pushViewController(CheckInVC, animated: true)
+           let CheckInVC = CheckInViewController(nibName: "CheckInViewController", bundle: nil)
+            CheckInVC.isFromNotif = true
+            let navController:UINavigationController = UINavigationController(rootViewController: CheckInVC)
+             navController.modalPresentationStyle = .overCurrentContext
+            self.navVC?.visibleViewController!.present(navController, animated: true, completion: nil);
         }
         // Change this to your preferred presentation option
         completionHandler([])
@@ -281,9 +286,21 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         // Print message ID.
+        print(userInfo)
         if let messageID = userInfo["id"] {
             print("Message ID: \(messageID)")
         }
+        guard let aps = userInfo["aps"] as? NSDictionary else{return;}
+        guard let value = aps.value(forKey: "alert") as? NSDictionary else { return;}
+        guard let body = value.value(forKey: "body") as? String else { return;}
+        if body == "check_in" {
+            let CheckInVC = CheckInViewController(nibName: "CheckInViewController", bundle: nil)
+            CheckInVC.isFromNotif = true
+            let navController:UINavigationController = UINavigationController(rootViewController: CheckInVC)
+            navController.modalPresentationStyle = .overCurrentContext
+            self.navVC?.visibleViewController!.present(navController, animated: true, completion: nil);
+        }
+        
         completionHandler()
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00AF8DCC243B58F6002AD458 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AF8DCB243B58F6002AD458 /* CoreBluetooth.framework */; };
+		00E0FEBD243E6D0700FD3DCB /* CustomReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0FEBC243E6D0700FD3DCB /* CustomReachability.swift */; };
 		469911621E7D434DEE14800B /* Pods_lockDown_lockDownUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07CA6D2D03D9DFBEFA5E85B7 /* Pods_lockDown_lockDownUITests.framework */; };
 		C127F5BF6723479FAE29EC8B /* Pods_lockDownTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BCCF1BC0A16076FE3EF369 /* Pods_lockDownTests.framework */; };
 		CD3412B45A2D09888AE1582D /* Pods_lockDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA45852916987272EE4010E3 /* Pods_lockDown.framework */; };
@@ -106,6 +107,7 @@
 
 /* Begin PBXFileReference section */
 		00AF8DCB243B58F6002AD458 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		00E0FEBC243E6D0700FD3DCB /* CustomReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomReachability.swift; sourceTree = "<group>"; };
 		07CA6D2D03D9DFBEFA5E85B7 /* Pods_lockDown_lockDownUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lockDown_lockDownUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C13EC0E87A2759A3921A8D /* Pods-lockDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.release.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.release.xcconfig"; sourceTree = "<group>"; };
 		2344FD5529BBC0EA5178F562 /* Pods-lockDown-lockDownUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDown-lockDownUITests.release.xcconfig"; path = "Target Support Files/Pods-lockDown-lockDownUITests/Pods-lockDown-lockDownUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 			children = (
 				FA6E989224329B7B000F2C2E /* APIClient.swift */,
 				FA6E989324329B7B000F2C2E /* APIRouter.swift */,
+				00E0FEBC243E6D0700FD3DCB /* CustomReachability.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -828,6 +831,7 @@
 				FA6E98AF24329D15000F2C2E /* DashboardViewController.swift in Sources */,
 				FA6E98A024329B83000F2C2E /* Constants.swift in Sources */,
 				FA6E989524329B7B000F2C2E /* APIRouter.swift in Sources */,
+				00E0FEBD243E6D0700FD3DCB /* CustomReachability.swift in Sources */,
 				FA6E98A424329B83000F2C2E /* TextField.swift in Sources */,
 				FAB9B83F2438FC85007364E7 /* CheckInViewController.swift in Sources */,
 				FAC36C9824388868002B4928 /* WelcomeViewController.swift in Sources */,
@@ -1049,6 +1053,7 @@
 				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 20040901;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1075,6 +1080,7 @@
 				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 20040901;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

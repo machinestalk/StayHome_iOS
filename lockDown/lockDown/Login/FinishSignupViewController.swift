@@ -11,6 +11,8 @@ import UIKit
 class FinishSignupViewController: BaseController {
    
     var isFromCheckIn = false
+    var isFromNotif = false 
+    
     @IBOutlet weak var instrictionsTxt: UITextView!
     @IBOutlet weak var SignUpfinishedView: UIView!
     @IBOutlet weak var instrictionsView: UIView!
@@ -20,7 +22,6 @@ class FinishSignupViewController: BaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         instrictionsTxt.text = "instrutionsTxt".localiz()
-        
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
         if isFromCheckIn {
             successMsg.text = "FinishSuccessLbl".localiz()
@@ -36,8 +37,16 @@ class FinishSignupViewController: BaseController {
         }
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if isFromNotif {
+            self.perform(#selector(dismissVc), with: nil, with: 5)
+        }
+    }
 
-
+    @objc func dismissVc(){
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

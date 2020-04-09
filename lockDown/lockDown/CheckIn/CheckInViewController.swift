@@ -10,7 +10,8 @@ import UIKit
 
 class CheckInViewController: BaseController {
     var countdownTimer: Timer!
-       var totalTime : Int!
+    var totalTime : Int!
+    var isFromNotif = false
     @IBOutlet weak var counter: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +21,19 @@ class CheckInViewController: BaseController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if isFromNotif {
+            self.navigationController?.navigationBar.isHidden = true
+        }
         startTimer()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        desactivateTimer()
     }
     @IBAction func yesBtnDidTap(_ sender: Any) {
         let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
         biometricsAuthVC.isFromCheckIn = true
+        biometricsAuthVC.isFromNotif = isFromNotif
         self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
     }
     
@@ -51,6 +60,7 @@ class CheckInViewController: BaseController {
 
                 desactivateTimer()
                 let FailCheckInVC = FailCheckInViewController(nibName: "FailCheckInViewController", bundle: nil)
+                FailCheckInVC.isFromNotif = isFromNotif
                 self.navigationController!.pushViewController(FailCheckInVC, animated: true)
             }
             else {
