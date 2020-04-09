@@ -23,7 +23,7 @@ class ContentViewController: BaseController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "aboutAs_txt".localiz()
-        let url = URL(string: "https://www.machinestalk.com")!
+        let url = URL(string: "https://www.machinestalk.com/about-us/")!
         startLoading()
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
@@ -32,23 +32,6 @@ class ContentViewController: BaseController, WKNavigationDelegate {
     func webView(_ webView: WKWebView,didFinish navigation: WKNavigation!) {
         
         finishLoading()
-        
-    }
-
-    
-    func startLoading() {
-        // Show your loader
-        MBProgressHUD .showAdded(to: self.view, animated: true)
-        
-    }
-    
-    func finishLoading() {
-        // Dismiss your loader
-        let delay = DispatchTime.now()
-        DispatchQueue.main.asyncAfter(deadline: delay) {
-            MBProgressHUD .hide(for: self.view, animated: true)
-            
-        }
         
     }
 

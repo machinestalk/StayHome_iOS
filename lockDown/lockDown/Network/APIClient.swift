@@ -135,4 +135,17 @@ class APIClient {
         }
         )
     }
+    
+    static func sendContactUSForm(data:[String:Any],onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.sendContactUsForm(data: data), onSuccess: { (responseObject: String) -> Void in
+            successCallback?("successMessage")
+        },
+           onFailure: {(errorMessage: String) -> Void in
+             print(errorMessage)
+             failureCallback?("errorMessage")
+        }
+        )
+    }
 }
