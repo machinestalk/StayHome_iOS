@@ -251,6 +251,7 @@ class LoginViewController: BaseController {
             self.finishLoading()
             self.displayHomePage()
         }, onFailure: {error in
+            self.finishLoading()
             print(error)
         })
     }
