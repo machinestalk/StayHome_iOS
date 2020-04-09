@@ -160,9 +160,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let VC = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
         VC.updateTime()
         
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        // Call Refresh token
+        
+        if let refreshToken = UserDefaults.standard.string(forKey: "RefreshToken"){
+            let userDataFuture = APIClient.getRefreshToken(refreshToken: refreshToken)
+                userDataFuture.execute(onSuccess: { userData in
+                    print(userData)
+                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                    UserDefaults.standard.set(userData.token, forKey:"Token")
+                    UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
+                    let userDictionary = self.decode(jwtToken:userData.token!)
+                    UserDefaults.standard.set(userDictionary["customerId"], forKey:"customerId")
+                }, onFailure: {error in
+                    print(error)
+                })
+            }
     }
     
+   // Call decode
+    
+    func decode(jwtToken jwt: String) -> [String: Any] {
+           let segments = jwt.components(separatedBy: ".")
+           return decodeJWTPart(segments[1]) ?? [:]
+       }
+    // Call decodeJWTPart
+    
+    func decodeJWTPart(_ value: String) -> [String: Any]? {
+        guard let bodyData = base64UrlDecode(value),
+            let json = try? JSONSerialization.jsonObject(with: bodyData, options: []), let payload = json as? [String: Any] else {
+                return nil
+        }
+        
+        return payload
+    }
+    func base64UrlDecode(_ value: String) -> Data? {
+        var base64 = value
+            .replacingOccurrences(of: "-", with: "+")
+            .replacingOccurrences(of: "_", with: "/")
+        
+        let length = Double(base64.lengthOfBytes(using: String.Encoding.utf8))
+        let requiredLength = 4 * ceil(length / 4.0)
+        let paddingLength = requiredLength - length
+        if paddingLength > 0 {
+            let padding = "".padding(toLength: Int(paddingLength), withPad: "=", startingAt: 0)
+            base64 = base64 + padding
+        }
+        return Data(base64Encoded: base64, options: .ignoreUnknownCharacters)
+    }
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
