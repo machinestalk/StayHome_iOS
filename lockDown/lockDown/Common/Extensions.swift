@@ -9,9 +9,43 @@
 import Foundation
 import UIKit
 import GoogleMaps
+import ImageIO
 
 private var flatAssociatedObjectKey: UInt8 = 0
 private var palceHolderColorAssociatedObject: UInt8 = 0
+
+struct ImageHeaderData{
+    static var PNG: [UInt8] = [0x89]
+    static var JPEG: [UInt8] = [0xFF]
+    static var GIF: [UInt8] = [0x47]
+    static var TIFF_01: [UInt8] = [0x49]
+    static var TIFF_02: [UInt8] = [0x4D]
+}
+
+enum ImageFormat{
+    case Unknown, png, jpeg, gif, tiff
+}
+
+extension NSData{
+    var imageFormat: ImageFormat{
+        var buffer = [UInt8](repeating: 0, count: 1)
+        self.getBytes(&buffer, range: NSRange(location: 0,length: 1))
+        if buffer == ImageHeaderData.PNG
+        {
+            return .png
+        } else if buffer == ImageHeaderData.JPEG
+        {
+            return .jpeg
+        } else if buffer == ImageHeaderData.GIF
+        {
+            return .gif
+        } else if buffer == ImageHeaderData.TIFF_01 || buffer == ImageHeaderData.TIFF_02{
+            return .tiff
+        } else{
+            return .Unknown
+        }
+    }
+}
 
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {
@@ -429,6 +463,14 @@ extension UIButton {
 }
 extension UIImage{
     
+    enum JPEGQuality: CGFloat {
+        case lowest  = 0
+        case low     = 0.25
+        case medium  = 0.5
+        case high    = 0.75
+        case highest = 1
+    }
+    
     func rotate(radians: Float) -> UIImage? {
         var newSize = CGRect(origin: CGPoint.zero, size: self.size).applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
         // Trim off the extremely small float value to prevent core graphics from rounding it up
@@ -514,7 +556,14 @@ extension UIImage{
         return image!;
     }
     
-  
+        
+
+        /// Returns the data for the specified image in JPEG format.
+        /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
+        /// - returns: A data object containing the JPEG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
+        func jpeg(_ jpegQuality: JPEGQuality) -> Data? {
+            return jpegData(compressionQuality: jpegQuality.rawValue)
+        }
 
 }
 extension UINavigationController {

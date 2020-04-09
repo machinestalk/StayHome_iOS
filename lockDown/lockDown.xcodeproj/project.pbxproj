@@ -45,6 +45,7 @@
 		FA7ED09B243762D200C0060D /* MenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7ED099243762D200C0060D /* MenuTableViewCell.xib */; };
 		FA7ED09E24376D3B00C0060D /* ChangeLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7ED09C24376D3B00C0060D /* ChangeLocationViewController.swift */; };
 		FA7ED09F24376D3B00C0060D /* ChangeLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7ED09D24376D3B00C0060D /* ChangeLocationViewController.xib */; };
+		FA9E2379243F2CB300F0E6F2 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E2378243F2CB300F0E6F2 /* ImagePicker.swift */; };
 		FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3D72433674400061AE5 /* Extensions.swift */; };
 		FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */; };
 		FAB7F3E5243371E800061AE5 /* RequestLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */; };
@@ -155,6 +156,7 @@
 		FA7ED099243762D200C0060D /* MenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuTableViewCell.xib; sourceTree = "<group>"; };
 		FA7ED09C24376D3B00C0060D /* ChangeLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationViewController.swift; sourceTree = "<group>"; };
 		FA7ED09D24376D3B00C0060D /* ChangeLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangeLocationViewController.xib; sourceTree = "<group>"; };
+		FA9E2378243F2CB300F0E6F2 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		FAB7F3D72433674400061AE5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
 		FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestLocationViewController.xib; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 		FAC81E732438CEF5002DBADE /* ContactUs */ = {
 			isa = PBXGroup;
 			children = (
+				FA9E2378243F2CB300F0E6F2 /* ImagePicker.swift */,
 				FAC81E742438CF29002DBADE /* ContactUsViewController.swift */,
 				FAC81E752438CF29002DBADE /* ContactUsViewController.xib */,
 			);
@@ -841,6 +844,7 @@
 				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
 				FAC36C8424375E50002B4928 /* BiometricsBottomViewController.swift in Sources */,
+				FA9E2379243F2CB300F0E6F2 /* ImagePicker.swift in Sources */,
 				FAC81E80243A84A7002DBADE /* ContentViewController.swift in Sources */,
 				FA7ED09A243762D200C0060D /* MenuTableViewCell.swift in Sources */,
 				FA7ED09624364D1100C0060D /* FinishSignupViewController.swift in Sources */,
