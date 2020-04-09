@@ -182,6 +182,21 @@ class BaseController: UIViewController ,UITextFieldDelegate  {
     func secondsToHoursMinutesSeconds (seconds : Int) -> String {
         return String(format: "%02d:%02d:%02d",(seconds / 3600 ),(seconds % 3600) / 60,(seconds % 3600) % 60)
     }
+    
+    func startLoading() {
+        // Show your loader
+        MBProgressHUD .showAdded(to: self.view, animated: true)
+        
+    }
+    
+    func finishLoading() {
+        // Dismiss your loader
+        let delay = DispatchTime.now()
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            MBProgressHUD .hide(for: self.view, animated: true)
+            
+        }
+    }
 }
 // MARK: - UINavigationControllerDelegate
 extension BaseController: UINavigationControllerDelegate {

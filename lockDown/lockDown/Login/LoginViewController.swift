@@ -285,22 +285,7 @@ class LoginViewController: BaseController {
     func validateNumber(username: String){
         self.startLoading()
     }
-    
-    func startLoading() {
-        // Show your loader
-        MBProgressHUD .showAdded(to: self.view, animated: true)
-        
-    }
-    
-    func finishLoading() {
-        // Dismiss your loader
-        let delay = DispatchTime.now()
-        DispatchQueue.main.asyncAfter(deadline: delay) {
-            MBProgressHUD .hide(for: self.view, animated: true)
-            
-        }
-        
-    }
+
     
     func setErrorMsg(msg : String)  {
         self.errorView.isHidden = false
