@@ -42,9 +42,9 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             return  SSID.fetchNetworkInfo()
         }
     }
-  
-
- 
+    
+    
+    
     //
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted:CGFloat = 0
@@ -85,33 +85,33 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         //Initialise CoreBluetooth Central Manager
         centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.main)
         //is Battery Monitoring Enabled
-       UIDevice.current.isBatteryMonitoringEnabled = true
-
+        UIDevice.current.isBatteryMonitoringEnabled = true
+        
         startCustomTimer()
         
         // wifi changed
-       do{
-           Network.reachability = try CustomReachability(hostname: "www.google.com")
-           NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged), name: .flagsChanged, object: Network.reachability)
-           
-           do {
-               try Network.reachability?.start()
-           } catch let error as Network.Error {
-               print(error)
-           } catch {
-               print(error)
-           }
-       } catch {
-           print(error)
-       }
+        do{
+            Network.reachability = try CustomReachability(hostname: "www.google.com")
+            NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged), name: .flagsChanged, object: Network.reachability)
+            
+            do {
+                try Network.reachability?.start()
+            } catch let error as Network.Error {
+                print(error)
+            } catch {
+                print(error)
+            }
+        } catch {
+            print(error)
+        }
         if(!isInternetAvailable()){
             showAlertInternet()
         }
         
         //getSpeed
         // Do any additional setup after loading the view, typically from a nib.
-       
-
+        
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -127,11 +127,11 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
         setLocation()
         if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-           //if  !UserDefaults.standard.bool(forKey: "isFirstTime")  {
-               // startTimer()
-           // }
-          // else {
-           // updateTime()
+            //if  !UserDefaults.standard.bool(forKey: "isFirstTime")  {
+            // startTimer()
+            // }
+            // else {
+            // updateTime()
             //}
         }
         let deviceId = UserDefaults.standard.string(forKey: "deviceId")
@@ -145,53 +145,53 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         
         
         //Create log file if not yet created
-               createLogFile()
+        createLogFile()
     }
     
     //getAllWiFiNameList
     func getAllWiFiNameList() -> String? {
-              var ssid: String?
-              if let interfaces = CNCopySupportedInterfaces() as NSArray? {
-              for interface in interfaces {
-              if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
-                          ssid = interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
-                          break
-                      }
-                  }
-              }
-              return ssid
-          }
+        var ssid: String?
+        if let interfaces = CNCopySupportedInterfaces() as NSArray? {
+            for interface in interfaces {
+                if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
+                    ssid = interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
+                    break
+                }
+            }
+        }
+        return ssid
+    }
     
     //Check if location services are enabled
-
-      func checkIfLocationEnabled() -> String{
-          if CLLocationManager.locationServicesEnabled() {
-                switch CLLocationManager.authorizationStatus() {
-                   case .notDetermined:
-                        print("notDetermined")
-                        return "notDetermined"
-                    case .restricted :
-                        print("restricted")
-                        return "restricted"
-                    case .denied:
-                        print("denied")
-                        return "denied"
-                   case .authorizedAlways:
-                       print("authorizedAlways")
-                       return "authorizedAlways"
-                    case .authorizedWhenInUse:
-                        print("authorizedWhenInUse")
-                        return "authorizedWhenInUse"
-                @unknown default:
-                     print("default")
-                     return "no one"
+    
+    func checkIfLocationEnabled() -> String{
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined:
+                print("notDetermined")
+                return "notDetermined"
+            case .restricted :
+                print("restricted")
+                return "restricted"
+            case .denied:
+                print("denied")
+                return "denied"
+            case .authorizedAlways:
+                print("authorizedAlways")
+                return "authorizedAlways"
+            case .authorizedWhenInUse:
+                print("authorizedWhenInUse")
+                return "authorizedWhenInUse"
+            @unknown default:
+                print("default")
+                return "no one"
             }
-               } else {
-                   print("Location services are not enabled")
-                    return "notEnabled"
-
-           }
-      }
+        } else {
+            print("Location services are not enabled")
+            return "notEnabled"
+            
+        }
+    }
     
     // MARK: setLocations
     func setLocation() {
@@ -279,27 +279,27 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
     }
     //is Internet Available
-     func isInternetAvailable() -> Bool
-       {
-           var zeroAddress = sockaddr_in()
-           zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
-           zeroAddress.sin_family = sa_family_t(AF_INET)
-           
-           let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
-               $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
-                   SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
-               }
-           }
-           
-           var flags = SCNetworkReachabilityFlags()
-           if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
-               return false
-           }
-           let isReachable = flags.contains(.reachable)
-           let needsConnection = flags.contains(.connectionRequired)
-           return (isReachable && !needsConnection)
-       }
-       
+    func isInternetAvailable() -> Bool
+    {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+        
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+        return (isReachable && !needsConnection)
+    }
+    
     //
     func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
         var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
@@ -317,7 +317,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                     print("reverse geodcode fail: \(error!.localizedDescription)")
                 }
                 if let pm = placemarks {
-                
+                    
                     if pm.count > 0 {
                         let pm = placemarks![0]
                         print(pm.country)
@@ -375,63 +375,66 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             currentLocation = lastLocation.coordinate
         }
         locValue = currentLocation
+        print("horizontalAccuracy : \( manager.location!.horizontalAccuracy)")
+        print("desiredAccuracy : \(manager.desiredAccuracy)")
         let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
         let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
         let distance = circleLocation.distance(from: myLocation)
         
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-        
-        if(distance >= circle.radius)
-        {
-             print("user out of zone")
-             if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-                if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                    //Alert please come back
-                     let alert = UIAlertController(title: "zone", message: "you are out of zone, please come back", preferredStyle: .alert)
-
-                                                  alert.addAction(UIAlertAction(title: "Ok", style: .default,handler: {action in self.showAlertInternet()}))
-                                                                              
-
-                                                  self.present(alert, animated: true)
-                    
-                   
-                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: " out of zone ", onSuccess: { (Msg) in
-                        print(Msg)
-                    } ,onFailure : { (error) in
-                        print(error)
+        if manager.location!.horizontalAccuracy < 300 {
+            if(distance >= circle.radius)
+            {
+                print("user out of zone")
+                if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
+                    if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                        //Alert please come back
+                        let alert = UIAlertController(title: "zone", message: "you are out of zone, please come back", preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default,handler: {action in self.showAlertInternet()}))
+                        
+                        
+                        self.present(alert, animated: true)
+                        
+                        
+                        APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: " out of zone ", onSuccess: { (Msg) in
+                            print(Msg)
+                        } ,onFailure : { (error) in
+                            print(error)
+                        }
+                        )
                     }
-                    )
                 }
             }
         }
     }
     // acceleration
     
-
+    
     var timer = Timer()
     let motionManager = CMMotionManager()
-
+    
     func scheduledTimerWithTimeInterval(){
         // Scheduling timer to Call the function **getSpeed** with the interval of 1 seconds
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(getSpeed), userInfo: nil, repeats: true)
     }
-
+    
     func showAlertSpeed(){
-           if(bluetoothEnabled == false){
-           let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
-
-           alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
-           self.present(alert, animated: true)
-           }
-       }
+        if(bluetoothEnabled == false){
+            let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
+        }
+    }
     @objc func getSpeed(){
-
+        
         
         let speed = Double((locationManager.location?.speed)!)
-
-            print(String(format: "%.0f km/h", speed * 3.6)) //Current speed in km/h
-
+        
+        print(String(format: "%.0f km/h", speed * 3.6)) //Current speed in km/h
+        
         //If speed is over 10 km/h
         if(speed * 3.6 > 10 ){
             showAlertSpeed()
@@ -440,24 +443,24 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 let queue = OperationQueue()
                 motionManager.startAccelerometerUpdates(to: queue, withHandler:
                     {data, error in
-
+                        
                         guard let data = data else{
                             return
                         }
-
+                        
                         print("X = \(data.acceleration.x)")
                         print("Y = \(data.acceleration.y)")
                         print("Z = \(data.acceleration.z)")
-
-                    }
+                        
+                }
                 )
             } else {
                 print("Accelerometer is not available")
             }
-
+            
         }
     }
-
+    
     //
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
@@ -494,9 +497,9 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 self.mapView?.animate(to: camera)
                 marker.icon = UIImage(named: "red_marker")
                 marker.map = self.mapView
-               getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
+                getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
                 marker.position = locValue
-
+                
             }
             else {
                 locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
@@ -510,7 +513,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 marker.map = self.mapView
                 getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
                 marker.position = locValue
-         
+                
                 
             }
             
@@ -523,34 +526,34 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     //internet state change
     var isInternetOK = false
     @objc func reachabilityChanged(_ note: NSNotification) {
-           //V1
-           guard let status = Network.reachability?.status else { return }
-           switch status {
-           case .unreachable:
+        //V1
+        guard let status = Network.reachability?.status else { return }
+        switch status {
+        case .unreachable:
             isInternetOK = false
-               print("Not reachable")
-           showAlertInternet()
-               
-           case .wifi:
+            print("Not reachable")
+            showAlertInternet()
+            
+        case .wifi:
             isInternetOK = true
-               print("wifi reachable")
-           case .wwan:
+            print("wifi reachable")
+        case .wwan:
             isInternetOK = true
-               print("wwan reachable")
-           }
-           
-       }
-   func showAlertInternet(){
+            print("wwan reachable")
+        }
+        
+    }
+    func showAlertInternet(){
         if(!isInternetOK){
             let alert = UIAlertController(title: "No internet", message: "Please open your internet connection", preferredStyle: .alert)
-
-                              alert.addAction(UIAlertAction(title: "OK", style: .default,handler: {action in self.showAlertInternet()}))
-                                                          
-
-                              self.present(alert, animated: true)
-              
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default,handler: {action in self.showAlertInternet()}))
+            
+            
+            self.present(alert, animated: true)
+            
         }
-        }
+    }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
@@ -601,7 +604,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             marker.position = locValue
             marker.map = self.mapView
             getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
-           
+            
             break
         }
         
@@ -625,10 +628,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
             }else{
                 //To set pin into the any particular point of the screen on mapview
-              
+                
                 let coordinate = self.mapView.projection.coordinate(for: self.markerPosition)
                 marker.position = coordinate
-                  getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
+                getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
             }
         }
     }
@@ -694,40 +697,40 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         print("SSID: \(ssid ?? "nil")")
         let batteryLevel = UIDevice.current.batteryLevel
         let locationState = checkIfLocationEnabled()
-
-        if(distance >= circle.radius)
-        {
-            print("user out of zone")
-            logToFile(value: "user out of zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(currentNetworkInfos?.first?.ssid ??  "nil");\(batteryLevel);\(locationState);     \(bluetoothEnabled);\(isInternetAvailable()) \n")
-            peripherals.removeAll()
-            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
-                    print(Msg)
-                } ,onFailure : { (error) in
-                    print(error)
+        print("manager accurancy : \(locationManager.location?.horizontalAccuracy ?? 0)")
+        if Double(locationManager.location!.horizontalAccuracy) < 300 {
+            if(distance >= circle.radius)
+            {
+                print("user out of zone")
+                logToFile(value: "user out of zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(currentNetworkInfos?.first?.ssid ??  "nil");\(batteryLevel);\(locationState);     \(bluetoothEnabled);\(isInternetAvailable());\(locationManager.location?.horizontalAccuracy ?? 0) \n")
+                peripherals.removeAll()
+                if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
+                        print(Msg)
+                    } ,onFailure : { (error) in
+                        print(error)
+                    }
+                    )
                 }
-                )
             }
-        }
-        else
-        {
-            print(Array(Set(peripherals)))
-
-            print("user in zone")
-            logToFile(value: "user in zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(ssid ?? "nil");\(batteryLevel);\(locationState); \(bluetoothEnabled);\(isInternetAvailable())  \n")
-            peripherals.removeAll()
-            if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
-                    print(Msg)
-                } ,onFailure : { (error) in
-                    print(error)
-                }
-                )
+            else
+            {
+                print(Array(Set(peripherals)))
                 
+                print("user in zone")
+                logToFile(value: "user in zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(ssid ?? "nil");\(batteryLevel);\(locationState); \(bluetoothEnabled);\(isInternetAvailable());\(locationManager.location?.horizontalAccuracy ?? 0)  \n")
+                peripherals.removeAll()
+                if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
+                        print(Msg)
+                    } ,onFailure : { (error) in
+                        print(error)
+                    }
+                    )
+                    
+                }
             }
         }
-        
-        
     }
     
     // MARK : Set counter for Check In
@@ -753,27 +756,27 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     
     @objc func updateTime() {
-//        if(countdownTimer != nil){
-//            let secondes = (totalTime % 60)
-//            let minutes : Int = Int(totalTime / 60)
-//
-//            if totalTime != 0 {
-//                totalTime -= 1
-//                UserDefaults.standard.set(totalTime, forKey: "counter")
-//                print(String(format: "%02d:%02d", minutes, secondes))
-//
-//            } else if secondes == 0 {
-//
-//                sendData()
-//                desactivateTimer()
-//                //startTimer()
-//            }
-//            else {
-//
-//                //endTimer()
-//            }
-//
-//        }
+        //        if(countdownTimer != nil){
+        //            let secondes = (totalTime % 60)
+        //            let minutes : Int = Int(totalTime / 60)
+        //
+        //            if totalTime != 0 {
+        //                totalTime -= 1
+        //                UserDefaults.standard.set(totalTime, forKey: "counter")
+        //                print(String(format: "%02d:%02d", minutes, secondes))
+        //
+        //            } else if secondes == 0 {
+        //
+        //                sendData()
+        //                desactivateTimer()
+        //                //startTimer()
+        //            }
+        //            else {
+        //
+        //                //endTimer()
+        //            }
+        //
+        //        }
     }
     
     // MARK : Desactivate Timer
@@ -785,42 +788,42 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     
     
-   // MARK : Log in File
+    // MARK : Log in File
     
     //create file
     func createLogFile(){
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-          let url = URL(fileURLWithPath: path)
-
-          let filePath = url.appendingPathComponent(file).path
-          let fileManager = FileManager.default
-          if fileManager.fileExists(atPath: filePath) {
-              print("FILE AVAILABLE")
-          } else {
-              print("FILE NOT AVAILABLE")
-            let titleString = "Status; latitude; longitude; bluetooth; wifi; batteryLevel; locationState; bluetoothEnabled; isInternetAvailable"
-                   
-
-                   do {
-                       try "\(titleString)\n".write(to: fileURL!, atomically: false, encoding: String.Encoding.utf8)
-                   } catch {
-                       print(error)
-                   }
-          }
+        let url = URL(fileURLWithPath: path)
+        
+        let filePath = url.appendingPathComponent(file).path
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: filePath) {
+            print("FILE AVAILABLE")
+        } else {
+            print("FILE NOT AVAILABLE")
+            let titleString = "Status; latitude; longitude; bluetooth; wifi; batteryLevel; locationState; bluetoothEnabled; isInternetAvailable; Accuracy"
+            
+            
+            do {
+                try "\(titleString)\n".write(to: fileURL!, atomically: false, encoding: String.Encoding.utf8)
+            } catch {
+                print(error)
+            }
+        }
     }
     //add data to log file
     func logToFile(value : String)  {
         
-               //writing
+        //writing
         do {
-                           let fileHandle = try FileHandle(forWritingTo: fileURL!)
-                               fileHandle.seekToEndOfFile()
-                               fileHandle.write(value.data(using: .utf8)!)
-                               fileHandle.closeFile()
-                       } catch {
-                           print("Error writing to file \(error)")
-                       }
-           
+            let fileHandle = try FileHandle(forWritingTo: fileURL!)
+            fileHandle.seekToEndOfFile()
+            fileHandle.write(value.data(using: .utf8)!)
+            fileHandle.closeFile()
+        } catch {
+            print("Error writing to file \(error)")
+        }
+        
     }
 }
 // MARK: RequestLocation delagates methods
@@ -835,7 +838,7 @@ extension DashboardViewController: RequestLocationProtocol {
         isNextBtnTapped = true
         self.markerPosition = self.mapView.projection.point(for: CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude))
         getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
-         locValue = self.mapView.projection.coordinate(for: self.markerPosition)
+        locValue = self.mapView.projection.coordinate(for: self.markerPosition)
         UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
         circle = GMSCircle()
         circle.radius = 100 // Meters
@@ -867,7 +870,7 @@ extension DashboardViewController: RequestLocationProtocol {
 extension DashboardViewController : ChangeLocationProtocol {
     func ContactUs() {
         let contactUsVC = ContactUsViewController(nibName: "ContactUsViewController", bundle: nil)
-      
+        
         self.navigationController!.pushViewController(contactUsVC, animated: true)
     }
 }
@@ -875,50 +878,50 @@ extension DashboardViewController : ChangeLocationProtocol {
 
 extension DashboardViewController : BiometricsAuthProtocol{
     func requestRecognition(){
-               UserDefaults.standard.set(true, forKey: "isLocationSetted")
-               UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
-               let customerId = UserDefaults.standard.string(forKey: "customerId")
-               
-               
-               APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
-                   print(Msg)
-                self.biometricsBottomVc.view.removeFromSuperview()
-                   self.startTimer()
-               } ,onFailure : { (error) in
-                   print(error)
-               }
-               )
-               let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
-               self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
-           }
+        UserDefaults.standard.set(true, forKey: "isLocationSetted")
+        UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
+        let customerId = UserDefaults.standard.string(forKey: "customerId")
+        
+        
+        APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
+            print(Msg)
+            self.biometricsBottomVc.view.removeFromSuperview()
+            self.startTimer()
+        } ,onFailure : { (error) in
+            print(error)
+        }
+        )
+        let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
+        self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
+    }
     
 }
 //Bluetooth
 extension DashboardViewController: CBCentralManagerDelegate {
-func centralManagerDidUpdateState(_ central: CBCentralManager) {
-if (central.state == .poweredOn){
-    self.centralManager?.scanForPeripherals(withServices: nil, options: nil)
-    self.bluetoothEnabled = true
-
-}
-else {
-    self.bluetoothEnabled = false
-    showAlertBluetooth()
-// do something like alert the user that ble is not on
-}
-}
-func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-    peripherals.append(peripheral)
-    print(peripheral)
-
-}
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if (central.state == .poweredOn){
+            self.centralManager?.scanForPeripherals(withServices: nil, options: nil)
+            self.bluetoothEnabled = true
+            
+        }
+        else {
+            self.bluetoothEnabled = false
+            showAlertBluetooth()
+            // do something like alert the user that ble is not on
+        }
+    }
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        peripherals.append(peripheral)
+        print(peripheral)
+        
+    }
     func showAlertBluetooth(){
         if(bluetoothEnabled == false){
-        let alert = UIAlertController(title: "No Bluetooth", message: "Please open Bluetooth", preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.showAlertBluetooth()}))
-
-        self.present(alert, animated: true)
+            let alert = UIAlertController(title: "No Bluetooth", message: "Please open Bluetooth", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.showAlertBluetooth()}))
+            
+            self.present(alert, animated: true)
         }
     }
 }
@@ -944,11 +947,11 @@ public class SSID {
         }
         return nil
     }
-   class func getAllWiFiNameList() -> String? {
+    class func getAllWiFiNameList() -> String? {
         var ssid: String?
         if let interfaces = CNCopySupportedInterfaces() as NSArray? {
-        for interface in interfaces {
-        if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
+            for interface in interfaces {
+                if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
                     ssid = interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
                     print(ssid)
                 }
@@ -957,23 +960,23 @@ public class SSID {
         return ssid
     }
     class func fetchSSIDInfo() -> String {
-           var currentSSID = ""
-           if let interfaces = CNCopySupportedInterfaces() {
-               for i in 0..<CFArrayGetCount(interfaces) {
-                   let interfaceName: UnsafeRawPointer = CFArrayGetValueAtIndex(interfaces, i)
-                   let rec = unsafeBitCast(interfaceName, to: AnyObject.self)
-                   let unsafeInterfaceData = CNCopyCurrentNetworkInfo("\(rec)" as CFString)
-                   if let interfaceData = unsafeInterfaceData as? [String: AnyObject] {
-                       currentSSID = interfaceData["SSID"] as! String
-                       let BSSID = interfaceData["BSSID"] as! String
-                       let SSIDDATA = interfaceData["SSIDDATA"]
-                       print("ssid=\(currentSSID), BSSID=\(BSSID), SSIDDATA=\(SSIDDATA)")
-                   }
-               }
-           }
-           return currentSSID
-       }
-   
+        var currentSSID = ""
+        if let interfaces = CNCopySupportedInterfaces() {
+            for i in 0..<CFArrayGetCount(interfaces) {
+                let interfaceName: UnsafeRawPointer = CFArrayGetValueAtIndex(interfaces, i)
+                let rec = unsafeBitCast(interfaceName, to: AnyObject.self)
+                let unsafeInterfaceData = CNCopyCurrentNetworkInfo("\(rec)" as CFString)
+                if let interfaceData = unsafeInterfaceData as? [String: AnyObject] {
+                    currentSSID = interfaceData["SSID"] as! String
+                    let BSSID = interfaceData["BSSID"] as! String
+                    let SSIDDATA = interfaceData["SSIDDATA"]
+                    print("ssid=\(currentSSID), BSSID=\(BSSID), SSIDDATA=\(SSIDDATA)")
+                }
+            }
+        }
+        return currentSSID
+    }
+    
 }
 
 struct NetworkInfo {
