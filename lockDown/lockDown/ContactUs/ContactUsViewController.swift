@@ -34,7 +34,7 @@ class ContactUsViewController: BaseController, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        scrollView.contentSize = CGSize(width:firstImageView.frame.size.width * 3 + 50, height: scrollView.frame.size.height)
+        scrollView.contentSize = CGSize(width:firstImageView.frame.size.width * 3 + 100, height: scrollView.frame.size.height)
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
     }
     

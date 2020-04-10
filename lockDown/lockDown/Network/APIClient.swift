@@ -61,7 +61,10 @@ class APIClient {
                 }
             }
             else {
-                failureCallback?(response.result.error!.localizedDescription)
+                if response.response?.statusCode == 400 {
+                    self.requestForGetNewAccessToken(route: route, onSuccess: successCallback, onFailure: failureCallback)
+                }
+                //failureCallback?(response.result.error!.localizedDescription)
             }
         }
     }
@@ -148,5 +151,35 @@ class APIClient {
              failureCallback?("errorMessage")
         }
         )
+    }
+    
+    static func requestForGetNewAccessToken(route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
+        
+        if let refreshToken = UserDefaults.standard.string(forKey: "RefreshToken"){
+            let userDataFuture = APIClient.getRefreshToken(refreshToken: refreshToken)
+            userDataFuture.execute(onSuccess: { userData in
+                UserDefaults.standard.set(userData.token, forKey:"Token")
+                UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
+                
+            }, onFailure: {error in
+                print(error)
+            })
+        }
+        let accessToken = UserDefaults.standard.string(forKey: "Token")
+        
+        do {
+            var request = try route.asURLRequest()
+            request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
+            request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
+            request.setValue("Bearer \(accessToken ?? "")", forHTTPHeaderField: HTTPHeaderField.authentication.rawValue)
+            APIClient.SendRequest(route: request, onSuccess: { (responseObject: String) -> Void in
+            },
+               onFailure: {(errorMessage: String) -> Void in
+                 print(errorMessage)
+            })
+            
+        } catch {
+            
+        }
     }
 }

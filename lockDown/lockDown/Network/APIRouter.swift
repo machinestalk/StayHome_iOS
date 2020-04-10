@@ -22,7 +22,7 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken.sendContactUsForm:
+        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm:
             return .post
         }
     }
@@ -59,10 +59,9 @@ enum APIRouter: URLRequestConvertible {
         case .signUp(let phoneNumber):
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber]
         case .refrechToken(let refreshToken):
-        case .sendIsComplaint(let parameters):
-        case .refrechToken(let refreshToken):
             return [LockDown.APIParameterKey.refreshToken: refreshToken]
         case . sendIsComplaint(let parameters):
+            return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint , LockDown.APIParameterKey.raison : parameters.raison ]
         case .sendZoneLocations(let parameters):
             return [LockDown.APIParameterKey.latitude : parameters.latitude , LockDown.APIParameterKey.longitude : parameters.longitude ,LockDown.APIParameterKey.radius : parameters.radius ]
         case .sendFirebaseToken(let parameters):

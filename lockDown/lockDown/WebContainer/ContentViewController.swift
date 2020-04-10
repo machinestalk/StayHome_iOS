@@ -14,19 +14,19 @@ class ContentViewController: BaseController, WKNavigationDelegate {
     
     var webView: WKWebView!
     
-    override func loadView() {
-        webView = WKWebView()
-        webView.navigationDelegate = self
-        view = webView
-    }
+//    override func loadView() {
+//        webView = WKWebView()
+//        webView.navigationDelegate = self
+//        view = webView
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "aboutAs_txt".localiz()
-        let url = URL(string: "https://www.machinestalk.com/about-us/")!
-        startLoading()
-        webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
+//        let url = URL(string: "https://www.machinestalk.com/about-us/")!
+//        startLoading()
+//        webView.load(URLRequest(url: url))
+//        webView.allowsBackForwardNavigationGestures = true
     }
     
     func webView(_ webView: WKWebView,didFinish navigation: WKNavigation!) {
