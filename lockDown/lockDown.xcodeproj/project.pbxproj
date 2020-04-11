@@ -49,6 +49,7 @@
 		FA7ED09E24376D3B00C0060D /* ChangeLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7ED09C24376D3B00C0060D /* ChangeLocationViewController.swift */; };
 		FA7ED09F24376D3B00C0060D /* ChangeLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7ED09D24376D3B00C0060D /* ChangeLocationViewController.xib */; };
 		FA9E2379243F2CB300F0E6F2 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E2378243F2CB300F0E6F2 /* ImagePicker.swift */; };
+		FAB34AF5244275E600ACDF99 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB34AF4244275E600ACDF99 /* BluetoothManager.swift */; };
 		FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3D72433674400061AE5 /* Extensions.swift */; };
 		FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */; };
 		FAB7F3E5243371E800061AE5 /* RequestLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */; };
@@ -163,6 +164,7 @@
 		FA7ED09C24376D3B00C0060D /* ChangeLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationViewController.swift; sourceTree = "<group>"; };
 		FA7ED09D24376D3B00C0060D /* ChangeLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangeLocationViewController.xib; sourceTree = "<group>"; };
 		FA9E2378243F2CB300F0E6F2 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		FAB34AF4244275E600ACDF99 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		FAB7F3D72433674400061AE5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FAB7F3E2243371E800061AE5 /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
 		FAB7F3E3243371E800061AE5 /* RequestLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestLocationViewController.xib; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 		FA6E989624329B83000F2C2E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FAB34AF4244275E600ACDF99 /* BluetoothManager.swift */,
 				FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */,
 				FA66D6432434B8880036D137 /* BaseController.swift */,
 				FAB7F3D72433674400061AE5 /* Extensions.swift */,
@@ -859,11 +862,11 @@
 				FAC81E80243A84A7002DBADE /* ContentViewController.swift in Sources */,
 				FA7ED09A243762D200C0060D /* MenuTableViewCell.swift in Sources */,
 				FA7ED09624364D1100C0060D /* FinishSignupViewController.swift in Sources */,
+				FAB34AF5244275E600ACDF99 /* BluetoothManager.swift in Sources */,
 				FA66D6442434B8880036D137 /* BaseController.swift in Sources */,
 				FAC81E7B243A1EB2002DBADE /* LandingViewController.swift in Sources */,
 				FA6E9857243293F5000F2C2E /* AppDelegate.swift in Sources */,
 				0039FC352440B0F40071486B /* AttentionOutZoneAlertViewController.swift in Sources */,
-				FA6E9859243293F5000F2C2E /* SceneDelegate.swift in Sources */,
 				FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */,
 				FA17C4BD243337B9000516EF /* BiometricsAuthViewController.swift in Sources */,
 				FAC81E722438CEE9002DBADE /* EmergencyViewController.swift in Sources */,
@@ -1069,7 +1072,6 @@
 				CURRENT_PROJECT_VERSION = 20041001;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1097,7 +1099,6 @@
 				CURRENT_PROJECT_VERSION = 20041001;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
