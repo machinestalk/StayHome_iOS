@@ -9,6 +9,9 @@
 "confirmLocationTxt"                       = "Are you sure,this is your home \n location?";
 "noBtn_Txt"                                 = "No";
 "yesBtn_txt"                                = "Yes";
+"emergencyBtn_txt"                                = "I'am on emergency";
+
+"okayBtn_txt"                                = "Okay";
 "nextBtn_txt"                               = "Next" ;
 "locationAlert_txt"                                                = "Turn on your location services from the settings to \"Always\"";
 "Ok_text"                                                        = "Ok";
@@ -28,7 +31,14 @@
 "SignUpTitle"                           ="Sign up";
 "covidUserTXT"                            = "COVID USER";
 "signin_singnup_txt"                      = "SignIn/SignUp";
+"Alert_bluetooth_msg_txt" = "You Have disactivate your BLUETOOTH.\nPlease check your parameters";
+"Alert_out_zone_msg_txt" = "You are out of your quarantined zone limits.\nPlease go back now !";
+"Alert_wifi_msg_txt" = "You Have disactivate your WIFI.\nPlease check your parameters";
+"Alert_battery_msg_txt" = "Your battery is running low...\nPlease recharge your Kindle.";
 
+"Alert_gps_msg_txt" = "Your GPS is off.\nPlease keep your GPS always ON.";
+
+"Alert_title_txt" = "Attention !";
 "BiometricsAuth_title_txt" = "Please verify your identity";
 "BiometricsAuth_msg_txt" = "* Please note that your face ID will not be shared or stored in any server except your phone";
 "MyZone_txt"                                = "My Zone";
