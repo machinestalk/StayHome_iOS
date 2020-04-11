@@ -170,29 +170,18 @@ extension String {
 // MARK: UIApplication extension
 extension UIApplication {
     // Get top view controller
-    static var topViewController:UIViewController? {
-        get{
-            if #available(iOS 13.0, *) {
-                let keyWindows = UIApplication.shared.connectedScenes
-                    .filter({$0.activationState == .foregroundActive})
-                    .map({$0 as? UIWindowScene})
-                    .compactMap({$0})
-                    .first?.windows
-                    .filter({$0.isKeyWindow}).first
-            } else {
-                // Fallback on earlier versions
-            }
-            
-//            if var topController = keyWindows?.rootViewController {
-//                while let presentedViewController = topController.presentedViewController {
-//                    topController = presentedViewController
-//                }
-//                return topController
-//            }else{
-                return nil
-//            }
-        }
-    }
+       static var topViewController:UIViewController? {
+           get{
+               if var topController = UIApplication.shared.keyWindow?.rootViewController {
+                   while let presentedViewController = topController.presentedViewController {
+                       topController = presentedViewController
+                   }
+                   return topController
+               }else{
+                   return nil
+               }
+           }
+       }
     
 }
 

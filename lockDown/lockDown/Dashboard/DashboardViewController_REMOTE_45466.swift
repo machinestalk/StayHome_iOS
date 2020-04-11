@@ -22,14 +22,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var requestLocationVC = RequestLocationViewController()
     var ChangeLocationVC = ChangeLocationViewController()
     var biometricsBottomVc = BiometricsBottomViewController()
-    var attentionAlertViewControllerOutZone = AttentionOutZoneAlertViewController()
-    var attentionAlertViewControllerBluetooth = AttentionAlertViewController()
-    var attentionAlertViewControllerInternet = AttentionAlertViewController()
-    var attentionAlertViewControllerBattery = AttentionAlertViewController()
-    var blurEffectViewBluetooth : UIVisualEffectView!
-    var blurEffectViewOutZone : UIVisualEffectView!
-    var blurEffectViewInternet : UIVisualEffectView!
-    var blurEffectViewBattery : UIVisualEffectView!
+    
     let customTimer = CustomTimer(timeInterval: 60)
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
@@ -43,121 +36,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var centralManager: CBCentralManager?
     var peripherals = Array<CBPeripheral>()
     var bluetoothEnabled = false
-    var alertBluetoothIsOpen = false
-
-    //show Alert Bluetooth
-    func showAlertBluetooth(){
-        if !alertBluetoothIsOpen{
-                let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
-
-                          blurEffectViewBluetooth = UIVisualEffectView(effect: blurEffect)
-                         var heightBlur = UIScreen.main.bounds.height
-                         if isItIPhoneX(){
-                             heightBlur = UIScreen.main.bounds.height - 250
-                                }
-                                else {
-                                    heightBlur = UIScreen.main.bounds.height - 230
-                                }
-                         blurEffectViewBluetooth.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightBlur)
-                         blurEffectViewBluetooth.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-               blurEffectViewBluetooth.alpha = 0.5
-                         let window = UIApplication.shared.keyWindow!
-                         
-      
-                 window.addSubview(blurEffectViewBluetooth)
-
-                   let height = view.frame.height
-                          let width  = view.frame.width
-                   attentionAlertViewControllerBluetooth.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-        attentionAlertViewControllerBluetooth.delegate = self
-        attentionAlertViewControllerBluetooth.type = "bluetooth"
-                          self.addChild(attentionAlertViewControllerBluetooth)
-                          self.view.addSubview(attentionAlertViewControllerBluetooth.view)
-        attentionAlertViewControllerBluetooth.msgLbl.text = "Alert_bluetooth_msg_txt".localiz()
-        attentionAlertViewControllerBluetooth.alertImage.image = UIImage(named: "red_bluetooth")
-
-
-                          attentionAlertViewControllerBluetooth.didMove(toParent: self)
-               
-        }
-           }
-    
-    var alertComeBackIsOpen = false
-
-    //show Alert Bluetooth
-    func showAlertComeBack(){
-        if !alertComeBackIsOpen{
-                let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
-
-                          blurEffectViewOutZone = UIVisualEffectView(effect: blurEffect)
-                         var heightBlur = UIScreen.main.bounds.height
-                         if isItIPhoneX(){
-                             heightBlur = UIScreen.main.bounds.height - 250
-                                }
-                                else {
-                                    heightBlur = UIScreen.main.bounds.height - 230
-                                }
-                         blurEffectViewOutZone.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightBlur)
-                         blurEffectViewOutZone.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-               blurEffectViewOutZone.alpha = 0.5
-                         let window = UIApplication.shared.keyWindow!
-                         
-      
-                 window.addSubview(blurEffectViewOutZone)
-
-                   let height = view.frame.height
-                          let width  = view.frame.width
-                   attentionAlertViewControllerOutZone.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-        attentionAlertViewControllerOutZone.delegate = self
-                          self.addChild(attentionAlertViewControllerOutZone)
-                          self.view.addSubview(attentionAlertViewControllerOutZone.view)
-
-            
-
-                          attentionAlertViewControllerOutZone.didMove(toParent: self)
-               
-        }
-           }
-    
-
-    //show Alert battery lavel
-    var alertBatteryIsOpen = false
-
-    func showAlertBattery(){
-        if !alertBluetoothIsOpen{
-                let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
-
-                          blurEffectViewBattery = UIVisualEffectView(effect: blurEffect)
-                         var heightBlur = UIScreen.main.bounds.height
-                         if isItIPhoneX(){
-                             heightBlur = UIScreen.main.bounds.height - 250
-                                }
-                                else {
-                                    heightBlur = UIScreen.main.bounds.height - 230
-                                }
-                         blurEffectViewBattery.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightBlur)
-                         blurEffectViewBattery.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-               blurEffectViewBattery.alpha = 0.5
-                         let window = UIApplication.shared.keyWindow!
-                         
-      
-                 window.addSubview(blurEffectViewBattery)
-
-                   let height = view.frame.height
-                          let width  = view.frame.width
-                   attentionAlertViewControllerBattery.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-        attentionAlertViewControllerBattery.delegate = self
-        attentionAlertViewControllerBattery.type = "bluetooth"
-                          self.addChild(attentionAlertViewControllerBattery)
-                          self.view.addSubview(attentionAlertViewControllerBattery.view)
-        attentionAlertViewControllerBattery.msgLbl.text = "Alert_battery_msg_txt".localiz()
-        attentionAlertViewControllerBattery.alertImage.image = UIImage(named: "red_battery")
-
-
-                          attentionAlertViewControllerBluetooth.didMove(toParent: self)
-               
-        }
-           }
     //Wifi
     var currentNetworkInfos: Array<NetworkInfo>? {
         get {
@@ -264,22 +142,12 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             print(error)
         }
         )
-        //show Alert Internet when is Internet not Available
-        if(!isInternetAvailable()){
-                  showAlertInternet()
-              }
-        //
-        NotificationCenter.default.addObserver(self, selector: #selector(batteryLevelDidChange), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
-        //Create log file if not yet created
-               createLogFile()
         
+        
+        //Create log file if not yet created
+        createLogFile()
     }
-    @objc func batteryLevelDidChange(_ notification: Notification) {
-        print( "batteryLevel = \(batteryLevel)" )
-        if(batteryLevel<20){
-            showAlertBattery()
-        }
-    }
+    
     //getAllWiFiNameList
     func getAllWiFiNameList() -> String? {
         var ssid: String?
@@ -411,64 +279,27 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         }
     }
     //is Internet Available
-     func isInternetAvailable() -> Bool
-       {
-           var zeroAddress = sockaddr_in()
-           zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
-           zeroAddress.sin_family = sa_family_t(AF_INET)
-           
-           let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
-               $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
-                   SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
-               }
-           }
-           
-           var flags = SCNetworkReachabilityFlags()
-           if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
-               return false
-           }
-           let isReachable = flags.contains(.reachable)
-           let needsConnection = flags.contains(.connectionRequired)
-           return (isReachable && !needsConnection)
-       }
-    var alertInternetIsOpen = false
-    //show Alert Internet
-    func showAlertInternet(){
-        if(!alertInternetIsOpen){
-        alertInternetIsOpen = true
-              let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
-
-                        blurEffectViewInternet = UIVisualEffectView(effect: blurEffect)
-                       var heightBlur = UIScreen.main.bounds.height
-                       if isItIPhoneX(){
-                           heightBlur = UIScreen.main.bounds.height - 250
-                              }
-                              else {
-                                  heightBlur = UIScreen.main.bounds.height - 230
-                              }
-                       blurEffectViewInternet.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightBlur)
-                       blurEffectViewInternet.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-             blurEffectViewInternet.alpha = 0.5
-                       let window = UIApplication.shared.keyWindow!
-                       
-    
-               window.addSubview(blurEffectViewInternet)
-
-                 let height = view.frame.height
-                        let width  = view.frame.width
-                 attentionAlertViewControllerInternet.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-      attentionAlertViewControllerInternet.delegate = self
-      attentionAlertViewControllerInternet.type = "internet"
-                        self.addChild(attentionAlertViewControllerInternet)
-                        self.view.addSubview(attentionAlertViewControllerInternet.view)
-      attentionAlertViewControllerInternet.msgLbl.text = "Alert_wifi_msg_txt".localiz()
-      attentionAlertViewControllerInternet.alertImage.image = UIImage(named: "red_wifi")
-
-
-                        attentionAlertViewControllerInternet.didMove(toParent: self)
+    func isInternetAvailable() -> Bool
+    {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
         }
+        
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+        return (isReachable && !needsConnection)
     }
-         
+    
     //
     func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
         var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
@@ -577,8 +408,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             }
         }
     }
-    
-    //
     // acceleration
     
     
@@ -589,6 +418,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         // Scheduling timer to Call the function **getSpeed** with the interval of 1 seconds
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(getSpeed), userInfo: nil, repeats: true)
     }
+    
     func showAlertSpeed(){
         if(bluetoothEnabled == false){
             let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
@@ -701,18 +531,29 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         switch status {
         case .unreachable:
             isInternetOK = false
-               print("Not reachable")
-           showAlertInternet()
-               
-           case .wifi:
+            print("Not reachable")
+            showAlertInternet()
+            
+        case .wifi:
             isInternetOK = true
-               print("wifi reachable")
-           case .wwan:
+            print("wifi reachable")
+        case .wwan:
             isInternetOK = true
-               print("wwan reachable")
-           }
-           
-       }
+            print("wwan reachable")
+        }
+        
+    }
+    func showAlertInternet(){
+        if(!isInternetOK){
+            let alert = UIAlertController(title: "No internet", message: "Please open your internet connection", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default,handler: {action in self.showAlertInternet()}))
+            
+            
+            self.present(alert, animated: true)
+            
+        }
+    }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
@@ -843,7 +684,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         self.view.addSubview(ChangeLocationVC.view)
         ChangeLocationVC.didMove(toParent: self)
     }
-    var  batteryLevel = 0
+    
     // MARK: Send data with counter
     
     func sendData() {
@@ -854,7 +695,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         let ssid = self.getAllWiFiNameList()
         print("SSID: \(ssid ?? "nil")")
-        batteryLevel = Int(UIDevice.current.batteryLevel)
+        let batteryLevel = UIDevice.current.batteryLevel
         let locationState = checkIfLocationEnabled()
         print("manager accurancy : \(locationManager.location?.horizontalAccuracy ?? 0)")
         if Double(locationManager.location!.horizontalAccuracy) < 300 {
@@ -1057,25 +898,32 @@ extension DashboardViewController : BiometricsAuthProtocol{
 }
 //Bluetooth
 extension DashboardViewController: CBCentralManagerDelegate {
-func centralManagerDidUpdateState(_ central: CBCentralManager) {
-if (central.state == .poweredOn){
-    self.centralManager?.scanForPeripherals(withServices: nil, options: nil)
-    self.bluetoothEnabled = true
-
-}
-else {
-    self.bluetoothEnabled = false
-    showAlertBluetooth()
-    
-// do something like alert the user that ble is not on
-}
-}
-func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-    peripherals.append(peripheral)
-    print(peripheral)
-
-}
-    
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if (central.state == .poweredOn){
+            self.centralManager?.scanForPeripherals(withServices: nil, options: nil)
+            self.bluetoothEnabled = true
+            
+        }
+        else {
+            self.bluetoothEnabled = false
+            showAlertBluetooth()
+            // do something like alert the user that ble is not on
+        }
+    }
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        peripherals.append(peripheral)
+        print(peripheral)
+        
+    }
+    func showAlertBluetooth(){
+        if(bluetoothEnabled == false){
+            let alert = UIAlertController(title: "No Bluetooth", message: "Please open Bluetooth", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.showAlertBluetooth()}))
+            
+            self.present(alert, animated: true)
+        }
+    }
 }
 
 public class SSID {
@@ -1136,50 +984,4 @@ struct NetworkInfo {
     var success: Bool = false
     var ssid: String?
     var bssid: String?
-}
-extension DashboardViewController: responceProtocol {
-    func oKClick() {
-        alertComeBackIsOpen = false
-         blurEffectViewOutZone.removeFromSuperview()
-                       self.attentionAlertViewControllerOutZone.view.removeFromSuperview()
-    }
-    
-    func emergencyClick() {
-        alertComeBackIsOpen = false
-        blurEffectViewOutZone.removeFromSuperview()
-                      self.attentionAlertViewControllerOutZone.view.removeFromSuperview()
-    }
-    
-    
-}
-//Alerts
-extension DashboardViewController: AlertProtocol {
-   
-
-    func okInternet(){
-         if(isInternetOK){
-            alertInternetIsOpen = false
-            blurEffectViewInternet.removeFromSuperview()
-                           self.attentionAlertViewControllerInternet.view.removeFromSuperview()
-
-               
-         }
-         }
-        func okBatteryLevel(){
-            if(batteryLevel>20){
-                blurEffectViewBattery.removeFromSuperview()
-                self.attentionAlertViewControllerBattery.view.removeFromSuperview()
-
-            }
-
-        }
-        func oKBluetooth(){
-            if(bluetoothEnabled){
-            alertBluetoothIsOpen = false
-                blurEffectViewBluetooth.removeFromSuperview()
-                self.attentionAlertViewControllerBluetooth.view.removeFromSuperview()
-
-            }
-        }
-
 }

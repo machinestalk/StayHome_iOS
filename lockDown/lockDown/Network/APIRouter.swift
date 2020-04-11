@@ -17,10 +17,12 @@ enum APIRouter: URLRequestConvertible {
     case sendZoneLocations(deviceid : String,latitude: String ,longitude : String , radius : String)
     case sendSurvey(deviceid : String, data:[String:Any])
     case sendFirebaseToken(deviceid : String, firebase_token : String)
+    case sendContactUsForm(data:[String:Any])
+    case refrechToken(refreshToken : String)
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey:
+        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm:
             return .post
         }
     }
@@ -33,6 +35,8 @@ enum APIRouter: URLRequestConvertible {
             return "api/noauth/loginMobile"
         case .signUp:
             return "api/noauth/signInCustomer"
+        case .refrechToken:
+            return "api/auth/token"
         case .sendIsComplaint(let parameters):
             return "api/v1/\(parameters.deviceToken)/telemetry"
         case .sendZoneLocations(let parameters):
@@ -41,7 +45,10 @@ enum APIRouter: URLRequestConvertible {
             return "api/plugins/telemetry/DEVICE/\(parameters.deviceid)/attributes/SERVER_SCOPE"
         case .sendSurvey(let parameters):
             return "api/plugins/telemetry/CUSTOMER/\(parameters.deviceid)/timeseries/LATEST_TELEMETRY"
+        case .sendContactUsForm:
+            return "api/noauth/contact-us"
         }
+        
     }
     
     // MARK: - Parameters
@@ -51,14 +58,18 @@ enum APIRouter: URLRequestConvertible {
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber, LockDown.APIParameterKey.phoneOtp: phoneOtp, LockDown.APIParameterKey.phoneUdid:phoneUdid]
         case .signUp(let phoneNumber):
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber]
+        case .refrechToken(let refreshToken):
+            return [LockDown.APIParameterKey.refreshToken: refreshToken]
         case . sendIsComplaint(let parameters):
             return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint , LockDown.APIParameterKey.raison : parameters.raison ]
-        case . sendZoneLocations(let parameters):
+        case .sendZoneLocations(let parameters):
             return [LockDown.APIParameterKey.latitude : parameters.latitude , LockDown.APIParameterKey.longitude : parameters.longitude ,LockDown.APIParameterKey.radius : parameters.radius ]
         case .sendFirebaseToken(let parameters):
             return [LockDown.APIParameterKey.firebase_token : parameters.firebase_token]
         case .sendSurvey(let parameters):
             return parameters.data
+        case .sendContactUsForm(let parameters):
+            return parameters
         }
     }
     

@@ -37,6 +37,7 @@ struct LockDown {
         static let phoneOtp = "phoneOtp"
         static let phoneUdid = "phoneUdid"
         static let phoneNumber = "phoneNumber"
+        static let refreshToken = "refreshToken"
         static let iscomplaint = "compliant"
         static let raison = "reason"
         static let latitude = "latitude"

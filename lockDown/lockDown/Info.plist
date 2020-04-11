@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
-	<true/>
+	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -37,8 +37,10 @@
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Allow "StayhomeKSA" to access your bluetooth while your are using the app?</string>
-    <key>NSBluetoothPeripheralUsageDescription</key>
-    <string>Allow "StayhomeKSA" to access your bluetooth while your are using the app?</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Allow "StayhomeKSA" to access your bluetooth while your are using the app?</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow "stayhome KSA" to use camera </string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This app needs Face ID to recognize you</string>
 	<key>NSLocationAlwaysAndWhenInUsageDescription</key>
@@ -51,6 +53,8 @@
 	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow "stayhome KSA" to use Photo Library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Bold.ttf</string>
@@ -87,13 +91,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>

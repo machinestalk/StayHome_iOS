@@ -32,14 +32,19 @@ class APIClient {
                 //                    }
                 //                    return
                 //                }
-                
-                switch data.result {
-                case .success:
-                    if let value = data.result.value as? JSONFormat, let result = T(JSON: value) {
-                        completion(.success(result))
+                if data.response?.statusCode == 200 {
+                    switch data.result {
+                    case .success:
+                        if let value = data.result.value as? JSONFormat, let result = T(JSON: value) {
+                            completion(.success(result))
+                        }
+                    case .failure(let error):
+                        completion(.failure(error))
                     }
-                case .failure(let error):
-                    completion(.failure(error))
+                }
+                else {
+                   // should be fixed or user will get always loading
+                    
                 }
             }
         })
@@ -47,15 +52,23 @@ class APIClient {
     
     private static func SendRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         Alamofire.request(route).responseString { response in
-            switch response.result {
-            case .success(let value):
-                successCallback?(value)
-            case .failure(let error):
-                failureCallback?(error.localizedDescription)
+            if response.response?.statusCode == 200 {
+                switch response.result {
+                case .success(let value):
+                    successCallback?(value)
+                case .failure(let error):
+                    failureCallback?(error.localizedDescription)
+                }
+            }
+            else {
+                if response.response?.statusCode == 400 {
+                    self.requestForGetNewAccessToken(route: route, onSuccess: successCallback, onFailure: failureCallback)
+                }
+                //failureCallback?(response.result.error!.localizedDescription)
             }
         }
     }
-
+    
     static func singUp(phoneNumber : String ,onSuccess successCallback: ((_ successMessage: String) -> Void)?, onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
         return SendRequest(route: APIRouter.signUp(phoneNumber: phoneNumber), onSuccess: { (responseObject: String) -> Void in
@@ -68,39 +81,69 @@ class APIClient {
     static func signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String) -> Future<UserData> {
         return performRequest(route: APIRouter.signIn(phoneNumber: phoneNumber, phoneOtp: phoneOtp, phoneUdid: phoneUdid))
     }
+    static func getRefreshToken(refreshToken : String) -> Future<UserData> {
+        return performRequest(route: APIRouter.refrechToken(refreshToken: refreshToken))
+    }
+    
     
     static func sendTelimetry(deviceToken : String , iscomplaint : Int ,raison : String,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
-                             onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
-       
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
         return SendRequest(route: APIRouter.sendIsComplaint(deviceToken : deviceToken , iscomplaint: iscomplaint, raison: raison), onSuccess: { (responseObject: String) -> Void in
-           successCallback?("successMessage")
-       },
-          onFailure: {(errorMessage: String) -> Void in
-            print(errorMessage)
-            failureCallback?("errorMessage")
-       }
-       )
-   }
+            successCallback?("successMessage")
+        },
+                           onFailure: {(errorMessage: String) -> Void in
+                            print(errorMessage)
+                            failureCallback?("errorMessage")
+        }
+        )
+    }
     
     
     static func sendLocationTelimetry(deviceid : String,latitude: String ,longitude : String , radius : String,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
-                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+                                      onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
         return SendRequest(route: APIRouter.sendZoneLocations(deviceid: deviceid, latitude: latitude, longitude: longitude, radius: radius), onSuccess: { (responseObject: String) -> Void in
             successCallback?("successMessage")
         },
-           onFailure: {(errorMessage: String) -> Void in
-             print(errorMessage)
-             failureCallback?("errorMessage")
+                           onFailure: {(errorMessage: String) -> Void in
+                            print(errorMessage)
+                            failureCallback?("errorMessage")
         }
         )
     }
     
     
     static func sendFirebaseToken(deviceId : String , firebase_token : String,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
-                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+                                  onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
         return SendRequest(route: APIRouter.sendFirebaseToken(deviceid: deviceId,firebase_token : firebase_token), onSuccess: { (responseObject: String) -> Void in
+            successCallback?("successMessage")
+        },
+                           onFailure: {(errorMessage: String) -> Void in
+                            print(errorMessage)
+                            failureCallback?("errorMessage")
+        }
+        )
+    }
+    
+    static func sendSurveyTelimetry(deviceid : String, data:[String:Any],onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                                    onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.sendSurvey(deviceid: deviceid, data: data), onSuccess: { (responseObject: String) -> Void in
+            successCallback?("successMessage")
+        },
+                           onFailure: {(errorMessage: String) -> Void in
+                            print(errorMessage)
+                            failureCallback?("errorMessage")
+        }
+        )
+    }
+    
+    static func sendContactUSForm(data:[String:Any],onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.sendContactUsForm(data: data), onSuccess: { (responseObject: String) -> Void in
             successCallback?("successMessage")
         },
            onFailure: {(errorMessage: String) -> Void in
@@ -110,16 +153,33 @@ class APIClient {
         )
     }
     
-    static func sendSurveyTelimetry(deviceid : String, data:[String:Any],onSuccess successCallback: ((_ successMessage: String) -> Void)?,
-                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+    static func requestForGetNewAccessToken(route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         
-        return SendRequest(route: APIRouter.sendSurvey(deviceid: deviceid, data: data), onSuccess: { (responseObject: String) -> Void in
-            successCallback?("successMessage")
-        },
-           onFailure: {(errorMessage: String) -> Void in
-             print(errorMessage)
-             failureCallback?("errorMessage")
+        if let refreshToken = UserDefaults.standard.string(forKey: "RefreshToken"){
+            let userDataFuture = APIClient.getRefreshToken(refreshToken: refreshToken)
+            userDataFuture.execute(onSuccess: { userData in
+                UserDefaults.standard.set(userData.token, forKey:"Token")
+                UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
+                
+            }, onFailure: {error in
+                print(error)
+            })
         }
-        )
+        let accessToken = UserDefaults.standard.string(forKey: "Token")
+        
+        do {
+            var request = try route.asURLRequest()
+            request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
+            request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
+            request.setValue("Bearer \(accessToken ?? "")", forHTTPHeaderField: HTTPHeaderField.authentication.rawValue)
+            APIClient.SendRequest(route: request, onSuccess: { (responseObject: String) -> Void in
+            },
+               onFailure: {(errorMessage: String) -> Void in
+                 print(errorMessage)
+            })
+            
+        } catch {
+            
+        }
     }
 }
