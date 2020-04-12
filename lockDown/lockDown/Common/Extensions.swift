@@ -950,6 +950,14 @@ extension String {
     }
 }
 extension Date {
+
+    func toString(dateFormat format  : String ) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
+
     func isGreaterThanDate(dateToCompare: Date) -> Bool {
         //Declare Variables
         var isGreater = false

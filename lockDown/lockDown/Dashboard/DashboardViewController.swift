@@ -184,7 +184,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var markerPosition : CGPoint!
     var countdownTimer: Timer!
     var totalTime : Int!
-    let file = "Log.csv" //this is the file. we will write to and read from it
     var fileURL : URL?
     var Colons = [String]()
     @IBOutlet weak var addressLbl: UILabel!
@@ -253,8 +252,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+        let dateString = Date().toString(dateFormat: "yyyyMMdd")
+        let logFileName = "\(dateString).csv"
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            fileURL = dir.appendingPathComponent(file)
+            fileURL = dir.appendingPathComponent(logFileName)
         }
         setLocation()
         if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
@@ -967,15 +968,15 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     func createLogFile(){
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let url = URL(fileURLWithPath: path)
-        
-        let filePath = url.appendingPathComponent(file).path
+        let dateString = Date().toString(dateFormat: "yyyyMMdd")
+        let logFileName = "\(dateString).csv"
+        let filePath = url.appendingPathComponent(logFileName).path
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: filePath) {
             print("FILE AVAILABLE")
         } else {
             print("FILE NOT AVAILABLE")
             let titleString = "Status; latitude; longitude; bluetooth; wifi; batteryLevel; locationState; bluetoothEnabled; isInternetAvailable; Accuracy"
-            
             
             do {
                 try "\(titleString)\n".write(to: fileURL!, atomically: false, encoding: String.Encoding.utf8)
