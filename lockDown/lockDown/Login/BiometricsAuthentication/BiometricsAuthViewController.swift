@@ -93,6 +93,7 @@ class BiometricsAuthViewController: BaseController {
                     break
                 }
             }else{
+                UserDefaults.standard.set(nil, forKey: "currentbiometricstate")
                 setupUnvailableBiometricsBottomVC()
                 biometryTypeImageView.image = UIImage(named: "ic_hold_near")
                 biometryTypeLabel.text = "We can not complete the process !"
