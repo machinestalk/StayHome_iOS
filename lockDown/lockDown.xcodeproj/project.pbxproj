@@ -48,6 +48,7 @@
 		FA7ED09B243762D200C0060D /* MenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7ED099243762D200C0060D /* MenuTableViewCell.xib */; };
 		FA7ED09E24376D3B00C0060D /* ChangeLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7ED09C24376D3B00C0060D /* ChangeLocationViewController.swift */; };
 		FA7ED09F24376D3B00C0060D /* ChangeLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7ED09D24376D3B00C0060D /* ChangeLocationViewController.xib */; };
+		FA8B001F2444AE290097404A /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B001E2444AE290097404A /* ActivityManager.swift */; };
 		FA9E2379243F2CB300F0E6F2 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E2378243F2CB300F0E6F2 /* ImagePicker.swift */; };
 		FAB34AF5244275E600ACDF99 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB34AF4244275E600ACDF99 /* BluetoothManager.swift */; };
 		FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7F3D72433674400061AE5 /* Extensions.swift */; };
@@ -163,6 +164,7 @@
 		FA7ED099243762D200C0060D /* MenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuTableViewCell.xib; sourceTree = "<group>"; };
 		FA7ED09C24376D3B00C0060D /* ChangeLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationViewController.swift; sourceTree = "<group>"; };
 		FA7ED09D24376D3B00C0060D /* ChangeLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangeLocationViewController.xib; sourceTree = "<group>"; };
+		FA8B001E2444AE290097404A /* ActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityManager.swift; sourceTree = "<group>"; };
 		FA9E2378243F2CB300F0E6F2 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		FAB34AF4244275E600ACDF99 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		FAB7F3D72433674400061AE5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 		FA6E989624329B83000F2C2E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FA8B001E2444AE290097404A /* ActivityManager.swift */,
 				FAB34AF4244275E600ACDF99 /* BluetoothManager.swift */,
 				FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */,
 				FA66D6432434B8880036D137 /* BaseController.swift */,
@@ -847,6 +850,7 @@
 				FA6E989524329B7B000F2C2E /* APIRouter.swift in Sources */,
 				00E0FEBD243E6D0700FD3DCB /* CustomReachability.swift in Sources */,
 				FA6E98A424329B83000F2C2E /* TextField.swift in Sources */,
+				FA8B001F2444AE290097404A /* ActivityManager.swift in Sources */,
 				FAB9B83F2438FC85007364E7 /* CheckInViewController.swift in Sources */,
 				FAC36C9824388868002B4928 /* WelcomeViewController.swift in Sources */,
 				FA6E98A124329B83000F2C2E /* LanguageManager.swift in Sources */,

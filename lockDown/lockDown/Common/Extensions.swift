@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import GoogleMaps
 import ImageIO
+import CoreMotion
 
 private var flatAssociatedObjectKey: UInt8 = 0
 private var palceHolderColorAssociatedObject: UInt8 = 0
@@ -949,6 +950,22 @@ extension String {
         return false
     }
 }
+
+extension CMMotionActivity {
+    private func tf(_ b:Bool) -> String {
+        return b ? "t" : "f"
+    }
+    func overallAct() -> String {
+        let s = tf(self.stationary)
+        let w = tf(self.walking)
+        let r = tf(self.running)
+        let a = tf(self.automotive)
+        let c = tf(self.cycling)
+        let u = tf(self.unknown)
+        return "\(s) \(w) \(r) \(a) \(c) \(u)"
+    }
+}
+
 extension Date {
 
     func toString(dateFormat format  : String ) -> String

@@ -13,6 +13,7 @@ import CoreBluetooth
 import SystemConfiguration.CaptiveNetwork
 import CoreMotion
 import CoreLocation
+import CoreTelephony
 
 class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationManagerDelegate{
     
@@ -31,7 +32,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var blurEffectViewOutZone : UIVisualEffectView!
     var blurEffectViewInternet : UIVisualEffectView!
     var blurEffectViewBattery : UIVisualEffectView!
-    let customTimer = CustomTimer(timeInterval: 60)
+    let customTimer = CustomTimer(timeInterval: 30)
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
@@ -48,6 +49,20 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var peripherals = Array<CBPeripheral>()
     var bluetoothEnabled = false
     var alertBluetoothIsOpen = false
+    var carrier = CTCarrier()
+    
+    var userMotionActivity: CMMotionActivity!
+    var userMotionManager: CMMotionManager!
+    
+    func getTelephonyInfo() -> Dictionary<String, CTCarrier>{
+        
+        let networkInfo = CTTelephonyNetworkInfo()
+        if #available(iOS 12.0, *) {
+            let serviceSubscriberCellularProviders = networkInfo.serviceSubscriberCellularProviders
+            return serviceSubscriberCellularProviders!
+        }
+        return ["Not found":CTCarrier()]
+    }
     
     //show Alert Bluetooth
     func showAlertBluetooth(){
@@ -198,6 +213,8 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     @IBOutlet weak var satBtn: UIButton!
     @IBOutlet weak var menuBtn: UIButton!
     
+    var activityManager = ActivityManager()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -241,6 +258,9 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         //getSpeed
         // Do any additional setup after loading the view, typically from a nib.
         
+        activityManager.delegate = self
+        activityManager.startActivityScan()
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -282,7 +302,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         NotificationCenter.default.addObserver(self, selector: #selector(batteryLevelDidChange), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
         //Create log file if not yet created
         createLogFile()
-        
+        carrier = getTelephonyInfo().first!.value
     }
     @objc func batteryLevelDidChange(_ notification: Notification) {
         print( "batteryLevel = \(batteryLevel)" )
@@ -304,7 +324,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         return ssid
     }
     
-    //Check if location services are enabled
+    //Check if location services are enabledlog
     
     func checkIfLocationEnabled() -> String{
         if CLLocationManager.locationServicesEnabled() {
@@ -504,12 +524,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                     
                     if pm.count > 0 {
                         let pm = placemarks![0]
-                        print(pm.country)
-                        print(pm.locality)
-                        print(pm.subLocality)
-                        print(pm.thoroughfare)
-                        print(pm.postalCode)
-                        print(pm.subThoroughfare)
                         var addressString : String = ""
                         if pm.subLocality != nil {
                             addressString = addressString + pm.subLocality! + ", "
@@ -554,7 +568,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
     //Location Manager delegates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations.last
+
         if let lastLocation = locations.last {
             currentLocation = lastLocation.coordinate
         }
@@ -785,9 +799,9 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        recenterButton.setImage(UIImage(named: "userLocation"), for: .normal)
         
-        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 16.0)
+        recenterButton.setImage(UIImage(named: "userLocation"), for: .normal)
+        _ = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 16.0)
         return true
     }
     func mapView(_ mapView: GMSMapView, didDrag marker: GMSMarker) {
@@ -867,41 +881,31 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         let distance = circleLocation.distance(from: myLocation)
         
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-        let ssid = self.getAllWiFiNameList()
-        print("SSID: \(ssid ?? "nil")")
         batteryLevel = Int(UIDevice.current.batteryLevel)
         let locationState = checkIfLocationEnabled()
-        print("manager accurancy : \(locationManager.location?.horizontalAccuracy ?? 0)")
         if Double(locationManager.location!.horizontalAccuracy) < 300 {
             if(distance >= circle.radius)
             {
-                print("user out of zone")
-                logToFile(value: "user out of zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(currentNetworkInfos?.first?.ssid ??  "nil");\(batteryLevel);\(locationState);     \(bluetoothEnabled);\(isInternetAvailable());\(locationManager.location?.horizontalAccuracy ?? 0) \n")
+                logToFile(value: "\(Date())#\(userMotionActivity ?? CMMotionActivity())#user out of zone# \(locValue.latitude)#\(locValue.longitude)#\(Array(Set(peripherals)))#\(currentNetworkInfos?.first?.ssid ??  "nil")#\(batteryLevel)#\(locationState)#\(bluetoothEnabled)#\(isInternetAvailable())#\(locationManager.location?.horizontalAccuracy ?? 0)#\(userMotionManager.accelerometerData)#\(userMotionManager.gyroData)#\(userMotionManager.magnetometerData)#\(userMotionManager.deviceMotion)\n")
                 peripherals.removeAll()
                 if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
                         print(Msg)
                     } ,onFailure : { (error) in
                         print(error)
-                    }
-                    )
+                    })
                 }
             }
             else
             {
-                print(Array(Set(peripherals)))
-                
-                print("user in zone")
-                logToFile(value: "user in zone ; \(locValue.latitude);\(locValue.longitude);\(Array(Set(peripherals)));\(ssid ?? "nil");\(batteryLevel);\(locationState); \(bluetoothEnabled);\(isInternetAvailable());\(locationManager.location?.horizontalAccuracy ?? 0)  \n")
+                logToFile(value: "\(Date())#\(userMotionActivity ?? CMMotionActivity())#user in zone# \(locValue.latitude)#\(locValue.longitude)#\(Array(Set(peripherals)))#\(currentNetworkInfos?.first?.ssid ??  "nil")#\(batteryLevel)#\(locationState)#\(bluetoothEnabled)#\(isInternetAvailable())#\(locationManager.location?.horizontalAccuracy ?? 0)#\(userMotionManager.accelerometerData)#\(userMotionManager.gyroData)#\(userMotionManager.magnetometerData)#\(userMotionManager.deviceMotion)\n")
                 peripherals.removeAll()
                 if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
                         print(Msg)
                     } ,onFailure : { (error) in
                         print(error)
-                    }
-                    )
-                    
+                    })
                 }
             }
         }
@@ -976,7 +980,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             print("FILE AVAILABLE")
         } else {
             print("FILE NOT AVAILABLE")
-            let titleString = "Status; latitude; longitude; bluetooth; wifi; batteryLevel; locationState; bluetoothEnabled; isInternetAvailable; Accuracy"
+            let titleString = "DateTime#UserActivity#Status#latitude#longitude#bluetooth#wifi#batteryLevel#locationState#bluetoothEnabled#isInternetAvailable#Accuracy#accelerometerData#gyroData#magnetometerData#deviceMotion#"
             
             do {
                 try "\(titleString)\n".write(to: fileURL!, atomically: false, encoding: String.Encoding.utf8)
@@ -1098,7 +1102,6 @@ public class SSID {
             for interface in interfaces {
                 if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
                     ssid = interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
-                    print(ssid)
                 }
             }
         }
@@ -1113,9 +1116,6 @@ public class SSID {
                 let unsafeInterfaceData = CNCopyCurrentNetworkInfo("\(rec)" as CFString)
                 if let interfaceData = unsafeInterfaceData as? [String: AnyObject] {
                     currentSSID = interfaceData["SSID"] as! String
-                    let BSSID = interfaceData["BSSID"] as! String
-                    let SSIDDATA = interfaceData["SSIDDATA"]
-                    print("ssid=\(currentSSID), BSSID=\(BSSID), SSIDDATA=\(SSIDDATA)")
                 }
             }
         }
@@ -1174,13 +1174,11 @@ extension DashboardViewController: AlertProtocol {
             
         }
     }
-    
 }
 
 extension DashboardViewController: BluetoothManagerDelegate {
     
     func peripheralsDidUpdate() {
-        print(bluetoothManager.peripherals.mapValues{$0.name})
         peripherals = Array(bluetoothManager.peripherals.values)
     }
     
@@ -1191,5 +1189,13 @@ extension DashboardViewController: BluetoothManagerDelegate {
     func centralStateOff() {
         self.bluetoothEnabled = false
         showAlertBluetooth()
+    }
+}
+
+extension DashboardViewController: ActivityManagerDelegate {
+    
+    func activityDidUpdate(data: CMMotionActivity, motionManager: CMMotionManager) {
+        userMotionActivity = data
+        userMotionManager = motionManager
     }
 }

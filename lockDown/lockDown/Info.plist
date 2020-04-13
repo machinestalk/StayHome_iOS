@@ -53,6 +53,8 @@
 	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<key>NSMotionUsageDescription</key>
+	<string>"stayhome KSA" use Motions to check activities</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow "stayhome KSA" to use Photo Library</string>
 	<key>UIAppFonts</key>
