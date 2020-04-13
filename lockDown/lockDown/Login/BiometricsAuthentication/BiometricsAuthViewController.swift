@@ -14,8 +14,10 @@ class BiometricsAuthViewController: BaseController {
     var isFromCheckIn = false
     var isFromNotif = false
     @IBOutlet weak var stepsImg: UIImageView!
-    
     @IBOutlet weak var stateView: UIView!
+    
+    @IBOutlet weak var biometryTypeImageView: UIImageView!
+    @IBOutlet weak var biometryTypeLabel: Label!
     
     enum CardState {
         case expanded
@@ -63,17 +65,46 @@ class BiometricsAuthViewController: BaseController {
         else {
             self.title = "SignUpTitle".localiz()
         }
+        setupBiometricsBottomVC()
         // The biometryType, which affects this app's UI when state changes, is only meaningful
         //  after running canEvaluatePolicy. But make sure not to run this test from inside a
         //  policy evaluation callback (for example, don't put next line in the state's didSet
         //  method, which is triggered as a result of the state change made in the callback),
         //  because that might result in deadlock.
-        context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
+        var error: NSError?
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error){
+            if self.context.evaluatedPolicyDomainState != nil {
+                
+                switch context.biometryType {
+                case .none:
+                    
+                    biometryTypeImageView.image = UIImage(named: "ic_hold_near")
+                    biometryTypeLabel.text = "We can not complete the process !"
+                    biometricsBottomVC.nextBtn.isEnabled = false
+                case .faceID:
+                    biometricsBottomVC.nextBtn.isEnabled = true
+                    biometryTypeImageView.image = UIImage(named: "ic_faceID")
+                    biometryTypeLabel.text = "Face ID registration"
+                case .touchID:
+                    biometricsBottomVC.nextBtn.isEnabled = true
+                    biometryTypeImageView.image = UIImage(named: "ic_finger")
+                    biometryTypeLabel.text = "Touch ID registration"
+                default:
+                    break
+                }
+            }else{
+                setupUnvailableBiometricsBottomVC()
+                biometryTypeImageView.image = UIImage(named: "ic_hold_near")
+                biometryTypeLabel.text = "We can not complete the process !"
+            }
+        }else{
+            print(error?.localizedDescription ?? "")
+        }
+        
         
         // Set the initial app state. This impacts the initial state of the UI as well.
         state = .loggedout
         
-        setupBiometricsBottomVC()
     }
     
     /// Logs out or attempts to log in when the user taps the button.
@@ -159,6 +190,15 @@ class BiometricsAuthViewController: BaseController {
         self.addChild(biometricsBottomVC)
         self.view.addSubview(biometricsBottomVC.view)
         biometricsBottomVC.didMove(toParent: self)
+    }
+    
+    func setupUnvailableBiometricsBottomVC(){
+        
+        biometricsBottomVC.msgLbl.text = "Please setup your FaceID/TouchID First !"
+        biometricsBottomVC.titleLbl.isHidden = true
+        biometricsBottomVC.successImage.image = UIImage(named: "red_fail")
+        biometricsBottomVC.successImage.isHidden = false
+        biometricsBottomVC.nextBtn.isHidden = true
     }
     
     func setupFailBiometricsBottomVC(){

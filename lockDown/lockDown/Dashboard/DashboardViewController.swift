@@ -166,7 +166,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             let width  = view.frame.width
             attentionAlertViewControllerBattery.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
             attentionAlertViewControllerBattery.delegate = self
-            attentionAlertViewControllerBattery.type = "bluetooth"
+            attentionAlertViewControllerBattery.type = "battery"
             self.addChild(attentionAlertViewControllerBattery)
             self.view.addSubview(attentionAlertViewControllerBattery.view)
             attentionAlertViewControllerBattery.msgLbl.text = "Alert_battery_msg_txt".localiz()
@@ -306,7 +306,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     @objc func batteryLevelDidChange(_ notification: Notification) {
         print( "batteryLevel = \(batteryLevel)" )
-        if(batteryLevel<20){
+        if(batteryLevel<20 && batteryLevel>0){
             showAlertBattery()
         }
     }
@@ -872,7 +872,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         self.view.addSubview(ChangeLocationVC.view)
         ChangeLocationVC.didMove(toParent: self)
     }
-    var  batteryLevel = 0
+    var  batteryLevel = Int(UIDevice.current.batteryLevel)
     // MARK: Send data with counter
     
     func sendData() {
