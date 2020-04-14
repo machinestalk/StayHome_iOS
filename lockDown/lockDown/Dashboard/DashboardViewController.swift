@@ -28,10 +28,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var attentionAlertViewControllerBluetooth = AttentionAlertViewController()
     var attentionAlertViewControllerInternet = AttentionAlertViewController()
     var attentionAlertViewControllerBattery = AttentionAlertViewController()
-    var blurEffectViewBluetooth : UIVisualEffectView!
-    var blurEffectViewOutZone : UIVisualEffectView!
-    var blurEffectViewInternet : UIVisualEffectView!
-    var blurEffectViewBattery : UIVisualEffectView!
     let customTimer = CustomTimer(timeInterval: 300)
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
@@ -66,24 +62,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     //show Alert Bluetooth
     func showAlertBluetooth(){
         if !alertBluetoothIsOpen{
-            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
-            
-            blurEffectViewBluetooth = UIVisualEffectView(effect: blurEffect)
-            var heightBlur = UIScreen.main.bounds.height
-            if isItIPhoneX(){
-                heightBlur = UIScreen.main.bounds.height - 250
-            }
-            else {
-                heightBlur = UIScreen.main.bounds.height - 230
-            }
-            blurEffectViewBluetooth.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightBlur)
-            blurEffectViewBluetooth.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            blurEffectViewBluetooth.alpha = 0.5
-            let window = UIApplication.shared.keyWindow!
-            
-            
-            window.addSubview(blurEffectViewBluetooth)
-            
             let height = view.frame.height
             let width  = view.frame.width
             attentionAlertViewControllerBluetooth.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
@@ -105,24 +83,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     //show Alert Bluetooth
     func showAlertComeBack(){
         if !alertComeBackIsOpen{
-            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
-            
-            blurEffectViewOutZone = UIVisualEffectView(effect: blurEffect)
-            var heightBlur = UIScreen.main.bounds.height
-            if isItIPhoneX(){
-                heightBlur = UIScreen.main.bounds.height - 250
-            }
-            else {
-                heightBlur = UIScreen.main.bounds.height - 230
-            }
-            blurEffectViewOutZone.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightBlur)
-            blurEffectViewOutZone.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            blurEffectViewOutZone.alpha = 0.5
-            let window = UIApplication.shared.keyWindow!
-            
-            
-            window.addSubview(blurEffectViewOutZone)
-            
             let height = view.frame.height
             let width  = view.frame.width
             attentionAlertViewControllerOutZone.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
@@ -130,7 +90,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             self.addChild(attentionAlertViewControllerOutZone)
             self.view.addSubview(attentionAlertViewControllerOutZone.view)
             attentionAlertViewControllerOutZone.didMove(toParent: self)
-            
         }
     }
     
@@ -140,23 +99,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
     func showAlertBattery(){
         if !alertBluetoothIsOpen{
-            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
-            
-            blurEffectViewBattery = UIVisualEffectView(effect: blurEffect)
-            var heightBlur = UIScreen.main.bounds.height
-            if isItIPhoneX(){
-                heightBlur = UIScreen.main.bounds.height - 250
-            }
-            else {
-                heightBlur = UIScreen.main.bounds.height - 230
-            }
-            blurEffectViewBattery.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightBlur)
-            blurEffectViewBattery.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            blurEffectViewBattery.alpha = 0.5
-            let window = UIApplication.shared.keyWindow!
-            
-            
-            window.addSubview(blurEffectViewBattery)
             
             let height = view.frame.height
             let width  = view.frame.width
@@ -459,23 +401,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     func showAlertInternet(){
         if(!alertInternetIsOpen){
             alertInternetIsOpen = true
-            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
-            
-            blurEffectViewInternet = UIVisualEffectView(effect: blurEffect)
-            var heightBlur = UIScreen.main.bounds.height
-            if isItIPhoneX(){
-                heightBlur = UIScreen.main.bounds.height - 250
-            }
-            else {
-                heightBlur = UIScreen.main.bounds.height - 230
-            }
-            blurEffectViewInternet.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightBlur)
-            blurEffectViewInternet.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            blurEffectViewInternet.alpha = 0.5
-            let window = UIApplication.shared.keyWindow!
-            
-            
-            window.addSubview(blurEffectViewInternet)
             
             let height = view.frame.height
             let width  = view.frame.width
@@ -1084,13 +1009,11 @@ struct NetworkInfo {
 extension DashboardViewController: responceProtocol {
     func oKClick() {
         alertComeBackIsOpen = false
-        blurEffectViewOutZone.removeFromSuperview()
         self.attentionAlertViewControllerOutZone.view.removeFromSuperview()
     }
     
     func emergencyClick() {
         alertComeBackIsOpen = false
-        blurEffectViewOutZone.removeFromSuperview()
         self.attentionAlertViewControllerOutZone.view.removeFromSuperview()
     }
     
@@ -1103,7 +1026,6 @@ extension DashboardViewController: AlertProtocol {
     func okInternet(){
         if(isInternetOK){
             alertInternetIsOpen = false
-            blurEffectViewInternet.removeFromSuperview()
             self.attentionAlertViewControllerInternet.view.removeFromSuperview()
             
             
@@ -1111,16 +1033,13 @@ extension DashboardViewController: AlertProtocol {
     }
     func okBatteryLevel(){
         if(batteryLevel>20){
-            blurEffectViewBattery.removeFromSuperview()
             self.attentionAlertViewControllerBattery.view.removeFromSuperview()
-            
         }
         
     }
     func oKBluetooth(){
         if(bluetoothEnabled){
             alertBluetoothIsOpen = false
-            blurEffectViewBluetooth.removeFromSuperview()
             self.attentionAlertViewControllerBluetooth.view.removeFromSuperview()
             
         }

@@ -11,9 +11,9 @@ import LGSideMenuController
 
 
 class MenuViewController: BaseController {
-    fileprivate var menuItems = ["MyZone_txt" , "checkIn_txt","emergency_txt","", "tecSupport_txt", "aboutAs_txt" ]
-    let menuIconsArray = ["zones_black","check_black","emergency_black","","support_black","about_black"]
-    let menuSelectedIconsArray = ["zones_green","check_green","emergency_green","","support_green","about_green"]
+    fileprivate var menuItems = ["home_txt","MyZone_txt" , "checkIn_txt","emergency_txt","","", "tecSupport_txt", "aboutAs_txt","logout_txt"]
+    let menuIconsArray = ["home_black","zones_black","check_black","emergency_black","","","support_black","about_black","logout_black"]
+    let menuSelectedIconsArray = ["home_green","zones_green","check_green","emergency_green","","","support_green","about_green","logout_green"]
     var selectedItem = 0
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var VersionLbl: UILabel!
@@ -74,25 +74,23 @@ extension MenuViewController: UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier:"menuCell", for: indexPath as IndexPath) as! MenuTableViewCell
         //cell.backgroundColor = UIColorFromHex(hex: "#4ED689")
         switch indexPath.row {
-        case 0:
+            case 0:
             do {
-                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: DashboardViewController.self)) {
+                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: HomeViewController.self)) {
                     
-                    
-                    let vc = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
+                    let vc = HomeViewController(nibName: "HomeViewController", bundle: nil)
                     let navC = self.sideMenuController?.rootViewController as! UINavigationController
                     navC.setViewControllers([vc], animated: true)
-                    selectedItem = 0
+                    selectedItem = 1
                 }
                 hideMenu()
                 break
             }
         case 1:
             do {
-                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: CheckInViewController.self)) {
+                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: DashboardViewController.self)) {
                     
-                    
-                    let vc = CheckInViewController(nibName: "CheckInViewController", bundle: nil)
+                    let vc = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
                     let navC = self.sideMenuController?.rootViewController as! UINavigationController
                     navC.setViewControllers([vc], animated: true)
                     selectedItem = 1
@@ -102,10 +100,10 @@ extension MenuViewController: UITableViewDelegate {
             }
         case 2:
             do {
-                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: EmergencyViewController.self)) {
+                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: CheckInViewController.self)) {
                     
                     
-                    let vc = EmergencyViewController(nibName: "EmergencyViewController", bundle: nil)
+                    let vc = CheckInViewController(nibName: "CheckInViewController", bundle: nil)
                     let navC = self.sideMenuController?.rootViewController as! UINavigationController
                     navC.setViewControllers([vc], animated: true)
                     selectedItem = 2
@@ -115,12 +113,31 @@ extension MenuViewController: UITableViewDelegate {
             }
         case 3:
             do {
+                if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: EmergencyViewController.self)) {
+                    
+                    
+                    let vc = EmergencyViewController(nibName: "EmergencyViewController", bundle: nil)
+                    let navC = self.sideMenuController?.rootViewController as! UINavigationController
+                    navC.setViewControllers([vc], animated: true)
+                    selectedItem = 3
+                }
+                hideMenu()
+                break
+            }
+        case 4:
+            do {
                 
             }
             
             break
+            case 5:
+                       do {
+                           
+                       }
+                       
+                       break
             
-        case 4:
+        case 6:
             do {
                 if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: ContactUsViewController.self)) {
                     
@@ -128,13 +145,13 @@ extension MenuViewController: UITableViewDelegate {
                     let vc = ContactUsViewController(nibName: "ContactUsViewController", bundle: nil)
                     let navC = self.sideMenuController?.rootViewController as! UINavigationController
                     navC.setViewControllers([vc], animated: true)
-                    selectedItem = 4
+                    selectedItem = 6
                 }
                 hideMenu()
                 break
                 
             }
-        case 5:
+        case 7:
             do {
                 if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: ContentViewController.self)) {
                     
@@ -142,7 +159,7 @@ extension MenuViewController: UITableViewDelegate {
                     let vc = ContentViewController(nibName: "ContentViewController", bundle: nil)
                     let navC = self.sideMenuController?.rootViewController as! UINavigationController
                     navC.setViewControllers([vc], animated: true)
-                    selectedItem = 5
+                    selectedItem = 7
                 }
                 
                 hideMenu()
@@ -182,7 +199,7 @@ extension MenuViewController: UITableViewDataSource {
             cell.menuIcon.image = UIImage(named:menuIconsArray[indexPath.row])
             cell.selectedView.isHidden = true
         }
-        cell.topLbl.isHidden = (indexPath.row != 4)
+        cell.topLbl.isHidden = (indexPath.row != 5)
         return cell
     }
 }

@@ -61,7 +61,7 @@ class SurveyViewController: BaseController {
             } ,onFailure : { (error) in
                 print(error)
             })
-            let DashboardVC = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
+            let DashboardVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
             self.navigationController!.pushViewController(DashboardVC, animated: true)
         } else {
             let alert = UIAlertController(title: "Warning_txt".localiz(), message: "survey_invalidSurvey_txt".localiz(), preferredStyle: UIAlertController.Style.alert)

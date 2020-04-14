@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var sideMenu : LGSideMenuController?
     var navVC:UINavigationController?
-    var dashboardVc: DashboardViewController!
+    var dashboardVc: HomeViewController!
     let notificationCenter = UNUserNotificationCenter.current()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func getLandingPageWithSideMenu()->UIViewController {
         
-        self.navVC = self.getNavControllerWithRootController(controller: DashboardViewController())
+        self.navVC = self.getNavControllerWithRootController(controller: HomeViewController())
         var leftController: UIViewController? = nil
         var rightController: UIViewController? = nil
         if LanguageManger.shared.isRightToLeft {
