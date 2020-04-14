@@ -12,12 +12,14 @@ import Firebase
 import GoogleMaps
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var sideMenu : LGSideMenuController?
     var navVC:UINavigationController?
     var dashboardVc: DashboardViewController!
+    let notificationCenter = UNUserNotificationCenter.current()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -25,10 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
-            UNUserNotificationCenter.current().delegate = self
+            notificationCenter.delegate = self
             
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-            UNUserNotificationCenter.current().requestAuthorization(
+            notificationCenter.requestAuthorization(
                 options: authOptions,
                 completionHandler: {_, _ in })
         } else {
@@ -79,7 +81,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.tintColor = UIColor.white
         self.window?.makeKeyAndVisible()
         GMSServices.provideAPIKey(LockDown.GoogleMaps.key)
-        
         return true
     }
     
@@ -131,9 +132,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func requestNotificationAuthorization(application: UIApplication) {
         if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().delegate = self
+            notificationCenter.delegate = self
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-            UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in })
+            notificationCenter.requestAuthorization(options: authOptions, completionHandler: {_, _ in })
         } else {
             let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             application.registerUserNotificationSettings(settings)
@@ -145,6 +146,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
+        
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
@@ -152,13 +154,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
             NotificationCenter.default.post(name: Notification.Name("NotificationLocation"), object: nil)
-            
         }
         else {
             NotificationCenter.default.post(name: Notification.Name("NotificationNoneLocation"), object: nil)
         }
         let VC = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
-        VC.updateTime()
+        VC.startCustomTimer()
         
         // Call Refresh token
         
@@ -218,11 +219,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        if let VC = window?.rootViewController as? DashboardViewController {
-            // Update JSON data
-            VC.updateTime()
-            completionHandler(.newData)
-        }
     }
     // [START receive_message]
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
@@ -255,7 +251,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-        
         APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "app in background", onSuccess: { (Msg) in
             print(Msg)
         } ,onFailure : { (error) in
@@ -279,7 +274,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func getNotificationSettings() {
         if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            notificationCenter.getNotificationSettings { (settings) in
                 guard settings.authorizationStatus == .authorized else { return }
                 DispatchQueue.main.async(execute: {
                     UIApplication.shared.registerForRemoteNotifications()

@@ -94,9 +94,15 @@ class BiometricsAuthViewController: BaseController {
                 }
             }else{
                 UserDefaults.standard.set(nil, forKey: "currentbiometricstate")
-                setupUnvailableBiometricsBottomVC()
                 biometryTypeImageView.image = UIImage(named: "ic_hold_near")
                 biometryTypeLabel.text = "We can not complete the process !"
+                
+                if UserDefaults.standard.bool(forKey: "isSignedUp"){
+                    
+                    setupNotMatchingBiometricsBottomVC()
+                } else {
+                    setupUnvailableBiometricsBottomVC()
+                }
             }
         }else{
             print(error?.localizedDescription ?? "")
@@ -144,7 +150,6 @@ class BiometricsAuthViewController: BaseController {
                                     self.setupSuccessBiometricsBottomVC()
                                 }
                                 else {
-                                    print("Not same user")
                                     let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
                                     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0,raison:"faceId doesn't match", onSuccess: { (Msg) in
                                         print(Msg)
@@ -153,6 +158,8 @@ class BiometricsAuthViewController: BaseController {
                                     })
                                     if self.isFromNotif {
                                         self.navigationController?.dismiss(animated: true, completion: nil)
+                                    }else{
+                                        self.navigationController?.popViewController(animated: true)
                                     }
                                 }
                             }
@@ -191,6 +198,16 @@ class BiometricsAuthViewController: BaseController {
         self.addChild(biometricsBottomVC)
         self.view.addSubview(biometricsBottomVC.view)
         biometricsBottomVC.didMove(toParent: self)
+    }
+    
+    func setupNotMatchingBiometricsBottomVC(){
+        
+        biometricsBottomVC.msgLbl.text = "Your FaceID/TouchID has been changed, please contact support."
+        biometricsBottomVC.titleLbl.isHidden = true
+        biometricsBottomVC.successImage.image = UIImage(named: "red_faceid")
+        biometricsBottomVC.successImage.isHidden = false
+        biometricsBottomVC.nextBtn.setBackgroundImage(UIImage(named: "red_button"), for: .normal)
+        biometricsBottomVC.nextBtn.titleLabel?.text = "Contact support"
     }
     
     func setupUnvailableBiometricsBottomVC(){

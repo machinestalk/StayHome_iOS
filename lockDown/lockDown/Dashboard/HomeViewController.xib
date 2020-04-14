@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="lockDown" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jk0-Pi-FPb">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="406"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day14" translatesAutoresizingMaskIntoConstraints="NO" id="e2m-n9-IaI">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="406"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAYS LEFT IN QUARQNTAINE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkI-Ll-8P6">
+                            <rect key="frame" x="102.66666666666669" y="200" width="170" height="70"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="70" id="8TS-T3-H4u"/>
+                                <constraint firstAttribute="width" constant="170" id="zTt-m5-0MB"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="qkI-Ll-8P6" firstAttribute="centerY" secondItem="Jk0-Pi-FPb" secondAttribute="centerY" constant="32" id="Pc4-wa-hQD"/>
+                        <constraint firstAttribute="bottom" secondItem="e2m-n9-IaI" secondAttribute="bottom" id="XMz-wv-zFL"/>
+                        <constraint firstItem="e2m-n9-IaI" firstAttribute="top" secondItem="Jk0-Pi-FPb" secondAttribute="top" id="bP2-E5-CrM"/>
+                        <constraint firstAttribute="trailing" secondItem="e2m-n9-IaI" secondAttribute="trailing" id="mMb-ea-DD5"/>
+                        <constraint firstItem="e2m-n9-IaI" firstAttribute="leading" secondItem="Jk0-Pi-FPb" secondAttribute="leading" id="r6e-y6-DxL"/>
+                        <constraint firstItem="qkI-Ll-8P6" firstAttribute="centerX" secondItem="Jk0-Pi-FPb" secondAttribute="centerX" id="vth-nT-zRc"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's tip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yV-sH-d6V">
+                    <rect key="frame" x="0.0" y="414" width="375" height="48"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="35"/>
+                    <color key="textColor" red="0.26904177670000001" green="0.83761948350000004" blue="0.62511438129999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OPr-4e-btv">
+                    <rect key="frame" x="131.33333333333334" y="460" width="112.33333333333334" height="3"/>
+                    <color key="backgroundColor" red="0.26904177670000001" green="0.83761948350000004" blue="0.62511438129999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="3" id="aNa-et-5lY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Self-quarantaine, what is it?&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wOW-Od-kc0" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="5" y="483" width="375" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="dUH-5x-9uI"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdz-Ii-RF2" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="5" y="547" width="375" height="116.33333333333337"/>
+                    <string key="text">Stay in a separate room from your family and use
+a separate bathroom if available.
+
+Always wear a face mask if you must be around
+other people.</string>
+                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Jk0-Pi-FPb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8ai-lu-Y4o"/>
+                <constraint firstItem="2yV-sH-d6V" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="8co-8d-2bh"/>
+                <constraint firstItem="wOW-Od-kc0" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="5" id="JLu-3r-iBR"/>
+                <constraint firstItem="OPr-4e-btv" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="JgX-Tf-mnR"/>
+                <constraint firstItem="OPr-4e-btv" firstAttribute="top" secondItem="2yV-sH-d6V" secondAttribute="bottom" constant="-2" id="JlZ-ER-M5z"/>
+                <constraint firstItem="wOW-Od-kc0" firstAttribute="top" secondItem="OPr-4e-btv" secondAttribute="bottom" constant="20" id="NwI-UM-8oL"/>
+                <constraint firstItem="Jk0-Pi-FPb" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.5" id="OZB-SR-GYX"/>
+                <constraint firstItem="Bdz-Ii-RF2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="5" id="PqS-A7-u4g"/>
+                <constraint firstItem="OPr-4e-btv" firstAttribute="width" secondItem="2yV-sH-d6V" secondAttribute="width" multiplier="0.3" id="YEv-2K-4ox"/>
+                <constraint firstItem="Jk0-Pi-FPb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="acw-SM-IAO"/>
+                <constraint firstItem="Jk0-Pi-FPb" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="bBS-7a-aZY"/>
+                <constraint firstItem="2yV-sH-d6V" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="fum-ks-IB2"/>
+                <constraint firstItem="wOW-Od-kc0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="5" id="j83-ID-siF"/>
+                <constraint firstItem="Bdz-Ii-RF2" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="5" id="nPB-u5-mV8"/>
+                <constraint firstItem="Bdz-Ii-RF2" firstAttribute="top" secondItem="wOW-Od-kc0" secondAttribute="bottom" constant="20" id="xHO-N4-l89"/>
+                <constraint firstItem="2yV-sH-d6V" firstAttribute="top" secondItem="Jk0-Pi-FPb" secondAttribute="bottom" constant="8" id="xip-Ay-Iak"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="day14" width="380.66665649414062" height="410"/>
+    </resources>
+</document>

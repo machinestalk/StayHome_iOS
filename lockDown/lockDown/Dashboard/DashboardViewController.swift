@@ -32,7 +32,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var blurEffectViewOutZone : UIVisualEffectView!
     var blurEffectViewInternet : UIVisualEffectView!
     var blurEffectViewBattery : UIVisualEffectView!
-    let customTimer = CustomTimer(timeInterval: 30)
+    let customTimer = CustomTimer(timeInterval: 300)
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
@@ -41,7 +41,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var nextState:CardState {
         return cardVisible ? .collapsed : .expanded
     }
-    
     //Bluetooth
     
     private lazy var bluetoothManager = CoreBluetoothManager()
@@ -53,7 +52,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     
     var userMotionActivity: CMMotionActivity!
     var userMotionManager: CMMotionManager!
-    
+        
     func getTelephonyInfo() -> Dictionary<String, CTCarrier>{
         
         let networkInfo = CTTelephonyNetworkInfo()
@@ -130,9 +129,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             attentionAlertViewControllerOutZone.delegate = self
             self.addChild(attentionAlertViewControllerOutZone)
             self.view.addSubview(attentionAlertViewControllerOutZone.view)
-            
-            
-            
             attentionAlertViewControllerOutZone.didMove(toParent: self)
             
         }
@@ -278,14 +274,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             fileURL = dir.appendingPathComponent(logFileName)
         }
         setLocation()
-        if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-            //if  !UserDefaults.standard.bool(forKey: "isFirstTime")  {
-            // startTimer()
-            // }
-            // else {
-            // updateTime()
-            //}
-        }
         let deviceId = UserDefaults.standard.string(forKey: "deviceId")
         let firebaseToken = UserDefaults.standard.string(forKey: "firebaseToken")
         APIClient.sendFirebaseToken(deviceId: deviceId!, firebase_token: firebaseToken!, onSuccess: { (Msg) in
@@ -379,7 +367,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 marker.position = locValue
                 marker.map = self.mapView
                 getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
-                scheduledTimerWithTimeInterval()
+               // scheduledTimerWithTimeInterval()
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -407,7 +395,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                 circle.fillColor = UIColorFromHex(hex: "#FBBBBC").withAlphaComponent(0.8)
                 circle.strokeColor = .clear
                 circle.map = mapView;
-                scheduledTimerWithTimeInterval()
+                //scheduledTimerWithTimeInterval()
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -614,10 +602,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var timer = Timer()
     let motionManager = CMMotionManager()
     
-    func scheduledTimerWithTimeInterval(){
-        // Scheduling timer to Call the function **getSpeed** with the interval of 1 seconds
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(getSpeed), userInfo: nil, repeats: true)
-    }
+//    func scheduledTimerWithTimeInterval(){
+//        // Scheduling timer to Call the function **getSpeed** with the interval of 1 seconds
+//        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(getSpeed), userInfo: nil, repeats: true)
+//    }
     func showAlertSpeed(){
         if(bluetoothEnabled == false){
             let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
@@ -732,7 +720,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             isInternetOK = false
             print("Not reachable")
             showAlertInternet()
-            
         case .wifi:
             isInternetOK = true
             print("wifi reachable")
@@ -886,7 +873,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         if Double(locationManager.location!.horizontalAccuracy) < 300 {
             if(distance >= circle.radius)
             {
-                logToFile(value: "\(Date())#\(userMotionActivity ?? CMMotionActivity())#user out of zone# \(locValue.latitude)#\(locValue.longitude)#\(Array(Set(peripherals)))#\(currentNetworkInfos?.first?.ssid ??  "nil")#\(batteryLevel)#\(locationState)#\(bluetoothEnabled)#\(isInternetAvailable())#\(locationManager.location?.horizontalAccuracy ?? 0)#\(userMotionManager.accelerometerData)#\(userMotionManager.gyroData)#\(userMotionManager.magnetometerData)#\(userMotionManager.deviceMotion)\n")
+                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user out of zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
                 peripherals.removeAll()
                 if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
@@ -898,7 +885,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             }
             else
             {
-                logToFile(value: "\(Date())#\(userMotionActivity ?? CMMotionActivity())#user in zone# \(locValue.latitude)#\(locValue.longitude)#\(Array(Set(peripherals)))#\(currentNetworkInfos?.first?.ssid ??  "nil")#\(batteryLevel)#\(locationState)#\(bluetoothEnabled)#\(isInternetAvailable())#\(locationManager.location?.horizontalAccuracy ?? 0)#\(userMotionManager.accelerometerData)#\(userMotionManager.gyroData)#\(userMotionManager.magnetometerData)#\(userMotionManager.deviceMotion)\n")
+                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
                 peripherals.removeAll()
                 if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                     APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
@@ -918,43 +905,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     func startCustomTimer() {
         
         customTimer.eventHandler = {
+            self.getSpeed()
             self.sendData()
         }
         customTimer.resume()
-    }
-    
-    func startTimer() {
-        UserDefaults.standard.set(true, forKey: "isFirstTime")
-        if(countdownTimer != nil ){
-            countdownTimer.invalidate()
-            countdownTimer = nil
-        }
-        totalTime = 60
-        countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-    }
-    
-    @objc func updateTime() {
-        //        if(countdownTimer != nil){
-        //            let secondes = (totalTime % 60)
-        //            let minutes : Int = Int(totalTime / 60)
-        //
-        //            if totalTime != 0 {
-        //                totalTime -= 1
-        //                UserDefaults.standard.set(totalTime, forKey: "counter")
-        //                print(String(format: "%02d:%02d", minutes, secondes))
-        //
-        //            } else if secondes == 0 {
-        //
-        //                sendData()
-        //                desactivateTimer()
-        //                //startTimer()
-        //            }
-        //            else {
-        //
-        //                //endTimer()
-        //            }
-        //
-        //        }
     }
     
     // MARK : Desactivate Timer
@@ -980,7 +934,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             print("FILE AVAILABLE")
         } else {
             print("FILE NOT AVAILABLE")
-            let titleString = "DateTime#UserActivity#Status#latitude#longitude#bluetooth#wifi#batteryLevel#locationState#bluetoothEnabled#isInternetAvailable#Accuracy#accelerometerData#gyroData#magnetometerData#deviceMotion#"
+            let titleString = "DateTime ; UserActivity ; Status ; latitude ; longitude ; bluetooth ; wifi ; batteryLevel ; locationState ; bluetoothEnabled ; isInternetAvailable ; Accuracy ; accelerometerData ; gyroData ; magnetometerData ; deviceMotion ; "
             
             do {
                 try "\(titleString)\n".write(to: fileURL!, atomically: false, encoding: String.Encoding.utf8)
@@ -1060,15 +1014,12 @@ extension DashboardViewController : BiometricsAuthProtocol{
         UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
         let customerId = UserDefaults.standard.string(forKey: "customerId")
         
-        
         APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
             print(Msg)
             self.biometricsBottomVc.view.removeFromSuperview()
-            self.startTimer()
         } ,onFailure : { (error) in
             print(error)
-        }
-        )
+        })
         let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
         self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
     }
