@@ -158,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             NotificationCenter.default.post(name: Notification.Name("NotificationNoneLocation"), object: nil)
         }
-        let VC = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
+        let VC = HomeViewController(nibName: "HomeViewController", bundle: nil)
         VC.startCustomTimer()
         
         // Call Refresh token

@@ -64,6 +64,7 @@ class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
                 attentionAlertViewController.type = notification.userInfo!["type"] as! String
                 attentionAlertViewController.delegate = self
                 attentionAlertViewController.modalPresentationStyle = .overCurrentContext
+                attentionAlertViewController.modalTransitionStyle = .crossDissolve
                 appDelegate.window?.rootViewController!.present(attentionAlertViewController, animated: true, completion: nil)
                 //self.navigationController?.visibleViewController!
         }

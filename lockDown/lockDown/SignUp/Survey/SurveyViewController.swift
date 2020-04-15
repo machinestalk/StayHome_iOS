@@ -12,14 +12,16 @@ class SurveyViewController: BaseController {
     
     let surveyIconsArray  = ["Scough","Sheadache","Sfever","Sbreath","Sno_sympthoms"]
     let surveyLabelsKeyArray = ["survey_cough_txt","survey_headache_txt","survey_fever_txt","survey_breath_txt","survey_no_symtoms_txt"]
-    var statusArray : NSMutableArray = [0,0,0,0,1]
+    var statusArray : NSMutableArray = [0,0,0,0,0]
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var nextButton: Button!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "SurveyCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "Cell")
+        nextButton.isEnabled = isValidateSurvey()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +44,7 @@ class SurveyViewController: BaseController {
             statusArray.replaceObject(at: switcher.tag, with: switcher.isOn)
             statusArray.replaceObject(at: 4, with: 0)
         }
+        nextButton.isEnabled = isValidateSurvey()
         self.tableView.reloadData()
     }
     

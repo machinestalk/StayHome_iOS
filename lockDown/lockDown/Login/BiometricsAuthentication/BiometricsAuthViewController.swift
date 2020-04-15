@@ -60,7 +60,6 @@ class BiometricsAuthViewController: BaseController {
         super.viewDidLoad()
         
         if(isFromCheckIn){
-            self.navigationController?.navigationBar.isHidden = false
             self.title = "checkIn_txt".localiz()
             stepsImg.isHidden = true
         }
