@@ -81,7 +81,7 @@ extension MenuViewController: UITableViewDelegate {
                     let vc = HomeViewController(nibName: "HomeViewController", bundle: nil)
                     let navC = self.sideMenuController?.rootViewController as! UINavigationController
                     navC.setViewControllers([vc], animated: true)
-                    selectedItem = 1
+                    selectedItem = 0
                 }
                 hideMenu()
                 break
@@ -165,6 +165,11 @@ extension MenuViewController: UITableViewDelegate {
                 hideMenu()
                 break
                 
+            }
+            case 8:
+            do {
+                NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"logout"])
+                break
             }
         default:
             print("Default")

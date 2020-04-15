@@ -25,9 +25,9 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var ChangeLocationVC = ChangeLocationViewController()
     var biometricsBottomVc = BiometricsBottomViewController()
     var attentionAlertViewControllerOutZone = AttentionOutZoneAlertViewController()
-    var attentionAlertViewControllerBluetooth = AttentionAlertViewController()
-    var attentionAlertViewControllerInternet = AttentionAlertViewController()
-    var attentionAlertViewControllerBattery = AttentionAlertViewController()
+    var attentionAlertViewControllerBluetooth : AttentionAlertViewController!
+    var attentionAlertViewControllerInternet = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
+    var attentionAlertViewControllerBattery = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
     let customTimer = CustomTimer(timeInterval: 300)
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
@@ -42,8 +42,11 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     private lazy var bluetoothManager = CoreBluetoothManager()
     
     var peripherals = Array<CBPeripheral>()
-    var bluetoothEnabled = false
+    
     var alertBluetoothIsOpen = false
+    var alertBatteryIsOpen = false
+    var alertInternetIsOpen = false
+    
     var carrier = CTCarrier()
     
     var userMotionActivity: CMMotionActivity!
@@ -59,24 +62,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         return ["Not found":CTCarrier()]
     }
     
-    //show Alert Bluetooth
-    func showAlertBluetooth(){
-        if !alertBluetoothIsOpen{
-            let height = view.frame.height
-            let width  = view.frame.width
-            attentionAlertViewControllerBluetooth.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-            attentionAlertViewControllerBluetooth.delegate = self
-            attentionAlertViewControllerBluetooth.type = "bluetooth"
-            self.addChild(attentionAlertViewControllerBluetooth)
-            self.view.addSubview(attentionAlertViewControllerBluetooth.view)
-            attentionAlertViewControllerBluetooth.msgLbl.text = "Alert_bluetooth_msg_txt".localiz()
-            attentionAlertViewControllerBluetooth.alertImage.image = UIImage(named: "red_bluetooth")
-            
-            
-            attentionAlertViewControllerBluetooth.didMove(toParent: self)
-            
-        }
-    }
+    
     
     var alertComeBackIsOpen = false
     
@@ -92,39 +78,11 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             attentionAlertViewControllerOutZone.didMove(toParent: self)
         }
     }
-    
-    
-    //show Alert battery lavel
-    var alertBatteryIsOpen = false
-    
-    func showAlertBattery(){
-        if !alertBluetoothIsOpen{
-            
-            let height = view.frame.height
-            let width  = view.frame.width
-            attentionAlertViewControllerBattery.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-            attentionAlertViewControllerBattery.delegate = self
-            attentionAlertViewControllerBattery.type = "battery"
-            self.addChild(attentionAlertViewControllerBattery)
-            self.view.addSubview(attentionAlertViewControllerBattery.view)
-            attentionAlertViewControllerBattery.msgLbl.text = "Alert_battery_msg_txt".localiz()
-            attentionAlertViewControllerBattery.alertImage.image = UIImage(named: "red_battery")
-            
-            
-            attentionAlertViewControllerBluetooth.didMove(toParent: self)
-            
-        }
-    }
-    //Wifi
     var currentNetworkInfos: Array<NetworkInfo>? {
         get {
             return  SSID.fetchNetworkInfo()
         }
     }
-    
-    
-    
-    //
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted:CGFloat = 0
     var locValue: CLLocationCoordinate2D!
@@ -207,7 +165,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationLocation"), object: nil)
         self.navigationItem.rightBarButtonItem = nil
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
-        
+        self.navigationController?.navigationBar.isHidden = false
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         let dateString = Date().toString(dateFormat: "yyyyMMdd")
@@ -240,7 +198,22 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
             showAlertBattery()
         }
     }
-    //getAllWiFiNameList
+    // MARK: Show Alerts
+
+    func showAlertBluetooth(){
+        NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bluetooth"])
+    }
+
+    func showAlertBattery(){
+        NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"battery"])
+    }
+
+    func showAlertInternet(){
+        NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"internet"])
+    }
+    
+    
+    // MARK: getAllWiFiNameList
     func getAllWiFiNameList() -> String? {
         var ssid: String?
         if let interfaces = CNCopySupportedInterfaces() as NSArray? {
@@ -254,7 +227,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         return ssid
     }
     
-    //Check if location services are enabledlog
+    // MARK: Check if location services are enabledlog
     
     func checkIfLocationEnabled() -> String{
         if CLLocationManager.locationServicesEnabled() {
@@ -396,28 +369,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         let needsConnection = flags.contains(.connectionRequired)
         return (isReachable && !needsConnection)
     }
-    var alertInternetIsOpen = false
-    //show Alert Internet
-    func showAlertInternet(){
-        if(!alertInternetIsOpen){
-            alertInternetIsOpen = true
-            
-            let height = view.frame.height
-            let width  = view.frame.width
-            attentionAlertViewControllerInternet.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-            attentionAlertViewControllerInternet.delegate = self
-            attentionAlertViewControllerInternet.type = "internet"
-            self.addChild(attentionAlertViewControllerInternet)
-            self.view.addSubview(attentionAlertViewControllerInternet.view)
-            attentionAlertViewControllerInternet.msgLbl.text = "Alert_wifi_msg_txt".localiz()
-            attentionAlertViewControllerInternet.alertImage.image = UIImage(named: "red_wifi")
-            
-            
-            attentionAlertViewControllerInternet.didMove(toParent: self)
-        }
-    }
-    
-    //
+
     func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
         var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
         let ceo: CLGeocoder = CLGeocoder()
@@ -503,7 +455,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
                         let alert = UIAlertController(title: "zone", message: "you are out of zone, please come back", preferredStyle: .alert)
                         
                         alert.addAction(UIAlertAction(title: "Ok", style: .default,handler: {action in self.showAlertInternet()}))
-                        
                         
                         self.present(alert, animated: true)
                         
@@ -636,7 +587,7 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     }
     
     //internet state change
-    var isInternetOK = false
+    
     @objc func reachabilityChanged(_ note: NSNotification) {
         //V1
         guard let status = Network.reachability?.status else { return }
@@ -784,7 +735,6 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
         self.view.addSubview(ChangeLocationVC.view)
         ChangeLocationVC.didMove(toParent: self)
     }
-    var  batteryLevel = Int(UIDevice.current.batteryLevel)
     // MARK: Send data with counter
     
     func sendData() {
@@ -1019,32 +969,6 @@ extension DashboardViewController: responceProtocol {
     
     
 }
-//Alerts
-extension DashboardViewController: AlertProtocol {
-    
-    
-    func okInternet(){
-        if(isInternetOK){
-            alertInternetIsOpen = false
-            self.attentionAlertViewControllerInternet.view.removeFromSuperview()
-            
-            
-        }
-    }
-    func okBatteryLevel(){
-        if(batteryLevel>20){
-            self.attentionAlertViewControllerBattery.view.removeFromSuperview()
-        }
-        
-    }
-    func oKBluetooth(){
-        if(bluetoothEnabled){
-            alertBluetoothIsOpen = false
-            self.attentionAlertViewControllerBluetooth.view.removeFromSuperview()
-            
-        }
-    }
-}
 
 extension DashboardViewController: BluetoothManagerDelegate {
     
@@ -1053,11 +977,11 @@ extension DashboardViewController: BluetoothManagerDelegate {
     }
     
     func centralStateOn() {
-        self.bluetoothEnabled = true
+        bluetoothEnabled = true
     }
     
     func centralStateOff() {
-        self.bluetoothEnabled = false
+        bluetoothEnabled = false
         showAlertBluetooth()
     }
 }

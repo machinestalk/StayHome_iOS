@@ -23,6 +23,8 @@ class CheckInViewController: BaseController {
         super.viewWillAppear(animated)
         if isFromNotif {
             self.navigationController?.navigationBar.isHidden = true
+        }else{
+            self.navigationController?.navigationBar.isHidden = false
         }
         startTimer()
     }

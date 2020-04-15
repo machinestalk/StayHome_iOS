@@ -65,6 +65,7 @@ class BiometricsAuthViewController: BaseController {
         else {
             self.title = "SignUpTitle".localiz()
         }
+        self.navigationController?.navigationBar.isHidden = false
         setupBiometricsBottomVC()
         // The biometryType, which affects this app's UI when state changes, is only meaningful
         //  after running canEvaluatePolicy. But make sure not to run this test from inside a
