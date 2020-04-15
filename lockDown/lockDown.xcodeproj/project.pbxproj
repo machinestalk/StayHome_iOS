@@ -16,6 +16,8 @@
 		469911621E7D434DEE14800B /* Pods_lockDown_lockDownUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07CA6D2D03D9DFBEFA5E85B7 /* Pods_lockDown_lockDownUITests.framework */; };
 		C127F5BF6723479FAE29EC8B /* Pods_lockDownTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BCCF1BC0A16076FE3EF369 /* Pods_lockDownTests.framework */; };
 		CD3412B45A2D09888AE1582D /* Pods_lockDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA45852916987272EE4010E3 /* Pods_lockDown.framework */; };
+		FA012F112447134600E647B9 /* MyZoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA012F0F2447134600E647B9 /* MyZoneViewController.swift */; };
+		FA012F122447134600E647B9 /* MyZoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA012F102447134600E647B9 /* MyZoneViewController.xib */; };
 		FA17C4BD243337B9000516EF /* BiometricsAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */; };
 		FA17C4BE243337B9000516EF /* BiometricsAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */; };
 		FA66D6442434B8880036D137 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA66D6432434B8880036D137 /* BaseController.swift */; };
@@ -127,6 +129,8 @@
 		E7DE332401585B97E3467E89 /* Pods-lockDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDown.debug.xcconfig"; path = "Target Support Files/Pods-lockDown/Pods-lockDown.debug.xcconfig"; sourceTree = "<group>"; };
 		EA45852916987272EE4010E3 /* Pods_lockDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lockDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F261705A9F8FED30AE760D35 /* Pods-lockDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDown.release.xcconfig"; path = "Target Support Files/Pods-lockDown/Pods-lockDown.release.xcconfig"; sourceTree = "<group>"; };
+		FA012F0F2447134600E647B9 /* MyZoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyZoneViewController.swift; sourceTree = "<group>"; };
+		FA012F102447134600E647B9 /* MyZoneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyZoneViewController.xib; sourceTree = "<group>"; };
 		FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsAuthViewController.swift; sourceTree = "<group>"; };
 		FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricsAuthViewController.xib; sourceTree = "<group>"; };
 		FA66D6432434B8880036D137 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
@@ -271,6 +275,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		FA012F0E2447131400E647B9 /* MyZone */ = {
+			isa = PBXGroup;
+			children = (
+				FA012F0F2447134600E647B9 /* MyZoneViewController.swift */,
+				FA012F102447134600E647B9 /* MyZoneViewController.xib */,
+			);
+			path = MyZone;
+			sourceTree = "<group>";
+		};
 		FA17C4BA2433377E000516EF /* BiometricsAuthentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +320,7 @@
 		FA6E9855243293F5000F2C2E /* lockDown */ = {
 			isa = PBXGroup;
 			children = (
+				FA012F0E2447131400E647B9 /* MyZone */,
 				FAC81E7D243A83DD002DBADE /* WebContainer */,
 				FAC81E78243A1E8F002DBADE /* LandingPage */,
 				FAC81E732438CEF5002DBADE /* ContactUs */,
@@ -685,6 +699,7 @@
 				FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */,
 				FAB7F41724339B0600061AE5 /* OpenSans-Light.ttf in Resources */,
 				FAC36C9E24388894002B4928 /* SurveyViewController.xib in Resources */,
+				FA012F122447134600E647B9 /* MyZoneViewController.xib in Resources */,
 				0039FC362440B0F40071486B /* AttentionOutZoneAlertViewController.xib in Resources */,
 				FAB9B8402438FC85007364E7 /* CheckInViewController.xib in Resources */,
 				FADB80F5243DFDFB00A31CC1 /* FailCheckInViewController.xib in Resources */,
@@ -875,6 +890,7 @@
 				FA7ED09624364D1100C0060D /* FinishSignupViewController.swift in Sources */,
 				FAB34AF5244275E600ACDF99 /* BluetoothManager.swift in Sources */,
 				FA66D6442434B8880036D137 /* BaseController.swift in Sources */,
+				FA012F112447134600E647B9 /* MyZoneViewController.swift in Sources */,
 				FAC81E7B243A1EB2002DBADE /* LandingViewController.swift in Sources */,
 				FA6E9857243293F5000F2C2E /* AppDelegate.swift in Sources */,
 				0039FC352440B0F40071486B /* AttentionOutZoneAlertViewController.swift in Sources */,
