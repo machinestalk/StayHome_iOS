@@ -13,12 +13,19 @@ import DeviceKit
 import MBProgressHUD
 
 
-class BaseController: UIViewController ,UITextFieldDelegate  {
+class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
+
+    var alertIsShown = false
     var selectedImage = UIImage.init()
+    var attentionAlertViewController: AttentionAlertViewController!
+    var bluetoothEnabled = false
+    var batteryLevel = Int(UIDevice.current.batteryLevel)
+    var isInternetOK = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupNavigationBar()
-    
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showPopUpAlertWithType(notification:)), name:NSNotification.Name("Alerts"), object:nil)
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +54,30 @@ class BaseController: UIViewController ,UITextFieldDelegate  {
         self.view.endEditing(true)
         return false
     }
+    //MARK:- Show popup
+    
+    @objc func showPopUpAlertWithType(notification: Notification){
+
+            if !alertIsShown{
+                alertIsShown = true
+                attentionAlertViewController = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
+                attentionAlertViewController.type = notification.userInfo!["type"] as! String
+                attentionAlertViewController.delegate = self
+                attentionAlertViewController.modalPresentationStyle = .overCurrentContext
+                appDelegate.window?.rootViewController!.present(attentionAlertViewController, animated: true, completion: nil)
+                //self.navigationController?.visibleViewController!
+        }
+    }
+    
+    func hidePopUpAlert() {
+        attentionAlertViewController.dismiss(animated: true, completion: nil)
+    }
+    
+    func oKButtonTappedWithType(type: String) {
+        
+        alertIsShown = false
+            self.hidePopUpAlert()
+    }
     
     //MARK:- Set Up Navigation bar
     func setupNavigationBar()  {
@@ -63,7 +94,7 @@ class BaseController: UIViewController ,UITextFieldDelegate  {
                     viewController = (viewController as! LGSideMenuController).rootViewController!
                     
                     viewController = (viewController as! UINavigationController).visibleViewController!
-                    if(viewController is DashboardViewController || viewController is FinishSignupViewController  || self.navigationController?.viewControllers.count == 1 ){
+                    if(viewController is HomeViewController || viewController is FinishSignupViewController  || self.navigationController?.viewControllers.count == 1 ){
                         let image = UIImage(named: "ic_menu")?.withRenderingMode(.alwaysOriginal)
 
                         button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(menuButtonPressed))

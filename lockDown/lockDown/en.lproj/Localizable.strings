@@ -35,12 +35,15 @@
 "Alert_out_zone_msg_txt" = "You are out of your quarantined zone limits.\nPlease go back now !";
 "Alert_wifi_msg_txt" = "You Have disactivate your WIFI.\nPlease check your parameters";
 "Alert_battery_msg_txt" = "Your battery is running low...\nPlease recharge your Kindle.";
+"Alert_logout_msg_txt" = "Sorry, you should continue using the app until the self-quarantaine.";
 
 "Alert_gps_msg_txt" = "Your GPS is off.\nPlease keep your GPS always ON.";
 
 "Alert_title_txt" = "Attention !";
 "BiometricsAuth_title_txt" = "Please verify your identity";
 "BiometricsAuth_msg_txt" = "* Please note that your face ID will not be shared or stored in any server except your phone";
+
+"home_txt" = "Home";
 "MyZone_txt"                                = "My Zone";
 "checkIn_txt"                               = "Check In";
 "emergency_txt"                             = "Emergency";
@@ -48,6 +51,7 @@
 "aboutAs_txt"                                   = "About us";
 "ChangeLocation_txt"                            ="if your home location is wrong \n and you want to change it, \n Please contact the technical support team";
 "contactUsTxt"                                  = "Contact Us";
+"logout_txt" = "Logout";
 
 //Login Screen
 "SgIn_SgIn_Lbl_login_verifyPin" = "Enter OTP";

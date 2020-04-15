@@ -23,6 +23,7 @@ class ContentViewController: BaseController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "aboutAs_txt".localiz()
+        self.navigationController?.navigationBar.isHidden = false
 //        let url = URL(string: "https://www.machinestalk.com/about-us/")!
 //        startLoading()
 //        webView.load(URLRequest(url: url))

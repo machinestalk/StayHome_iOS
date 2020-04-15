@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,7 +13,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="menuCell" rowHeight="53" id="KGk-i7-Jjw" customClass="MenuTableViewCell" customModule="lockDown" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -43,9 +44,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLf-8E-8hJ">
-                        <rect key="frame" x="20" y="0.0" width="280" height="1"/>
+                        <rect key="frame" x="20" y="52" width="280" height="1"/>
                         <color key="backgroundColor" white="0.8460598601931506" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="5ml-pN-Sye"/>
                             <constraint firstAttribute="height" constant="1" id="ctp-Rp-1W2"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -58,13 +60,11 @@
                     <constraint firstItem="9LK-CQ-zU3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="0Hh-0o-nZ5"/>
                     <constraint firstItem="Zzh-dF-lpp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="79g-tm-vXd"/>
                     <constraint firstItem="kZ8-yp-CBi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="AvG-PD-mGj"/>
-                    <constraint firstItem="oLf-8E-8hJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="CYp-cN-0dV"/>
+                    <constraint firstItem="oLf-8E-8hJ" firstAttribute="baseline" secondItem="Zzh-dF-lpp" secondAttribute="baseline" id="K6Y-kA-ElW"/>
                     <constraint firstItem="oLf-8E-8hJ" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" constant="-40" id="RWd-Jk-EiZ"/>
                     <constraint firstItem="oLf-8E-8hJ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="RgC-g9-j8g"/>
                     <constraint firstItem="9LK-CQ-zU3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="XmI-1U-LMQ"/>
                     <constraint firstItem="kZ8-yp-CBi" firstAttribute="leading" secondItem="9LK-CQ-zU3" secondAttribute="trailing" constant="20" id="fx0-LQ-vzL"/>
-                    <constraint firstAttribute="bottom" secondItem="kZ8-yp-CBi" secondAttribute="bottom" constant="10.5" id="kec-Z6-Y1w"/>
-                    <constraint firstAttribute="bottom" secondItem="9LK-CQ-zU3" secondAttribute="bottom" constant="10" id="yVq-E2-wE5"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
