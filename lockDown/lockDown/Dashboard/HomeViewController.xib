@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,7 +35,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tS2-vU-UW2">
-                            <rect key="frame" x="10" y="30" width="43" height="43"/>
+                            <rect key="frame" x="10" y="52" width="43" height="43"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="43" id="Bby-F5-OjN"/>
                                 <constraint firstAttribute="height" constant="43" id="eoS-oP-D0c"/>
@@ -47,7 +48,7 @@
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstItem="tS2-vU-UW2" firstAttribute="top" secondItem="Jk0-Pi-FPb" secondAttribute="top" constant="30" id="8hc-p2-Zgt"/>
+                        <constraint firstItem="tS2-vU-UW2" firstAttribute="top" secondItem="Jk0-Pi-FPb" secondAttribute="top" constant="52" id="8hc-p2-Zgt"/>
                         <constraint firstItem="qkI-Ll-8P6" firstAttribute="centerY" secondItem="Jk0-Pi-FPb" secondAttribute="centerY" constant="32" id="Pc4-wa-hQD"/>
                         <constraint firstItem="tS2-vU-UW2" firstAttribute="leading" secondItem="Jk0-Pi-FPb" secondAttribute="leading" constant="10" id="VUe-TV-y5z"/>
                         <constraint firstAttribute="bottom" secondItem="e2m-n9-IaI" secondAttribute="bottom" id="XMz-wv-zFL"/>
@@ -114,6 +115,7 @@ other people.</string>
                 <constraint firstItem="Bdz-Ii-RF2" firstAttribute="top" secondItem="wOW-Od-kc0" secondAttribute="bottom" constant="20" id="xHO-N4-l89"/>
                 <constraint firstItem="2yV-sH-d6V" firstAttribute="top" secondItem="Jk0-Pi-FPb" secondAttribute="bottom" constant="8" id="xip-Ay-Iak"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="Qer-8B-tTJ"/>
             <point key="canvasLocation" x="136.80000000000001" y="126.35467980295567"/>
         </view>
     </objects>
