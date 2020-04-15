@@ -901,61 +901,61 @@ extension DashboardViewController : BiometricsAuthProtocol{
     
 }
 
-public class SSID {
-    class func fetchNetworkInfo() -> [NetworkInfo]? {
-        if let interfaces: NSArray = CNCopySupportedInterfaces() {
-            var networkInfos = [NetworkInfo]()
-            for interface in interfaces {
-                let interfaceName = interface as! String
-                var networkInfo = NetworkInfo(interface: interfaceName,
-                                              success: false,
-                                              ssid: nil,
-                                              bssid: nil)
-                if let dict = CNCopyCurrentNetworkInfo(interfaceName as CFString) as NSDictionary? {
-                    networkInfo.success = true
-                    networkInfo.ssid = dict[kCNNetworkInfoKeySSID as String] as? String
-                    networkInfo.bssid = dict[kCNNetworkInfoKeyBSSID as String] as? String
-                }
-                networkInfos.append(networkInfo)
-            }
-            return networkInfos
-        }
-        return nil
-    }
-    class func getAllWiFiNameList() -> String? {
-        var ssid: String?
-        if let interfaces = CNCopySupportedInterfaces() as NSArray? {
-            for interface in interfaces {
-                if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
-                    ssid = interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
-                }
-            }
-        }
-        return ssid
-    }
-    class func fetchSSIDInfo() -> String {
-        var currentSSID = ""
-        if let interfaces = CNCopySupportedInterfaces() {
-            for i in 0..<CFArrayGetCount(interfaces) {
-                let interfaceName: UnsafeRawPointer = CFArrayGetValueAtIndex(interfaces, i)
-                let rec = unsafeBitCast(interfaceName, to: AnyObject.self)
-                let unsafeInterfaceData = CNCopyCurrentNetworkInfo("\(rec)" as CFString)
-                if let interfaceData = unsafeInterfaceData as? [String: AnyObject] {
-                    currentSSID = interfaceData["SSID"] as! String
-                }
-            }
-        }
-        return currentSSID
-    }
-    
-}
+//public class SSID {
+//    class func fetchNetworkInfo() -> [NetworkInfo]? {
+//        if let interfaces: NSArray = CNCopySupportedInterfaces() {
+//            var networkInfos = [NetworkInfo]()
+//            for interface in interfaces {
+//                let interfaceName = interface as! String
+//                var networkInfo = NetworkInfo(interface: interfaceName,
+//                                              success: false,
+//                                              ssid: nil,
+//                                              bssid: nil)
+//                if let dict = CNCopyCurrentNetworkInfo(interfaceName as CFString) as NSDictionary? {
+//                    networkInfo.success = true
+//                    networkInfo.ssid = dict[kCNNetworkInfoKeySSID as String] as? String
+//                    networkInfo.bssid = dict[kCNNetworkInfoKeyBSSID as String] as? String
+//                }
+//                networkInfos.append(networkInfo)
+//            }
+//            return networkInfos
+//        }
+//        return nil
+//    }
+//    class func getAllWiFiNameList() -> String? {
+//        var ssid: String?
+//        if let interfaces = CNCopySupportedInterfaces() as NSArray? {
+//            for interface in interfaces {
+//                if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
+//                    ssid = interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
+//                }
+//            }
+//        }
+//        return ssid
+//    }
+//    class func fetchSSIDInfo() -> String {
+//        var currentSSID = ""
+//        if let interfaces = CNCopySupportedInterfaces() {
+//            for i in 0..<CFArrayGetCount(interfaces) {
+//                let interfaceName: UnsafeRawPointer = CFArrayGetValueAtIndex(interfaces, i)
+//                let rec = unsafeBitCast(interfaceName, to: AnyObject.self)
+//                let unsafeInterfaceData = CNCopyCurrentNetworkInfo("\(rec)" as CFString)
+//                if let interfaceData = unsafeInterfaceData as? [String: AnyObject] {
+//                    currentSSID = interfaceData["SSID"] as! String
+//                }
+//            }
+//        }
+//        return currentSSID
+//    }
+//    
+//}
 
-struct NetworkInfo {
-    var interface: String
-    var success: Bool = false
-    var ssid: String?
-    var bssid: String?
-}
+//struct NetworkInfo {
+//    var interface: String
+//    var success: Bool = false
+//    var ssid: String?
+//    var bssid: String?
+//}
 extension DashboardViewController: responceProtocol {
     func oKClick() {
         alertComeBackIsOpen = false
