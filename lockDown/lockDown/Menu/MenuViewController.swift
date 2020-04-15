@@ -79,7 +79,7 @@ extension MenuViewController: UITableViewDelegate {
                 if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: DashboardViewController.self)) {
                     
                     
-                    let vc = DashboardViewController(nibName: "DashboardViewController", bundle: nil)
+                    let vc = MyZoneViewController(nibName: "MyZoneViewController", bundle: nil)
                     let navC = self.sideMenuController?.rootViewController as! UINavigationController
                     navC.setViewControllers([vc], animated: true)
                     selectedItem = 0
