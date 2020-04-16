@@ -46,19 +46,26 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
     }
     override func viewWillAppear(_ animated: Bool) {
            super.viewWillAppear(true)
-           NotificationCenter.default.addObserver(self, selector: #selector(self.getNotificationNoneLocation(notification:)), name: Notification.Name("NotificationNoneLocation"), object: nil)
-           NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationLocation"), object: nil)
-           self.navigationItem.rightBarButtonItem = nil
-           self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.getNotificationNoneLocation(notification:)), name: Notification.Name("NotificationNoneLocation"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationLocation"), object: nil)
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
+        if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+            setLocationView()
+        }
+        else{
+            setupChangeLocationVC()
+        }
         setLocation()
-               let deviceId = UserDefaults.standard.string(forKey: "deviceId")
-               let firebaseToken = UserDefaults.standard.string(forKey: "firebaseToken")
-               APIClient.sendFirebaseToken(deviceId: deviceId!, firebase_token: firebaseToken!, onSuccess: { (Msg) in
-                   print(Msg)
-               } ,onFailure : { (error) in
-                   print(error)
-               }
-               )
+        let deviceId = UserDefaults.standard.string(forKey: "deviceId")
+        let firebaseToken = UserDefaults.standard.string(forKey: "firebaseToken")
+        APIClient.sendFirebaseToken(deviceId: deviceId!, firebase_token: firebaseToken!, onSuccess: { (Msg) in
+            print(Msg)
+        } ,onFailure : { (error) in
+            print(error)
+        }
+        )
+       
     }
     @objc func getNotificationNoneLocation(notification: Notification) {
            setLocation()
@@ -94,7 +101,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
             
             self.title = "SignUpTitle".localiz()
             if CLLocationManager.authorizationStatus() == .authorizedAlways {
-                setLocationView()
+                
                 locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
                 self.locationManager.delegate = self
                 self.locationManager.startUpdatingLocation()
@@ -115,7 +122,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
         }
         else {
             if CLLocationManager.authorizationStatus() == .authorizedAlways {
-                setupChangeLocationVC()
+               
                 self.title = "MyZone_txt".localiz()
                 locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
                 self.locationManager.delegate = self
@@ -224,6 +231,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                break
            case .authorizedAlways:
                if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                  
                    self.mapView.delegate = self
                    self.mapView?.isMyLocationEnabled = true
                    self.mapView.bringSubviewToFront(recenterButton)
@@ -241,7 +249,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                    
                }
                else {
-                  //  setLocationView()
+                    
                    locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
                    self.locationManager.delegate = self
                    self.locationManager.startUpdatingLocation()
@@ -418,35 +426,32 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
     
     // MARK: - set LocationForFirst Time
     func setLocationView() {
-        setuprequestLocationVC()
-        statusImg.isHidden = false
-        mapView.bringSubviewToFront(statusImg)
-        if isItIPhoneX() {
-            statusImgTop.constant = 110
-            searchViewTop.constant = 140
-        }
-        else {
-            statusImgTop.constant = 70
-            searchViewTop.constant = 100
+        DispatchQueue.main.async {
+            self.requestLocationVC.delegate = self
+            let height = self.view.frame.height
+            let width  = self.view.frame.width
+            self.requestLocationVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+            self.addChild(self.requestLocationVC)
+            self.view.addSubview(self.requestLocationVC.view)
+            self.requestLocationVC.didMove(toParent: self)
+            self.statusImg.isHidden = false
+            self.mapView.bringSubviewToFront(self.statusImg)
+            if self.isItIPhoneX() {
+                self.statusImgTop.constant = 110
+                self.searchViewTop.constant = 140
+            }
+            else {
+                self.statusImgTop.constant = 70
+                self.searchViewTop.constant = 100
+            }
         }
         
-        
     }
-    
-    // MARK: - Bottom Views Methods
-    func setuprequestLocationVC() {
-        requestLocationVC.delegate = self
-        let height = view.frame.height
-        let width  = view.frame.width
-        requestLocationVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-        self.addChild(requestLocationVC)
-        self.view.addSubview(requestLocationVC.view)
-        requestLocationVC.didMove(toParent: self)
-    }
+
     
     // MARK: - changeLocation View
     func setupChangeLocationVC() {
-        requestLocationVC.view.removeFromSuperview()
+        //requestLocationVC.view.removeFromSuperview()
         ChangeLocationVC.delegate = self
         let height = view.frame.height
         let width  = view.frame.width
