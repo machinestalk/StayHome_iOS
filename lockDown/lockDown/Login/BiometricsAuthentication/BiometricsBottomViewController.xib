@@ -53,16 +53,13 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyd-4D-HVX" customClass="Button" customModule="lockDown" customModuleProvider="target">
-                            <rect key="frame" x="152.5" y="163" width="130" height="45"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyd-4D-HVX" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="150.5" y="163" width="134.5" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="qLH-Nd-dFg"/>
-                                <constraint firstAttribute="width" constant="130" id="tPj-Vg-OB1"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
-                            <state key="normal" backgroundImage="green_button">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
+                            <state key="normal" backgroundImage="green_button"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="key" value="nextBtn_txt"/>
                             </userDefinedRuntimeAttributes>
@@ -99,7 +96,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="egL-jo-4nd"/>
-            <point key="canvasLocation" x="186" y="-276"/>
+            <point key="canvasLocation" x="-24" y="-283"/>
         </view>
     </objects>
     <resources>

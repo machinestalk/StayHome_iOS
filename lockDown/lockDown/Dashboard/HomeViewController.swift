@@ -422,7 +422,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             //            }
             //            else
             //{
-            if userMotionActivity != nil {
+            if userMotionActivity != nil &&  locValue != nil {
                 if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
                     if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                         

@@ -102,16 +102,28 @@ class ContactUsViewController: BaseController, UITextViewDelegate {
         }
     // MARK: - APIs call
         
-        let dataBody = ["phoneNumber":UserDefaults.standard.value(forKey: "UserNameSignUp") as! String ,"subject":"tecSupport_txt".localiz(),"message":textView.text as Any,"attachement":attachementDict as Any] as [String : Any]
+        let dataBody = ["phoneNumber":UserDefaults.standard.value(forKey: "UserNameSignUp") as! String ,"subject":"tecSupport_txt".localiz(),"message":textView.text as
+            Any,"attachement":attachementDict as Any] as [String : Any]
         
-        APIClient.sendContactUSForm(data: dataBody, onSuccess: { (success) in
+        if !textView.text.isEmpty && textView.textColor != UIColor.lightGray {
+            APIClient.sendContactUSForm(data: dataBody, onSuccess: { (success) in
+                self.finishLoading()
+                print(success)
+                let alert = UIAlertController(title: "".localiz(), message: "support_successMsg_txt".localiz(), preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok_text".localiz() , style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                self.navigationController?.popViewController(animated: true)
+            }) { (error) in
+                self.finishLoading()
+                print(error)
+            }
+        }else{
             self.finishLoading()
-            print(success)
-            self.navigationController?.popViewController(animated: true)
-        }) { (error) in
-            self.finishLoading()
-            print(error)
+            let alert = UIAlertController(title: "Warning_txt".localiz(), message: "support_invalidMsg_txt".localiz(), preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok_text".localiz() , style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
+        
     }
     
     @IBAction func deletePhotoButtonTouched(_ sender: UIButton) {

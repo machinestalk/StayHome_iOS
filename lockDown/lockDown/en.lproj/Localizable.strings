@@ -21,7 +21,7 @@
 "HomeTxt"                                                           = "My Zone";
 "stayAthome_txt"                                                  ="You are out of your home please return back for your safety";
 "StayAthomeTitle"                                                   = "Stay at home";
-"instrutionsTxt"                                                    ="1.Stay at home \n2.Keep your Phone ON and had enough battery all the time \n3.Keep STAYHOME application working \n4.Keep your GPS,Wifi and Bluetooth activated";
+"instrutionsTxt"                                                    ="1.Stay at home \n\n2.Keep your Phone ON and had enough battery all the time \n\n3.Keep STAYHOME application working \n\n4.Keep your GPS,Wifi and Bluetooth activated";
 "instrutionsTitle"                                                  = "As per as the instructions of Ministry of Health,\n during the quarantine period,you must :";
 
 "agreedBtnTitle"                                                    = "Agreed";
@@ -51,9 +51,10 @@
 "checkIn_txt"                               = "Check In";
 "emergency_txt"                             = "Emergency";
 "tecSupport_txt"                            = "Technical Support";
-"aboutAs_txt"                                   = "About us";
+"aboutAs_txt"                                   = "About Us";
 "ChangeLocation_txt"                            ="if your home location is wrong \n and you want to change it, \n Please contact the technical support team";
 "contactUsTxt"                                  = "Contact Us";
+"contactSupportTxt"                             = "Contact support";
 "logout_txt" = "Logout";
 
 //Login Screen
@@ -94,5 +95,7 @@
 
 //Contact US
 "contactUS_lbl_txt" = "Contact Technical Support if you have any issue with the application.";
+"support_invalidMsg_txt" = "Text message shoud not be empty.";
+"support_successMsg_txt" = "Your message has been sent successfully.";
 // My Zone
 "locationStoredTxt"   ="Your home location was stored successfully";
