@@ -50,7 +50,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationLocation"), object: nil)
         self.navigationItem.rightBarButtonItem = nil
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
-        if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+        if  !UserDefaults.standard.bool(forKey: "isSignedUp")  {
             setLocationView()
         }
         else{
@@ -283,19 +283,23 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
        func mapView(_ mapView: GMSMapView, didDrag marker: GMSMarker) {
            print("didDrag")
        }
-       
+    private func mapView(_ mapView: GMSMapView, didEndDrag marker: GMSMarker) {
+                
+             }
        func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
            if !isNextBtnTapped {
                if self.markerPosition == nil {
                    //To set pin into the center of mapview
                    marker.position = position.target
-                   getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
+                  self.markerPosition = self.mapView.projection.point(for: CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude))
+                  // getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
                }else{
                    //To set pin into the any particular point of the screen on mapview
                    
                    let coordinate = self.mapView.projection.coordinate(for: self.markerPosition)
                    marker.position = coordinate
-                   getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
+                  self.markerPosition = self.mapView.projection.point(for: CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude))
+                  // getAddressFromLatLon(pdblLatitude: marker.position.latitude, withLongitude: marker.position.longitude)
                }
            }
        }
@@ -307,8 +311,12 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                self.recenterButton.setImage(UIImage(named: "userLocation"), for: .normal)
            }
            navigatedToMyLocation = !navigatedToMyLocation
-           
-           
+        if self.markerPosition != nil {
+       let coordinate = self.mapView.projection.coordinate(for: self.markerPosition)
+    
+        getAddressFromLatLon(pdblLatitude: coordinate.latitude, withLongitude: coordinate.longitude)
+        }
+            print("didEndDrag")
        }
     
     
@@ -316,47 +324,62 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
     
     //
        func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
-           var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
-           let ceo: CLGeocoder = CLGeocoder()
-           center.latitude = pdblLatitude
-           center.longitude = pdblLongitude
-           
-           let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
-           
-           
-           ceo.reverseGeocodeLocation(loc, completionHandler:
-               {(placemarks, error) in
-                   if (error != nil)
-                   {
-                       print("reverse geodcode fail: \(error!.localizedDescription)")
-                   }
-                   if let pm = placemarks {
-                       
-                       if pm.count > 0 {
-                           let pm = placemarks![0]
-                           var addressString : String = ""
-                           if pm.subLocality != nil {
-                               addressString = addressString + pm.subLocality! + ", "
+         DispatchQueue.main.async {
+            var addressStr = " "
+     let geoCoder = CLGeocoder()
+           let location = CLLocation(latitude: pdblLatitude , longitude: pdblLongitude)
+           geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+
+               print("Response GeoLocation : \(placemarks)")
+               var placeMark: CLPlacemark!
+               placeMark = placemarks?[0]
+            if (placeMark != nil) {
+               // Country
+               if let country = placeMark.addressDictionary!["Country"] as? String {
+                   print("Country :- \(country)")
+                addressStr = addressStr  + country
+                   // City
+                   if let city = placeMark.addressDictionary!["City"] as? String {
+                       print("City :- \(city)")
+                       // State
+                    addressStr = addressStr + " , " + city
+                       if let state = placeMark.addressDictionary!["State"] as? String{
+                           print("State :- \(state)")
+                           // Street
+                           if let street = placeMark.addressDictionary!["Street"] as? String{
+                               print("Street :- \(street)")
+                            addressStr = addressStr + " , " + street
+                               let str = street
+                               if let streetNumber = str.components(
+                                separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "") as? String {
+                               print("streetNumber :- \(streetNumber)" as Any)
+                            
+                                if streetNumber != "" {
+                                    addressStr = addressStr + " , " + streetNumber
+                                }
+                                
+                                }
+                               // ZIP
+                               if let zip = placeMark.addressDictionary!["ZIP"] as? String{
+                                   print("ZIP :- \(zip)")
+                                   // Location name
+                                   if let locationName = placeMark?.addressDictionary?["Name"] as? String {
+                                       print("Location Name :- \(locationName)")
+                                       // Street address
+                                       if let thoroughfare = placeMark?.addressDictionary!["Thoroughfare"] as? NSString {
+                                       print("Thoroughfare :- \(thoroughfare)")
+
+                                       }
+                                   }
+                               }
                            }
-                           if pm.thoroughfare != nil {
-                               addressString = addressString + pm.thoroughfare! + ", "
-                           }
-                           if pm.locality != nil {
-                               addressString = addressString + pm.locality! + ", "
-                           }
-                           if pm.country != nil {
-                               addressString = addressString + pm.country! + ", "
-                           }
-                           if pm.postalCode != nil {
-                               addressString = addressString + pm.postalCode! + " "
-                           }
-                           
-                           self.addressLbl.text = addressString
-                           print(addressString)
                        }
                    }
+               }
+            }
+            self.addressLbl.text = addressStr
            })
-           
+        }
        }
        
        
@@ -525,7 +548,7 @@ extension MyZoneViewController : ChangeLocationProtocol {
 extension MyZoneViewController : BiometricsAuthProtocol{
     func requestRecognition(){
         UserDefaults.standard.set(true, forKey: "isLocationSetted")
-        UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
+        //UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
         let customerId = UserDefaults.standard.string(forKey: "customerId")
         
         APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
