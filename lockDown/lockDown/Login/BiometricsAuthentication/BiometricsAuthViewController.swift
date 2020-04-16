@@ -75,7 +75,7 @@ class BiometricsAuthViewController: BaseController {
         //  because that might result in deadlock.
         var error: NSError?
         if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error){
-            if self.context.evaluatedPolicyDomainState != nil {
+            if self.context.evaluatedPolicyDomainState != nil && !UserDefaults.standard.bool(forKey: "isLocked"){
                 
                 switch context.biometryType {
                 case .none:
@@ -96,6 +96,7 @@ class BiometricsAuthViewController: BaseController {
                 }
             }else{
                 UserDefaults.standard.set(nil, forKey: "currentbiometricstate")
+                UserDefaults.standard.set(true, forKey: "isLocked")
                 biometryTypeImageView.image = UIImage(named: "ic_hold_near")
                 biometryTypeLabel.text = "We can not complete the process !"
                 
@@ -178,8 +179,6 @@ class BiometricsAuthViewController: BaseController {
                         print(error?.localizedDescription ?? "Failed to authenticate")
                         
                         // Fall back to a asking for username and password.
-                        // ...
-                        self.setupFailBiometricsBottomVC()
                     }
                 }
             } else {
@@ -209,7 +208,8 @@ class BiometricsAuthViewController: BaseController {
         biometricsBottomVC.successImage.image = UIImage(named: "red_faceid")
         biometricsBottomVC.successImage.isHidden = false
         biometricsBottomVC.nextBtn.setBackgroundImage(UIImage(named: "red_button"), for: .normal)
-        biometricsBottomVC.nextBtn.titleLabel?.text = "Contact support"
+        biometricsBottomVC.nextBtn.setTitle("contactSupportTxt".localiz(), for:.normal)
+        biometricsBottomVC.nextBtn.tag = 10
     }
     
     func setupUnvailableBiometricsBottomVC(){
@@ -252,7 +252,13 @@ extension BiometricsAuthViewController: BiometricsAuthProtocol {
             self.navigationController!.pushViewController(FinishSignupVC, animated: true)
             
         case .loggedout:
-            self.tapButton()
+            if biometricsBottomVC.nextBtn.tag == 10 {
+                let contactUsViewController = ContactUsViewController(nibName: "ContactUsViewController", bundle: nil)
+                self.navigationController!.pushViewController(contactUsViewController, animated: true)
+            } else {
+                self.tapButton()
+            }
+            
         }
         
     }

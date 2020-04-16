@@ -24,10 +24,9 @@ class ContentViewController: BaseController, WKNavigationDelegate {
         super.viewDidLoad()
         self.title = "aboutAs_txt".localiz()
         self.navigationController?.navigationBar.isHidden = false
-//        let url = URL(string: "https://www.machinestalk.com/about-us/")!
-//        startLoading()
-//        webView.load(URLRequest(url: url))
-//        webView.allowsBackForwardNavigationGestures = true
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
     
     func webView(_ webView: WKWebView,didFinish navigation: WKNavigation!) {
