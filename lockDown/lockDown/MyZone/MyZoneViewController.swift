@@ -230,6 +230,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                self.present(alert, animated: true, completion: nil)
                break
            case .authorizedAlways:
+            if UserDefaults.standard.bool(forKey:  "isSignedUp" ){
                if  !UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                   
                    self.mapView.delegate = self
@@ -264,7 +265,23 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                    
                    
                }
-               
+            }
+            else {
+                self.mapView.delegate = self
+                self.mapView?.isMyLocationEnabled = true
+                self.mapView.bringSubviewToFront(recenterButton)
+                locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+                self.locationManager.delegate = self
+                self.locationManager.startUpdatingLocation()
+                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                let camera = GMSCameraPosition.camera(withLatitude: locValue.latitude, longitude: locValue.longitude, zoom: 16.0)
+                cameraa = camera
+                self.mapView?.animate(to: camera)
+                marker.icon = UIImage(named: "red_marker")
+                marker.map = self.mapView
+                getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
+                marker.position = locValue
+            }
                break
            default: break
                // Permission denied, do something else
