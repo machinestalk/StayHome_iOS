@@ -422,6 +422,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
 //            }
 //            else
             //{
+              if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
                 logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
                 peripherals.removeAll()
                 if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
@@ -431,7 +432,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                         print(error)
                     })
                 }
-            //}
+            }
         }
     }
     
