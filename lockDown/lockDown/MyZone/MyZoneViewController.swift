@@ -241,7 +241,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                    
                }
                else {
-                    setLocationView()
+                  //  setLocationView()
                    locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
                    self.locationManager.delegate = self
                    self.locationManager.startUpdatingLocation()
@@ -446,6 +446,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
     
     // MARK: - changeLocation View
     func setupChangeLocationVC() {
+        requestLocationVC.view.removeFromSuperview()
         ChangeLocationVC.delegate = self
         let height = view.frame.height
         let width  = view.frame.width
