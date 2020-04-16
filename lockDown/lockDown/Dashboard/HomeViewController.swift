@@ -422,17 +422,20 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
 //            }
 //            else
             //{
-              if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-                peripherals.removeAll()
-                if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
-                        print(Msg)
-                    } ,onFailure : { (error) in
-                        print(error)
-                    })
+                 if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
+                  if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                    
+                    logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
+                    peripherals.removeAll()
+                    if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                        APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
+                            print(Msg)
+                        } ,onFailure : { (error) in
+                            print(error)
+                        })
+                    }
                 }
-            }
+                }
         }
     }
     
