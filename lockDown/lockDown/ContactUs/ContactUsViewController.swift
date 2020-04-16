@@ -28,8 +28,11 @@ class ContactUsViewController: BaseController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "contactUsTxt".localiz()
+        self.title = "tecSupport_txt".localiz()
         // Do any additional setup after loading the view.
+        
+        textView.text = "Write your message"
+        textView.textColor = UIColor.lightGray
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,6 +66,22 @@ class ContactUsViewController: BaseController, UITextViewDelegate {
         return true
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Write your message"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+    
+    // MARK: - Actions
+    
     @IBAction func imagePickerButtonTouched(_ sender: UIButton) {
         self.imagePicker = ImagePicker(presentationController: self, delegate: self)
         self.imagePicker.present(from: sender)
@@ -81,7 +100,7 @@ class ContactUsViewController: BaseController, UITextViewDelegate {
                 }
             }
         }
-        
+    // MARK: - APIs call
         
         let dataBody = ["phoneNumber":UserDefaults.standard.value(forKey: "UserNameSignUp") as! String ,"subject":"tecSupport_txt".localiz(),"message":textView.text as Any,"attachement":attachementDict as Any] as [String : Any]
         
@@ -102,6 +121,8 @@ class ContactUsViewController: BaseController, UITextViewDelegate {
         reorgonizePictureView()
 
     }
+    
+    // MARK: - Helpers
     
     func reorgonizePictureView() {
         
@@ -131,6 +152,8 @@ class ContactUsViewController: BaseController, UITextViewDelegate {
         }
     }
 }
+
+// MARK: - ImagePickerDelegate
 
 extension ContactUsViewController: ImagePickerDelegate {
     

@@ -124,7 +124,7 @@ class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
                 }
                 var leftNavigationButtons = NSMutableArray(array: self.navigationBarLeftButtons())
                 leftNavigationButtons.add(button)
-                if !(viewController is WelcomeViewController) {
+                if !(viewController is TermsAndConditionViewController) {
                     self.navigationItem.leftBarButtonItems  = leftNavigationButtons as! [UIBarButtonItem]
                 }
                 

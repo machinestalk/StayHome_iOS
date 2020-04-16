@@ -400,42 +400,44 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     func sendData() {
         
-//        let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
-//        let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-//        let distance = circleLocation.distance(from: myLocation)
+        //        let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
+        //        let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        //        let distance = circleLocation.distance(from: myLocation)
         
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         batteryLevel = Int(UIDevice.current.batteryLevel)
         let locationState = checkIfLocationEnabled()
         if Double(locationManager.location!.horizontalAccuracy) < 300 {
-//            if(distance >= circle.radius)
-//            {
-//                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user out of zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-//                peripherals.removeAll()
-//                if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-//                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
-//                        print(Msg)
-//                    } ,onFailure : { (error) in
-//                        print(error)
-//                    })
-//                }
-//            }
-//            else
+            //            if(distance >= circle.radius)
+            //            {
+            //                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user out of zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
+            //                peripherals.removeAll()
+            //                if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+            //                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
+            //                        print(Msg)
+            //                    } ,onFailure : { (error) in
+            //                        print(error)
+            //                    })
+            //                }
+            //            }
+            //            else
             //{
-                 if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-                  if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                    
-                    logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-                    peripherals.removeAll()
+            if userMotionActivity != nil {
+                if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
                     if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                        APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
-                            print(Msg)
-                        } ,onFailure : { (error) in
-                            print(error)
-                        })
+                        
+                        logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
+                        peripherals.removeAll()
+                        if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
+                                print(Msg)
+                            } ,onFailure : { (error) in
+                                print(error)
+                            })
+                        }
                     }
                 }
-                }
+            }
         }
     }
     

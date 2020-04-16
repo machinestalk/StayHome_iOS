@@ -28,7 +28,7 @@
                         <rect key="frame" x="261" y="6.5" width="51" height="31"/>
                     </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UoX-e8-heQ" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                        <rect key="frame" x="43" y="0.0" width="36.5" height="44"/>
+                        <rect key="frame" x="43" y="0.0" width="210" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="Xdi-r7-Z2p"/>
                         </constraints>
@@ -42,6 +42,7 @@
                     <constraint firstItem="KXG-Gq-Rqe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="BhR-62-GZN"/>
                     <constraint firstItem="KXG-Gq-Rqe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="HZR-ry-6i7"/>
                     <constraint firstItem="UoX-e8-heQ" firstAttribute="leading" secondItem="KXG-Gq-Rqe" secondAttribute="trailing" constant="8" id="PRO-Qp-snc"/>
+                    <constraint firstItem="wE7-vp-pZR" firstAttribute="leading" secondItem="UoX-e8-heQ" secondAttribute="trailing" constant="8" id="Psk-AM-Ia3"/>
                     <constraint firstItem="UoX-e8-heQ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ckg-5F-WcX"/>
                     <constraint firstAttribute="trailing" secondItem="wE7-vp-pZR" secondAttribute="trailing" constant="10" id="o43-JN-Vj2"/>
                 </constraints>
@@ -52,7 +53,7 @@
                 <outlet property="switchButton" destination="wE7-vp-pZR" id="qS7-4Y-V2q"/>
                 <outlet property="textCellLabel" destination="UoX-e8-heQ" id="T89-3w-KAk"/>
             </connections>
-            <point key="canvasLocation" x="-36" y="-29"/>
+            <point key="canvasLocation" x="-36.231884057971016" y="-29.464285714285712"/>
         </tableViewCell>
     </objects>
 </document>

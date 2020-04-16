@@ -71,7 +71,7 @@
                                 <outlet property="delegate" destination="-1" id="kfk-HH-qhp"/>
                             </connections>
                         </textField>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Write Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hVd-qk-uC8">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hVd-qk-uC8">
                             <rect key="frame" x="20" y="149" width="334" height="333"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -279,7 +279,7 @@
                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                     <state key="normal" backgroundImage="green_button"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="nextBtn_txt"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="sendBtn_txt"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="sendDataButtonTouched:" destination="-1" eventType="touchUpInside" id="M30-g3-G3b"/>

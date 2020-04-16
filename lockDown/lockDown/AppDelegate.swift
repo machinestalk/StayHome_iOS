@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if UserDefaults.standard.bool(forKey: "isSignedUp") {
                 self.window?.rootViewController = self.getLandingPageWithSideMenu()
             } else {
-                self.window?.rootViewController = self.getNavControllerWithRootController(controller: WelcomeViewController())
+                self.window?.rootViewController = self.getNavControllerWithRootController(controller: TermsAndConditionViewController())
             }
         } else {
             
@@ -244,8 +244,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
-      
-        
         if let messageID = userInfo["id"] {
             print("Message ID: \(messageID)")
         }
@@ -324,6 +322,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
+        
+        let VC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+        VC.startCustomTimer()
         // Print message ID.
         print(userInfo)
         if let messageID = userInfo["id"] {

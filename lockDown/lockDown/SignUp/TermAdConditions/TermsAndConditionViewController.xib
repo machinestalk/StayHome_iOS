@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TermsAndConditionViewController" customModule="lockDown" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="8HD-8T-zos" id="wop-97-EgP"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="8HD-8T-zos">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3f8-os-rBt" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="132" y="782" width="150" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="AGx-Vg-fNk"/>
+                        <constraint firstAttribute="height" constant="50" id="qzc-vU-Kk6"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                    <state key="normal" backgroundImage="green_button"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="agreeBtn_txt"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="showSurveyScreen:" destination="-1" eventType="touchUpInside" id="K8a-Gf-qMS"/>
+                    </connections>
+                </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="terms" translatesAutoresizingMaskIntoConstraints="NO" id="wvB-4M-yAT">
+                    <rect key="frame" x="10" y="102" width="394" height="645"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="jh0-QG-KDG" firstAttribute="bottom" secondItem="3f8-os-rBt" secondAttribute="bottom" constant="30" id="EDs-HM-QxX"/>
+                <constraint firstItem="wvB-4M-yAT" firstAttribute="leading" secondItem="jh0-QG-KDG" secondAttribute="leading" constant="10" id="JNq-cK-rFM"/>
+                <constraint firstItem="wvB-4M-yAT" firstAttribute="trailing" secondItem="jh0-QG-KDG" secondAttribute="trailing" constant="-10" id="QJE-38-NYp"/>
+                <constraint firstItem="wvB-4M-yAT" firstAttribute="top" secondItem="jh0-QG-KDG" secondAttribute="top" constant="58" id="T2I-6w-qtl"/>
+                <constraint firstItem="3f8-os-rBt" firstAttribute="centerX" secondItem="8HD-8T-zos" secondAttribute="centerX" id="aGJ-Ze-oho"/>
+                <constraint firstItem="3f8-os-rBt" firstAttribute="top" secondItem="wvB-4M-yAT" secondAttribute="bottom" constant="35" id="eTr-1f-Jpu"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="jh0-QG-KDG"/>
+            <point key="canvasLocation" x="-139.13043478260872" y="-36.160714285714285"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="green_button" width="134.33332824707031" height="47"/>
+        <image name="terms" width="352.33334350585938" height="587.33331298828125"/>
+    </resources>
+</document>

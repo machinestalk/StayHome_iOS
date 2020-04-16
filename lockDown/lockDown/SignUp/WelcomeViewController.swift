@@ -20,7 +20,7 @@ class WelcomeViewController: BaseController {
         super.viewWillAppear(animated)
         self.navigationController!.navigationBar.isHidden = false
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
-        self.navigationItem.setHidesBackButton(true, animated: true);
+        //self.navigationItem.setHidesBackButton(true, animated: true);
 
         self.title = "SignUpTitle".localiz()
     }
