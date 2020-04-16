@@ -29,7 +29,7 @@ class TermsAndConditionViewController: UIViewController {
        }
        
        @IBAction func showSurveyScreen(_ sender: Any) {
-          let surveyViewController = SurveyViewController(nibName: "SurveyViewController", bundle: nil)
+          let surveyViewController = WelcomeViewController(nibName: "WelcomeViewController", bundle: nil)
           self.navigationController!.pushViewController(surveyViewController, animated: true)
        }
 
