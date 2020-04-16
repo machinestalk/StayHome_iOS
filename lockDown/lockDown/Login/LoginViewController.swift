@@ -298,7 +298,7 @@ class LoginViewController: BaseController {
     
     func displayHomePage(){
         
-        let welcomeViewController = WelcomeViewController(nibName: "WelcomeViewController", bundle: nil)
+        let welcomeViewController = TermsAndConditionViewController(nibName: "TermsAndConditionViewController", bundle: nil)
         self.navigationController!.pushViewController(welcomeViewController, animated: true)
 //        let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
 //        appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()

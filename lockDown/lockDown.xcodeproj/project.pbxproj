@@ -92,6 +92,8 @@
 		FAC81E7C243A1EB2002DBADE /* LandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E7A243A1EB2002DBADE /* LandingViewController.xib */; };
 		FAC81E80243A84A7002DBADE /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC81E7E243A84A7002DBADE /* ContentViewController.swift */; };
 		FAC81E81243A84A7002DBADE /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E7F243A84A7002DBADE /* ContentViewController.xib */; };
+		FAD6CED72448B508007E4F57 /* TermsAndConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD6CED52448B508007E4F57 /* TermsAndConditionViewController.swift */; };
+		FAD6CED82448B508007E4F57 /* TermsAndConditionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAD6CED62448B508007E4F57 /* TermsAndConditionViewController.xib */; };
 		FADB80F4243DFDFB00A31CC1 /* FailCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB80F2243DFDFA00A31CC1 /* FailCheckInViewController.swift */; };
 		FADB80F5243DFDFB00A31CC1 /* FailCheckInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADB80F3243DFDFA00A31CC1 /* FailCheckInViewController.xib */; };
 		FAE627DB243CE4A90011B7A1 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */; };
@@ -216,6 +218,8 @@
 		FAC81E7A243A1EB2002DBADE /* LandingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LandingViewController.xib; sourceTree = "<group>"; };
 		FAC81E7E243A84A7002DBADE /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		FAC81E7F243A84A7002DBADE /* ContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
+		FAD6CED52448B508007E4F57 /* TermsAndConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionViewController.swift; sourceTree = "<group>"; };
+		FAD6CED62448B508007E4F57 /* TermsAndConditionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TermsAndConditionViewController.xib; sourceTree = "<group>"; };
 		FADB80F2243DFDFA00A31CC1 /* FailCheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailCheckInViewController.swift; sourceTree = "<group>"; };
 		FADB80F3243DFDFA00A31CC1 /* FailCheckInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailCheckInViewController.xib; sourceTree = "<group>"; };
 		FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
@@ -495,6 +499,7 @@
 		FAC36C9524388829002B4928 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				FAD6CED42448B4D3007E4F57 /* TermAdConditions */,
 				FAC36C9A2438887A002B4928 /* Survey */,
 				FAC36C9624388868002B4928 /* WelcomeViewController.swift */,
 				FAC36C9724388868002B4928 /* WelcomeViewController.xib */,
@@ -548,6 +553,15 @@
 				FAC81E7F243A84A7002DBADE /* ContentViewController.xib */,
 			);
 			path = WebContainer;
+			sourceTree = "<group>";
+		};
+		FAD6CED42448B4D3007E4F57 /* TermAdConditions */ = {
+			isa = PBXGroup;
+			children = (
+				FAD6CED52448B508007E4F57 /* TermsAndConditionViewController.swift */,
+				FAD6CED62448B508007E4F57 /* TermsAndConditionViewController.xib */,
+			);
+			path = TermAdConditions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -671,6 +685,7 @@
 				FAC36C9924388868002B4928 /* WelcomeViewController.xib in Resources */,
 				FAB7F41524339B0600061AE5 /* Avenir Roman.otf in Resources */,
 				FA8B003B24462AD30097404A /* HomeViewController.xib in Resources */,
+				FAD6CED82448B508007E4F57 /* TermsAndConditionViewController.xib in Resources */,
 				FAC36CA2243888BA002B4928 /* SurveyCell.xib in Resources */,
 				FAC36C8524375E50002B4928 /* BiometricsBottomViewController.xib in Resources */,
 				FAB7F41824339B0600061AE5 /* OpenSans-Italic.ttf in Resources */,
@@ -899,6 +914,7 @@
 				FAC81E722438CEE9002DBADE /* EmergencyViewController.swift in Sources */,
 				FA6E98A324329B83000F2C2E /* NormalTextField.swift in Sources */,
 				FA6E989424329B7B000F2C2E /* APIClient.swift in Sources */,
+				FAD6CED72448B508007E4F57 /* TermsAndConditionViewController.swift in Sources */,
 				0039FC11243F859A0071486B /* AttentionAlertViewController.swift in Sources */,
 				FAC81E762438CF29002DBADE /* ContactUsViewController.swift in Sources */,
 				FA8B003A24462AD30097404A /* HomeViewController.swift in Sources */,

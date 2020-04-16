@@ -13,6 +13,7 @@
 
 "okayBtn_txt"                                = "Okay";
 "nextBtn_txt"                               = "Next" ;
+"sendBtn_txt"                               = "Send" ;
 "locationAlert_txt"                                                = "Turn on your location services from the settings to \"Always\"";
 "Ok_text"                                                        = "Ok";
 "Warning_txt" = "Warning";
@@ -24,11 +25,13 @@
 "instrutionsTitle"                                                  = "As per as the instructions of Ministry of Health,\n during the quarantine period,you must :";
 
 "agreedBtnTitle"                                                    = "Agreed";
+"agreeBtn_txt" = "I Agree";
 
 "SignUpSuccessLbl"                  =   "You are successfully Signed Up";
 "FinishSuccessLbl"                  =   "You are successfully checked In";
 "StayAThomeSignUpTxt"                   = "Please Stay home and be safe";
-"SignUpTitle"                           ="Sign up";
+"SignUpTitle"                           ="Sign Up";
+"TermTitle"  ="Terms & Conditions ";
 "covidUserTXT"                            = "COVID USER";
 "signin_singnup_txt"                      = "SignIn/SignUp";
 "Alert_bluetooth_msg_txt" = "You Have disactivate your BLUETOOTH.\nPlease check your parameters";
