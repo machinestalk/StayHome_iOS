@@ -20,20 +20,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_signin" translatesAutoresizingMaskIntoConstraints="NO" id="5ie-0m-XzD">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="250" id="sKq-Ox-u8Q"/>
+                        <constraint firstAttribute="height" constant="200" id="sKq-Ox-u8Q"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_covid" translatesAutoresizingMaskIntoConstraints="NO" id="5JZ-u6-O0s">
-                    <rect key="frame" x="147" y="45" width="120" height="120"/>
+                    <rect key="frame" x="147" y="40" width="120" height="120"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="120" id="4aV-hq-6pp"/>
                         <constraint firstAttribute="width" constant="120" id="kmF-vi-EeU"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqE-bP-DNg" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="185" width="414" height="31.5"/>
+                    <rect key="frame" x="0.0" y="165" width="414" height="31.5"/>
                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="23"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -41,8 +41,8 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="key" value="covidUserTXT"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wXK-Gt-FCk">
-                    <rect key="frame" x="0.0" y="260" width="414" height="566"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wXK-Gt-FCk">
+                    <rect key="frame" x="0.0" y="210" width="414" height="656"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="NfB-Pt-3xp"/>
@@ -50,7 +50,7 @@
                     </connections>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0G-4s-3yB">
-                    <rect key="frame" x="20.5" y="838" width="373" height="18"/>
+                    <rect key="frame" x="20.5" y="858" width="373" height="18"/>
                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="13"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -60,9 +60,9 @@
             <constraints>
                 <constraint firstItem="5ie-0m-XzD" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="23b-g8-3Qy"/>
                 <constraint firstItem="5JZ-u6-O0s" firstAttribute="centerX" secondItem="5ie-0m-XzD" secondAttribute="centerX" id="8CT-yy-owY"/>
-                <constraint firstAttribute="bottom" secondItem="wXK-Gt-FCk" secondAttribute="bottom" constant="70" id="Azh-Rd-FDc"/>
+                <constraint firstAttribute="bottom" secondItem="wXK-Gt-FCk" secondAttribute="bottom" constant="30" id="Azh-Rd-FDc"/>
                 <constraint firstItem="o0G-4s-3yB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Bnl-so-BO0"/>
-                <constraint firstItem="fqE-bP-DNg" firstAttribute="top" secondItem="5JZ-u6-O0s" secondAttribute="bottom" constant="20" id="Iao-zm-l6k"/>
+                <constraint firstItem="fqE-bP-DNg" firstAttribute="top" secondItem="5JZ-u6-O0s" secondAttribute="bottom" constant="5" id="Iao-zm-l6k"/>
                 <constraint firstItem="o0G-4s-3yB" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.9" id="NOX-PZ-s2Y"/>
                 <constraint firstItem="wXK-Gt-FCk" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="R46-WP-nTp"/>
                 <constraint firstItem="5ie-0m-XzD" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="RqJ-Sn-wJ3"/>
@@ -71,8 +71,8 @@
                 <constraint firstItem="wXK-Gt-FCk" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fCS-WO-PZq"/>
                 <constraint firstItem="5ie-0m-XzD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="juU-oM-gao"/>
                 <constraint firstItem="fqE-bP-DNg" firstAttribute="centerX" secondItem="5JZ-u6-O0s" secondAttribute="centerX" id="kZO-3U-HHR"/>
-                <constraint firstItem="5JZ-u6-O0s" firstAttribute="centerY" secondItem="5ie-0m-XzD" secondAttribute="centerY" constant="-20" id="rrV-ch-rmL"/>
-                <constraint firstAttribute="bottom" secondItem="o0G-4s-3yB" secondAttribute="bottom" constant="40" id="wov-Rp-cEm"/>
+                <constraint firstItem="5JZ-u6-O0s" firstAttribute="centerY" secondItem="5ie-0m-XzD" secondAttribute="centerY" id="rrV-ch-rmL"/>
+                <constraint firstAttribute="bottom" secondItem="o0G-4s-3yB" secondAttribute="bottom" constant="20" id="wov-Rp-cEm"/>
             </constraints>
             <point key="canvasLocation" x="133" y="114"/>
         </view>

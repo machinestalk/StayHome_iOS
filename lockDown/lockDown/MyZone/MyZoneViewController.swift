@@ -66,11 +66,11 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
        }
        @objc func methodOfReceivedNotification(notification: Notification) {
            
-           
+           setLocation()
            
        }
        @IBAction func navigateToMyLocation(_ sender: UIButton) {
-           if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+           if CLLocationManager.authorizationStatus() ==  .authorizedAlways {
                if  let userLocation = locValue{
                    //let camera = GMSCameraPosition.camera(withLatitude: 10.197235, longitude: 36.850652, zoom: 16.0)
                    
@@ -91,10 +91,10 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
     func setLocation() {
         //Location Manager code to fetch current location
         if  !UserDefaults.standard.bool(forKey: "isSignedUp")  {
-            setLocationView()
+            
             self.title = "SignUpTitle".localiz()
-            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
-                
+            if CLLocationManager.authorizationStatus() == .authorizedAlways {
+                setLocationView()
                 locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
                 self.locationManager.delegate = self
                 self.locationManager.startUpdatingLocation()
@@ -114,7 +114,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
             }
         }
         else {
-            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+            if CLLocationManager.authorizationStatus() == .authorizedAlways {
                 setupChangeLocationVC()
                 self.title = "MyZone_txt".localiz()
                 locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
@@ -160,7 +160,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                self.locationManager.requestWhenInUseAuthorization()
                break
                
-           case .restricted, .denied:
+           case .restricted, .authorizedWhenInUse, .denied:
                // Disable location features
                // switchAutoTaxDetection.isOn = false
                let alert = UIAlertController(title: "", message: "locationAlert_txt".localiz(), preferredStyle: UIAlertController.Style.alert)
@@ -180,7 +180,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                
                break
                
-           case .authorizedWhenInUse, .authorizedAlways:
+           case  .authorizedAlways:
                // Enable features that require location services here.
                
                locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -241,6 +241,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                    
                }
                else {
+                  //  setLocationView()
                    locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
                    self.locationManager.delegate = self
                    self.locationManager.startUpdatingLocation()
@@ -445,6 +446,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
     
     // MARK: - changeLocation View
     func setupChangeLocationVC() {
+        requestLocationVC.view.removeFromSuperview()
         ChangeLocationVC.delegate = self
         let height = view.frame.height
         let width  = view.frame.width
