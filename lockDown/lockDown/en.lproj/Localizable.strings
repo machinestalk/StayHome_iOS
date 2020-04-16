@@ -61,6 +61,10 @@
 "SgIn_SgIn_Lbl_login_verifyPin" = "Enter OTP";
 "SgIn_SgIn_Lbl_login_pin" = "Enter the OTP send to verification by email or phone number.";
 "SgIn_SgIn_SuBtn_ResendPin" = "Resend OTP";
+"failLogin_txt_msg" = "Sorry, you are already registered with another device.";
+"logout0_txt_msg" = "Wait please, Are you sure you have finalized your self-quarantine.";
+"logout1_txt_msg" = "Sorry, you should continue using the app until the self-quarantaine.";
+"logout0_btn_txt" = "Yes, Sure";
 
 //Survey Screen
 "survey_lbl_title_txt" = "Self Diagnose Questions";

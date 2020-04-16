@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomAlertViewController" customModule="lockDown" customModuleProvider="target">
+            <connections>
+                <outlet property="alertImage" destination="11r-22-AxX" id="emi-Hq-yk9"/>
+                <outlet property="cancelBtn" destination="67B-aG-hFy" id="qdm-ji-WDb"/>
+                <outlet property="msgLbl" destination="7RM-EV-aC4" id="tH1-zo-nBg"/>
+                <outlet property="okBtn" destination="qlp-ea-ioE" id="fSP-Z1-hWN"/>
+                <outlet property="okbtnConstraint" destination="Ho9-r6-W1g" id="rES-y2-192"/>
+                <outlet property="titleLbl" destination="a9p-Yj-YEf" id="MQY-e6-ZXe"/>
+                <outlet property="view" destination="e3f-AE-9tB" id="HR6-vV-3uF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="e3f-AE-9tB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_noir" translatesAutoresizingMaskIntoConstraints="NO" id="U2I-S5-ucE">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="67B-aG-hFy" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <action selector="onTapCancelButton:" destination="-1" eventType="touchUpInside" id="oNz-Us-za1"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HDL-pk-xqI">
+                    <rect key="frame" x="-10" y="559" width="395" height="282"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_shadow2" translatesAutoresizingMaskIntoConstraints="NO" id="zF2-Iy-fo5">
+                            <rect key="frame" x="0.0" y="8" width="395" height="254"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9p-Yj-YEf" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="20" y="80" width="355" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="M9C-na-nT3"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RM-EV-aC4" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="20" y="108" width="355" height="49"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="49" id="GkO-dp-jyI"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="key" value="RequestLocation_txt"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlp-ea-ioE" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="130.33333333333331" y="177" width="134.33333333333331" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="6Ir-HU-rTK"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                            <state key="normal" backgroundImage="green_button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="onTapOkButton:" destination="-1" eventType="touchUpInside" id="er7-1i-UTA"/>
+                            </connections>
+                        </button>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_bluetooth" translatesAutoresizingMaskIntoConstraints="NO" id="11r-22-AxX">
+                            <rect key="frame" x="177.66666666666666" y="30" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="H00-RI-gxU"/>
+                                <constraint firstAttribute="width" constant="40" id="Slq-32-aAc"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="282" id="1yL-0M-ppv"/>
+                        <constraint firstAttribute="bottom" secondItem="zF2-Iy-fo5" secondAttribute="bottom" constant="20" id="2Vb-sz-gyi"/>
+                        <constraint firstItem="qlp-ea-ioE" firstAttribute="centerX" secondItem="HDL-pk-xqI" secondAttribute="centerX" id="5cQ-DF-oaY"/>
+                        <constraint firstItem="a9p-Yj-YEf" firstAttribute="top" secondItem="11r-22-AxX" secondAttribute="bottom" constant="10" id="AV9-tZ-CAU"/>
+                        <constraint firstAttribute="trailing" secondItem="zF2-Iy-fo5" secondAttribute="trailing" id="B2t-Gu-HSd"/>
+                        <constraint firstItem="11r-22-AxX" firstAttribute="top" secondItem="HDL-pk-xqI" secondAttribute="top" constant="30" id="EYx-ab-73z"/>
+                        <constraint firstAttribute="bottom" secondItem="qlp-ea-ioE" secondAttribute="bottom" constant="60" id="Ho9-r6-W1g"/>
+                        <constraint firstAttribute="trailing" secondItem="7RM-EV-aC4" secondAttribute="trailing" constant="20" id="KDp-tV-wA3"/>
+                        <constraint firstItem="a9p-Yj-YEf" firstAttribute="leading" secondItem="HDL-pk-xqI" secondAttribute="leading" constant="20" id="QpC-Hd-pJf"/>
+                        <constraint firstAttribute="trailing" secondItem="a9p-Yj-YEf" secondAttribute="trailing" constant="20" id="TUF-fX-WkV"/>
+                        <constraint firstItem="zF2-Iy-fo5" firstAttribute="leading" secondItem="HDL-pk-xqI" secondAttribute="leading" id="cAp-Yu-oRn"/>
+                        <constraint firstItem="zF2-Iy-fo5" firstAttribute="top" secondItem="HDL-pk-xqI" secondAttribute="top" constant="8" id="cns-ez-gdZ"/>
+                        <constraint firstItem="qlp-ea-ioE" firstAttribute="top" secondItem="7RM-EV-aC4" secondAttribute="bottom" constant="20" id="dt8-fY-5Bv"/>
+                        <constraint firstItem="11r-22-AxX" firstAttribute="centerX" secondItem="HDL-pk-xqI" secondAttribute="centerX" id="ovR-RI-mU0"/>
+                        <constraint firstItem="7RM-EV-aC4" firstAttribute="leading" secondItem="HDL-pk-xqI" secondAttribute="leading" constant="20" id="z2O-Wi-tRo"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="67B-aG-hFy" secondAttribute="bottom" id="5Er-lE-nmD"/>
+                <constraint firstAttribute="trailing" secondItem="U2I-S5-ucE" secondAttribute="trailing" id="6Wx-el-MVi"/>
+                <constraint firstAttribute="trailing" secondItem="HDL-pk-xqI" secondAttribute="trailing" constant="-10" id="AJ9-YK-llk"/>
+                <constraint firstItem="67B-aG-hFy" firstAttribute="leading" secondItem="e3f-AE-9tB" secondAttribute="leading" id="AQY-IS-vUJ"/>
+                <constraint firstAttribute="bottom" secondItem="U2I-S5-ucE" secondAttribute="bottom" id="Gpi-sH-Hvr"/>
+                <constraint firstItem="U2I-S5-ucE" firstAttribute="top" secondItem="e3f-AE-9tB" secondAttribute="top" id="Jlx-sa-YZN"/>
+                <constraint firstItem="HDL-pk-xqI" firstAttribute="leading" secondItem="e3f-AE-9tB" secondAttribute="leading" constant="-10" id="Re7-eY-jov"/>
+                <constraint firstAttribute="trailing" secondItem="67B-aG-hFy" secondAttribute="trailing" id="Who-Zr-zME"/>
+                <constraint firstItem="U2I-S5-ucE" firstAttribute="leading" secondItem="e3f-AE-9tB" secondAttribute="leading" id="Z0c-YK-538"/>
+                <constraint firstAttribute="bottom" secondItem="HDL-pk-xqI" secondAttribute="bottom" constant="-29" id="lIQ-f0-OCA"/>
+                <constraint firstItem="67B-aG-hFy" firstAttribute="top" secondItem="e3f-AE-9tB" secondAttribute="top" id="v4g-Co-TRw"/>
+            </constraints>
+            <point key="canvasLocation" x="236" y="-154.43349753694582"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_noir" width="416" height="736"/>
+        <image name="card_shadow2" width="395" height="281.33334350585938"/>
+        <image name="green_button" width="134.33332824707031" height="47"/>
+        <image name="red_bluetooth" width="22" height="37"/>
+    </resources>
+</document>

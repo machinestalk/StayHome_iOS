@@ -94,6 +94,8 @@
 		FAC81E81243A84A7002DBADE /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC81E7F243A84A7002DBADE /* ContentViewController.xib */; };
 		FAD6CED72448B508007E4F57 /* TermsAndConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD6CED52448B508007E4F57 /* TermsAndConditionViewController.swift */; };
 		FAD6CED82448B508007E4F57 /* TermsAndConditionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAD6CED62448B508007E4F57 /* TermsAndConditionViewController.xib */; };
+		FAD6CEDB2449101E007E4F57 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD6CED92449101E007E4F57 /* CustomAlertViewController.swift */; };
+		FAD6CEDC2449101E007E4F57 /* CustomAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAD6CEDA2449101E007E4F57 /* CustomAlertViewController.xib */; };
 		FADB80F4243DFDFB00A31CC1 /* FailCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADB80F2243DFDFA00A31CC1 /* FailCheckInViewController.swift */; };
 		FADB80F5243DFDFB00A31CC1 /* FailCheckInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADB80F3243DFDFA00A31CC1 /* FailCheckInViewController.xib */; };
 		FAE627DB243CE4A90011B7A1 /* CustomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */; };
@@ -220,6 +222,8 @@
 		FAC81E7F243A84A7002DBADE /* ContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 		FAD6CED52448B508007E4F57 /* TermsAndConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionViewController.swift; sourceTree = "<group>"; };
 		FAD6CED62448B508007E4F57 /* TermsAndConditionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TermsAndConditionViewController.xib; sourceTree = "<group>"; };
+		FAD6CED92449101E007E4F57 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		FAD6CEDA2449101E007E4F57 /* CustomAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAlertViewController.xib; sourceTree = "<group>"; };
 		FADB80F2243DFDFA00A31CC1 /* FailCheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailCheckInViewController.swift; sourceTree = "<group>"; };
 		FADB80F3243DFDFA00A31CC1 /* FailCheckInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FailCheckInViewController.xib; sourceTree = "<group>"; };
 		FAE627DA243CE4A90011B7A1 /* CustomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimer.swift; sourceTree = "<group>"; };
@@ -391,6 +395,8 @@
 				FA6E989724329B83000F2C2E /* Constants.swift */,
 				FA6E989824329B83000F2C2E /* LanguageManager.swift */,
 				FA6E989924329B83000F2C2E /* Component */,
+				FAD6CED92449101E007E4F57 /* CustomAlertViewController.swift */,
+				FAD6CEDA2449101E007E4F57 /* CustomAlertViewController.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -692,6 +698,7 @@
 				FAC81E712438CEE9002DBADE /* EmergencyViewController.xib in Resources */,
 				FAB7F41E24339B0600061AE5 /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				FA7ED09B243762D200C0060D /* MenuTableViewCell.xib in Resources */,
+				FAD6CEDC2449101E007E4F57 /* CustomAlertViewController.xib in Resources */,
 				FA7ED09F24376D3B00C0060D /* ChangeLocationViewController.xib in Resources */,
 				FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */,
 				FAC81E7C243A1EB2002DBADE /* LandingViewController.xib in Resources */,
@@ -888,6 +895,7 @@
 				00E0FEBD243E6D0700FD3DCB /* CustomReachability.swift in Sources */,
 				FA6E98A424329B83000F2C2E /* TextField.swift in Sources */,
 				FA8B001F2444AE290097404A /* ActivityManager.swift in Sources */,
+				FAD6CEDB2449101E007E4F57 /* CustomAlertViewController.swift in Sources */,
 				FAB9B83F2438FC85007364E7 /* CheckInViewController.swift in Sources */,
 				FAC36C9824388868002B4928 /* WelcomeViewController.swift in Sources */,
 				FA6E98A124329B83000F2C2E /* LanguageManager.swift in Sources */,

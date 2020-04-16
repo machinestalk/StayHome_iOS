@@ -32,20 +32,21 @@ class APIClient {
                 //                    }
                 //                    return
                 //                }
-                if data.response?.statusCode == 200 {
+                
                     switch data.result {
                     case .success:
-                        if let value = data.result.value as? JSONFormat, let result = T(JSON: value) {
-                            completion(.success(result))
+                        if data.response?.statusCode == 200 {
+                            if let value = data.result.value as? JSONFormat, let result = T(JSON: value) {
+                                completion(.success(result))
+                            }
+                            
+                        }else{
+                            let error = NSError(domain:"", code:data.response!.statusCode, userInfo:data.result.value as? [String : Any])
+                                completion(.failure(error))
                         }
                     case .failure(let error):
                         completion(.failure(error))
                     }
-                }
-                else {
-                   // should be fixed or user will get always loading
-                    
-                }
             }
         })
     }

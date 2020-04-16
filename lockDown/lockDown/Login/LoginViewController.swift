@@ -251,8 +251,10 @@ class LoginViewController: BaseController {
             self.finishLoading()
             self.displayHomePage()
         }, onFailure: {error in
+            let errorr = error as NSError
+            let errorDict = errorr.userInfo
             self.finishLoading()
-            print(error)
+            self.displayAlert(message:errorDict["message"] as! String)
         })
     }
     
@@ -304,8 +306,28 @@ class LoginViewController: BaseController {
 //        appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()
     }
     
+    func displayAlert(message: String) {
+        
+        let customAlert = CustomAlertViewController(nibName: "CustomAlertViewController", bundle: nil)
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = .overCurrentContext
+        customAlert.modalTransitionStyle = .crossDissolve
+        customAlert.type = "login"
+        customAlert.message = message
+        customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
+    }
+}
+
+extension LoginViewController: CustomAlertViewDelegate {
     
+    func okButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
     
-    
+    func cancelButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 

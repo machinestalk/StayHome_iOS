@@ -164,7 +164,8 @@ extension MenuViewController: UITableViewDelegate {
             }
             case 7:
             do {
-                NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"logout"])
+                //NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"logout"])
+                self.displayLogoutAlert()
                  selectedItem = 7
                  
                 break
@@ -204,5 +205,35 @@ extension MenuViewController: UITableViewDataSource {
         }
         cell.topLbl.isHidden = (indexPath.row != 4)
         return cell
+    }
+    
+    func displayLogoutAlert() {
+        
+        let customAlert = CustomAlertViewController(nibName: "CustomAlertViewController", bundle: nil)
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = .overCurrentContext
+        customAlert.modalTransitionStyle = .crossDissolve
+        customAlert.type = "logout0"
+        customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
+    }
+}
+
+extension MenuViewController: CustomAlertViewDelegate {
+    
+    func okButtonTapped() {
+        let customAlert = CustomAlertViewController(nibName: "CustomAlertViewController", bundle: nil)
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = .overCurrentContext
+        customAlert.modalTransitionStyle = .crossDissolve
+        customAlert.type = "logout1"
+        customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
+    }
+    
+    func cancelButtonTapped() {
+        
     }
 }
