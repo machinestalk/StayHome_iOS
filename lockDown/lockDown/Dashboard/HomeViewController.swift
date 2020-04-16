@@ -332,17 +332,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         print("desiredAccuracy : \(manager.desiredAccuracy)")
     }
     
-    //
-    // acceleration
-    
-    
-    var timer = Timer()
     let motionManager = CMMotionManager()
-    
-//    func scheduledTimerWithTimeInterval(){
-//        // Scheduling timer to Call the function **getSpeed** with the interval of 1 seconds
-//        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(getSpeed), userInfo: nil, repeats: true)
-//    }
+
     func showAlertSpeed(){
         if(bluetoothEnabled == false){
             let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
