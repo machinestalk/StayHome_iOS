@@ -203,8 +203,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     func showAlertZone(){
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone"])
-            self.appDelegate.scheduleNotification(notificationType: "Alert_out_zone_msg_txt")
+            
         }
+        self.appDelegate.scheduleNotification(notificationType: "Alert_out_zone_msg_txt")
     }
     
     func checkAllServicesActivityFromBackground()  {
