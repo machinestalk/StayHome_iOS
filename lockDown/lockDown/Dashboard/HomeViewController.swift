@@ -203,6 +203,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     func showAlertZone(){
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone"])
+            self.appDelegate.scheduleNotification(notificationType: "Alert_out_zone_msg_txt")
         }
     }
     
@@ -272,7 +273,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     func setLocation() {
         //Location Manager code to fetch current location
         if  !UserDefaults.standard.bool(forKey: "isSignedUp")  {
-            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+            if CLLocationManager.authorizationStatus() == .authorizedAlways {
                 
                 locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
                 self.locationManager.delegate = self
@@ -282,10 +283,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+                checkUsersLocationServicesAuthorization()
             }
         }
         else {
-            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+            if CLLocationManager.authorizationStatus() == .authorizedAlways {
 
                 locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
                 self.locationManager.delegate = self
@@ -294,9 +296,61 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+                checkUsersLocationServicesAuthorization()
             }
         }
     }
+    
+    
+    
+    func checkUsersLocationServicesAuthorization(){
+        /// Check if user has authorized Total Plus to use Location Services
+        
+        switch CLLocationManager.authorizationStatus() {
+            
+        case .notDetermined:
+            // Request when-in-use authorization initially
+            // This is the first and the ONLY time you will be able to ask the user for permission
+            self.locationManager.delegate = self
+            self.locationManager.requestWhenInUseAuthorization()
+            break
+            
+        case .restricted, .denied,.authorizedWhenInUse:
+            // Disable location features
+            // switchAutoTaxDetection.isOn = false
+            let alert = UIAlertController(title: "", message: "locationAlert_txt".localiz(), preferredStyle: UIAlertController.Style.alert)
+            
+            // Button to Open Settings
+            alert.addAction(UIAlertAction(title: "Settings_txt".localiz(), style: UIAlertAction.Style.default, handler: { action in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        print("Settings opened: \(success)")
+                    })
+                }
+            }))
+            self.present(alert, animated: true, completion: nil)
+            
+            break
+            
+        case  .authorizedAlways:
+            // Enable features that require location services here.
+            
+            locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+            self.locationManager.delegate = self
+            self.locationManager.startUpdatingLocation()
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+         
+            
+            break
+        }
+        
+    }
+    
+    
+    
     
     
     
@@ -305,7 +359,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
     }
     @objc func methodOfReceivedNotification(notification: Notification) {
-        
+        setLocation()
         
         
     }
@@ -351,7 +405,39 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         print("horizontalAccuracy : \( manager.location!.horizontalAccuracy)")
         print("desiredAccuracy : \(manager.desiredAccuracy)")
     }
-    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            // manager.requestLocation()
+            break
+        case .restricted, .denied, .authorizedWhenInUse:
+            let alert = UIAlertController(title: "", message: "locationAlert_txt".localiz(), preferredStyle: UIAlertController.Style.alert)
+            
+            // Button to Open Settings
+            alert.addAction(UIAlertAction(title: "Settings_txt".localiz(), style: UIAlertAction.Style.default, handler: { action in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        print("Settings opened: \(success)")
+                    })
+                }
+            }))
+            self.present(alert, animated: true, completion: nil)
+            break
+        case .authorizedAlways :
+            
+                locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+                self.locationManager.delegate = self
+                self.locationManager.startUpdatingLocation()
+                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+
+            break
+        default: break
+            // Permission denied, do something else
+        }
+    }
     let motionManager = CMMotionManager()
 
     func showAlertSpeed(){
@@ -482,9 +568,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     func startCustomTimer() {
         
         customTimer.eventHandler = {
-            self.getSpeed()
-            self.sendData()
-            self.getUserstatus()
+            if self.locationManager.location != nil && self.locValue != nil {
+                self.getSpeed()
+                self.sendData()
+                self.getUserstatus()
+            }
         }
         customTimer.resume()
     }
@@ -499,7 +587,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     //MARK : Check User out of zone
     func getUserstatus(){
         let myhomeLocation = UserDefaults.standard.location(forKey:"myhomeLocation")
-        let Circleloc : CLLocation =  CLLocation(latitude: myhomeLocation!.latitude, longitude: myhomeLocation!.longitude)
+        let Circleloc : CLLocation =  CLLocation(latitude: myhomeLocation?.latitude ?? 0.0, longitude: myhomeLocation?.longitude ?? 0.0)
         let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
         let distance = Circleloc.distance(from: myLocation)
         if(distance >= 100)
