@@ -15,6 +15,7 @@ import DeviceKit
 protocol AlertProtocol {
     
     func oKButtonTappedWithType(type:String)
+    func emergencyBtnClick()
 }
 class AttentionAlertViewController: UIViewController {
     
@@ -22,6 +23,7 @@ class AttentionAlertViewController: UIViewController {
     @IBOutlet weak var titleLbl: Label!
     @IBOutlet weak var alertImage: UIImageView!
     @IBOutlet weak var okBtn: Button!
+    @IBOutlet weak var stackView: UIStackView!
     var delegate: AlertProtocol?
     var type = ""
        
@@ -37,18 +39,25 @@ class AttentionAlertViewController: UIViewController {
         case "bluetooth":
             msgLbl.text = "Alert_bluetooth_msg_txt".localiz()
             alertImage.image = UIImage(named: "red_bluetooth")
+            break
         case "internet":
             msgLbl.text = "Alert_wifi_msg_txt".localiz()
             alertImage.image = UIImage(named: "red_wifi")
-            
+            break
         case "battery":
             msgLbl.text = "Alert_battery_msg_txt".localiz()
             alertImage.image = UIImage(named: "red_battery")
-            
+            break
         case "logout":
             msgLbl.text = "Alert_logout_msg_txt".localiz()
             alertImage.image = UIImage(named: "red_fail")
-            
+            break
+        case "zone":
+            msgLbl.text = "Alert_out_zone_msg_txt".localiz()
+            okBtn.isHidden = true
+            stackView.isHidden = false
+            alertImage.image = UIImage(named: "red_speaker")
+            break
         default:
             break
         }
@@ -63,6 +72,9 @@ class AttentionAlertViewController: UIViewController {
         delegate?.oKButtonTappedWithType(type: type)
     }
     
+    @IBAction func emergencyBtnDidTap(_ sender: Any) {
+        delegate?.emergencyBtnClick()
+    }
     func isItIPhoneX() -> Bool {
         let device = Device()
         let check = device.isOneOf([.iPhoneX, .iPhoneXr , .iPhoneXs , .iPhoneXsMax ,

@@ -27,13 +27,7 @@ class EmergencyViewController: BaseController {
         makePhoneCall(phoneNumber:"937")
     }
     
-    func makePhoneCall(phoneNumber: String) {
-
-        if let phoneURL = NSURL(string: ("tel://" + phoneNumber)) {
-            
-            UIApplication.shared.open(phoneURL as URL, options: [:], completionHandler: nil)
-        }
-    }
+   
 
     /*
     // MARK: - Navigation

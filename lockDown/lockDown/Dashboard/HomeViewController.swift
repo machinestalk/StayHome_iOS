@@ -28,7 +28,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var attentionAlertViewControllerBluetooth : AttentionAlertViewController!
     var attentionAlertViewControllerInternet = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
     var attentionAlertViewControllerBattery = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
-    let customTimer = CustomTimer(timeInterval: 5)
+    let customTimer = CustomTimer(timeInterval: 60)
     let cardHeight:CGFloat = 300
     let cardHandleAreaHeight:CGFloat = 65
     var cardVisible = false
@@ -195,6 +195,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
 
     func showAlertInternet(){
         NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"internet"])
+    }
+    func showAlertZone(){
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone"])
+        }
     }
     
     
@@ -422,24 +427,38 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             //            }
             //            else
             //{
+            
             if userMotionActivity != nil &&  locValue != nil {
                 if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
                     if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                        
                         logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
                         peripherals.removeAll()
-                        if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                        let myhomeLocation = UserDefaults.standard.location(forKey:"myhomeLocation")
+                        let Circleloc : CLLocation =  CLLocation(latitude: myhomeLocation!.latitude, longitude: myhomeLocation!.longitude)
+                        let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+                        let distance = Circleloc.distance(from: myLocation)
+                        if(distance >= 100)
+                        {
+                            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
+                                print(Msg)
+                            } ,onFailure : { (error) in
+                                print(error)
+                            })
+                        }
+                        else {
                             APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
                                 print(Msg)
                             } ,onFailure : { (error) in
                                 print(error)
                             })
+                            
                         }
                     }
                 }
             }
         }
     }
+
     
     // MARK : Set counter for Check In
     
@@ -450,6 +469,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         customTimer.eventHandler = {
             self.getSpeed()
             self.sendData()
+            self.getUserstatus()
         }
         customTimer.resume()
     }
@@ -461,7 +481,20 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             countdownTimer = nil
         }
     }
-    
+    //MARK : Check User out of zone
+    func getUserstatus(){
+        let myhomeLocation = UserDefaults.standard.location(forKey:"myhomeLocation")
+        let Circleloc : CLLocation =  CLLocation(latitude: myhomeLocation!.latitude, longitude: myhomeLocation!.longitude)
+        let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        let distance = Circleloc.distance(from: myLocation)
+        if(distance >= 100)
+        {
+            showAlertZone()
+        }
+        else {
+            
+        }
+    }
     
     // MARK : Log in File
     
