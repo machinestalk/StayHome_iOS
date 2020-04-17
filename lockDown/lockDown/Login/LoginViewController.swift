@@ -306,14 +306,24 @@ class LoginViewController: BaseController {
 extension LoginViewController: CustomAlertViewDelegate {
     
     func okButtonTapped(customAlert: CustomAlertViewController) {
-        if customAlert.type != "phone" {
+        if customAlert.type == "phone" {
+            userNameInputView.text = ""
+        }else if customAlert.type == "login"{
+            clearTextFieldOTP()
+            
+        }else{
             self.navigationController?.popViewController(animated: true)
         }
         
     }
 
     func cancelButtonTapped(customAlert: CustomAlertViewController) {
-        if customAlert.type != "phone" {
+        if customAlert.type == "phone" {
+            userNameInputView.text = ""
+            
+        }else if customAlert.type == "login"{
+            clearTextFieldOTP()            
+        }else{
             self.navigationController?.popViewController(animated: true)
         }
     }
