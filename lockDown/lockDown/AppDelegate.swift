@@ -355,6 +355,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             let navController:UINavigationController = UINavigationController(rootViewController: CheckInVC)
              navController.modalPresentationStyle = .overCurrentContext
             self.navVC?.visibleViewController!.present(navController, animated: true, completion: nil);
+        }else if body == "resetFingers"{
+            UserDefaults.standard.set(false, forKey: "isLocked")
+            //NotificationCenter.default.post(name: Notification.Name("ResetFaceID"), object: nil, userInfo: nil)
+            
         }
         // Change this to your preferred presentation option
         completionHandler([])
@@ -381,6 +385,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             let navController:UINavigationController = UINavigationController(rootViewController: CheckInVC)
             navController.modalPresentationStyle = .overCurrentContext
             self.navVC?.visibleViewController!.present(navController, animated: true, completion: nil);
+        }else if body == "resetFingers"{
+            UserDefaults.standard.set(false, forKey: "isLocked")
+            //NotificationCenter.default.post(name: Notification.Name("ResetFaceID"), object: nil, userInfo: nil)
         }
         
         completionHandler()

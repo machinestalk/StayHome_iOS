@@ -62,10 +62,14 @@ class BiometricsAuthViewController: BaseController {
         if(isFromCheckIn){
             self.title = "checkIn_txt".localiz()
             stepsImg.isHidden = true
-        }
-        else {
+        }else {
             self.title = "SignUpTitle".localiz()
         }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         setupBiometricsBottomVC()
         // The biometryType, which affects this app's UI when state changes, is only meaningful
@@ -80,8 +84,8 @@ class BiometricsAuthViewController: BaseController {
                 switch context.biometryType {
                 case .none:
                     
-                    biometryTypeImageView.image = UIImage(named: "ic_hold_near")
-                    biometryTypeLabel.text = "We can not complete the process !"
+                    biometryTypeImageView.image = UIImage(named: "ic_faceID")
+                    biometryTypeLabel.text = "Face ID"
                     biometricsBottomVC.nextBtn.isEnabled = false
                 case .faceID:
                     biometricsBottomVC.nextBtn.isEnabled = true
@@ -97,8 +101,8 @@ class BiometricsAuthViewController: BaseController {
             }else{
                 UserDefaults.standard.set(nil, forKey: "currentbiometricstate")
                 UserDefaults.standard.set(true, forKey: "isLocked")
-                biometryTypeImageView.image = UIImage(named: "ic_hold_near")
-                biometryTypeLabel.text = "We can not complete the process !"
+                biometryTypeImageView.image = UIImage(named: "ic_faceID")
+                biometryTypeLabel.text = "Face ID"
                 
                 if UserDefaults.standard.bool(forKey: "isSignedUp"){
                     
@@ -114,7 +118,6 @@ class BiometricsAuthViewController: BaseController {
         
         // Set the initial app state. This impacts the initial state of the UI as well.
         state = .loggedout
-        
     }
     
     /// Logs out or attempts to log in when the user taps the button.
@@ -253,6 +256,12 @@ extension BiometricsAuthViewController: BiometricsAuthProtocol {
             
         case .loggedout:
             if biometricsBottomVC.nextBtn.tag == 10 {
+                let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "faceId doesn't match", onSuccess: { (Msg) in
+                    print(Msg)
+                } ,onFailure : { (error) in
+                    print(error)
+                })
                 let contactUsViewController = ContactUsViewController(nibName: "ContactUsViewController", bundle: nil)
                 self.navigationController!.pushViewController(contactUsViewController, animated: true)
             } else {

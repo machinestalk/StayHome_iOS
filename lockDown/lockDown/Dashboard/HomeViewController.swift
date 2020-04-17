@@ -175,7 +175,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         //
         
         //Create log file if not yet created
-        createLogFile()
+        
         carrier = getTelephonyInfo().first!.value
     }
     @objc func batteryLevelDidChange(_ notification: Notification) {
@@ -506,30 +506,13 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
 
     
     func sendData() {
-        
-        //        let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
-        //        let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-        //        let distance = circleLocation.distance(from: myLocation)
-        
+
+        createLogFile()
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         batteryLevel = Int(UIDevice.current.batteryLevel)
         let locationState = checkIfLocationEnabled()
         if Double(locationManager.location!.horizontalAccuracy) < 300 {
-            //            if(distance >= circle.radius)
-            //            {
-            //                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user out of zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-            //                peripherals.removeAll()
-            //                if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-            //                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
-            //                        print(Msg)
-            //                    } ,onFailure : { (error) in
-            //                        print(error)
-            //                    })
-            //                }
-            //            }
-            //            else
-            //{
-            
+
             if userMotionActivity != nil &&  locValue != nil {
                 if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
                     if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
@@ -606,7 +589,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     func createLogFile(){
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let url = URL(fileURLWithPath: path)
-        let dateString = Date().toString(dateFormat: "yyyyMMdd")
+        let dateString = Date().toString(dateFormat:"yyyyMMdd")
         let logFileName = "\(dateString).csv"
         let filePath = url.appendingPathComponent(logFileName).path
         let fileManager = FileManager.default
