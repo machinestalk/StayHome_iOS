@@ -106,12 +106,13 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     override func viewDidLoad() {
         
+        
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
 
         //is Battery Monitoring Enabled
         UIDevice.current.isBatteryMonitoringEnabled = true
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(batteryLevelDidChange), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
         startCustomTimer()
         
         // wifi changed
@@ -172,7 +173,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             showAlertInternet()
         }
         //
-        NotificationCenter.default.addObserver(self, selector: #selector(batteryLevelDidChange), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
+        
         //Create log file if not yet created
         createLogFile()
         carrier = getTelephonyInfo().first!.value
@@ -181,16 +182,19 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         print( "batteryLevel = \(batteryLevel)" )
         if(batteryLevel<20 && batteryLevel>0){
             showAlertBattery()
+             
         }
     }
     // MARK: Show Alerts
 
     func showAlertBluetooth(){
         NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bluetooth"])
+        self.appDelegate.scheduleNotification(notificationType: "Alert_bluetooth_msg_txt")
     }
 
     func showAlertBattery(){
         NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"battery"])
+        self.appDelegate.scheduleNotification(notificationType: "Alert_battery_msg_txt")
     }
 
     func showAlertInternet(){
@@ -200,6 +204,12 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone"])
         }
+    }
+    
+    func checkAllServicesActivityFromBackground()  {
+        
+        startScanningBTDevices()
+        _ = checkIfLocationEnabled()
     }
     
     
@@ -224,12 +234,16 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             switch CLLocationManager.authorizationStatus() {
             case .notDetermined:
                 print("notDetermined")
+                self.appDelegate.scheduleNotification(notificationType: "Alert_gps_msg_txt")
                 return "notDetermined"
+                
             case .restricted :
                 print("restricted")
+                self.appDelegate.scheduleNotification(notificationType: "Alert_gps_msg_txt")
                 return "restricted"
             case .denied:
                 print("denied")
+                self.appDelegate.scheduleNotification(notificationType: "Alert_gps_msg_txt")
                 return "denied"
             case .authorizedAlways:
                 print("authorizedAlways")
@@ -243,6 +257,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             }
         } else {
             print("Location services are not enabled")
+            self.appDelegate.scheduleNotification(notificationType: "Alert_gps_msg_txt")
             return "notEnabled"
             
         }
@@ -340,45 +355,45 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     let motionManager = CMMotionManager()
 
     func showAlertSpeed(){
-        if(bluetoothEnabled == false){
-            let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            
-            self.present(alert, animated: true)
-        }
+//        if(bluetoothEnabled == false){
+//            let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
+//
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//
+//            self.present(alert, animated: true)
+//        }
     }
     @objc func getSpeed(){
         
         
-        let speed = Double((locationManager.location?.speed)!)
-        
-        print(String(format: "%.0f km/h", speed * 3.6)) //Current speed in km/h
-        
-        //If speed is over 10 km/h
-        if(speed * 3.6 > 10 ){
-            showAlertSpeed()
-            //Getting the accelerometer data
-            if motionManager.isAccelerometerAvailable{
-                let queue = OperationQueue()
-                motionManager.startAccelerometerUpdates(to: queue, withHandler:
-                    {data, error in
-                        
-                        guard let data = data else{
-                            return
-                        }
-                        
-                        print("X = \(data.acceleration.x)")
-                        print("Y = \(data.acceleration.y)")
-                        print("Z = \(data.acceleration.z)")
-                        
-                }
-                )
-            } else {
-                print("Accelerometer is not available")
-            }
-            
-        }
+//        let speed = Double((locationManager.location?.speed)!)
+//
+//        print(String(format: "%.0f km/h", speed * 3.6)) //Current speed in km/h
+//
+//        //If speed is over 10 km/h
+//        if(speed * 3.6 > 10 ){
+//            showAlertSpeed()
+//            //Getting the accelerometer data
+//            if motionManager.isAccelerometerAvailable{
+//                let queue = OperationQueue()
+//                motionManager.startAccelerometerUpdates(to: queue, withHandler:
+//                    {data, error in
+//
+//                        guard let data = data else{
+//                            return
+//                        }
+//
+//                        print("X = \(data.acceleration.x)")
+//                        print("Y = \(data.acceleration.y)")
+//                        print("Z = \(data.acceleration.z)")
+//
+//                }
+//                )
+//            } else {
+//                print("Accelerometer is not available")
+//            }
+//
+//        }
     }
     
    
@@ -533,6 +548,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
         
     }
+    
 }
 
 extension HomeViewController : BiometricsAuthProtocol{

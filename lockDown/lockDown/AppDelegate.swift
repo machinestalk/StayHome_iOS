@@ -236,6 +236,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(userInfo)
     }
     
+    // Here we handle the silent push notification
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // If you are receiving a notification message while your app is in the background,
@@ -244,18 +246,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
-        if let messageID = userInfo["id"] {
-            print("Message ID: \(messageID)")
-        }
         
+        let VC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+        VC.checkAllServicesActivityFromBackground()
+
+        var state = ""
+        
+        if application.applicationState == .background {
+            state = "app in background"
+        } else{
+            state = "app killed"
+        }
+    
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-        APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "app in background", onSuccess: { (Msg) in
+        APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: state, onSuccess: { (Msg) in
             print(Msg)
         } ,onFailure : { (error) in
             print(error)
         })
         completionHandler(UIBackgroundFetchResult.newData)
     }
+    
+    
     // [END receive_message]
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Unable to register for remote notifications: \(error.localizedDescription)")
@@ -281,6 +293,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             // Fallback on earlier versions
         }
+    }
+    
+    func scheduleNotification(notificationType: String) {
+        
+        let content = UNMutableNotificationContent()
+        let categoryIdentifire = "Background Local Notification Type"
+        
+        content.title = "Alert_title_txt".localiz()
+        content.body  = notificationType.localiz()
+        content.sound = UNNotificationSound.default
+        content.categoryIdentifier = categoryIdentifire
+        
+        //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let identifier = "Local Notification"
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+        
+        notificationCenter.add(request) { (error) in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+            }
+        }
+        
+        let snoozeAction = UNNotificationAction(identifier: "Snooze", title: "Snooze", options: [])
+        let deleteAction = UNNotificationAction(identifier: "DeleteAction", title: "Delete", options: [.destructive])
+        let category = UNNotificationCategory(identifier: categoryIdentifire,
+                                              actions: [snoozeAction, deleteAction],
+                                              intentIdentifiers: [],
+                                              options: [])
+        
+        notificationCenter.setNotificationCategories([category])
     }
     
 }
