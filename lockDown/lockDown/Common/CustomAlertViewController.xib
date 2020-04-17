@@ -48,12 +48,12 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RM-EV-aC4" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                            <rect key="frame" x="20" y="108" width="355" height="49"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RM-EV-aC4" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="20" y="81" width="355" height="76"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="49" id="GkO-dp-jyI"/>
+                                <constraint firstAttribute="height" constant="76" id="GkO-dp-jyI"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
