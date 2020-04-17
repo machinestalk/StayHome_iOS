@@ -195,7 +195,7 @@ class BiometricsAuthViewController: BaseController {
         biometricsBottomVC.delegate = self
         let height = view.frame.height
         let width  = view.frame.width
-        biometricsBottomVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        biometricsBottomVC.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.maxY, width: width, height: height)
         self.addChild(biometricsBottomVC)
         self.view.addSubview(biometricsBottomVC.view)
         biometricsBottomVC.didMove(toParent: self)
