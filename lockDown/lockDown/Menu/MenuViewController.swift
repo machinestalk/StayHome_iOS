@@ -222,7 +222,7 @@ extension MenuViewController: UITableViewDataSource {
 
 extension MenuViewController: CustomAlertViewDelegate {
     
-    func okButtonTapped() {
+    func okButtonTapped(customAlert: CustomAlertViewController) {
         let customAlert = CustomAlertViewController(nibName: "CustomAlertViewController", bundle: nil)
         customAlert.providesPresentationContextTransitionStyle = true
         customAlert.definesPresentationContext = true
@@ -233,7 +233,7 @@ extension MenuViewController: CustomAlertViewDelegate {
         self.present(customAlert, animated: true, completion: nil)
     }
     
-    func cancelButtonTapped() {
+    func cancelButtonTapped(customAlert: CustomAlertViewController) {
         
     }
 }

@@ -152,7 +152,8 @@ class LoginViewController: BaseController {
         }
         
         if phoneText.isEmptyOrNull {
-            setErrorMsg(msg: "SgIn_SgIn_lbl_empty_phone_number_email".localiz())
+            
+            self.displayAlert(message:"SgIn_SgIn_lbl_empty_phone_number_email".localiz(), type: "phone")
            
             return false
         }
@@ -163,21 +164,12 @@ class LoginViewController: BaseController {
             {
                 if !phoneText.isValidSaoudiPhoneNumber
                 {
-                     setErrorMsg(msg: "SgIn_SgIn_lbl_invalid_lenght_phone_number".localiz())
+                    self.displayAlert(message:"SgIn_SgIn_lbl_invalid_lenght_phone_number".localiz(), type: "phone")
                     return false
                 }
             }
-                //Case Email
-            else
-            {
-                if !phoneText.isValidEmail
-                {   setErrorMsg(msg: "SgIn_SgIn_lbl_invalid_email".localiz())
-                    return false
-                }
-            }
+
         }
-        
-        
         
         return true
     }
@@ -254,7 +246,7 @@ class LoginViewController: BaseController {
             let errorr = error as NSError
             let errorDict = errorr.userInfo
             self.finishLoading()
-            self.displayAlert(message:errorDict["message"] as! String)
+            self.displayAlert(message:errorDict["message"] as! String, type: "login")
         })
     }
     
@@ -288,15 +280,6 @@ class LoginViewController: BaseController {
     func validateNumber(username: String){
         self.startLoading()
     }
-
-    
-    func setErrorMsg(msg : String)  {
-        self.errorView.isHidden = false
-        self.errorLbl.text = msg
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.errorView.isHidden = true
-        }
-    }
     
     func displayHomePage(){
         
@@ -306,14 +289,14 @@ class LoginViewController: BaseController {
 //        appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()
     }
     
-    func displayAlert(message: String) {
+    func displayAlert(message: String, type: String) {
         
         let customAlert = CustomAlertViewController(nibName: "CustomAlertViewController", bundle: nil)
         customAlert.providesPresentationContextTransitionStyle = true
         customAlert.definesPresentationContext = true
         customAlert.modalPresentationStyle = .overCurrentContext
         customAlert.modalTransitionStyle = .crossDissolve
-        customAlert.type = "login"
+        customAlert.type = type
         customAlert.message = message
         customAlert.delegate = self
         self.present(customAlert, animated: true, completion: nil)
@@ -322,12 +305,17 @@ class LoginViewController: BaseController {
 
 extension LoginViewController: CustomAlertViewDelegate {
     
-    func okButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
+    func okButtonTapped(customAlert: CustomAlertViewController) {
+        if customAlert.type != "phone" {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
-    
-    func cancelButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
+
+    func cancelButtonTapped(customAlert: CustomAlertViewController) {
+        if customAlert.type != "phone" {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }
 

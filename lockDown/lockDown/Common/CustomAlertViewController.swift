@@ -9,8 +9,8 @@
 import UIKit
 
 protocol CustomAlertViewDelegate: class {
-    func okButtonTapped()
-    func cancelButtonTapped()
+    func okButtonTapped(customAlert :CustomAlertViewController)
+    func cancelButtonTapped(customAlert: CustomAlertViewController)
 }
 
 class CustomAlertViewController: UIViewController {
@@ -52,6 +52,13 @@ class CustomAlertViewController: UIViewController {
             titleLbl.isHidden = true
             alertImage.image = UIImage(named: "red_fail")
             msgLbl.text = "logout1_txt_msg".localiz()
+        case "phone":
+            okBtn.isHidden = false
+            titleLbl.isHidden = true
+            alertImage.isHidden = true
+            msgLbl.text = message
+            okBtn.setTitle("okayBtn_txt".localiz(), for: .normal)
+            okbtnConstraint.constant = 90
         default:
             break
         }
@@ -60,12 +67,12 @@ class CustomAlertViewController: UIViewController {
     
     @IBAction func onTapCancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-        delegate?.cancelButtonTapped()
+        delegate?.cancelButtonTapped(customAlert: self)
     }
     
     @IBAction func onTapOkButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-        delegate?.okButtonTapped()
+        delegate?.okButtonTapped(customAlert: self)
     }
     
     
