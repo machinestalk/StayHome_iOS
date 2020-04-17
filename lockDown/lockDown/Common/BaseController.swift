@@ -14,6 +14,8 @@ import MBProgressHUD
 
 
 class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
+    
+    
 
     var alertIsShown = false
     var selectedImage = UIImage.init()
@@ -79,7 +81,21 @@ class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
         alertIsShown = false
             self.hidePopUpAlert()
     }
+    func emergencyBtnClick() {
+        alertIsShown = false
+        self.hidePopUpAlert()
+        print("emergencyClick")
+        makePhoneCall(phoneNumber:"937")
+    }
     
+    func makePhoneCall(phoneNumber: String) {
+        
+        if let phoneURL = NSURL(string: ("tel://" + phoneNumber)) {
+            
+            UIApplication.shared.open(phoneURL as URL, options: [:], completionHandler: nil)
+        }
+    }
+
     //MARK:- Set Up Navigation bar
     func setupNavigationBar()  {
         
