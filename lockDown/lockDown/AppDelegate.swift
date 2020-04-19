@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var navVC:UINavigationController?
     var dashboardVc: HomeViewController!
     let notificationCenter = UNUserNotificationCenter.current()
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
@@ -245,13 +245,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
-        
-        let VC = HomeViewController(nibName: "HomeViewController", bundle: nil)
-        VC.checkAllServicesActivityFromBackground()
+          if UserDefaults.standard.bool(forKey: "isSignedUp")  {
+            let VC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+            VC.checkAllServicesActivityFromBackground()
+        }
         completionHandler(UIBackgroundFetchResult.newData)
     }
-    
-    
+   
     // [END receive_message]
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Unable to register for remote notifications: \(error.localizedDescription)")

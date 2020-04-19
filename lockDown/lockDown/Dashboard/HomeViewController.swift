@@ -34,7 +34,6 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var cardVisible = false
     var isfirstTime = false
     var isNextBtnTapped = false
-    var isLocationEnabled = false
     var nextState:CardState {
         return cardVisible ? .collapsed : .expanded
     }
@@ -52,7 +51,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     var userMotionActivity: CMMotionActivity!
     var userMotionManager: CMMotionManager!
-        
+    var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+
     func getTelephonyInfo() -> Dictionary<String, CTCarrier>{
         
         let networkInfo = CTTelephonyNetworkInfo()
@@ -567,6 +567,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 self.sendData()
                 self.getUserstatus()
             }
+            self.registerBackgroundTask()
         }
         customTimer.resume()
     }
@@ -645,6 +646,20 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
         
     }
+   func registerBackgroundTask() {
+             backgroundTask = UIApplication.shared.beginBackgroundTask {
+             [unowned self] in
+                 self.endBackgroundTask()
+             }
+             assert(backgroundTask != UIBackgroundTaskIdentifier.invalid)
+         }
+
+         func endBackgroundTask() {
+             NSLog("Background task ended.")
+             UIApplication.shared.endBackgroundTask(backgroundTask)
+             backgroundTask = UIBackgroundTaskIdentifier.invalid
+         }
+      
     
 }
 
