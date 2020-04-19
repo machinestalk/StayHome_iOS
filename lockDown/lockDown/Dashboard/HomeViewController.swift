@@ -34,6 +34,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var cardVisible = false
     var isfirstTime = false
     var isNextBtnTapped = false
+    var isLocationEnabled = false
     var nextState:CardState {
         return cardVisible ? .collapsed : .expanded
     }
@@ -210,8 +211,12 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     func checkAllServicesActivityFromBackground()  {
         
-        startScanningBTDevices()
-        _ = checkIfLocationEnabled()
+      
+        if !bluetoothEnabled {
+            showAlertBluetooth()
+        }
+        getUserstatus()
+        //sendData()
     }
     
     
@@ -511,36 +516,41 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         batteryLevel = Int(UIDevice.current.batteryLevel)
         let locationState = checkIfLocationEnabled()
-        if Double(locationManager.location!.horizontalAccuracy) < 300 {
-
-            if userMotionActivity != nil &&  locValue != nil {
-                if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-                    if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                        logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-                        peripherals.removeAll()
-                        let myhomeLocation = UserDefaults.standard.location(forKey:"myhomeLocation")
-                        let Circleloc : CLLocation =  CLLocation(latitude: myhomeLocation!.latitude, longitude: myhomeLocation!.longitude)
-                        let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-                        let distance = Circleloc.distance(from: myLocation)
-                        if(distance >= 100)
-                        {
-                            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
-                                print(Msg)
-                            } ,onFailure : { (error) in
-                                print(error)
-                            })
-                        }
-                        else {
-                            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
-                                print(Msg)
-                            } ,onFailure : { (error) in
-                                print(error)
-                            })
-                            
+        if locationState == "authorizedAlways" {
+            if Double(locationManager.location!.horizontalAccuracy) < 300 {
+                
+                if userMotionActivity != nil &&  locValue != nil {
+                    if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
+                        if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+                            logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
+                            peripherals.removeAll()
+                            let myhomeLocation = UserDefaults.standard.location(forKey:"myhomeLocation")
+                            let Circleloc : CLLocation =  CLLocation(latitude: myhomeLocation!.latitude, longitude: myhomeLocation!.longitude)
+                            let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+                            let distance = Circleloc.distance(from: myLocation)
+                            if(distance >= 100)
+                            {
+                                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
+                                    print(Msg)
+                                } ,onFailure : { (error) in
+                                    print(error)
+                                })
+                            }
+                            else {
+                                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
+                                    print(Msg)
+                                } ,onFailure : { (error) in
+                                    print(error)
+                                })
+                                
+                            }
                         }
                     }
                 }
             }
+        }
+        else {
+            
         }
     }
 
@@ -570,15 +580,30 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     }
     //MARK : Check User out of zone
     func getUserstatus(){
+        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+        self.locationManager.delegate = self
+        self.locationManager.startUpdatingLocation()
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         let myhomeLocation = UserDefaults.standard.location(forKey:"myhomeLocation")
         let Circleloc : CLLocation =  CLLocation(latitude: myhomeLocation?.latitude ?? 0.0, longitude: myhomeLocation?.longitude ?? 0.0)
+        locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
         let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
         let distance = Circleloc.distance(from: myLocation)
         if(distance >= 100)
         {
             showAlertZone()
+            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
+                print(Msg)
+            } ,onFailure : { (error) in
+                print(error)
+            })
         }
         else {
+            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
+                print(Msg)
+            } ,onFailure : { (error) in
+                print(error)
+            })
             
         }
     }

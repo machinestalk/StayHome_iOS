@@ -231,7 +231,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let messageID = userInfo["id"] {
             print("Message ID: \(messageID)")
         }
-        
         // Print full message.
         print(userInfo)
     }
@@ -249,21 +248,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let VC = HomeViewController(nibName: "HomeViewController", bundle: nil)
         VC.checkAllServicesActivityFromBackground()
-
-        var state = ""
-        
-        if application.applicationState == .background {
-            state = "app in background"
-        } else{
-            state = "app killed"
-        }
-    
-        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-        APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: state, onSuccess: { (Msg) in
-            print(Msg)
-        } ,onFailure : { (error) in
-            print(error)
-        })
         completionHandler(UIBackgroundFetchResult.newData)
     }
     
