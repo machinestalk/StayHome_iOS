@@ -219,13 +219,19 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     }
     
     func checkAllServicesActivityFromBackground()  {
+
+         batteryLevel = Int(UIDevice.current.batteryLevel)
         
-      
-        if !bluetoothEnabled {
-            showAlertBluetooth()
-        }
+        let userPhoneNumber = UserDefaults.standard.value(forKey: "UserNameSignUp") as! String
+        bluetoothManager.delegate = self
+        bluetoothManager.startAdvertising(with: "BT:\(userPhoneNumber)")
+        
+        self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
+        
+        activityManager.delegate = self
+        activityManager.startActivityScan()
+        
         getUserstatus()
-        //sendData()
     }
     
     
@@ -509,47 +515,14 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     }
 
     
-    func sendData() {
-
+    func writeDataToLogFile() {
+        
         createLogFile()
-        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-        batteryLevel = Int(UIDevice.current.batteryLevel)
-        let locationState = checkIfLocationEnabled()
-        if locationState == "authorizedAlways" {
-            if Double(locationManager.location!.horizontalAccuracy) < 300 {
-                
-                if userMotionActivity != nil &&  locValue != nil {
-                    if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-                        if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                            logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(locationState) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-                            peripherals.removeAll()
-                            let myhomeLocation = UserDefaults.standard.location(forKey:"myhomeLocation")
-                            let Circleloc : CLLocation =  CLLocation(latitude: myhomeLocation!.latitude, longitude: myhomeLocation!.longitude)
-                            let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-                            let distance = Circleloc.distance(from: myLocation)
-                            if(distance >= 100)
-                            {
-                                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
-                                    print(Msg)
-                                } ,onFailure : { (error) in
-                                    print(error)
-                                })
-                            }
-                            else {
-                                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
-                                    print(Msg)
-                                } ,onFailure : { (error) in
-                                    print(error)
-                                })
-                                
-                            }
-                        }
-                    }
-                }
+        if userMotionActivity != nil &&  locValue != nil {
+            if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
+                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
+                peripherals.removeAll()
             }
-        }
-        else {
-            
         }
     }
 
@@ -562,8 +535,6 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         customTimer.eventHandler = {
             if self.locationManager.location != nil && self.locValue != nil {
-                self.getSpeed()
-                self.sendData()
                 self.getUserstatus()
             }
             self.registerBackgroundTask()
@@ -603,6 +574,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             })
             
         }
+        writeDataToLogFile()
     }
     
     // MARK : Log in File
