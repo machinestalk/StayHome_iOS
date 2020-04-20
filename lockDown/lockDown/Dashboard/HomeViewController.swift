@@ -88,7 +88,14 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var animationProgressWhenInterrupted:CGFloat = 0
     var locValue: CLLocationCoordinate2D!
     var navigatedToMyLocation : Bool! = false
-    var locationManager = CLLocationManager()
+    private lazy var locationManager: CLLocationManager = {
+      let manager = CLLocationManager()
+      manager.desiredAccuracy = kCLLocationAccuracyBest
+      manager.delegate = self
+      manager.requestAlwaysAuthorization()
+      manager.allowsBackgroundLocationUpdates = true
+      return manager
+    }()
     var currentLocation: CLLocationCoordinate2D!
 
     var countdownTimer: Timer!
@@ -110,6 +117,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
+        
+        locationManager.startUpdatingLocation()
 
         //is Battery Monitoring Enabled
         UIDevice.current.isBatteryMonitoringEnabled = true
@@ -282,9 +291,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if CLLocationManager.authorizationStatus() == .authorizedAlways {
                 
                 locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
-                self.locationManager.delegate = self
-                self.locationManager.startUpdatingLocation()
-                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+
                // scheduledTimerWithTimeInterval()
             }
             else {
@@ -296,9 +303,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if CLLocationManager.authorizationStatus() == .authorizedAlways {
 
                 locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
-                self.locationManager.delegate = self
-                self.locationManager.startUpdatingLocation()
-                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -345,11 +350,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             // Enable features that require location services here.
             
             locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
-            self.locationManager.delegate = self
-            self.locationManager.startUpdatingLocation()
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-         
-            
+
             break
         }
         
@@ -435,10 +436,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         case .authorizedAlways :
             
                 locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
-                self.locationManager.delegate = self
-                self.locationManager.startUpdatingLocation()
-                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 
+                
             break
         default: break
             // Permission denied, do something else
@@ -582,9 +581,6 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     //MARK : Check User out of zone
     func getUserstatus(){
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-        self.locationManager.delegate = self
-        self.locationManager.startUpdatingLocation()
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         let myhomeLocation = UserDefaults.standard.location(forKey:"myhomeLocation")
         let Circleloc : CLLocation =  CLLocation(latitude: myhomeLocation?.latitude ?? 0.0, longitude: myhomeLocation?.longitude ?? 0.0)
         locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
