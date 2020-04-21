@@ -100,7 +100,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stay_home" translatesAutoresizingMaskIntoConstraints="NO" id="Wrl-Tn-sXQ">
-                            <rect key="frame" x="62" y="305" width="290" height="128"/>
+                            <rect key="frame" x="62" y="305" width="290" height="128.00000000000003"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="128" id="kbe-j7-zHX"/>
                             </constraints>
@@ -169,7 +169,7 @@
         <image name="big_green_check" width="57" height="57"/>
         <image name="circles_step3" width="316.5" height="17"/>
         <image name="green_button" width="134.5" height="47"/>
-        <image name="logo_ministry" width="155.5" height="119"/>
+        <image name="logo_ministry" width="286.5" height="130.5"/>
         <image name="stay_home" width="193" height="98.5"/>
     </resources>
 </document>
