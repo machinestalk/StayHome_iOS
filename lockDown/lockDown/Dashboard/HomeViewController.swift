@@ -223,11 +223,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
 
          batteryLevel = Int(UIDevice.current.batteryLevel)
         
-        let userPhoneNumber = UserDefaults.standard.value(forKey: "UserNameSignUp") as! String
         bluetoothManager.delegate = self
-        bluetoothManager.startAdvertising(with: "BT:\(userPhoneNumber)")
-        
-        self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
+        bluetoothManager.startScanning()
         
         activityManager.delegate = self
         activityManager.startActivityScan()
