@@ -223,8 +223,13 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
 
          batteryLevel = Int(UIDevice.current.batteryLevel)
         
-        bluetoothManager.delegate = self
-        bluetoothManager.startScanning()
+        if (batteryLevel < 20 && batteryLevel > 0) {
+            showAlertBattery()
+        }
+        
+        if !bluetoothEnabled{
+            showAlertBluetooth()
+        }
         
         activityManager.delegate = self
         activityManager.startActivityScan()
