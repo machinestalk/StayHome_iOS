@@ -229,7 +229,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     func checkAllServicesActivityFromBackground()  {
         
-        if (batteryLevel * 100 < 20 ) {
+        if (batteryLevel  < 0.2 && batteryLevel > 0.0 ) {
             showAlertBattery()
         }
         
@@ -237,6 +237,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             showAlertBluetooth()
         }
         
+        
+        activityManager.delegate = self
+        activityManager.startActivityScan()
+        
+        getUserstatus()
         guard let status = Network.reachability?.status else { return }
         
         switch status {
@@ -246,11 +251,6 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         case .wifi:
             break
         }
-        
-        activityManager.delegate = self
-        activityManager.startActivityScan()
-        
-        getUserstatus()
         
     }
     
