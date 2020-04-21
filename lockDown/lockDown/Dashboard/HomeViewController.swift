@@ -232,7 +232,6 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         activityManager.delegate = self
         activityManager.startActivityScan()
         
-        getUserstatus()
     }
     
     
@@ -539,6 +538,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         customTimer.eventHandler = {
             if self.locationManager.location != nil && self.locValue != nil {
                 self.getUserstatus()
+                self.checkAllServicesActivityFromBackground()
             }
             self.registerBackgroundTask()
         }

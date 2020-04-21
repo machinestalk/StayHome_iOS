@@ -247,7 +247,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Print message ID.
           if UserDefaults.standard.bool(forKey: "isSignedUp")  {
             let VC = HomeViewController(nibName: "HomeViewController", bundle: nil)
-            VC.checkAllServicesActivityFromBackground()
+            VC.startCustomTimer()
         }
         completionHandler(UIBackgroundFetchResult.newData)
     }
