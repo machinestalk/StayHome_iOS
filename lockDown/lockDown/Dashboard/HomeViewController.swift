@@ -93,6 +93,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
       manager.desiredAccuracy = kCLLocationAccuracyBest
       manager.delegate = self
       manager.requestAlwaysAuthorization()
+      manager.startUpdatingLocation()
+      manager.startMonitoringSignificantLocationChanges()
       manager.allowsBackgroundLocationUpdates = true
       return manager
     }()
