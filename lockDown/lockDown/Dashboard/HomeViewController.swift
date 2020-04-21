@@ -232,6 +232,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         activityManager.delegate = self
         activityManager.startActivityScan()
         
+        getUserstatus()
+        
     }
     
     
