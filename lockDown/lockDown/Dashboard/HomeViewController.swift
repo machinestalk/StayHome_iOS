@@ -209,6 +209,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
 
     func showAlertInternet(){
         NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"internet"])
+        self.appDelegate.scheduleNotification(notificationType: "Alert_wifi_msg_txt")
     }
     func showAlertZone(){
         DispatchQueue.main.async {
@@ -409,6 +410,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     }
     
     //Location Manager delegates
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
         if let lastLocation = locations.last {
@@ -424,8 +426,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             // manager.requestLocation()
             break
         case .restricted, .denied, .authorizedWhenInUse:
+            self.appDelegate.scheduleNotification(notificationType: "Alert_gps_msg_txt")
             let alert = UIAlertController(title: "", message: "locationAlert_txt".localiz(), preferredStyle: UIAlertController.Style.alert)
-            
             // Button to Open Settings
             alert.addAction(UIAlertAction(title: "Settings_txt".localiz(), style: UIAlertAction.Style.default, handler: { action in
                 guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
@@ -508,6 +510,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             isInternetOK = true
             print("wifi reachable")
         case .wwan:
+            showAlertInternet()
             isInternetOK = true
             print("wwan reachable")
         }
