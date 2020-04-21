@@ -292,7 +292,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         content.categoryIdentifier = categoryIdentifire
         
         //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let identifier = "Local Notification"
+        let identifier = notificationType
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
         
         notificationCenter.add(request) { (error) in

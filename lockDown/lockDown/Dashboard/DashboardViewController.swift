@@ -46,9 +46,10 @@ class DashboardViewController: BaseController ,GMSMapViewDelegate , CLLocationMa
     var alertBluetoothIsOpen = false
     var alertBatteryIsOpen = false
     var alertInternetIsOpen = false
+    var isInternetOK = false
     
     var carrier = CTCarrier()
-    
+    var batteryLevel = Int(UIDevice.current.batteryLevel)
     var userMotionActivity: CMMotionActivity!
     var userMotionManager: CMMotionManager!
         

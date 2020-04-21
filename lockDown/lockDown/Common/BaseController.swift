@@ -21,8 +21,6 @@ class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
     var selectedImage = UIImage.init()
     var attentionAlertViewController: AttentionAlertViewController!
     var bluetoothEnabled = false
-    var batteryLevel = Int(UIDevice.current.batteryLevel)
-    var isInternetOK = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

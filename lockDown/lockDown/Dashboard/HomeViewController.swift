@@ -46,6 +46,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var alertBluetoothIsOpen = false
     var alertBatteryIsOpen = false
     var alertInternetIsOpen = false
+    var isInternetOK = true
     
     var carrier = CTCarrier()
     
@@ -113,6 +114,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     @IBOutlet weak var menuBtn: UIButton!
     
     var activityManager = ActivityManager()
+    
+    var batteryLevel: Float { UIDevice.current.batteryLevel }
     
     override func viewDidLoad() {
         
@@ -191,26 +194,29 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         carrier = getTelephonyInfo().first!.value
     }
     @objc func batteryLevelDidChange(_ notification: Notification) {
-        print( "batteryLevel = \(batteryLevel)" )
-        if(batteryLevel<20 && batteryLevel>0){
-            showAlertBattery()
-             
-        }
+        
     }
     // MARK: Show Alerts
 
     func showAlertBluetooth(){
-        NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bluetooth"])
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bluetooth"])
+        }
         self.appDelegate.scheduleNotification(notificationType: "Alert_bluetooth_msg_txt")
     }
-
+    
     func showAlertBattery(){
-        NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"battery"])
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"battery"])
+        }
         self.appDelegate.scheduleNotification(notificationType: "Alert_battery_msg_txt")
     }
-
+    
     func showAlertInternet(){
-        NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"internet"])
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"internet"])
+            
+        }
         self.appDelegate.scheduleNotification(notificationType: "Alert_wifi_msg_txt")
     }
     func showAlertZone(){
@@ -222,15 +228,23 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     }
     
     func checkAllServicesActivityFromBackground()  {
-
-         batteryLevel = Int(UIDevice.current.batteryLevel)
         
-        if (batteryLevel < 20 && batteryLevel > 0) {
+        if (batteryLevel * 100 < 20 ) {
             showAlertBattery()
         }
         
         if !bluetoothEnabled{
             showAlertBluetooth()
+        }
+        
+        guard let status = Network.reachability?.status else { return }
+        
+        switch status {
+        case .unreachable, .wwan:
+            showAlertInternet()
+            break
+        case .wifi:
+            break
         }
         
         activityManager.delegate = self
@@ -516,7 +530,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             print("wifi reachable")
         case .wwan:
             showAlertInternet()
-            isInternetOK = true
+            isInternetOK = false
             print("wwan reachable")
         }
         
