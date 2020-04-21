@@ -12,7 +12,7 @@ var language = String()
 struct LockDown {
     
     struct ProductionServer {
-        static let baseURL = "http://ci.thingstalk.io/"
+        static let baseURL = "http://uat.thingstalk.io/"
         static let identityServerURL = "https://auth.motorna.sa/v21"
     }
     struct DeveloppementServer {
