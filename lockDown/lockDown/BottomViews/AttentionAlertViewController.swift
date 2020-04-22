@@ -29,7 +29,7 @@ class AttentionAlertViewController: UIViewController {
        
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         //            attentionAlertViewControllerBluetooth.
         //            attentionAlertViewControllerBluetooth.
@@ -52,8 +52,14 @@ class AttentionAlertViewController: UIViewController {
             msgLbl.text = "Alert_logout_msg_txt".localiz()
             alertImage.image = UIImage(named: "red_fail")
             break
-        case "zone":
+        case "zone_exit":
             msgLbl.text = "Alert_out_zone_msg_txt".localiz()
+            okBtn.isHidden = true
+            stackView.isHidden = false
+            alertImage.image = UIImage(named: "red_speaker")
+            break
+        case "zone_entry":
+            msgLbl.text = "Alert_in_zone_msg_txt".localiz()
             okBtn.isHidden = true
             stackView.isHidden = false
             alertImage.image = UIImage(named: "red_speaker")

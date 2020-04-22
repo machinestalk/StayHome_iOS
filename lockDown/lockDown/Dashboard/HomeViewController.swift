@@ -15,7 +15,16 @@ import CoreMotion
 import CoreLocation
 import CoreTelephony
 
+struct PreferencesKeys {
+  static let savedItems = "savedItems"
+}
+
 class HomeViewController: BaseController, CLLocationManagerDelegate{
+    
+    enum EventType: String {
+      case onEntry = "On Entry"
+      case onExit = "On Exit"
+    }
     
     enum CardState {
         case expanded
@@ -219,12 +228,29 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
         self.appDelegate.scheduleNotification(notificationType: "Alert_wifi_msg_txt")
     }
-    func showAlertZone(){
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone"])
+    func showAlertZoneWithEvent(eventType : EventType){
+        
+        switch eventType {
+        case .onEntry:
+            if !UserDefaults.standard.bool(forKey: "didEnterZone") {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone_entry"])
+                }
+                self.appDelegate.scheduleNotification(notificationType: "Alert_in_zone_msg_txt")
+                UserDefaults.standard.set(true, forKey: "didEnterZone")
+                UserDefaults.standard.set(false, forKey: "didExitZone")
+            }
+        case .onExit:
             
+            if !UserDefaults.standard.bool(forKey: "didExitZone") {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone_exit"])
+                }
+                self.appDelegate.scheduleNotification(notificationType: "Alert_out_zone_msg_txt")
+                UserDefaults.standard.set(true, forKey: "didExitZone")
+                UserDefaults.standard.set(false, forKey: "didEnterZone")
+            }
         }
-        self.appDelegate.scheduleNotification(notificationType: "Alert_out_zone_msg_txt")
     }
     
     func checkAllServicesActivityFromBackground()  {
@@ -240,8 +266,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         activityManager.delegate = self
         activityManager.startActivityScan()
-        
         getUserstatus()
+        
         guard let status = Network.reachability?.status else { return }
         
         switch status {
@@ -428,7 +454,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
     }
     
-    //Location Manager delegates
+    //MARK: Location Manager delegates
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
@@ -470,8 +496,21 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             // Permission denied, do something else
         }
     }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+      if region is CLCircularRegion {
+        handleEvent(for: region)
+      }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+      if region is CLCircularRegion {
+        handleEvent(for: region)
+      }
+    }
+    
+    //MARK: Helpers
     let motionManager = CMMotionManager()
-
     func showAlertSpeed(){
 //        if(bluetoothEnabled == false){
 //            let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
@@ -582,7 +621,10 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         let distance = Circleloc.distance(from: myLocation)
         if(distance >= 100)
         {
-            showAlertZone()
+            if UserDefaults.standard.object(forKey: "didExitZone") == nil {
+                 UserDefaults.standard.set(false, forKey: "didExitZone")
+            }
+            showAlertZoneWithEvent(eventType: .onExit)
             APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
                 print(Msg)
             } ,onFailure : { (error) in
@@ -590,6 +632,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             })
         }
         else {
+        
+            if UserDefaults.standard.object(forKey: "didEnterZone") == nil {
+                 UserDefaults.standard.set(false, forKey: "didEnterZone")
+            }
+            showAlertZoneWithEvent(eventType: .onEntry)
             APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
                 print(Msg)
             } ,onFailure : { (error) in
@@ -652,7 +699,26 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
          }
       
     
-}
+      func handleEvent(for region: CLRegion!) {
+        // Show an alert if application is active
+        if UIApplication.shared.applicationState == .active {
+          guard let message = note(from: region.identifier) else { return }
+        } else {
+          // Otherwise present a local notification
+          guard let body = note(from: region.identifier) else { return }
+         
+        }
+      }
+      
+      func note(from identifier: String) -> String? {
+        let geotifications = Geotification.allGeotifications()
+        guard let matched = geotifications.filter({
+          $0.identifier == identifier
+        }).first else { return nil }
+        return matched.note
+      }
+      
+    }
 
 extension HomeViewController : BiometricsAuthProtocol{
     func requestRecognition(){
@@ -764,4 +830,5 @@ extension HomeViewController: ActivityManagerDelegate {
         userMotionManager = motionManager
     }
 }
+
 
