@@ -18,6 +18,7 @@
 		CD3412B45A2D09888AE1582D /* Pods_lockDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA45852916987272EE4010E3 /* Pods_lockDown.framework */; };
 		FA012F112447134600E647B9 /* MyZoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA012F0F2447134600E647B9 /* MyZoneViewController.swift */; };
 		FA012F122447134600E647B9 /* MyZoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA012F102447134600E647B9 /* MyZoneViewController.xib */; };
+		FA048A192450355E00A027A5 /* Geotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA048A182450355E00A027A5 /* Geotification.swift */; };
 		FA17C4BD243337B9000516EF /* BiometricsAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */; };
 		FA17C4BE243337B9000516EF /* BiometricsAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */; };
 		FA66D6442434B8880036D137 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA66D6432434B8880036D137 /* BaseController.swift */; };
@@ -135,6 +136,7 @@
 		F261705A9F8FED30AE760D35 /* Pods-lockDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDown.release.xcconfig"; path = "Target Support Files/Pods-lockDown/Pods-lockDown.release.xcconfig"; sourceTree = "<group>"; };
 		FA012F0F2447134600E647B9 /* MyZoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyZoneViewController.swift; sourceTree = "<group>"; };
 		FA012F102447134600E647B9 /* MyZoneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyZoneViewController.xib; sourceTree = "<group>"; };
+		FA048A182450355E00A027A5 /* Geotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geotification.swift; sourceTree = "<group>"; };
 		FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsAuthViewController.swift; sourceTree = "<group>"; };
 		FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricsAuthViewController.xib; sourceTree = "<group>"; };
 		FA66D6432434B8880036D137 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				FAC36C802435DCFC002B4928 /* UserData.swift */,
+				FA048A182450355E00A027A5 /* Geotification.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -930,6 +933,7 @@
 				FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */,
 				FAC36C812435DCFC002B4928 /* UserData.swift in Sources */,
 				FA6E98A624329B83000F2C2E /* Button.swift in Sources */,
+				FA048A192450355E00A027A5 /* Geotification.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1121,8 +1125,7 @@
 				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20042101;
-				CURRENT_PROJECT_VERSION = 20042001;
+				CURRENT_PROJECT_VERSION = 20042103;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1149,8 +1152,7 @@
 				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20042101;
-				CURRENT_PROJECT_VERSION = 20042001;
+				CURRENT_PROJECT_VERSION = 20042103;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

@@ -16,7 +16,7 @@ struct LockDown {
         static let identityServerURL = "https://auth.motorna.sa/v21"
     }
     struct DeveloppementServer {
-        static let baseURL = "http://37.224.62.114:19501/api/v1"
+        static let baseURL = "http://ci.thingstalk.io/"
         static let identityServerURL = "http://37.224.62.114:19506"
     }
     struct QAServer {

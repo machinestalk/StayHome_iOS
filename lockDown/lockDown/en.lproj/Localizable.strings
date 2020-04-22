@@ -36,6 +36,7 @@
 "signin_singnup_txt"                      = "SignIn/SignUp";
 "Alert_bluetooth_msg_txt" = "You Have disactivate your BLUETOOTH.\nPlease check your parameters";
 "Alert_out_zone_msg_txt" = "You are out of your quarantined zone limits.\n Please go back now !";
+"Alert_in_zone_msg_txt" = "You are in your quarantined zone.\n Please stay at Home";
 "Alert_wifi_msg_txt" = "You Have disactivate your WIFI.\nPlease check your parameters";
 "Alert_battery_msg_txt" = "Your battery is running low...\nPlease recharge your Kindle.";
 "Alert_logout_msg_txt" = "Sorry, you should continue using the app until the self-quarantaine.";
