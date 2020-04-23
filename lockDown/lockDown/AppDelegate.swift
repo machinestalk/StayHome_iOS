@@ -25,7 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
-       
+        
+        UserDefaults.standard.set(false, forKey: "didShowAlertBluetooth")
+        UserDefaults.standard.set(false, forKey: "didShowAlertBattery")
+        UserDefaults.standard.set(false, forKey: "didShowAlertInternet")
+        
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             notificationCenter.delegate = self
@@ -330,18 +334,18 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         guard let aps = userInfo["aps"] as? NSDictionary else{return;}
         guard let value = aps.value(forKey: "alert") as? NSDictionary else { return;}
         guard let body = value.value(forKey: "body") as? String else { return;}
-        
-        
+        //guard let type = userInfo["type"] as? NSDictionary else{return;}
+        guard let typeString = userInfo["type"] as? String else { return;}
         
         // Print full message.
         print(userInfo)
-        if body == "check_in" {
+        if typeString == "check_in" {
            let CheckInVC = CheckInViewController(nibName: "CheckInViewController", bundle: nil)
             CheckInVC.isFromNotif = true
             let navController:UINavigationController = UINavigationController(rootViewController: CheckInVC)
              navController.modalPresentationStyle = .overCurrentContext
             self.navVC?.visibleViewController!.present(navController, animated: true, completion: nil);
-        }else if body == "resetFingers"{
+        }else if typeString == "resetFingers"{
             UserDefaults.standard.set(false, forKey: "isLocked")
             //NotificationCenter.default.post(name: Notification.Name("ResetFaceID"), object: nil, userInfo: nil)
             
@@ -365,13 +369,16 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         guard let aps = userInfo["aps"] as? NSDictionary else{return;}
         guard let value = aps.value(forKey: "alert") as? NSDictionary else { return;}
         guard let body = value.value(forKey: "body") as? String else { return;}
-        if body == "check_in" {
+        //guard let type = userInfo["type"] as? NSDictionary else{return;}
+        guard let typeString = userInfo["type"] as? String else { return;}
+        
+        if typeString == "check_in" {
             let CheckInVC = CheckInViewController(nibName: "CheckInViewController", bundle: nil)
             CheckInVC.isFromNotif = true
             let navController:UINavigationController = UINavigationController(rootViewController: CheckInVC)
             navController.modalPresentationStyle = .overCurrentContext
             self.navVC?.visibleViewController!.present(navController, animated: true, completion: nil);
-        }else if body == "resetFingers"{
+        }else if typeString == "resetFingers"{
             UserDefaults.standard.set(false, forKey: "isLocked")
             //NotificationCenter.default.post(name: Notification.Name("ResetFaceID"), object: nil, userInfo: nil)
         }

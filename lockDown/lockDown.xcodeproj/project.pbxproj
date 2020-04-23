@@ -40,8 +40,6 @@
 		FA6E98A624329B83000F2C2E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E989E24329B83000F2C2E /* Button.swift */; };
 		FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E98A824329CEA000F2C2E /* LoginViewController.swift */; };
 		FA6E98AB24329CEA000F2C2E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98A924329CEA000F2C2E /* LoginViewController.xib */; };
-		FA6E98AF24329D15000F2C2E /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E98AD24329D15000F2C2E /* DashboardViewController.swift */; };
-		FA6E98B024329D15000F2C2E /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98AE24329D15000F2C2E /* DashboardViewController.xib */; };
 		FA6E98B424329DA0000F2C2E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E98B224329DA0000F2C2E /* MenuViewController.swift */; };
 		FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B324329DA0000F2C2E /* MenuViewController.xib */; };
 		FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */; };
@@ -164,8 +162,6 @@
 		FA6E989E24329B83000F2C2E /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		FA6E98A824329CEA000F2C2E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FA6E98A924329CEA000F2C2E /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		FA6E98AD24329D15000F2C2E /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
-		FA6E98AE24329D15000F2C2E /* DashboardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardViewController.xib; sourceTree = "<group>"; };
 		FA6E98B224329DA0000F2C2E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		FA6E98B324329DA0000F2C2E /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		FA6E98B6243350CE000F2C2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -430,8 +426,6 @@
 		FA6E98AC24329CFA000F2C2E /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				FA6E98AD24329D15000F2C2E /* DashboardViewController.swift */,
-				FA6E98AE24329D15000F2C2E /* DashboardViewController.xib */,
 				FA8B003824462AD30097404A /* HomeViewController.swift */,
 				FA8B003924462AD30097404A /* HomeViewController.xib */,
 			);
@@ -712,7 +706,6 @@
 				FAC81E81243A84A7002DBADE /* ContentViewController.xib in Resources */,
 				FAB7F41F24339B0600061AE5 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				0039FC12243F859A0071486B /* AttentionAlertViewController.xib in Resources */,
-				FA6E98B024329D15000F2C2E /* DashboardViewController.xib in Resources */,
 				FAB7F41B24339B0600061AE5 /* OpenSans-LightItalic.ttf in Resources */,
 				FA17C4BE243337B9000516EF /* BiometricsAuthViewController.xib in Resources */,
 				FA6E9860243293FB000F2C2E /* Assets.xcassets in Resources */,
@@ -892,7 +885,6 @@
 			files = (
 				FA6E98A524329B83000F2C2E /* Checkbox.swift in Sources */,
 				FA6E98B424329DA0000F2C2E /* MenuViewController.swift in Sources */,
-				FA6E98AF24329D15000F2C2E /* DashboardViewController.swift in Sources */,
 				FA6E98A024329B83000F2C2E /* Constants.swift in Sources */,
 				FA6E989524329B7B000F2C2E /* APIRouter.swift in Sources */,
 				00E0FEBD243E6D0700FD3DCB /* CustomReachability.swift in Sources */,
@@ -1125,7 +1117,7 @@
 				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20042103;
+				CURRENT_PROJECT_VERSION = 20042202;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1152,7 +1144,7 @@
 				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20042103;
+				CURRENT_PROJECT_VERSION = 20042202;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				INFOPLIST_FILE = lockDown/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

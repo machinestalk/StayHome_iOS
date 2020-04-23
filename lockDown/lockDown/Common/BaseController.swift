@@ -20,7 +20,6 @@ class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
     var alertIsShown = false
     var selectedImage = UIImage.init()
     var attentionAlertViewController: AttentionAlertViewController!
-    var bluetoothEnabled = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

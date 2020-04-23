@@ -18,6 +18,7 @@ class BiometricsAuthViewController: BaseController {
     
     @IBOutlet weak var biometryTypeImageView: UIImageView!
     @IBOutlet weak var biometryTypeLabel: Label!
+    @IBOutlet weak var biometryLabel: Label!
     
     enum CardState {
         case expanded
@@ -71,59 +72,67 @@ class BiometricsAuthViewController: BaseController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setupBiometricsBottomVC()
+        
         // The biometryType, which affects this app's UI when state changes, is only meaningful
         //  after running canEvaluatePolicy. But make sure not to run this test from inside a
         //  policy evaluation callback (for example, don't put next line in the state's didSet
         //  method, which is triggered as a result of the state change made in the callback),
         //  because that might result in deadlock.
-        var error: NSError?
-        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error){
-            if self.context.evaluatedPolicyDomainState != nil && !UserDefaults.standard.bool(forKey: "isLocked"){
-                
-                switch context.biometryType {
-                case .none:
+        if isFromCheckIn {
+            self.view.backgroundColor = .white
+            biometryTypeImageView.image = UIImage(named: "blue_faceid")
+            biometryTypeLabel.text = "Face ID"
+            biometryLabel.isHidden = false
+            biometryLabel.text = "* Please Hold Near the Camera"
+            self.perform(#selector(tapButton), with: nil, afterDelay: 2.0)
+        } else {
+            setupBiometricsBottomVC()
+            var error: NSError?
+            if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error){
+                if self.context.evaluatedPolicyDomainState != nil && !UserDefaults.standard.bool(forKey: "isLocked"){
                     
+                    switch context.biometryType {
+                    case .none:
+                        
+                        biometryTypeImageView.image = UIImage(named: "ic_faceID")
+                        biometryTypeLabel.text = "Face ID"
+                        biometricsBottomVC.nextBtn.isEnabled = false
+                    case .faceID:
+                        biometricsBottomVC.nextBtn.isEnabled = true
+                        biometryTypeImageView.image = UIImage(named: "ic_faceID")
+                        biometryTypeLabel.text = "Face ID registration"
+                    case .touchID:
+                        biometricsBottomVC.nextBtn.isEnabled = true
+                        biometryTypeImageView.image = UIImage(named: "ic_finger")
+                        biometryTypeLabel.text = "Touch ID registration"
+                    default:
+                        break
+                    }
+                }else{
+                    UserDefaults.standard.set(nil, forKey: "currentbiometricstate")
+                    UserDefaults.standard.set(true, forKey: "isLocked")
                     biometryTypeImageView.image = UIImage(named: "ic_faceID")
                     biometryTypeLabel.text = "Face ID"
-                    biometricsBottomVC.nextBtn.isEnabled = false
-                case .faceID:
-                    biometricsBottomVC.nextBtn.isEnabled = true
-                    biometryTypeImageView.image = UIImage(named: "ic_faceID")
-                    biometryTypeLabel.text = "Face ID registration"
-                case .touchID:
-                    biometricsBottomVC.nextBtn.isEnabled = true
-                    biometryTypeImageView.image = UIImage(named: "ic_finger")
-                    biometryTypeLabel.text = "Touch ID registration"
-                default:
-                    break
+                    
+                    if UserDefaults.standard.bool(forKey: "isSignedUp"){
+                        
+                        setupNotMatchingBiometricsBottomVC()
+                    } else {
+                        setupUnvailableBiometricsBottomVC()
+                    }
                 }
             }else{
-                UserDefaults.standard.set(nil, forKey: "currentbiometricstate")
-                UserDefaults.standard.set(true, forKey: "isLocked")
-                biometryTypeImageView.image = UIImage(named: "ic_faceID")
-                biometryTypeLabel.text = "Face ID"
-                
-                if UserDefaults.standard.bool(forKey: "isSignedUp"){
-                    
-                    setupNotMatchingBiometricsBottomVC()
-                } else {
-                    setupUnvailableBiometricsBottomVC()
-                }
+                print(error?.localizedDescription ?? "")
             }
-        }else{
-            print(error?.localizedDescription ?? "")
         }
-        
-        
         // Set the initial app state. This impacts the initial state of the UI as well.
         state = .loggedout
     }
     
     /// Logs out or attempts to log in when the user taps the button.
     
-    func tapButton() {
-        
+    @objc func tapButton() {
+    
         if state == .loggedin {
             
             // Log out immediately.
@@ -153,7 +162,12 @@ class BiometricsAuthViewController: BaseController {
                             if (UserDefaults.standard.data(forKey: "currentbiometricstate") != nil){
                                 if UserDefaults.standard.data(forKey: "currentbiometricstate") == self.context.evaluatedPolicyDomainState  {
                                     self.state = .loggedin
-                                    self.setupSuccessBiometricsBottomVC()
+                                    if self.isFromCheckIn {
+                                        self.requestRecognition()
+                                    } else {
+                                        self.setupSuccessBiometricsBottomVC()
+                                    }
+                                    
                                 }
                                 else {
                                     let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
@@ -234,6 +248,7 @@ class BiometricsAuthViewController: BaseController {
     }
     func setupSuccessBiometricsBottomVC(){
         
+        biometricsBottomVC.msgLbl.text = "Your face ID is successfully registered."
         biometricsBottomVC.titleLbl.isHidden = true
         biometricsBottomVC.successImage.image = UIImage(named: "big_green_check")
         biometricsBottomVC.successImage.isHidden = false

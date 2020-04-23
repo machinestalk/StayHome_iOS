@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BiometricsAuthViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
+                <outlet property="biometryLabel" destination="hrX-Fg-oEJ" id="KsL-p1-zYP"/>
                 <outlet property="biometryTypeImageView" destination="qS0-3U-UQV" id="J5b-xT-pRH"/>
                 <outlet property="biometryTypeLabel" destination="9ZR-YL-Dod" id="MV1-Hg-f5q"/>
                 <outlet property="stateView" destination="Uc6-kV-m0e" id="61H-U3-hrr"/>
@@ -47,13 +48,25 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Please Hold Near the Camera" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrX-Fg-oEJ" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="5" y="747" width="404" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="DNO-Ea-r86"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.92538958790000003" green="0.92554813619999998" blue="0.92537957429999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="hrX-Fg-oEJ" firstAttribute="leading" secondItem="Uc6-kV-m0e" secondAttribute="leading" constant="5" id="6rj-Ed-9Wn"/>
                         <constraint firstItem="u41-aa-GAY" firstAttribute="top" secondItem="Uc6-kV-m0e" secondAttribute="top" constant="100" id="JNv-ff-Oau"/>
                         <constraint firstAttribute="trailing" secondItem="u41-aa-GAY" secondAttribute="trailing" constant="5" id="Nlo-tL-3P5"/>
                         <constraint firstItem="u41-aa-GAY" firstAttribute="leading" secondItem="Uc6-kV-m0e" secondAttribute="leading" constant="5" id="PKz-Nt-wDt"/>
+                        <constraint firstAttribute="bottom" secondItem="hrX-Fg-oEJ" secondAttribute="bottom" constant="114" id="QV3-6u-4BL"/>
                         <constraint firstItem="qS0-3U-UQV" firstAttribute="centerX" secondItem="Uc6-kV-m0e" secondAttribute="centerX" id="YWh-zt-zqB"/>
+                        <constraint firstAttribute="trailing" secondItem="hrX-Fg-oEJ" secondAttribute="trailing" constant="5" id="bhj-OA-0mm"/>
                         <constraint firstItem="9ZR-YL-Dod" firstAttribute="top" secondItem="qS0-3U-UQV" secondAttribute="bottom" constant="30" id="buO-GS-wQX"/>
                         <constraint firstItem="qS0-3U-UQV" firstAttribute="top" secondItem="u41-aa-GAY" secondAttribute="bottom" constant="80" id="nBP-gl-frZ"/>
                         <constraint firstItem="9ZR-YL-Dod" firstAttribute="leading" secondItem="Uc6-kV-m0e" secondAttribute="leading" constant="5" id="nJO-mk-fp0"/>
@@ -61,7 +74,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.92538958790000003" green="0.92554813619999998" blue="0.92537957429999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Uc6-kV-m0e" secondAttribute="trailing" id="HzC-rI-8KE"/>
                 <constraint firstAttribute="bottom" secondItem="Uc6-kV-m0e" secondAttribute="bottom" id="edN-cG-522"/>

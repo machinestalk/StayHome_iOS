@@ -56,6 +56,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var alertBatteryIsOpen = false
     var alertInternetIsOpen = false
     var isInternetOK = true
+    var bluetoothEnabled = true
     
     var carrier = CTCarrier()
     
@@ -130,8 +131,14 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
         
+        let dateString = Date().toString(dateFormat: "yyyyMMdd")
+        let logFileName = "\(dateString).csv"
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            fileURL = dir.appendingPathComponent(logFileName)
+        }
+        createLogFile()
+        self.navigationController?.navigationBar.isHidden = true
         locationManager.startUpdatingLocation()
 
         //is Battery Monitoring Enabled
@@ -178,11 +185,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationLocation"), object: nil)
         self.navigationItem.rightBarButtonItem = nil
 
-        let dateString = Date().toString(dateFormat: "yyyyMMdd")
-        let logFileName = "\(dateString).csv"
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            fileURL = dir.appendingPathComponent(logFileName)
-        }
+        
         setLocation()
         let deviceId = UserDefaults.standard.string(forKey: "deviceId")
         let firebaseToken = UserDefaults.standard.string(forKey: "firebaseToken")
@@ -208,26 +211,39 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     // MARK: Show Alerts
 
     func showAlertBluetooth(){
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bluetooth"])
+
+        if !UserDefaults.standard.bool(forKey: "didShowAlertBluetooth") {
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bluetooth"])
+            }
+            self.appDelegate.scheduleNotification(notificationType: "Alert_bluetooth_msg_txt")
+            UserDefaults.standard.set(true, forKey: "didShowAlertBluetooth")
         }
-        self.appDelegate.scheduleNotification(notificationType: "Alert_bluetooth_msg_txt")
     }
     
     func showAlertBattery(){
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"battery"])
+        
+        if !UserDefaults.standard.bool(forKey: "didShowAlertBattery") {
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"battery"])
+            }
+            self.appDelegate.scheduleNotification(notificationType: "Alert_battery_msg_txt")
+            UserDefaults.standard.set(true, forKey: "didShowAlertBattery")
         }
-        self.appDelegate.scheduleNotification(notificationType: "Alert_battery_msg_txt")
     }
     
     func showAlertInternet(){
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"internet"])
-            
+        
+        if !UserDefaults.standard.bool(forKey: "didShowAlertInternet") {
+             DispatchQueue.main.async {
+                       NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"internet"])
+                       
+                   }
+                   self.appDelegate.scheduleNotification(notificationType: "Alert_wifi_msg_txt")
+            UserDefaults.standard.set(true, forKey: "didShowAlertInternet")
         }
-        self.appDelegate.scheduleNotification(notificationType: "Alert_wifi_msg_txt")
     }
+    
     func showAlertZoneWithEvent(eventType : EventType){
         
         switch eventType {
@@ -255,6 +271,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     func checkAllServicesActivityFromBackground()  {
         
+        getUserstatus()
+        
         if (batteryLevel  < 0.2 && batteryLevel > 0.0 ) {
             showAlertBattery()
         }
@@ -266,7 +284,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         activityManager.delegate = self
         activityManager.startActivityScan()
-        getUserstatus()
+        
         
         guard let status = Network.reachability?.status else { return }
         
@@ -596,7 +614,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         customTimer.eventHandler = {
             if self.locationManager.location != nil && self.locValue != nil {
-                self.getUserstatus()
+                //self.getUserstatus()
                 self.checkAllServicesActivityFromBackground()
             }
             self.registerBackgroundTask()
