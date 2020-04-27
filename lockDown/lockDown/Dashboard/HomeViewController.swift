@@ -114,6 +114,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var countdownTimer: Timer!
     var totalTime : Int!
     var fileURL : URL?
+    var fileBLEURL : URL?
     var Colons = [String]()
     
     @IBOutlet weak var statusImg: UIImageView!
@@ -134,10 +135,17 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         let dateString = Date().toString(dateFormat: "yyyyMMdd")
         let logFileName = "\(dateString).csv"
+        
+        let bleLogFileName = "BLE_SCAN_\(dateString).csv"
+        
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             fileURL = dir.appendingPathComponent(logFileName)
+            fileBLEURL = dir.appendingPathComponent(bleLogFileName)
         }
         createLogFile()
+        createBLELogFile()
+        
+        
         self.navigationController?.navigationBar.isHidden = true
         locationManager.startUpdatingLocation()
 
@@ -276,6 +284,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         if (batteryLevel  < 0.2 && batteryLevel > 0.0 ) {
             showAlertBattery()
         }
+        
+        let userPhoneNumber = UserDefaults.standard.value(forKey: "UserNameSignUp") as! String
+        bluetoothManager.delegate = self
+        bluetoothManager.startAdvertising(with: "BT:\(userPhoneNumber)")
+        self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
         
         if !bluetoothEnabled{
             showAlertBluetooth()
@@ -597,6 +610,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     func writeDataToLogFile() {
         
         createLogFile()
+        
         if userMotionActivity != nil &&  locValue != nil {
             if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
                 logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
@@ -688,6 +702,27 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             }
         }
     }
+    func createBLELogFile(){
+        
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let url = URL(fileURLWithPath: path)
+        let dateString = Date().toString(dateFormat:"yyyyMMdd")
+        let logFileName = "BLE_SCAN_\(dateString).csv"
+        let filePath = url.appendingPathComponent(logFileName).path
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: filePath) {
+            print("FILE AVAILABLE")
+        } else {
+            print("FILE NOT AVAILABLE")
+            let titleString = "DateTime ; BLE_Infos ;"
+            
+            do {
+                try "\(titleString)\n".write(to: fileBLEURL!, atomically: false, encoding: String.Encoding.utf8)
+            } catch {
+                print(error)
+            }
+        }
+    }
     //add data to log file
     func logToFile(value : String)  {
         
@@ -702,6 +737,23 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
         
     }
+    
+    func logToBLEFile(value : String)  {
+        
+        //writing
+        if fileBLEURL != nil {
+            do {
+                let fileHandle = try FileHandle(forWritingTo: fileBLEURL!)
+                fileHandle.seekToEndOfFile()
+                fileHandle.write(value.data(using: .utf8)!)
+                fileHandle.closeFile()
+            } catch {
+                print("Error writing to file \(error)")
+            }
+        }
+        
+    }
+    
    func registerBackgroundTask() {
              backgroundTask = UIApplication.shared.beginBackgroundTask {
              [unowned self] in
@@ -829,6 +881,10 @@ extension HomeViewController: BluetoothManagerDelegate {
     
     func peripheralsDidUpdate() {
         peripherals = Array(bluetoothManager.peripherals.values)
+        createBLELogFile()
+        if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
+            logToBLEFile(value: "\(Date()) ; \(Array(Set(peripherals))); \n")
+        }
     }
     
     func centralStateOn() {

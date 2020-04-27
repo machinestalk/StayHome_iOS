@@ -76,6 +76,7 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>bluetooth-central</string>
 		<string>fetch</string>
 		<string>location</string>
 		<string>remote-notification</string>
