@@ -65,6 +65,8 @@ extension CoreBluetoothManager: CBPeripheralManagerDelegate {
             if let name = self.name {
                 advertisingData[CBAdvertisementDataLocalNameKey] = name
             }
+            let deviceId = UserDefaults.standard.string(forKey: "deviceId")
+            advertisingData[CBAdvertisementDataServiceDataKey] = deviceId
             self.peripheralManager?.startAdvertising(advertisingData)
         } else {
             //TO DO

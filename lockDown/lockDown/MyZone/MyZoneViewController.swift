@@ -423,38 +423,38 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                currentLocation = lastLocation.coordinate
            }
            locValue = currentLocation
-           print("horizontalAccuracy : \( manager.location!.horizontalAccuracy)")
-           print("desiredAccuracy : \(manager.desiredAccuracy)")
-           let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
-           let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-           let distance = circleLocation.distance(from: myLocation)
-           
-           let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-           if manager.location!.horizontalAccuracy < 300 {
-               if(distance >= circle.radius)
-               {
-                   print("user out of zone")
-                   if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-                       if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
-                           //Alert please come back
-                         /*  let alert = UIAlertController(title: "zone", message: "you are out of zone, please come back", preferredStyle: .alert)
-                           
-                           alert.addAction(UIAlertAction(title: "Ok", style: .default,handler: {action in self.showAlertInternet()}))
-                           
-                           
-                           self.present(alert, animated: true)*/
-                           
-                           
-                           APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: " out of zone ", onSuccess: { (Msg) in
-                               print(Msg)
-                           } ,onFailure : { (error) in
-                               print(error)
-                           }
-                           )
-                       }
-                   }
-               }
-           }
+//           print("horizontalAccuracy : \( manager.location!.horizontalAccuracy)")
+//           print("desiredAccuracy : \(manager.desiredAccuracy)")
+//           let circleLocation : CLLocation =  CLLocation(latitude: circle.position.latitude, longitude: circle.position.longitude)
+//           let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+//           let distance = circleLocation.distance(from: myLocation)
+//
+//           let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+//           if manager.location!.horizontalAccuracy < 300 {
+//               if(distance >= circle.radius)
+//               {
+//                   print("user out of zone")
+//                   if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
+//                       if  UserDefaults.standard.bool(forKey: "isLocationSetted")  {
+//                           //Alert please come back
+//                         /*  let alert = UIAlertController(title: "zone", message: "you are out of zone, please come back", preferredStyle: .alert)
+//
+//                           alert.addAction(UIAlertAction(title: "Ok", style: .default,handler: {action in self.showAlertInternet()}))
+//
+//
+//                           self.present(alert, animated: true)*/
+//
+//
+//                           APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: " out of zone ", onSuccess: { (Msg) in
+//                               print(Msg)
+//                           } ,onFailure : { (error) in
+//                               print(error)
+//                           }
+//                           )
+//                       }
+//                   }
+//               }
+//           }
        }
        
     

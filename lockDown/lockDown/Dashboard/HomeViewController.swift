@@ -174,7 +174,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
         let userPhoneNumber = UserDefaults.standard.value(forKey: "UserNameSignUp") as! String
         bluetoothManager.delegate = self
-        bluetoothManager.startAdvertising(with: "BT:\(userPhoneNumber)")
+        bluetoothManager.startAdvertising(with: "StayHomeKSA_App")
         
         self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
         
@@ -618,11 +618,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     let infoDict = peripherals[index]
                     let bleName = infoDict["Name"]
                     let bleUID = infoDict["UID"]
-                    let bleServiceUUID = infoDict["ServiceUUID"]
                     let bleRSSI = infoDict["RSSI"]
                     let data = infoDict["Data"]
-                    
-                    logToBLEFile(value: "\(Date()) ; \(bleName ?? "No_Name") ; \(bleUID ?? "") ; \(bleServiceUUID ?? "") ; \(bleRSSI ?? "") ; \n")
+                    let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
+                    let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
+                    logToBLEFile(value: "\(Date()) ; \(bleName ?? "No_Name") ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
                 }
         }
         }
@@ -730,7 +730,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             print("FILE AVAILABLE")
         } else {
             print("FILE NOT AVAILABLE")
-            let titleString = "DateTime ; BLE_Name ; BLE_UID ; BLE_ServiceUUID ; BLE_RSSI ;"
+            let titleString = "DateTime ; BLE_Name ; BLE_UID ; BLE_RSSI ; Advertisement_Data ;"
             
             do {
                 try "\(titleString)\n".write(to: fileBLEURL!, atomically: false, encoding: String.Encoding.utf8)
@@ -896,8 +896,7 @@ extension HomeViewController: responceProtocol {
 extension HomeViewController: BluetoothManagerDelegate {
     
     func peripheralsDidUpdate(peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        let serviceUUIDArray = advertisementData["kCBAdvDataServiceUUIDs"] as! Array<Any>
-        peripherals.append(["UID":peripheral.identifier,"ServiceUUID":serviceUUIDArray.first as Any,"Name":advertisementData["kCBAdvDataLocalName"] as Any,"RSSI":RSSI,"Data":advertisementData])
+        peripherals.append(["UID":peripheral.identifier,"Name":peripheral.name as Any,"RSSI":RSSI,"Data":advertisementData])
     }
     
     func centralStateOn() {
