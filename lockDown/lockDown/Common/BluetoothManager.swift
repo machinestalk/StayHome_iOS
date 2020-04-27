@@ -10,11 +10,12 @@ import Foundation
 import CoreBluetooth
 
 enum Constants: String {
-    case SERVICE_UUID = "4DF91029-B356-463E-9F48-BAB077BF3EF5"
+    //case SERVICE_UUID = "4DF91029-B356-463E-9F48-BAB077BF3EF5"
+    case SERVICE_UUID =  "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"
 }
 
 protocol BluetoothManagerDelegate: AnyObject {
-    func peripheralsDidUpdate()
+    func peripheralsDidUpdate(peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber)
     func centralStateOn()
     func centralStateOff()
 }
@@ -31,7 +32,7 @@ class CoreBluetoothManager: NSObject, BluetoothManager {
     weak var delegate: BluetoothManagerDelegate?
     private(set) var peripherals = Dictionary<UUID, CBPeripheral>() {
         didSet {
-            delegate?.peripheralsDidUpdate()
+            //delegate?.peripheralsDidUpdate()
         }
     }
 
@@ -58,11 +59,8 @@ extension CoreBluetoothManager: CBPeripheralManagerDelegate {
                 peripheral.stopAdvertising()
             }
 
-            //let uuid = CBUUID(string: Constants.SERVICE_UUID.rawValue)
-            var advertisingData: [String : Any] = ["":""]
-//                = [
-//                CBAdvertisementDataServiceUUIDsKey: [uuid]
-//            ]
+            let uuid = CBUUID(string: Constants.SERVICE_UUID.rawValue)
+            var advertisingData: [String : Any] = [CBAdvertisementDataServiceUUIDsKey: [uuid]]
 
             if let name = self.name {
                 advertisingData[CBAdvertisementDataLocalNameKey] = name
@@ -82,8 +80,8 @@ extension CoreBluetoothManager: CBCentralManagerDelegate {
                 central.stopScan()
             }
 
-            //let uuid = CBUUID(string: Constants.SERVICE_UUID.rawValue)
-            central.scanForPeripherals(withServices: nil)
+            let uuid = CBUUID(string: Constants.SERVICE_UUID.rawValue)
+            central.scanForPeripherals(withServices: [uuid], options: [CBCentralManagerScanOptionAllowDuplicatesKey : false])
             delegate?.centralStateOn()
         } else {
             delegate?.centralStateOff()
@@ -92,6 +90,7 @@ extension CoreBluetoothManager: CBCentralManagerDelegate {
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         peripherals[peripheral.identifier] = peripheral
+        delegate?.peripheralsDidUpdate(peripheral: peripheral, advertisementData: advertisementData, rssi: RSSI)
     }
 }
 

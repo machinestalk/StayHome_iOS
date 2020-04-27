@@ -50,7 +50,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     private lazy var bluetoothManager = CoreBluetoothManager()
     
-    var peripherals = Array<CBPeripheral>()
+    var peripherals = Array<[String:Any]>()
     
     var alertBluetoothIsOpen = false
     var alertBatteryIsOpen = false
@@ -609,12 +609,28 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     func writeDataToLogFile() {
         
+        createBLELogFile()
+        if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
+            if peripherals.count > 0{
+                for index in 0...peripherals.count - 1 {
+                    //let titleString = "DateTime ; BLE_Name ; BLE_UID ; BLE_ServiceUUID ; BLE_RSSI"
+                    //peripherals.append(["UID":peripheral.identifier,"ServiceUUID":advertisementData["kCBAdvDataServiceUUIDs"] as Any,"Name":advertisementData["kCBAdvDataLocalName"] as Any,"RSSI":RSSI])
+                    let infoDict = peripherals[index]
+                    let bleName = infoDict["Name"]
+                    let bleUID = infoDict["UID"]
+                    let bleServiceUUID = infoDict["ServiceUUID"]
+                    let bleRSSI = infoDict["RSSI"]
+                    let data = infoDict["Data"]
+                    
+                    logToBLEFile(value: "\(Date()) ; \(bleName ?? "No_Name") ; \(bleUID ?? "") ; \(bleServiceUUID ?? "") ; \(bleRSSI ?? "") ; \n")
+                }
+        }
+        }
         createLogFile()
-        
         if userMotionActivity != nil &&  locValue != nil {
             if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(Array(Set(peripherals))) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-                peripherals.removeAll()
+                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
+                
             }
         }
     }
@@ -714,7 +730,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             print("FILE AVAILABLE")
         } else {
             print("FILE NOT AVAILABLE")
-            let titleString = "DateTime ; BLE_Infos ;"
+            let titleString = "DateTime ; BLE_Name ; BLE_UID ; BLE_ServiceUUID ; BLE_RSSI ;"
             
             do {
                 try "\(titleString)\n".write(to: fileBLEURL!, atomically: false, encoding: String.Encoding.utf8)
@@ -879,12 +895,9 @@ extension HomeViewController: responceProtocol {
 
 extension HomeViewController: BluetoothManagerDelegate {
     
-    func peripheralsDidUpdate() {
-        peripherals = Array(bluetoothManager.peripherals.values)
-        createBLELogFile()
-        if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-            logToBLEFile(value: "\(Date()) ; \(Array(Set(peripherals))); \n")
-        }
+    func peripheralsDidUpdate(peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        let serviceUUIDArray = advertisementData["kCBAdvDataServiceUUIDs"] as! Array<Any>
+        peripherals.append(["UID":peripheral.identifier,"ServiceUUID":serviceUUIDArray.first as Any,"Name":advertisementData["kCBAdvDataLocalName"] as Any,"RSSI":RSSI,"Data":advertisementData])
     }
     
     func centralStateOn() {
