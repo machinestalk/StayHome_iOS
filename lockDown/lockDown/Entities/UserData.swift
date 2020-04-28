@@ -15,7 +15,7 @@ class UserData: Mappable {
     var refreshToken: String?
     var deviceToken: String?
     var deviceID: String?
-
+    var tenantiD:String?
     required init?(map: Map) {
 
     }
@@ -27,6 +27,6 @@ class UserData: Mappable {
         refreshToken <- map["refreshToken"]
         deviceToken <- map["deviceToken"]
         deviceID <- map["deviceId"]
-
+        tenantiD <- map["tenantId"]
     }
 }

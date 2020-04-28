@@ -39,7 +39,6 @@ class APIClient {
                             if let value = data.result.value as? JSONFormat, let result = T(JSON: value) {
                                 completion(.success(result))
                             }
-                            
                         }else{
                             let error = NSError(domain:"", code:data.response!.statusCode, userInfo:data.result.value as? [String : Any])
                                 completion(.failure(error))
@@ -50,7 +49,42 @@ class APIClient {
             }
         })
     }
+     static func performRequest<T: Mappable>(route: URLRequestConvertible) -> Future<[T]> {
+            return Future(operation: { completion in
+                
+                Alamofire.request(route).responseJSON { (data) in
+                    
+                    // If we have a 401 on the login screen we can skip this logic since its a invalid login
+                    //                if data.response?.statusCode == 401 {
+                    //                        self.token(refresh: {
+                    //                            self.request(convertible: convertible, success: success, error: error, emptyResponse: emptyResponse, failure: failure)
+                    //                        })
+                    //                    } else {
+                    //                        (UIApplication.shared.delegate as? AppDelegate)?.userLoggedOut()
+                    //                    }
+                    //                    return
+                    //                }
+                    
+                    switch data.result {
+                    case .success:
+                        if data.response?.statusCode == 200 {
+                            if let value = data.result.value as? [JSONFormat] {
+                                completion(.success(Mapper<T>().mapArray(JSONArray: value)))
+                            }
+                        }
+                            
+                        else{
+                            let error = NSError(domain:"", code:data.response!.statusCode, userInfo:data.result.value as? [String : Any])
+                            completion(.failure(error))
+                        }
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+            })
+        }
     
+
     private static func SendRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         Alamofire.request(route).responseString { response in
             if response.response?.statusCode == 200 {
@@ -154,6 +188,12 @@ class APIClient {
         )
     }
     
+    
+    static func getTipsHome(tenantId: String )-> Future<[HomeData]>{
+        return performRequest(route: APIRouter.getTipsHome(tenantId: tenantId))
+    }
+    
+    
     static func requestForGetNewAccessToken(route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         
         if let refreshToken = UserDefaults.standard.string(forKey: "RefreshToken"){
@@ -183,4 +223,25 @@ class APIClient {
             
         }
     }
+
+    func createSimpleRequestString (
+        _ url: String,
+        method: HTTPMethod,
+        headers: [String: String]?,
+        parameters: [String: String]?,
+        encoding: String,
+        onSuccess successCallback: ((String) -> Void)?,
+        onFailure failureCallback: ((String) -> Void)?) {
+        Alamofire.request(url, method:method,parameters:parameters, headers: headers).validate()
+            .responseString { response in
+                switch response.result {
+                case .success(let value):
+                    successCallback?(value)
+                case .failure(let error):
+                    failureCallback?(error.localizedDescription)
+                }
+        }
+    }
+
+
 }

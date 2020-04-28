@@ -173,7 +173,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             showAlertInternet()
         }
         
-        let deviceId = UserDefaults.standard.value(forKey: "UserNameSignUp")
+        let deviceId = UserDefaults.standard.value(forKey: "deviceId")
         bluetoothManager.delegate = self
         bluetoothManager.startAdvertising(with: "\(deviceId ?? "")")
         self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
@@ -214,7 +214,31 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         //Create log file if not yet created
         
         carrier = getTelephonyInfo().first!.value
+        
+        
+        getHomeTips()
     }
+    
+    
+    
+    func getHomeTips(){
+        let tenantId = UserDefaults.standard.string(forKey: "tenantId")
+        let homeDataFuture = APIClient.getTipsHome(tenantId: tenantId!)
+        homeDataFuture.execute(onSuccess: { homeData in
+                print("homeData == > \(homeData)")
+            
+            }, onFailure: {error in
+                let errorr = error as NSError
+                let errorDict = errorr.userInfo
+                self.finishLoading()
+            })
+        }
+    
+    
+    
+    
+    
+    
     @objc func batteryLevelDidChange(_ notification: Notification) {
         
     }
@@ -617,13 +641,13 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     //let titleString = "DateTime ; BLE_Name ; BLE_UID ; BLE_ServiceUUID ; BLE_RSSI"
                     //peripherals.append(["UID":peripheral.identifier,"ServiceUUID":advertisementData["kCBAdvDataServiceUUIDs"] as Any,"Name":advertisementData["kCBAdvDataLocalName"] as Any,"RSSI":RSSI])
                     let infoDict = peripherals[index]
-                    guard let bleName = infoDict["Name"] else {return}
+                    let bleName = infoDict["Name"]
                     let bleUID = infoDict["UID"]
                     let bleRSSI = infoDict["RSSI"]
                     let data = infoDict["Data"]
                     let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
                     let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
-                    logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
+                    logToBLEFile(value: "\(Date()) ; \(bleName ?? "" ) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
                 }
         }
         }

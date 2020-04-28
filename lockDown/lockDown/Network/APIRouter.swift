@@ -19,11 +19,14 @@ enum APIRouter: URLRequestConvertible {
     case sendFirebaseToken(deviceid : String, firebase_token : String)
     case sendContactUsForm(data:[String:Any])
     case refrechToken(refreshToken : String)
+    case getTipsHome(tenantId : String)
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
         case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm:
             return .post
+        case .getTipsHome:
+            return .get
         }
     }
     
@@ -47,6 +50,8 @@ enum APIRouter: URLRequestConvertible {
             return "api/plugins/telemetry/CUSTOMER/\(parameters.deviceid)/timeseries/LATEST_TELEMETRY"
         case .sendContactUsForm:
             return "api/noauth/contact-us"
+        case .getTipsHome(let tenantId):
+            return "api/plugins/telemetry/TENANT/\(tenantId)/values/attributes/SERVER_SCOPE"
         }
         
     }
@@ -70,9 +75,11 @@ enum APIRouter: URLRequestConvertible {
             return parameters.data
         case .sendContactUsForm(let parameters):
             return parameters
+        
+        case .getTipsHome(let tenantId):
+            return nil
         }
     }
-    
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
         let url = try LockDown.ProductionServer.baseURL.asURL()

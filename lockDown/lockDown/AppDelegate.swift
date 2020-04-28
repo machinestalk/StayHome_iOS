@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
+     
         
         UserDefaults.standard.set(false, forKey: "didShowAlertBluetooth")
         UserDefaults.standard.set(false, forKey: "didShowAlertBattery")
@@ -86,6 +87,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.tintColor = UIColor.white
         self.window?.makeKeyAndVisible()
         GMSServices.provideAPIKey(LockDown.GoogleMaps.key)
+       /* if Messaging.messaging().fcmToken != nil {
+            Messaging.messaging().subscribe(toTopic: "StayHomeTopic") { error in
+                   print("Subscribed to AllDevices topic")
+            }
+        }*/
+        
+        
         return true
     }
     
@@ -236,6 +244,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let messageID = userInfo["id"] {
             print("Message ID: \(messageID)")
         }
+     
+
         // Print full message.
         print(userInfo)
     }
@@ -268,7 +278,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // the FCM registration token.
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("APNs token retrieved: \(deviceToken)")
-        
+      /*  Messaging.messaging().subscribe(toTopic: "StayHomeTopic") { error in
+               print("Subscribed to AllDevices topic")
+        }*/
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
     }
@@ -399,6 +411,11 @@ extension AppDelegate : MessagingDelegate {
         UserDefaults.standard.set(fcmToken, forKey: "firebaseToken")
         let dataDict:[String: String] = ["token": fcmToken]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+        
+      /*  Messaging.messaging().subscribe(toTopic: "StayHomeTopic") { error in
+            print("Subscribed to AllDevices topic")
+        }*/
+       
         // TODO: If necessary send token to application server.
         // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
