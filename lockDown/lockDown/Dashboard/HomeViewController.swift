@@ -172,9 +172,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         if(!isInternetAvailable()){
             showAlertInternet()
         }
-        let userPhoneNumber = UserDefaults.standard.value(forKey: "UserNameSignUp") as! String
+        
+        let deviceId = UserDefaults.standard.value(forKey: "UserNameSignUp")
         bluetoothManager.delegate = self
-        bluetoothManager.startAdvertising(with: "StayHomeKSA_App")
+        bluetoothManager.startAdvertising(with: "\(deviceId ?? "")")
+        self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
         
         self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
         
@@ -284,11 +286,10 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         if (batteryLevel  < 0.2 && batteryLevel > 0.0 ) {
             showAlertBattery()
         }
-        
-        let userPhoneNumber = UserDefaults.standard.value(forKey: "UserNameSignUp") as! String
-        bluetoothManager.delegate = self
-        bluetoothManager.startAdvertising(with: "BT:\(userPhoneNumber)")
-        self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
+//        let deviceId = UserDefaults.standard.string(forKey: "deviceId")
+//        bluetoothManager.delegate = self
+//        bluetoothManager.startAdvertising(with: "StayHomeKSA_\(deviceId ?? "")")
+//        self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
         
         if !bluetoothEnabled{
             showAlertBluetooth()
@@ -616,13 +617,13 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     //let titleString = "DateTime ; BLE_Name ; BLE_UID ; BLE_ServiceUUID ; BLE_RSSI"
                     //peripherals.append(["UID":peripheral.identifier,"ServiceUUID":advertisementData["kCBAdvDataServiceUUIDs"] as Any,"Name":advertisementData["kCBAdvDataLocalName"] as Any,"RSSI":RSSI])
                     let infoDict = peripherals[index]
-                    let bleName = infoDict["Name"]
+                    guard let bleName = infoDict["Name"] else {return}
                     let bleUID = infoDict["UID"]
                     let bleRSSI = infoDict["RSSI"]
                     let data = infoDict["Data"]
                     let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
                     let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
-                    logToBLEFile(value: "\(Date()) ; \(bleName ?? "No_Name") ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
+                    logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
                 }
         }
         }
