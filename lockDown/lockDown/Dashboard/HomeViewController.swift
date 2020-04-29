@@ -133,15 +133,6 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         super.viewDidLoad()
         
-        let dateString = Date().toString(dateFormat: "yyyyMMdd")
-        let logFileName = "\(dateString).csv"
-        
-        let bleLogFileName = "BLE_SCAN_\(dateString).csv"
-        
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            fileURL = dir.appendingPathComponent(logFileName)
-            fileBLEURL = dir.appendingPathComponent(bleLogFileName)
-        }
         createLogFile()
         createBLELogFile()
         
@@ -706,6 +697,15 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         let logFileName = "\(dateString).csv"
         let filePath = url.appendingPathComponent(logFileName).path
         let fileManager = FileManager.default
+        
+        if fileURL == nil {
+            
+            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                fileURL = dir.appendingPathComponent(logFileName)
+            }
+        }
+        
+        
         if fileManager.fileExists(atPath: filePath) {
             print("FILE AVAILABLE")
         } else {
@@ -727,6 +727,13 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         let logFileName = "BLE_SCAN_\(dateString).csv"
         let filePath = url.appendingPathComponent(logFileName).path
         let fileManager = FileManager.default
+        
+        if fileBLEURL == nil {
+            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                fileBLEURL = dir.appendingPathComponent(logFileName)
+            }
+        }
+        
         if fileManager.fileExists(atPath: filePath) {
             print("FILE AVAILABLE")
         } else {
