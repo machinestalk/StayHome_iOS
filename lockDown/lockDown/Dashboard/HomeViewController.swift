@@ -164,7 +164,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             showAlertInternet()
         }
         
-        let deviceId = UserDefaults.standard.value(forKey: "UserNameSignUp")
+        let deviceId = UserDefaults.standard.value(forKey: "deviceId")
         bluetoothManager.delegate = self
         bluetoothManager.startAdvertising(with: "\(deviceId ?? "")")
         self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
@@ -610,11 +610,14 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     let bleUID = infoDict["UID"]
                     let bleRSSI = infoDict["RSSI"]
                     let data = infoDict["Data"]
+                    
+                    let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
+                    
                     let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
                     let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
                     logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
                     
-                    APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: peripherals[index], onSuccess: { (Msg) in
+                    APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dataDictToSend, onSuccess: { (Msg) in
                         print(Msg)
                     } ,onFailure : { (error) in
                         print(error)
@@ -623,9 +626,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             }
             
             createLogFile()
-            logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-            
-            peripherals.removeAll()
+            if userMotionActivity != nil  {
+                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
+                peripherals.removeAll()
+            }
+                        
         }
     }
 
