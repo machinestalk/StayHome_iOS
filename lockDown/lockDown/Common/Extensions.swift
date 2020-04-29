@@ -898,7 +898,7 @@ extension String {
         return string
     }
     
-    func convertToDictionary() -> NSDictionary?{
+   /* func convertToDictionary() -> NSDictionary?{
         if let data = self.data(using: .utf8) {
             do {
                 return try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
@@ -907,7 +907,7 @@ extension String {
             }
         }
         return nil
-    }
+    }*/
     
     func stringByAddingPercentEncodingForURLQueryValue() -> String? {
         let allowedCharacters = NSCharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~")
@@ -1635,6 +1635,26 @@ extension UserDefaults {
             let locationLat = locationDictionary["lat"]!.doubleValue
             let locationLon = locationDictionary["lon"]!.doubleValue
             return CLLocationCoordinate2D(latitude: locationLat, longitude: locationLon)
+        }
+        return nil
+    }
+}
+extension Date {
+
+    func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
+
+        let currentCalendar = Calendar.current
+
+        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: date) else { return 0 }
+        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: self) else { return 0 }
+
+        return end - start
+    }
+}
+extension String {
+    func convertToDictionary() -> [String: Any]? {
+        if let data = data(using: .utf8) {
+            return try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
         }
         return nil
     }

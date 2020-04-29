@@ -86,9 +86,9 @@ enum APIRouter: URLRequestConvertible {
     }
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
-        let url = try LockDown.ProductionServer.baseURL.asURL()
-        
-        var urlRequest = URLRequest(url: url.appendingPathComponent(path))
+        let url = try LockDown.ProductionServer.baseURL.asURL().appendingPathComponent(path)
+        let urlString = "\(url)".removingPercentEncoding
+        var urlRequest = URLRequest(url: URL(string: urlString!)!)
         
         // HTTP Method
         urlRequest.httpMethod = method.rawValue

@@ -83,6 +83,9 @@ class APIClient {
                 }
             })
         }
+   
+    
+    
     
     
     private static func SendRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
@@ -213,11 +216,9 @@ class APIClient {
     static func getTipsHome(tenantId: String )-> Future<[HomeData]>{
         return performRequest(route: APIRouter.getTipsHome(tenantId: tenantId))
     }
-    
-    static func getCustomerData(customerId: String )-> Future<NSDictionary>{
+    static func getCustomerData(customerId: String )-> Future<CustomerData>{
         return performRequest(route: APIRouter.getCustomerData(customerId: customerId))
     }
-    
     static func requestForGetNewAccessToken(route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         
         if let refreshToken = UserDefaults.standard.string(forKey: "RefreshToken"){
