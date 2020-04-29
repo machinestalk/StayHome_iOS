@@ -136,15 +136,6 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         super.viewDidLoad()
         
-        let dateString = Date().toString(dateFormat: "yyyyMMdd")
-        let logFileName = "\(dateString).csv"
-        
-        let bleLogFileName = "BLE_SCAN_\(dateString).csv"
-        
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            fileURL = dir.appendingPathComponent(logFileName)
-            fileBLEURL = dir.appendingPathComponent(bleLogFileName)
-        }
         createLogFile()
         createBLELogFile()
         
@@ -661,36 +652,42 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
     }
 
-    
     func writeDataToLogFile() {
         
+        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         createBLELogFile()
         if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
             if peripherals.count > 0{
                 for index in 0...peripherals.count - 1 {
-                    //let titleString = "DateTime ; BLE_Name ; BLE_UID ; BLE_ServiceUUID ; BLE_RSSI"
-                    //peripherals.append(["UID":peripheral.identifier,"ServiceUUID":advertisementData["kCBAdvDataServiceUUIDs"] as Any,"Name":advertisementData["kCBAdvDataLocalName"] as Any,"RSSI":RSSI])
                     let infoDict = peripherals[index]
                     let bleName = infoDict["Name"]
                     let bleUID = infoDict["UID"]
                     let bleRSSI = infoDict["RSSI"]
                     let data = infoDict["Data"]
+                    
+                    let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
+                    
                     let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
                     let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
-                    logToBLEFile(value: "\(Date()) ; \(bleName ?? "" ) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
+                    logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
+                    
+                    APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dataDictToSend, onSuccess: { (Msg) in
+                        print(Msg)
+                    } ,onFailure : { (error) in
+                        print(error)
+                    })
                 }
-        }
-        }
-        createLogFile()
-        if userMotionActivity != nil &&  locValue != nil {
-            if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-                
             }
+            
+            createLogFile()
+            if userMotionActivity != nil  {
+                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
+                peripherals.removeAll()
+            }
+                        
         }
     }
 
-    
     // MARK : Set counter for Check In
     
     //MARK : Add Timer
@@ -760,6 +757,15 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         let logFileName = "\(dateString).csv"
         let filePath = url.appendingPathComponent(logFileName).path
         let fileManager = FileManager.default
+        
+        if fileURL == nil {
+            
+            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                fileURL = dir.appendingPathComponent(logFileName)
+            }
+        }
+        
+        
         if fileManager.fileExists(atPath: filePath) {
             print("FILE AVAILABLE")
         } else {
@@ -781,6 +787,13 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         let logFileName = "BLE_SCAN_\(dateString).csv"
         let filePath = url.appendingPathComponent(logFileName).path
         let fileManager = FileManager.default
+        
+        if fileBLEURL == nil {
+            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                fileBLEURL = dir.appendingPathComponent(logFileName)
+            }
+        }
+        
         if fileManager.fileExists(atPath: filePath) {
             print("FILE AVAILABLE")
         } else {
