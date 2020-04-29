@@ -87,11 +87,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.tintColor = UIColor.white
         self.window?.makeKeyAndVisible()
         GMSServices.provideAPIKey(LockDown.GoogleMaps.key)
-       /* if Messaging.messaging().fcmToken != nil {
-            Messaging.messaging().subscribe(toTopic: "StayHomeTopic") { error in
+        if Messaging.messaging().fcmToken != nil {
+            Messaging.messaging().subscribe(toTopic: "stayhome") { error in
                    print("Subscribed to AllDevices topic")
             }
-        }*/
+        }
         
         
         return true
@@ -265,9 +265,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             VC.checkAllServicesActivityFromBackground()
             
         }
+        
         completionHandler(UIBackgroundFetchResult.newData)
     }
-   
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+         Messaging.messaging().subscribe(toTopic: "stayhome") { error in
+                   print("Subscribed to AllDevices topic")
+               }
+    }
+    
     // [END receive_message]
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Unable to register for remote notifications: \(error.localizedDescription)")
@@ -278,9 +284,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // the FCM registration token.
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("APNs token retrieved: \(deviceToken)")
-      /*  Messaging.messaging().subscribe(toTopic: "StayHomeTopic") { error in
+        Messaging.messaging().subscribe(toTopic: "stayhome") { error in
                print("Subscribed to AllDevices topic")
-        }*/
+        }
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
     }
@@ -342,7 +348,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
-        
+        print(userInfo)
         guard let aps = userInfo["aps"] as? NSDictionary else{return;}
         guard let value = aps.value(forKey: "alert") as? NSDictionary else { return;}
         guard let body = value.value(forKey: "body") as? String else { return;}
@@ -350,7 +356,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         guard let typeString = userInfo["type"] as? String else { return;}
         
         // Print full message.
-        print(userInfo)
+        
         if typeString == "check_in" {
            let CheckInVC = CheckInViewController(nibName: "CheckInViewController", bundle: nil)
             CheckInVC.isFromNotif = true
@@ -412,9 +418,9 @@ extension AppDelegate : MessagingDelegate {
         let dataDict:[String: String] = ["token": fcmToken]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
         
-      /*  Messaging.messaging().subscribe(toTopic: "StayHomeTopic") { error in
+        Messaging.messaging().subscribe(toTopic: "stayhome") { error in
             print("Subscribed to AllDevices topic")
-        }*/
+        }
        
         // TODO: If necessary send token to application server.
         // Note: This callback is fired at each app startup and whenever a new token is generated.

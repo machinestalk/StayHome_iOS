@@ -20,12 +20,13 @@ enum APIRouter: URLRequestConvertible {
     case sendContactUsForm(data:[String:Any])
     case refrechToken(refreshToken : String)
     case getTipsHome(tenantId : String)
+    case getCustomerData(customerId : String)
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
         case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm:
             return .post
-        case .getTipsHome:
+        case .getTipsHome ,.getCustomerData:
             return .get
         }
     }
@@ -52,6 +53,8 @@ enum APIRouter: URLRequestConvertible {
             return "api/noauth/contact-us"
         case .getTipsHome(let tenantId):
             return "api/plugins/telemetry/TENANT/\(tenantId)/values/attributes/SERVER_SCOPE"
+        case .getCustomerData(let customerId):
+            return "api/plugins/telemetry/CUSTOMER/\(customerId)/values/timeseries?limit=1"
         }
         
     }
@@ -75,8 +78,9 @@ enum APIRouter: URLRequestConvertible {
             return parameters.data
         case .sendContactUsForm(let parameters):
             return parameters
-        
         case .getTipsHome(let tenantId):
+            return nil
+        case .getCustomerData(let customerId):
             return nil
         }
     }

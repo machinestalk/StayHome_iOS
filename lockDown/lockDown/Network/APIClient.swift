@@ -84,7 +84,7 @@ class APIClient {
             })
         }
     
-
+    
     private static func SendRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         Alamofire.request(route).responseString { response in
             if response.response?.statusCode == 200 {
@@ -103,6 +103,27 @@ class APIClient {
             }
         }
     }
+    
+    private static func getData (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
+        Alamofire.request(route).responseString { response in
+            if response.response?.statusCode == 200 {
+                switch response.result {
+                case .success(let value):
+                    successCallback?(value)
+                case .failure(let error):
+                    failureCallback?(error.localizedDescription)
+                }
+            }
+            else {
+                if response.response?.statusCode == 400 {
+                    self.requestForGetNewAccessToken(route: route, onSuccess: successCallback, onFailure: failureCallback)
+                }
+                //failureCallback?(response.result.error!.localizedDescription)
+            }
+        }
+    }
+    
+    
     
     static func singUp(phoneNumber : String ,onSuccess successCallback: ((_ successMessage: String) -> Void)?, onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
@@ -193,6 +214,9 @@ class APIClient {
         return performRequest(route: APIRouter.getTipsHome(tenantId: tenantId))
     }
     
+    static func getCustomerData(customerId: String )-> Future<NSDictionary>{
+        return performRequest(route: APIRouter.getCustomerData(customerId: customerId))
+    }
     
     static func requestForGetNewAccessToken(route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         

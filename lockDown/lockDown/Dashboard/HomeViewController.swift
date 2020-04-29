@@ -226,7 +226,6 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         let homeDataFuture = APIClient.getTipsHome(tenantId: tenantId!)
         homeDataFuture.execute(onSuccess: { homeData in
                 print("homeData == > \(homeData)")
-            
             }, onFailure: {error in
                 let errorr = error as NSError
                 let errorDict = errorr.userInfo
@@ -235,7 +234,17 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
     
     
-    
+    func getCustomerData(){
+        let customerId = UserDefaults.standard.string(forKey: "customerId")
+        let homeDataFuture = APIClient.getCustomerData(customerId: customerId!)
+        homeDataFuture.execute(onSuccess: { homeData in
+            print("homeData == > \(homeData)")
+        }, onFailure: {error in
+            let errorr = error as NSError
+            let errorDict = errorr.userInfo
+            self.finishLoading()
+        })
+    }
     
     
     
