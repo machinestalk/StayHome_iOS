@@ -19,10 +19,12 @@ enum APIRouter: URLRequestConvertible {
     case sendFirebaseToken(deviceid : String, firebase_token : String)
     case sendContactUsForm(data:[String:Any])
     case refrechToken(refreshToken : String)
+    case sendBLEScanned(deviceToken : String, data:[String:Any])
+    
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm:
+        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm, .sendBLEScanned:
             return .post
         }
     }
@@ -38,6 +40,8 @@ enum APIRouter: URLRequestConvertible {
         case .refrechToken:
             return "api/auth/token"
         case .sendIsComplaint(let parameters):
+            return "api/v1/\(parameters.deviceToken)/telemetry"
+        case .sendBLEScanned(let parameters):
             return "api/v1/\(parameters.deviceToken)/telemetry"
         case .sendZoneLocations(let parameters):
             return "api/plugins/telemetry/CUSTOMER/\(parameters.deviceid)/timeseries/LATEST_TELEMETRY"
@@ -67,6 +71,8 @@ enum APIRouter: URLRequestConvertible {
         case .sendFirebaseToken(let parameters):
             return [LockDown.APIParameterKey.firebase_token : parameters.firebase_token]
         case .sendSurvey(let parameters):
+            return parameters.data
+        case .sendBLEScanned(let parameters):
             return parameters.data
         case .sendContactUsForm(let parameters):
             return parameters

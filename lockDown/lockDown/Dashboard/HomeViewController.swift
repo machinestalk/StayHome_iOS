@@ -598,15 +598,13 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
     }
 
-    
     func writeDataToLogFile() {
         
+        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         createBLELogFile()
         if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
             if peripherals.count > 0{
                 for index in 0...peripherals.count - 1 {
-                    //let titleString = "DateTime ; BLE_Name ; BLE_UID ; BLE_ServiceUUID ; BLE_RSSI"
-                    //peripherals.append(["UID":peripheral.identifier,"ServiceUUID":advertisementData["kCBAdvDataServiceUUIDs"] as Any,"Name":advertisementData["kCBAdvDataLocalName"] as Any,"RSSI":RSSI])
                     let infoDict = peripherals[index]
                     guard let bleName = infoDict["Name"] else {return}
                     let bleUID = infoDict["UID"]
@@ -615,19 +613,22 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
                     let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
                     logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
+                    
+                    APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: peripherals[index], onSuccess: { (Msg) in
+                        print(Msg)
+                    } ,onFailure : { (error) in
+                        print(error)
+                    })
                 }
-        }
-        }
-        createLogFile()
-        if userMotionActivity != nil &&  locValue != nil {
-            if  UserDefaults.standard.bool(forKey: "isSignedUp")  {
-                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-                
             }
+            
+            createLogFile()
+            logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
+            
+            peripherals.removeAll()
         }
     }
 
-    
     // MARK : Set counter for Check In
     
     //MARK : Add Timer
