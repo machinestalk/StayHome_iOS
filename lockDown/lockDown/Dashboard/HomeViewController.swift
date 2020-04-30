@@ -63,7 +63,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var userMotionActivity: CMMotionActivity!
     var userMotionManager: CMMotionManager!
     var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
-
+    var dayQuarantine : Int = 0
     func getTelephonyInfo() -> Dictionary<String, CTCarrier>{
         
         let networkInfo = CTTelephonyNetworkInfo()
@@ -124,6 +124,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     @IBOutlet weak var satBtn: UIButton!
     @IBOutlet weak var menuBtn: UIButton!
     
+    @IBOutlet weak var homeImg: UIImageView!
+    @IBOutlet weak var homeTip: UILabel!
+    @IBOutlet weak var homeTitle: UILabel!
     var activityManager = ActivityManager()
     
     var batteryLevel: Float { UIDevice.current.batteryLevel }
@@ -205,7 +208,58 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         //Create log file if not yet created
         
         carrier = getTelephonyInfo().first!.value
+        
+        getCustomerData()
+        
     }
+    
+    
+    
+    func getHomeTips(){
+        let tenantId = UserDefaults.standard.string(forKey: "tenantId")
+        let homeDataFuture = APIClient.getTipsHome(tenantId: tenantId!)
+        homeDataFuture.execute(onSuccess: { homeDataArray in
+            print("homeDataArray == > \(homeDataArray)")
+            let homeData = homeDataArray.filter{ $0.key == "Day \(self.dayQuarantine)" }
+            let stringJson = homeData[0].value as? String
+           let dicHome = stringJson?.convertToDictionary()
+            if let body = dicHome!["body"] as? String {
+                self.homeTip.text = body
+            }
+            if let title = dicHome!["title"] as? String {
+                self.homeTitle.text = title
+            }
+            self.homeImg.image = UIImage(named: "day\(self.dayQuarantine)")
+            }, onFailure: {error in
+                let errorr = error as NSError
+                let errorDict = errorr.userInfo
+                self.finishLoading()
+            })
+        }
+    
+    
+    func getCustomerData(){
+        let customerId = UserDefaults.standard.string(forKey: "customerId")
+        let CustomerDataFuture = APIClient.getCustomerData(customerId: customerId! )
+        CustomerDataFuture.execute(onSuccess: { customerData in
+            print("customerData == > \(customerData)")
+            if let lastDay = (customerData.lastDay?.first?.value as? String) {
+                let date = Date(timeIntervalSince1970: Double(lastDay) as! TimeInterval)
+                self.dayQuarantine = date.interval(ofComponent: .day, fromDate: Date())
+                print("diff == > \(self.dayQuarantine)")
+            }
+            
+            self.getHomeTips()
+            
+        }, onFailure: {error in
+            let errorr = error as NSError
+            let errorDict = errorr.userInfo
+            self.finishLoading()
+        })
+    }
+    
+    
+    
     @objc func batteryLevelDidChange(_ notification: Notification) {
         
     }
@@ -606,7 +660,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if peripherals.count > 0{
                 for index in 0...peripherals.count - 1 {
                     let infoDict = peripherals[index]
-                    guard let bleName = infoDict["Name"] else {return}
+                    let bleName = infoDict["Name"]
                     let bleUID = infoDict["UID"]
                     let bleRSSI = infoDict["RSSI"]
                     let data = infoDict["Data"]

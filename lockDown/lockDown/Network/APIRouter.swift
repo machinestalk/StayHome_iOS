@@ -19,6 +19,8 @@ enum APIRouter: URLRequestConvertible {
     case sendFirebaseToken(deviceid : String, firebase_token : String)
     case sendContactUsForm(data:[String:Any])
     case refrechToken(refreshToken : String)
+    case getTipsHome(tenantId : String)
+    case getCustomerData(customerId : String)
     case sendBLEScanned(deviceToken : String, data:[String:Any])
     
     // MARK: - HTTPMethod
@@ -26,6 +28,8 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm, .sendBLEScanned:
             return .post
+        case .getTipsHome ,.getCustomerData:
+            return .get
         }
     }
     
@@ -51,6 +55,10 @@ enum APIRouter: URLRequestConvertible {
             return "api/plugins/telemetry/CUSTOMER/\(parameters.deviceid)/timeseries/LATEST_TELEMETRY"
         case .sendContactUsForm:
             return "api/noauth/contact-us"
+        case .getTipsHome(let tenantId):
+            return "api/plugins/telemetry/TENANT/\(tenantId)/values/attributes/SERVER_SCOPE"
+        case .getCustomerData(let customerId):
+            return "api/plugins/telemetry/CUSTOMER/\(customerId)/values/timeseries?limit=1"
         }
         
     }
@@ -76,14 +84,17 @@ enum APIRouter: URLRequestConvertible {
             return parameters.data
         case .sendContactUsForm(let parameters):
             return parameters
+        case .getTipsHome(let tenantId):
+            return nil
+        case .getCustomerData(let customerId):
+            return nil
         }
     }
-    
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
-        let url = try LockDown.ProductionServer.baseURL.asURL()
-        
-        var urlRequest = URLRequest(url: url.appendingPathComponent(path))
+        let url = try LockDown.ProductionServer.baseURL.asURL().appendingPathComponent(path)
+        let urlString = "\(url)".removingPercentEncoding
+        var urlRequest = URLRequest(url: URL(string: urlString!)!)
         
         // HTTP Method
         urlRequest.httpMethod = method.rawValue

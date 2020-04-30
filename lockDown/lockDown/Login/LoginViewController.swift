@@ -231,15 +231,17 @@ class LoginViewController: BaseController {
         let deviceUDIDString = UIDevice.current.identifierForVendor!.uuidString
         let otpString = String(format:"%@%@%@%@%@%@", text1.text!, text2.text!, text3.text!, text4.text!, text5.text!, text6.text!)
         let userDataFuture = APIClient.signIn(phoneNumber: UserDefaults.standard.value(forKey: "UserNameSignUp") as! String, phoneOtp: otpString, phoneUdid: deviceUDIDString)
-        userDataFuture.execute(onSuccess: { userData in
-            print(userData)
+            userDataFuture.execute(onSuccess: { userData in
+            print("userData == > \(userData)")
             UserDefaults.standard.set(true, forKey: "isLoggedIn")
             UserDefaults.standard.set(userData.deviceToken, forKey:"DeviceToken")
             UserDefaults.standard.set(userData.token, forKey:"Token")
             UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
             UserDefaults.standard.set(userData.deviceID, forKey:"deviceId")
+            
             let userDictionary = self.decode(jwtToken:userData.token!)
             UserDefaults.standard.set(userDictionary["customerId"], forKey:"customerId")
+            UserDefaults.standard.set(userDictionary["tenantId"], forKey:"tenantId")
             self.finishLoading()
             self.displayHomePage()
         }, onFailure: {error in

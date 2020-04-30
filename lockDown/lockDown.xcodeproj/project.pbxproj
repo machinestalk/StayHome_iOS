@@ -19,6 +19,9 @@
 		FA012F112447134600E647B9 /* MyZoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA012F0F2447134600E647B9 /* MyZoneViewController.swift */; };
 		FA012F122447134600E647B9 /* MyZoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA012F102447134600E647B9 /* MyZoneViewController.xib */; };
 		FA048A192450355E00A027A5 /* Geotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA048A182450355E00A027A5 /* Geotification.swift */; };
+		FA04CA622458814C001A9591 /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA612458814C001A9591 /* HomeData.swift */; };
+		FA04CA642459B56A001A9591 /* CustomerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA632459B56A001A9591 /* CustomerData.swift */; };
+		FA04CA662459B5A2001A9591 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA652459B5A2001A9591 /* Config.swift */; };
 		FA17C4BD243337B9000516EF /* BiometricsAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */; };
 		FA17C4BE243337B9000516EF /* BiometricsAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */; };
 		FA66D6442434B8880036D137 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA66D6432434B8880036D137 /* BaseController.swift */; };
@@ -135,6 +138,9 @@
 		FA012F0F2447134600E647B9 /* MyZoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyZoneViewController.swift; sourceTree = "<group>"; };
 		FA012F102447134600E647B9 /* MyZoneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyZoneViewController.xib; sourceTree = "<group>"; };
 		FA048A182450355E00A027A5 /* Geotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geotification.swift; sourceTree = "<group>"; };
+		FA04CA612458814C001A9591 /* HomeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeData.swift; sourceTree = "<group>"; };
+		FA04CA632459B56A001A9591 /* CustomerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerData.swift; sourceTree = "<group>"; };
+		FA04CA652459B5A2001A9591 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsAuthViewController.swift; sourceTree = "<group>"; };
 		FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricsAuthViewController.xib; sourceTree = "<group>"; };
 		FA66D6432434B8880036D137 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
@@ -495,6 +501,9 @@
 			children = (
 				FAC36C802435DCFC002B4928 /* UserData.swift */,
 				FA048A182450355E00A027A5 /* Geotification.swift */,
+				FA04CA612458814C001A9591 /* HomeData.swift */,
+				FA04CA632459B56A001A9591 /* CustomerData.swift */,
+				FA04CA652459B5A2001A9591 /* Config.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -890,6 +899,7 @@
 				00E0FEBD243E6D0700FD3DCB /* CustomReachability.swift in Sources */,
 				FA6E98A424329B83000F2C2E /* TextField.swift in Sources */,
 				FA8B001F2444AE290097404A /* ActivityManager.swift in Sources */,
+				FA04CA642459B56A001A9591 /* CustomerData.swift in Sources */,
 				FAD6CEDB2449101E007E4F57 /* CustomAlertViewController.swift in Sources */,
 				FAB9B83F2438FC85007364E7 /* CheckInViewController.swift in Sources */,
 				FAC36C9824388868002B4928 /* WelcomeViewController.swift in Sources */,
@@ -915,6 +925,7 @@
 				FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */,
 				FA17C4BD243337B9000516EF /* BiometricsAuthViewController.swift in Sources */,
 				FAC81E722438CEE9002DBADE /* EmergencyViewController.swift in Sources */,
+				FA04CA622458814C001A9591 /* HomeData.swift in Sources */,
 				FA6E98A324329B83000F2C2E /* NormalTextField.swift in Sources */,
 				FA6E989424329B7B000F2C2E /* APIClient.swift in Sources */,
 				FAD6CED72448B508007E4F57 /* TermsAndConditionViewController.swift in Sources */,
@@ -922,6 +933,7 @@
 				FAC81E762438CF29002DBADE /* ContactUsViewController.swift in Sources */,
 				FA8B003A24462AD30097404A /* HomeViewController.swift in Sources */,
 				FADB80F4243DFDFB00A31CC1 /* FailCheckInViewController.swift in Sources */,
+				FA04CA662459B5A2001A9591 /* Config.swift in Sources */,
 				FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */,
 				FAC36C812435DCFC002B4928 /* UserData.swift in Sources */,
 				FA6E98A624329B83000F2C2E /* Button.swift in Sources */,

@@ -10,6 +10,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
+                <outlet property="homeImg" destination="e2m-n9-IaI" id="INo-c7-Akj"/>
+                <outlet property="homeTip" destination="Bdz-Ii-RF2" id="xoy-W7-64L"/>
+                <outlet property="homeTitle" destination="wOW-Od-kc0" id="1Sj-r2-OVl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
