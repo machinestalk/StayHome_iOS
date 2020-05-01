@@ -14,6 +14,7 @@ import SystemConfiguration.CaptiveNetwork
 import CoreMotion
 import CoreLocation
 import CoreTelephony
+import MTBeaconPlus
 
 struct PreferencesKeys {
   static let savedItems = "savedItems"
@@ -124,20 +125,38 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     @IBOutlet weak var satBtn: UIButton!
     @IBOutlet weak var menuBtn: UIButton!
     
-    @IBOutlet weak var homeImg: UIImageView!
-    @IBOutlet weak var homeTip: UILabel!
-    @IBOutlet weak var homeTitle: UILabel!
     var activityManager = ActivityManager()
-    
     var batteryLevel: Float { UIDevice.current.batteryLevel }
+    
+    
+    //Beacons
+    
+    var manager : MTCentralManager!
+    var scannerDevices : Array<MTPeripheral>!
+    var currentPeripheral:MTPeripheral?
     
     override func viewDidLoad() {
         
-        
         super.viewDidLoad()
-        
         createLogFile()
         createBLELogFile()
+        
+        
+        //Beacons
+        
+        manager = MTCentralManager.sharedInstance()
+        
+        manager?.stateBlock = { (state) in
+            
+            if state != .poweredOn {
+                print("the iphone bluetooth state error")
+            }
+        }
+        
+        self.startScan()
+        
+        //Beacons
+        
         
         
         self.navigationController?.navigationBar.isHidden = true
@@ -167,12 +186,15 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             showAlertInternet()
         }
         
-        let deviceId = UserDefaults.standard.value(forKey: "deviceId")
+        let deviceId = UserDefaults.standard.value(forKey: "deviceId") as! String
+        let start = deviceId.index(deviceId.endIndex, offsetBy: -9)
+        let range = start..<deviceId.endIndex
+        let miniID = String(deviceId[range])
         bluetoothManager.delegate = self
-        bluetoothManager.startAdvertising(with: "\(deviceId ?? "")")
+        bluetoothManager.startAdvertising(with:miniID)
+        bluetoothManager.initLocalBeacon()
         self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
         
-        self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
         
         //getSpeed
         // Do any additional setup after loading the view, typically from a nib.
@@ -263,6 +285,194 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     @objc func batteryLevelDidChange(_ notification: Notification) {
         
     }
+    
+    // MARK: Beacons
+    
+    func startScan() -> Void {
+        manager.startScan { (devices) in
+        }
+        scannerDevices = manager.scannedPeris
+    }
+    
+    func startConnect() -> Void {
+    //        print(manager.scannedPeris as Any)
+            self.stopScan()
+            
+            for key in manager.scannedPeris {
+    //            print(key.identifier as Any)
+
+                // Please enter the identifier that your want to connect.
+                //if key.identifier == "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0" {//Identifiers may change, it is recommended to use MacString
+                    self.connectDevice(peripheral: key)
+                //}
+            }
+        }
+    
+    func stopScan() -> Void {
+        manager.stopScan()
+    }
+    
+    func connectDevice(peripheral : MTPeripheral) -> Void {
+         
+         currentPeripheral = peripheral
+         
+         peripheral.connector.statusChangedHandler = { (status, error) in
+             
+             if error != nil {
+                 print(error as Any)
+             }
+          
+             switch status {
+             case .StatusCompleted:
+                 self.writeFrame(peripheral: peripheral)
+                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0, execute: {
+                     self.getAllSlot()
+                     self.getTrigger()
+                     self.setLineBeacon()
+                     self.writeTrigger(peripheral: peripheral)
+                 })
+                 
+                 self.stopScan()
+                 
+                 break
+
+             case .StatusDisconnected:
+                 
+                 print("disconnected")
+                 break
+                 
+             case .StatusConnectFailed:
+                 
+                 print("connect failed")
+                 break
+                 
+             case .StatusUndifined:
+                 break
+                 
+             default:
+                 break
+             }
+         }
+         
+         manager.connect(toPeriperal:peripheral, passwordRequire: { (pass) in
+             
+             pass!("minew123")
+         })
+     }
+     
+     func disconnect(peripheral : MTPeripheral) -> Void {
+         manager.disconnect(fromPeriperal: peripheral)
+     }
+     
+     func getAllSlot() -> Void {
+         for frame in (currentPeripheral?.connector.allFrames)! {
+             self.getBroadcastContent(frame: frame)
+         }
+     }
+     
+
+     
+     func getBroadcastContent(frame:MinewFrame) -> Void {
+                 
+         switch frame.frameType {
+         case .FrameiBeacon:
+             let iBeacon = frame as! MinewiBeacon
+             print("iBeacon:\(iBeacon.major)--\(String(describing: iBeacon.uuid))--\( iBeacon.minor)")
+             break
+         // Same thing with MTSensorPIRData/MTSensorHTData
+         case .FrameLineBeacon:
+             let lineBeaconLotKey:MTLineBeaconData = currentPeripheral?.connector?.sensorHandler.lineBeaconLotKeyDataDic["lineBeaconLotKeyDataDic"] as! MTLineBeaconData
+             let lineBeaconHwidAndVendorKey:MTLineBeaconData = currentPeripheral?.connector?.sensorHandler.lineBeaconDataDic["lineBeaconDataDic"] as! MTLineBeaconData
+         print("LineBeacon:\(lineBeaconLotKey.lotKey)--\(lineBeaconHwidAndVendorKey.hwId)--\(lineBeaconHwidAndVendorKey.vendorKey)")
+             
+             break
+         case .FrameURL:
+             let url = frame as! MinewURL
+             print("URL:\(url.urlString ?? "nil")")
+             break
+         case .FrameUID:
+             let uid = frame as! MinewUID
+             print("UID:\(uid.namespaceId ?? "nil")--\(uid.instanceId ?? "nil")")
+             break
+         case .FrameTLM:
+             print("TLM")
+             break
+         case .FrameDeviceInfo:
+             print("DeviceInfo")
+             break
+         default:
+             print("Unauthenticated Frame")
+             break
+         }
+     }
+     
+     func writeFrame(peripheral : MTPeripheral) -> Void {
+         let ib = MinewiBeacon.init()
+         ib.slotNumber = 0;
+         ib.uuid = "47410a54-99dd-49f9-a2f4-e1a7efe03c13";
+         ib.major = 300;
+         ib.minor = 30;
+         ib.slotAdvInterval = 400;
+         ib.slotAdvTxpower = -62;
+         ib.slotRadioTxpower = -4;
+         
+         peripheral.connector.write(ib, completion: { (success, error) in
+             if success {
+                 print("write success,%d",ib.slotRadioTxpower)
+             }
+             else {
+                 print(error as Any)
+             }
+         })
+         
+     }
+     
+     func setLineBeacon() -> Void {
+    
+         currentPeripheral?.connector.setLineBeaconLotkey("0011223344556600", completion: { (success, error) in
+             if error == nil {
+                 print("Set LineBeacon's lotKey success")
+             } else {
+                 print("Set LineBeacon's lotKey fail")
+             }
+         })
+         
+         currentPeripheral?.connector.setLineBeaconHWID("0011223300", vendorKey: "00112200", completion: { (success, error) in
+             if error == nil {
+                 if error == nil {
+                     print("Set LineBeacon's hwid and vendorKey success")
+                 } else {
+                     print("Set LineBeacon's hwid and vendorKey fail")
+                 }
+             }
+         })
+     }
+     
+     func getTrigger() -> Void {
+         let triggerData:MTTriggerData =  currentPeripheral?.connector.triggers[1] ?? MTTriggerData()
+         
+         print("TriggerData \n type:\(triggerData.type)--advertisingSecond:\(String(describing: triggerData.value))--alwaysAdvertise:\( triggerData.always)--advInterval:\(triggerData.advInterval)--radioTxpower:\(triggerData.radioTxpower)")
+
+     }
+     
+     func writeTrigger(peripheral : MTPeripheral) -> Void {
+         // Tips:Use the correct initialization method for MTTriggerData
+         let triggerData = MTTriggerData.init(slot: 1, paramSupport: true, triggerType: TriggerType.btnDtapLater, value: 30)
+         triggerData?.always = true;
+         triggerData?.advInterval = 100;
+         triggerData?.radioTxpower = -20;
+         
+         peripheral.connector.writeTrigger(triggerData) { (success) in
+             if success {
+                 print("write triggerData success")
+             }
+             else {
+                 print("write triggerData failed")
+             }
+         }
+     }
+    
+    
     // MARK: Show Alerts
 
     func showAlertBluetooth(){
@@ -660,17 +870,24 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if peripherals.count > 0{
                 for index in 0...peripherals.count - 1 {
                     let infoDict = peripherals[index]
+<<<<<<< HEAD
+                    var bleName = "Unknoun"
+                    if infoDict["Name"] != nil {
+                        bleName = infoDict["Name"] as! String
+                    }
+=======
                     let bleName = infoDict["Name"]
+>>>>>>> core
                     let bleUID = infoDict["UID"]
                     let bleRSSI = infoDict["RSSI"]
                     let data = infoDict["Data"]
-                    
+
                     let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
-                    
+
                     let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
                     let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
                     logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
-                    
+
                     APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dataDictToSend, onSuccess: { (Msg) in
                         print(Msg)
                     } ,onFailure : { (error) in
@@ -679,10 +896,40 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 }
             }
             
+            if manager != nil {
+                
+                for key in manager.scannedPeris {
+                    var bleName = "Unknoun"
+                    var mac = "Unknoun"
+                    if key.framer.name != nil {
+                        bleName = key.framer.name
+                    }
+                    let bleUID = key.identifier
+                    let bleRSSI = String(key.framer.rssi)
+                    if key.framer.mac != nil {
+                        mac = key.framer.mac
+                    }
+                    
+                    let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
+                    
+                    let data = ["battery":key.framer.battery,"mac":mac,"connectable":key.framer.connectable,"frames":key.framer.advFrames ?? []] as [String : Any]
+                    let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
+                    let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
+                    logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI) ;\(stringWithoutLineComma); \n")
+                    
+                    APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dataDictToSend, onSuccess: { (Msg) in
+                        print(Msg)
+                    } ,onFailure : { (error) in
+                        print(error)
+                    })
+                    
+                }
+            }
+            
+            
             createLogFile()
             if userMotionActivity != nil  {
                 logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
-                peripherals.removeAll()
             }
                         
         }
@@ -964,7 +1211,14 @@ extension HomeViewController: responceProtocol {
 extension HomeViewController: BluetoothManagerDelegate {
     
     func peripheralsDidUpdate(peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        peripherals.append(["UID":peripheral.identifier,"Name":peripheral.name as Any,"RSSI":RSSI,"Data":advertisementData])
+        var bleName = "Unknoun"
+        if advertisementData["kCBAdvDataLocalName"] != nil{
+            bleName = advertisementData["kCBAdvDataLocalName"] as! String
+            
+        }else if peripheral.name != nil {
+            bleName = peripheral.name!
+        }
+        peripherals.append(["UID":peripheral.identifier,"Name":bleName as Any,"RSSI":RSSI,"Data":advertisementData])
     }
     
     func centralStateOn() {
