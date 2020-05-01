@@ -22,6 +22,10 @@
 		FA04CA622458814C001A9591 /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA612458814C001A9591 /* HomeData.swift */; };
 		FA04CA642459B56A001A9591 /* CustomerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA632459B56A001A9591 /* CustomerData.swift */; };
 		FA04CA662459B5A2001A9591 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA652459B5A2001A9591 /* Config.swift */; };
+		FA04CA6A245B14A3001A9591 /* BraceletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA68245B14A3001A9591 /* BraceletViewController.swift */; };
+		FA04CA6B245B14A3001A9591 /* BraceletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA04CA69245B14A3001A9591 /* BraceletViewController.xib */; };
+		FA04CA6E245B3001001A9591 /* AddBraceletBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA6C245B3001001A9591 /* AddBraceletBottomViewController.swift */; };
+		FA04CA6F245B3001001A9591 /* AddBraceletBottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA04CA6D245B3001001A9591 /* AddBraceletBottomViewController.xib */; };
 		FA17C4BD243337B9000516EF /* BiometricsAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */; };
 		FA17C4BE243337B9000516EF /* BiometricsAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */; };
 		FA66D6442434B8880036D137 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA66D6432434B8880036D137 /* BaseController.swift */; };
@@ -141,6 +145,10 @@
 		FA04CA612458814C001A9591 /* HomeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeData.swift; sourceTree = "<group>"; };
 		FA04CA632459B56A001A9591 /* CustomerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerData.swift; sourceTree = "<group>"; };
 		FA04CA652459B5A2001A9591 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		FA04CA68245B14A3001A9591 /* BraceletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraceletViewController.swift; sourceTree = "<group>"; };
+		FA04CA69245B14A3001A9591 /* BraceletViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BraceletViewController.xib; sourceTree = "<group>"; };
+		FA04CA6C245B3001001A9591 /* AddBraceletBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBraceletBottomViewController.swift; sourceTree = "<group>"; };
+		FA04CA6D245B3001001A9591 /* AddBraceletBottomViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddBraceletBottomViewController.xib; sourceTree = "<group>"; };
 		FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsAuthViewController.swift; sourceTree = "<group>"; };
 		FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricsAuthViewController.xib; sourceTree = "<group>"; };
 		FA66D6432434B8880036D137 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
@@ -296,6 +304,17 @@
 			path = MyZone;
 			sourceTree = "<group>";
 		};
+		FA04CA67245B1441001A9591 /* Bracelet */ = {
+			isa = PBXGroup;
+			children = (
+				FA04CA68245B14A3001A9591 /* BraceletViewController.swift */,
+				FA04CA69245B14A3001A9591 /* BraceletViewController.xib */,
+				FA04CA6C245B3001001A9591 /* AddBraceletBottomViewController.swift */,
+				FA04CA6D245B3001001A9591 /* AddBraceletBottomViewController.xib */,
+			);
+			path = Bracelet;
+			sourceTree = "<group>";
+		};
 		FA17C4BA2433377E000516EF /* BiometricsAuthentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +351,7 @@
 		FA6E9855243293F5000F2C2E /* lockDown */ = {
 			isa = PBXGroup;
 			children = (
+				FA04CA67245B1441001A9591 /* Bracelet */,
 				FA012F0E2447131400E647B9 /* MyZone */,
 				FAC81E7D243A83DD002DBADE /* WebContainer */,
 				FAC81E78243A1E8F002DBADE /* LandingPage */,
@@ -700,9 +720,11 @@
 				FAD6CED82448B508007E4F57 /* TermsAndConditionViewController.xib in Resources */,
 				FAC36CA2243888BA002B4928 /* SurveyCell.xib in Resources */,
 				FAC36C8524375E50002B4928 /* BiometricsBottomViewController.xib in Resources */,
+				FA04CA6B245B14A3001A9591 /* BraceletViewController.xib in Resources */,
 				FAB7F41824339B0600061AE5 /* OpenSans-Italic.ttf in Resources */,
 				FAC81E712438CEE9002DBADE /* EmergencyViewController.xib in Resources */,
 				FAB7F41E24339B0600061AE5 /* OpenSans-SemiBoldItalic.ttf in Resources */,
+				FA04CA6F245B3001001A9591 /* AddBraceletBottomViewController.xib in Resources */,
 				FA7ED09B243762D200C0060D /* MenuTableViewCell.xib in Resources */,
 				FAD6CEDC2449101E007E4F57 /* CustomAlertViewController.xib in Resources */,
 				FA7ED09F24376D3B00C0060D /* ChangeLocationViewController.xib in Resources */,
@@ -911,6 +933,7 @@
 				FAC36C9D24388894002B4928 /* SurveyViewController.swift in Sources */,
 				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
+				FA04CA6A245B14A3001A9591 /* BraceletViewController.swift in Sources */,
 				FAC36C8424375E50002B4928 /* BiometricsBottomViewController.swift in Sources */,
 				FA9E2379243F2CB300F0E6F2 /* ImagePicker.swift in Sources */,
 				FAC81E80243A84A7002DBADE /* ContentViewController.swift in Sources */,
@@ -938,6 +961,7 @@
 				FAC36C812435DCFC002B4928 /* UserData.swift in Sources */,
 				FA6E98A624329B83000F2C2E /* Button.swift in Sources */,
 				FA048A192450355E00A027A5 /* Geotification.swift in Sources */,
+				FA04CA6E245B3001001A9591 /* AddBraceletBottomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

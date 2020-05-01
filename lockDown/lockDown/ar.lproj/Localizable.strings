@@ -49,3 +49,7 @@
 // My zone
 "locationStoredTxt"   =  "تم تسجيل موقع منزلك بنجاح";
 
+// Bracelet
+
+"bracelet_txt"          = "سوار";
+"addBraceletTitle"      = "إضافة سوار";

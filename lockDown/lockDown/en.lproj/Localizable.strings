@@ -106,3 +106,11 @@
 "support_successMsg_txt" = "Your message has been sent successfully.";
 // My Zone
 "locationStoredTxt"   ="Your home location was stored successfully";
+
+
+
+// Bracelet
+
+"bracelet_txt"          = "Bracelet";
+"addbeaconTxt"          = "For your safety, \n Please make sure your bracelet is connected \n and stay close to your phone.";
+"addBraceletTitle"      = "Add Bracelet";
