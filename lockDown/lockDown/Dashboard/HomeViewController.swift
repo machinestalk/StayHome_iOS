@@ -125,6 +125,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     @IBOutlet weak var satBtn: UIButton!
     @IBOutlet weak var menuBtn: UIButton!
     
+    @IBOutlet weak var homeImg: UIImageView!
+    @IBOutlet weak var homeTip: UILabel!
+    @IBOutlet weak var homeTitle: UILabel!
     var activityManager = ActivityManager()
     var batteryLevel: Float { UIDevice.current.batteryLevel }
     
@@ -870,14 +873,10 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if peripherals.count > 0{
                 for index in 0...peripherals.count - 1 {
                     let infoDict = peripherals[index]
-<<<<<<< HEAD
                     var bleName = "Unknoun"
                     if infoDict["Name"] != nil {
                         bleName = infoDict["Name"] as! String
                     }
-=======
-                    let bleName = infoDict["Name"]
->>>>>>> core
                     let bleUID = infoDict["UID"]
                     let bleRSSI = infoDict["RSSI"]
                     let data = infoDict["Data"]
