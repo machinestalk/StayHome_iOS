@@ -59,3 +59,5 @@
 "addBraceletAlertTitle"  = "يرجى إضافة سوار الخاص بك";
 "nearByBluetoothTxt"     = "أجهزة البلوتوث القريبة";
 "scanBraceletTitle"      =  "مسح سوار";
+"beaconmacTxt"           = "عنوان الماك للسوار";
+"braceletStatusTitle"    = "حالة السوار";

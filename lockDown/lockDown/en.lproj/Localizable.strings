@@ -119,3 +119,5 @@
 "addBraceletAlertTitle"  = "Please add your bracelet";
 "nearByBluetoothTxt"     = "Nearby Bluetooth devices";
 "scanBraceletTitle"      =  "Scan bracelet";
+"beaconmacTxt"           = "Bracelet mac address";
+"braceletStatusTitle"    = "Bracelet Status";
