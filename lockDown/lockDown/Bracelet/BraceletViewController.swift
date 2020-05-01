@@ -10,6 +10,8 @@ import UIKit
 
 class BraceletViewController: BaseController {
 
+    var addBraceletVC = AddBraceletBottomViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
@@ -23,6 +25,7 @@ class BraceletViewController: BaseController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.isTranslucent = true
         title = "addBraceletTitle".localiz()
+        setupAddBeaconVC()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -41,5 +44,28 @@ class BraceletViewController: BaseController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    // MARK: - AddBeacon View
+    func setupAddBeaconVC() {
+        //requestLocationVC.view.removeFromSuperview()
+        addBraceletVC.delegate = self
+        let height = view.frame.height
+        let width  = view.frame.width
+        addBraceletVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        self.addChild(addBraceletVC)
+        self.view.addSubview(addBraceletVC.view)
+        addBraceletVC.didMove(toParent: self)
+    }
+}
+extension BraceletViewController : AddBraceletProtocol {
+    func scanForBracelet() {
+        print("scanForBracelet")
+        let scanListVC = ScanListViewController(nibName: "ScanListViewController", bundle: nil)
+        self.navigationController!.pushViewController(scanListVC, animated: true)
+    }
+    
+    func addBraceletManually() {
+        print("addBraceletManually")
+    }
+    
+    
 }

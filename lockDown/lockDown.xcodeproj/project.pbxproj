@@ -25,6 +25,10 @@
 		FA04CA6B245B14A3001A9591 /* BraceletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA04CA69245B14A3001A9591 /* BraceletViewController.xib */; };
 		FA04CA6E245B3001001A9591 /* AddBraceletBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA6C245B3001001A9591 /* AddBraceletBottomViewController.swift */; };
 		FA04CA6F245B3001001A9591 /* AddBraceletBottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA04CA6D245B3001001A9591 /* AddBraceletBottomViewController.xib */; };
+		FA04CA72245C53F0001A9591 /* ScanListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA70245C53EF001A9591 /* ScanListViewController.swift */; };
+		FA04CA73245C53F0001A9591 /* ScanListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA04CA71245C53EF001A9591 /* ScanListViewController.xib */; };
+		FA04CA76245C55F1001A9591 /* ScanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA74245C55F1001A9591 /* ScanTableViewCell.swift */; };
+		FA04CA77245C55F1001A9591 /* ScanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA04CA75245C55F1001A9591 /* ScanTableViewCell.xib */; };
 		FA17C4BD243337B9000516EF /* BiometricsAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */; };
 		FA17C4BE243337B9000516EF /* BiometricsAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */; };
 		FA46CF922459CF9900B2E790 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA46CF8C2459CA7900B2E790 /* iOSDFULibrary.framework */; };
@@ -171,6 +175,10 @@
 		FA04CA69245B14A3001A9591 /* BraceletViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BraceletViewController.xib; sourceTree = "<group>"; };
 		FA04CA6C245B3001001A9591 /* AddBraceletBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBraceletBottomViewController.swift; sourceTree = "<group>"; };
 		FA04CA6D245B3001001A9591 /* AddBraceletBottomViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddBraceletBottomViewController.xib; sourceTree = "<group>"; };
+		FA04CA70245C53EF001A9591 /* ScanListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanListViewController.swift; sourceTree = "<group>"; };
+		FA04CA71245C53EF001A9591 /* ScanListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanListViewController.xib; sourceTree = "<group>"; };
+		FA04CA74245C55F1001A9591 /* ScanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTableViewCell.swift; sourceTree = "<group>"; };
+		FA04CA75245C55F1001A9591 /* ScanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanTableViewCell.xib; sourceTree = "<group>"; };
 		FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsAuthViewController.swift; sourceTree = "<group>"; };
 		FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricsAuthViewController.xib; sourceTree = "<group>"; };
 		FA46CF8B2459CA7800B2E790 /* MTBeaconPlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MTBeaconPlus.framework; sourceTree = "<group>"; };
@@ -342,6 +350,10 @@
 				FA04CA69245B14A3001A9591 /* BraceletViewController.xib */,
 				FA04CA6C245B3001001A9591 /* AddBraceletBottomViewController.swift */,
 				FA04CA6D245B3001001A9591 /* AddBraceletBottomViewController.xib */,
+				FA04CA70245C53EF001A9591 /* ScanListViewController.swift */,
+				FA04CA71245C53EF001A9591 /* ScanListViewController.xib */,
+				FA04CA74245C55F1001A9591 /* ScanTableViewCell.swift */,
+				FA04CA75245C55F1001A9591 /* ScanTableViewCell.xib */,
 			);
 			path = Bracelet;
 			sourceTree = "<group>";
@@ -742,6 +754,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA6E98AB24329CEA000F2C2E /* LoginViewController.xib in Resources */,
+				FA04CA73245C53F0001A9591 /* ScanListViewController.xib in Resources */,
 				FAB7F3E5243371E800061AE5 /* RequestLocationViewController.xib in Resources */,
 				FAB7F42024339B0600061AE5 /* OpenSans-Regular.ttf in Resources */,
 				FAB7F41A24339B0600061AE5 /* OpenSans-ExtraBold.ttf in Resources */,
@@ -776,6 +789,7 @@
 				FAB7F42124339B0600061AE5 /* OpenSans-BoldItalic.ttf in Resources */,
 				FA6E985E243293F5000F2C2E /* Main.storyboard in Resources */,
 				FAC81E772438CF29002DBADE /* ContactUsViewController.xib in Resources */,
+				FA04CA77245C55F1001A9591 /* ScanTableViewCell.xib in Resources */,
 				FAB7F42224339B0600061AE5 /* AvenirLTStd-Roman.otf in Resources */,
 				FA6E98B7243350CE000F2C2E /* GoogleService-Info.plist in Resources */,
 				FAB7F41724339B0600061AE5 /* OpenSans-Light.ttf in Resources */,
@@ -958,6 +972,7 @@
 				FAB9B83F2438FC85007364E7 /* CheckInViewController.swift in Sources */,
 				FAC36C9824388868002B4928 /* WelcomeViewController.swift in Sources */,
 				FA6E98A124329B83000F2C2E /* LanguageManager.swift in Sources */,
+				FA04CA76245C55F1001A9591 /* ScanTableViewCell.swift in Sources */,
 				FA7ED09E24376D3B00C0060D /* ChangeLocationViewController.swift in Sources */,
 				FAC36CA1243888BA002B4928 /* SurveyCell.swift in Sources */,
 				FA6E985B243293F5000F2C2E /* ViewController.swift in Sources */,
@@ -992,6 +1007,7 @@
 				FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */,
 				FAC36C812435DCFC002B4928 /* UserData.swift in Sources */,
 				FA6E98A624329B83000F2C2E /* Button.swift in Sources */,
+				FA04CA72245C53F0001A9591 /* ScanListViewController.swift in Sources */,
 				FA048A192450355E00A027A5 /* Geotification.swift in Sources */,
 				FA04CA6E245B3001001A9591 /* AddBraceletBottomViewController.swift in Sources */,
 			);

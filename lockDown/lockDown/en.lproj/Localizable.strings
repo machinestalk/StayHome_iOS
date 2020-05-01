@@ -114,3 +114,8 @@
 "bracelet_txt"          = "Bracelet";
 "addbeaconTxt"          = "For your safety, \n Please make sure your bracelet is connected \n and stay close to your phone.";
 "addBraceletTitle"      = "Add Bracelet";
+"scanTxt"               ="Scan";
+"addmanuallyTxt"         = "Add manually";
+"addBraceletAlertTitle"  = "Please add your bracelet";
+"nearByBluetoothTxt"     = "Nearby Bluetooth devices";
+"scanBraceletTitle"      =  "Scan bracelet";
