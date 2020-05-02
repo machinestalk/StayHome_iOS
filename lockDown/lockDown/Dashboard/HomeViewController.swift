@@ -190,7 +190,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
         
         let deviceId = UserDefaults.standard.value(forKey: "deviceId") as! String
-        let start = deviceId.index(deviceId.endIndex, offsetBy: -9)
+        let start = deviceId.index(deviceId.endIndex, offsetBy: -26)
         let range = start..<deviceId.endIndex
         let miniID = String(deviceId[range])
         bluetoothManager.delegate = self
@@ -547,7 +547,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
 //        let deviceId = UserDefaults.standard.string(forKey: "deviceId")
 //        bluetoothManager.delegate = self
 //        bluetoothManager.startAdvertising(with: "StayHomeKSA_\(deviceId ?? "")")
-//        self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
+          
         
         if !bluetoothEnabled{
             showAlertBluetooth()
@@ -873,19 +873,19 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if peripherals.count > 0{
                 for index in 0...peripherals.count - 1 {
                     let infoDict = peripherals[index]
-                    var bleName = "Unknoun"
+                    var bleName = "Unknown"
                     if infoDict["Name"] != nil {
                         bleName = infoDict["Name"] as! String
                     }
                     let bleUID = infoDict["UID"]
                     let bleRSSI = infoDict["RSSI"]
-                    let data = infoDict["Data"]
+                    let data = infoDict["Data"] as! String
 
                     let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
 
-                    let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
-                    let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
-                    logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(stringWithoutLineComma); \n")
+//                    let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
+//                    let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
+                    logToBLEFile(value: "\(Date()) ; StayHomeApp_\(data) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(bleName); \n")
 
                     APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dataDictToSend, onSuccess: { (Msg) in
                         print(Msg)
@@ -898,8 +898,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if manager != nil {
                 
                 for key in manager.scannedPeris {
-                    var bleName = "Unknoun"
-                    var mac = "Unknoun"
+                    var bleName = "Unknown"
+                    var mac = "Unknown"
                     if key.framer.name != nil {
                         bleName = key.framer.name
                     }
@@ -908,6 +908,15 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     if key.framer.mac != nil {
                         mac = key.framer.mac
                     }
+                    
+//                    {
+//                     "info":"name,mac",
+//                    "iBeacon":" UUID,Minor;Major;DID",
+//                     "UID":"nameSpaceID;InstanceID,RSSI@0m",
+//                     "URL":"link",
+//                     "Acc":"X-axix;Y-axix;Z-axix",
+//                     "TLM":"Battery Voltage;Temperature",
+//                     }
                     
                     let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
                     
@@ -930,7 +939,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if userMotionActivity != nil  {
                 logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
             }
-                        
+            peripherals.removeAll()
+            startScanningBTDevices()
         }
     }
 
@@ -1213,11 +1223,11 @@ extension HomeViewController: BluetoothManagerDelegate {
         var bleName = "Unknoun"
         if advertisementData["kCBAdvDataLocalName"] != nil{
             bleName = advertisementData["kCBAdvDataLocalName"] as! String
-            
+            peripherals.append(["UID":peripheral.identifier,"Name":bleName as Any,"RSSI":RSSI,"Data":peripheral.name as Any])
         }else if peripheral.name != nil {
             bleName = peripheral.name!
         }
-        peripherals.append(["UID":peripheral.identifier,"Name":bleName as Any,"RSSI":RSSI,"Data":advertisementData])
+        
     }
     
     func centralStateOn() {
