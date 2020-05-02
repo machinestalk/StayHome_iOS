@@ -911,21 +911,22 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     
 //                    {
 //                     "info":"name,mac",
-//                    "iBeacon":" UUID,Minor;Major;DID",
+//                     "iBeacon":" UUID,Minor;Major;DID",
 //                     "UID":"nameSpaceID;InstanceID,RSSI@0m",
 //                     "URL":"link",
 //                     "Acc":"X-axix;Y-axix;Z-axix",
 //                     "TLM":"Battery Voltage;Temperature",
 //                     }
+                    let formattedData = ["info":"\(bleName),\(mac)","iBeacon":bleUID as Any,"UID":bleRSSI,"URL":"","Acc":"","TLM":key.framer.battery] as [String : Any]
                     
-                    let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
+                    //let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
                     
                     let data = ["battery":key.framer.battery,"mac":mac,"connectable":key.framer.connectable,"frames":key.framer.advFrames ?? []] as [String : Any]
                     let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
                     let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
                     logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI) ;\(stringWithoutLineComma); \n")
                     
-                    APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dataDictToSend, onSuccess: { (Msg) in
+                    APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: formattedData, onSuccess: { (Msg) in
                         print(Msg)
                     } ,onFailure : { (error) in
                         print(error)
