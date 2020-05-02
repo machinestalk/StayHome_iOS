@@ -98,7 +98,7 @@ extension CoreBluetoothManager: CBPeripheralManagerDelegate {
 //            let deviceIdData = deviceId!.data(using: .utf8)
 //            advertisingData[CBAdvertisementDataServiceDataKey] = ["\(uuid)":deviceIdData]
             self.peripheralManager?.startAdvertising(advertisingData)
-            beaconPeripheralManager?.startAdvertising(beaconPeripheralData as? [String: Any])
+            //beaconPeripheralManager?.startAdvertising(beaconPeripheralData as? [String: Any])
         } else if peripheral.state == .poweredOff {
             beaconPeripheralManager?.stopAdvertising()
         }
