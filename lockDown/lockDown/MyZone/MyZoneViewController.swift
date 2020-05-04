@@ -538,16 +538,19 @@ extension MyZoneViewController: RequestLocationProtocol {
     
     func requestlocation() {
         requestLocationVC.view.removeFromSuperview()
-        biometricsBottomVc.delegate = self
-        let height = view.frame.height
-        let width  = view.frame.width
-        biometricsBottomVc.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-        self.addChild(biometricsBottomVc)
-        self.view.addSubview(biometricsBottomVc.view)
-        biometricsBottomVc.msgLbl.text = "locationStoredTxt".localiz()
-        biometricsBottomVc.titleLbl.isHidden = true
-        biometricsBottomVc.successImage.isHidden = false
-        biometricsBottomVc.didMove(toParent: self)
+        UserDefaults.standard.set(true, forKey: "isLocationSetted")
+        //UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
+        let customerId = UserDefaults.standard.string(forKey: "customerId")
+        
+        APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
+            print(Msg)
+            self.biometricsBottomVc.view.removeFromSuperview()
+        } ,onFailure : { (error) in
+            print(error)
+        })
+        let biometricsAuthVC = BiometricsAuthViewController(nibName: "BiometricsAuthViewController", bundle: nil)
+        self.navigationController!.pushViewController(biometricsAuthVC, animated: true)
+        
     }
     
     

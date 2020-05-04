@@ -171,7 +171,7 @@ class BiometricsAuthViewController: BaseController {
                                 }
                                 else {
                                     let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-                                    APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0,raison:"faceId doesn't match", onSuccess: { (Msg) in
+                                    APIClient.sendTelimetryWithoutZone(deviceToken: deviceToken!, iscomplaint: 0,raison:"faceId doesn't match", onSuccess: { (Msg) in
                                         print(Msg)
                                     } ,onFailure : { (error) in
                                         print(error)
@@ -248,12 +248,10 @@ class BiometricsAuthViewController: BaseController {
     }
     func setupSuccessBiometricsBottomVC(){
         
-        biometricsBottomVC.msgLbl.text = "Your face ID is successfully registered."
-        biometricsBottomVC.titleLbl.isHidden = true
-        biometricsBottomVC.successImage.image = UIImage(named: "big_green_check")
-        biometricsBottomVC.successImage.isHidden = false
-        biometricsBottomVC.nextBtn.setBackgroundImage(UIImage(named: "green_button"), for: .normal)
-        biometricsBottomVC.nextBtn.titleLabel?.text = "Next"
+       let FinishSignupVC = FinishSignupViewController(nibName: "FinishSignupViewController", bundle: nil)
+        FinishSignupVC.isFromCheckIn = self.isFromCheckIn
+        FinishSignupVC.isFromNotif = self.isFromNotif
+        self.navigationController!.pushViewController(FinishSignupVC, animated: true)
     }
 }
 
@@ -272,7 +270,7 @@ extension BiometricsAuthViewController: BiometricsAuthProtocol {
         case .loggedout:
             if biometricsBottomVC.nextBtn.tag == 10 {
                 let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "faceId doesn't match", onSuccess: { (Msg) in
+                APIClient.sendTelimetryWithoutZone(deviceToken: deviceToken!, iscomplaint: 0, raison: "faceId doesn't match", onSuccess: { (Msg) in
                     print(Msg)
                 } ,onFailure : { (error) in
                     print(error)

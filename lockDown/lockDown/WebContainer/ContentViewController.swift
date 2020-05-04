@@ -11,10 +11,8 @@ import WebKit
 import MBProgressHUD
 
 class ContentViewController: BaseController, WKNavigationDelegate {
-    
-    var webView: WKWebView!
-    
-//    override func loadView() {
+    @IBOutlet weak var textAboutAs: UITextView!
+    //    override func loadView() {
 //        webView = WKWebView()
 //        webView.navigationDelegate = self
 //        view = webView
@@ -27,6 +25,7 @@ class ContentViewController: BaseController, WKNavigationDelegate {
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+        textAboutAs.text = "aboutUsTxt".localiz()
     }
     
     func webView(_ webView: WKWebView,didFinish navigation: WKNavigation!) {

@@ -13,7 +13,8 @@ enum APIRouter: URLRequestConvertible {
     
     case signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String)
     case signUp(phoneNumber: String)
-    case sendIsComplaint(deviceToken : String,iscomplaint: Int,raison :String)
+    case sendIsComplaint(deviceToken : String,iscomplaint: Int,raison :String,zoneStatus: Int)
+    case sendIsComplaintWithoutZone(deviceToken : String,iscomplaint: Int,raison :String)
     case sendZoneLocations(deviceid : String,latitude: String ,longitude : String , radius : String)
     case sendSurvey(deviceid : String, data:[String:Any])
     case sendFirebaseToken(deviceid : String, firebase_token : String)
@@ -26,7 +27,7 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm, .sendBLEScanned:
+        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm, .sendBLEScanned, .sendIsComplaintWithoutZone:
             return .post
         case .getTipsHome ,.getCustomerData:
             return .get
@@ -44,6 +45,8 @@ enum APIRouter: URLRequestConvertible {
         case .refrechToken:
             return "api/auth/token"
         case .sendIsComplaint(let parameters):
+            return "api/v1/\(parameters.deviceToken)/telemetry"
+        case .sendIsComplaintWithoutZone(let parameters):
             return "api/v1/\(parameters.deviceToken)/telemetry"
         case .sendBLEScanned(let parameters):
             return "api/v1/\(parameters.deviceToken)/telemetry"
@@ -73,6 +76,8 @@ enum APIRouter: URLRequestConvertible {
         case .refrechToken(let refreshToken):
             return [LockDown.APIParameterKey.refreshToken: refreshToken]
         case . sendIsComplaint(let parameters):
+            return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint , LockDown.APIParameterKey.raison : parameters.raison ,LockDown.APIParameterKey.zoneStatus : parameters.zoneStatus ]
+        case . sendIsComplaintWithoutZone(let parameters):
             return [LockDown.APIParameterKey.iscomplaint : parameters.iscomplaint , LockDown.APIParameterKey.raison : parameters.raison ]
         case .sendZoneLocations(let parameters):
             return [LockDown.APIParameterKey.latitude : parameters.latitude , LockDown.APIParameterKey.longitude : parameters.longitude ,LockDown.APIParameterKey.radius : parameters.radius ]

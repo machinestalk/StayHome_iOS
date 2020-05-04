@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
+                <outlet property="dayNumber" destination="oYm-F5-n7O" id="ueq-YL-G1a"/>
                 <outlet property="homeImg" destination="e2m-n9-IaI" id="INo-c7-Akj"/>
                 <outlet property="homeTip" destination="Bdz-Ii-RF2" id="xoy-W7-64L"/>
                 <outlet property="homeTitle" destination="wOW-Od-kc0" id="1Sj-r2-OVl"/>
@@ -24,7 +25,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jk0-Pi-FPb">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="406"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day14" translatesAutoresizingMaskIntoConstraints="NO" id="e2m-n9-IaI">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_page_bg" translatesAutoresizingMaskIntoConstraints="NO" id="e2m-n9-IaI">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="406"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAYS LEFT IN QUARQNTAINE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkI-Ll-8P6">
@@ -48,6 +49,12 @@
                                 <action selector="openLeftView:" destination="-1" eventType="touchUpInside" id="dt3-gb-aXe"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYm-F5-n7O">
+                            <rect key="frame" x="187.66666666666666" y="169" width="0.0" height="0.0"/>
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="55"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
@@ -56,8 +63,10 @@
                         <constraint firstItem="tS2-vU-UW2" firstAttribute="leading" secondItem="Jk0-Pi-FPb" secondAttribute="leading" constant="10" id="VUe-TV-y5z"/>
                         <constraint firstAttribute="bottom" secondItem="e2m-n9-IaI" secondAttribute="bottom" id="XMz-wv-zFL"/>
                         <constraint firstItem="e2m-n9-IaI" firstAttribute="top" secondItem="Jk0-Pi-FPb" secondAttribute="top" id="bP2-E5-CrM"/>
+                        <constraint firstItem="qkI-Ll-8P6" firstAttribute="top" secondItem="oYm-F5-n7O" secondAttribute="bottom" constant="31" id="gnz-kX-3bi"/>
                         <constraint firstAttribute="trailing" secondItem="e2m-n9-IaI" secondAttribute="trailing" id="mMb-ea-DD5"/>
                         <constraint firstItem="e2m-n9-IaI" firstAttribute="leading" secondItem="Jk0-Pi-FPb" secondAttribute="leading" id="r6e-y6-DxL"/>
+                        <constraint firstItem="oYm-F5-n7O" firstAttribute="centerX" secondItem="e2m-n9-IaI" secondAttribute="centerX" id="tUx-Cm-tfm"/>
                         <constraint firstItem="qkI-Ll-8P6" firstAttribute="centerX" secondItem="Jk0-Pi-FPb" secondAttribute="centerX" id="vth-nT-zRc"/>
                     </constraints>
                 </view>
@@ -123,7 +132,7 @@ other people.</string>
         </view>
     </objects>
     <resources>
-        <image name="day14" width="380.66665649414062" height="410"/>
+        <image name="home_page_bg" width="380.66665649414062" height="410"/>
         <image name="ic_menu" width="43" height="43"/>
     </resources>
 </document>
