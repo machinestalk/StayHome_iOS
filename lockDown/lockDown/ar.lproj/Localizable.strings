@@ -49,3 +49,6 @@
 // My zone
 "locationStoredTxt"   =  "تم تسجيل موقع منزلك بنجاح";
 
+// AboutUs
+
+"aboutUsTxt"        = "This app is dedicated to help to overcome the Corona Virus and it is an initiative from the tech industry to help the medical authorities in their fight.\n \n Machinestalk company (www.machinestalk.com),based in Riyadh Saudi Arabia developed this app and share it with medical authorities in Saudi Arabia or any country world wide as part of its social responsibilities for all humans in partnership with Attaa Digital Initiative created by Ministry of Communication and Information Technologies in Saudi Arabia.\n \n Machinestalk is the first Saudi IoT VNO specialized in providing smart solutions such as smart health, smart transportation, smart cities and smart industries.";

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "day12.png",
+      "filename" : "home_page_bg.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "day12@2x.png",
+      "filename" : "home_page_bg@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "day12@3x.png",
+      "filename" : "home_page_bg@3x.png",
       "scale" : "3x"
     }
   ],

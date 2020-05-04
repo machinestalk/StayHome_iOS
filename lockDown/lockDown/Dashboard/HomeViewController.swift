@@ -124,6 +124,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var satBtn: UIButton!
     @IBOutlet weak var menuBtn: UIButton!
+    @IBOutlet weak var dayNumber: UILabel!
     
     @IBOutlet weak var homeImg: UIImageView!
     @IBOutlet weak var homeTip: UILabel!
@@ -254,7 +255,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if let title = dicHome!["title"] as? String {
                 self.homeTitle.text = title
             }
-            self.homeImg.image = UIImage(named: "day\(self.dayQuarantine)")
+            self.dayNumber.text = "\(self.dayQuarantine)"
             }, onFailure: {error in
                 let errorr = error as NSError
                 let errorDict = errorr.userInfo

@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContentViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
+                <outlet property="textAboutAs" destination="iut-Lx-h5u" id="ozf-Ml-dYY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,22 +19,35 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about_us" translatesAutoresizingMaskIntoConstraints="NO" id="XAV-kb-Jab">
-                    <rect key="frame" x="20" y="43" width="284" height="505"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="XAV-kb-Jab">
+                    <rect key="frame" x="85" y="43" width="150" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="TLu-Y8-H8s"/>
+                        <constraint firstAttribute="width" constant="150" id="uqM-Vo-Vkr"/>
+                    </constraints>
                 </imageView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iut-Lx-h5u">
+                    <rect key="frame" x="8" y="101" width="304" height="447"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="XAV-kb-Jab" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="43" id="61l-m6-pGC"/>
-                <constraint firstItem="XAV-kb-Jab" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-20" id="Lqn-Ub-HKV"/>
-                <constraint firstItem="XAV-kb-Jab" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-16" id="OfY-rD-sXg"/>
-                <constraint firstItem="XAV-kb-Jab" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="a25-zT-bL4"/>
+                <constraint firstItem="iut-Lx-h5u" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.95" id="Egl-YF-b9d"/>
+                <constraint firstItem="iut-Lx-h5u" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="J1s-WL-qEI"/>
+                <constraint firstItem="iut-Lx-h5u" firstAttribute="top" secondItem="XAV-kb-Jab" secondAttribute="bottom" constant="10" id="UFx-Dq-BvI"/>
+                <constraint firstItem="XAV-kb-Jab" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="cy8-vc-KME"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="iut-Lx-h5u" secondAttribute="bottom" constant="20" id="luN-nt-Emj"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="138.75" y="130.98591549295776"/>
         </view>
     </objects>
     <resources>
-        <image name="about_us" width="344" height="669.5"/>
+        <image name="mt_logo" width="141" height="45"/>
     </resources>
 </document>
