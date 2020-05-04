@@ -908,29 +908,25 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     if key.framer.mac != nil {
                         mac = key.framer.mac
                     }
-                    
-//                    {
-//                     "info":"name,mac",
-//                     "iBeacon":" UUID,Minor;Major;DID",
-//                     "UID":"nameSpaceID;InstanceID,RSSI@0m",
-//                     "URL":"link",
-//                     "Acc":"X-axix;Y-axix;Z-axix",
-//                     "TLM":"Battery Voltage;Temperature",
-//                     }
-                    let formattedData = ["info":"\(bleName),\(mac)","iBeacon":bleUID as Any,"UID":bleRSSI,"URL":"","Acc":"","TLM":key.framer.battery] as [String : Any]
-                    
-                    //let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
+//
+////                    {
+////                     "info":"name,mac",
+////                     "iBeacon":" UUID,Minor;Major;DID",
+////                     "UID":"nameSpaceID;InstanceID,RSSI@0m",
+////                     "URL":"link",
+////                     "Acc":"X-axix;Y-axix;Z-axix",
+////                     "TLM":"Battery Voltage;Temperature",
+////                     }
+//                    let formattedData = ["info":"\(bleName),\(mac)","iBeacon":bleUID as Any,"UID":bleRSSI,"URL":"","Acc":"","TLM":key.framer.battery] as [String : Any]
+//
+//                    //let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
                     
                     let data = ["battery":key.framer.battery,"mac":mac,"connectable":key.framer.connectable,"frames":key.framer.advFrames ?? []] as [String : Any]
                     let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
                     let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
                     logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI) ;\(stringWithoutLineComma); \n")
                     
-                    APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: formattedData, onSuccess: { (Msg) in
-                        print(Msg)
-                    } ,onFailure : { (error) in
-                        print(error)
-                    })
+                    sendScannedDataFrames(frames: key.framer.advFrames,deviceName: bleName,deviceMac:mac)
                     
                 }
             }
@@ -945,7 +941,99 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
     }
 
-    // MARK : Set counter for Check In
+    // MARK : Send Data to the Server
+    
+    func sendScannedDataFrames(frames: [MinewFrame] ,deviceName: String,deviceMac: String){
+        
+        let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+        let dictParams: NSMutableDictionary? = ["info":"","iBeacon":"","UID":"","URL":"","Acc":"","TLM":""]
+        
+        for i in 0..<frames.count {
+            let frame = frames[i]
+            
+            switch frame.frameType {
+            case .FrameiBeacon:
+                let bea = frame as? MinewiBeacon
+                if let uuid = bea?.uuid, let major = bea?.major, let minor = bea?.minor {
+                    print(String(format: "iBeacon:%@, %ld, %ld", uuid, major, minor))
+                    dictParams!["iBeacon"] = String(format:"%@, %ld, %ld", uuid, major, minor)
+                }
+            case .FrameUID:
+                let uid = frame as? MinewUID
+                if let namespaceId = uid?.namespaceId, let instanceId = uid?.instanceId, let txPower = uid?.txPower {
+                    print(String(format: "UID:%@, %@, %ld", namespaceId, instanceId, txPower))
+                    dictParams!["UID"] = String(format:"%@, %@, %ld", namespaceId, instanceId, txPower)
+                }
+            case .FrameDeviceInfo:
+                let info = frame as? MinewDeviceInfo
+                if let mac = info?.mac, let name = info?.name {
+                    print(String(format: "DeviceInfo: %ld, %@, %@", Int(info?.battery ?? 0), mac, name))
+                    //dictParams!["info"] = String(format:"%ld, %@, %@", Int(info?.battery ?? 0), mac, name)
+                }
+                
+            case .FrameTLM:
+                
+                let tlm = frame as? MinewTLM
+                if let batteryVol = tlm?.batteryVol, let temperature = tlm?.temperature, let advCount = tlm?.advCount, let secCount = tlm?.secCount {
+                    print(String(format:"TLM: %ld, %f, %ld, %ld",batteryVol, temperature, advCount, secCount))
+                    dictParams!["TLM"] = String(format:"%ld, %f, %ld, %ld",batteryVol, temperature, advCount, secCount)
+                }
+                
+            case .FrameURL:
+                
+                let url = frame as? MinewURL
+                if let txPower = url?.txPower, let urlString = url?.urlString {
+                    print(String(format:"URL: %ld, %@", txPower, urlString))
+                    dictParams!["URL"] = String(format:"%@", urlString)
+                }
+                
+                
+            case .FrameAccSensor:
+                
+                let acc = frame as? MinewAccSensor
+                if let xAxis = acc?.xAxis, let yAxis = acc?.yAxis, let zAxis = acc?.zAxis {
+                    print(String(format:"ACC: %f, %f, %f", xAxis, yAxis, zAxis))
+                    dictParams!["Acc"] = String(format:"%f, %f, %f", xAxis, yAxis, zAxis)
+                }
+                
+            case .FrameNone:
+                break
+            case .FrameConnectable:
+                break
+            case .FrameUnknown:
+                break
+            case .FrameHTSensor:
+                break
+            case .FrameLightSensor:
+                break
+            case .FrameQlock:
+                break
+            case .FrameDFU:
+                break
+            case .FrameRoambee:
+                break
+            case .FrameForceSensor:
+                break
+            case .FramePIRSensor:
+                break
+            case .FrameTVOCSensor:
+                break
+            case .FrameSingleTempSensor:
+                break
+            case .FrameLineBeacon:
+                break
+            @unknown default:
+                break
+            }
+            
+        }
+        dictParams!["info"] = String(format:"%@, %@", deviceName, deviceMac)
+        APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dictParams as! [String : Any], onSuccess: { (Msg) in
+            print(Msg)
+        } ,onFailure : { (error) in
+            print(error)
+        })
+    }
     
     //MARK : Add Timer
     
