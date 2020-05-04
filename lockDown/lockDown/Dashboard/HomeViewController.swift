@@ -78,6 +78,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     
     var alertComeBackIsOpen = false
+    var outOfZoneCounter : Int = 0
     
     //show Alert Bluetooth
     func showAlertComeBack(){
@@ -530,9 +531,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         switch eventType {
         case .onEntry:
             if !UserDefaults.standard.bool(forKey: "didEnterZone") {
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone_entry"])
-                }
+//                DispatchQueue.main.async {
+//                    NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone_entry"])
+//                }
                 self.appDelegate.scheduleNotification(notificationType: "Alert_in_zone_msg_txt")
                 UserDefaults.standard.set(true, forKey: "didEnterZone")
                 UserDefaults.standard.set(false, forKey: "didExitZone")
@@ -890,15 +891,21 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     if infoDict["Name"] != nil {
                         bleName = infoDict["Name"] as! String
                     }
-                    let bleUID = infoDict["UID"]
+                    //let bleUID = infoDict["UID"]
                     let bleRSSI = infoDict["RSSI"]
                     let data = infoDict["Data"] as! String
+                    
+                    let uid = String(format:"%@, %@",bleName ,bleRSSI as! NSNumber)
+                    let info = String(format:"StayHomeApp_%@",data)
 
-                    let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
+                    let dataDictToSend = ["info":info,"iBeacon":Constants.SERVICE_UUID.rawValue,"UID":uid,"URL":"","Acc":"","TLM":batteryLevel] as [String : Any]//["name":bleName,"rssi":bleRSSI as Any]
 
 //                    let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
 //                    let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
-                    logToBLEFile(value: "\(Date()) ; StayHomeApp_\(data) ; \(bleUID ?? "") ; \(bleRSSI ?? "") ;\(bleName); \n")
+                    //logToBLEFile(value: "\(Date()) ; StayHomeApp_\(data) ; \(bleUID ?? "") ; \(bleRSSI ?? 0) ;\(bleName); \n")
+                   //["info":"","iBeacon":"","UID":"","URL":"","Acc":"","TLM":""]
+                    
+                    logToBLEFile(value: String(format:" %@ ; StayHomeApp_%@ ; %@ ; %@ ; %@ ; %@ ; %f ; \n", Date() as NSDate, data, Constants.SERVICE_UUID.rawValue, uid,"","",batteryLevel))
 
                     APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dataDictToSend, onSuccess: { (Msg) in
                         print(Msg)
@@ -916,29 +923,15 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     if key.framer.name != nil {
                         bleName = key.framer.name
                     }
-                    let bleUID = key.identifier
-                    let bleRSSI = String(key.framer.rssi)
+//                    let bleUID = key.identifier
+//                    let bleRSSI = String(key.framer.rssi)
                     if key.framer.mac != nil {
                         mac = key.framer.mac
                     }
-//
-////                    {
-////                     "info":"name,mac",
-////                     "iBeacon":" UUID,Minor;Major;DID",
-////                     "UID":"nameSpaceID;InstanceID,RSSI@0m",
-////                     "URL":"link",
-////                     "Acc":"X-axix;Y-axix;Z-axix",
-////                     "TLM":"Battery Voltage;Temperature",
-////                     }
-//                    let formattedData = ["info":"\(bleName),\(mac)","iBeacon":bleUID as Any,"UID":bleRSSI,"URL":"","Acc":"","TLM":key.framer.battery] as [String : Any]
-//
-//                    //let dataDictToSend = ["name":bleName,"rssi":bleRSSI as Any]
-                    
-                    let data = ["battery":key.framer.battery,"mac":mac,"connectable":key.framer.connectable,"frames":key.framer.advFrames ?? []] as [String : Any]
-                    let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
-                    let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
-                    logToBLEFile(value: "\(Date()) ; \(bleName) ; \(bleUID ?? "") ; \(bleRSSI) ;\(stringWithoutLineComma); \n")
-                    
+
+//                    let data = ["battery":key.framer.battery,"mac":mac,"connectable":key.framer.connectable,"frames":key.framer.advFrames ?? []] as [String : Any]
+//                    let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
+//                    let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
                     sendScannedDataFrames(frames: key.framer.advFrames,deviceName: bleName,deviceMac:mac)
                     
                 }
@@ -1041,6 +1034,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             
         }
         dictParams!["info"] = String(format:"%@, %@", deviceName, deviceMac)
+        logToBLEFile(value: String(format:"%@ ; %@ ; %@ ; %@ ; %@ ; %@ ; %@ ; \n", Date() as NSDate, dictParams!["info"] as! String, dictParams!["iBeacon"] as! String,dictParams!["UID"] as! String,dictParams!["URL"] as! String,dictParams!["Acc"] as! String,dictParams!["TLM"] as! String))
+        
         APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dictParams as! [String : Any], onSuccess: { (Msg) in
             print(Msg)
         } ,onFailure : { (error) in
@@ -1079,20 +1074,25 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         let distance = Circleloc.distance(from: myLocation)
         if(distance >= 100)
         {
+            outOfZoneCounter += 1
+            
             if UserDefaults.standard.object(forKey: "didExitZone") == nil {
-                 UserDefaults.standard.set(false, forKey: "didExitZone")
+                UserDefaults.standard.set(false, forKey: "didExitZone")
             }
             showAlertZoneWithEvent(eventType: .onExit)
-            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone",zoneStatus:0, onSuccess: { (Msg) in
-                print(Msg)
-            } ,onFailure : { (error) in
-                print(error)
-            })
-        }
-        else {
-        
+            
+            if outOfZoneCounter == 3 {
+                outOfZoneCounter = 0
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone",zoneStatus:0, onSuccess: { (Msg) in
+                    print(Msg)
+                } ,onFailure : { (error) in
+                    print(error)
+                })
+            }
+        }else {
+            outOfZoneCounter = 0
             if UserDefaults.standard.object(forKey: "didEnterZone") == nil {
-                 UserDefaults.standard.set(false, forKey: "didEnterZone")
+                UserDefaults.standard.set(false, forKey: "didEnterZone")
             }
             showAlertZoneWithEvent(eventType: .onEntry)
             APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone",zoneStatus:1, onSuccess: { (Msg) in
@@ -1156,7 +1156,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             print("FILE AVAILABLE")
         } else {
             print("FILE NOT AVAILABLE")
-            let titleString = "DateTime ; BLE_Name ; BLE_UID ; BLE_RSSI ; Advertisement_Data ;"
+           // ["info":"","iBeacon":"","UID":"","URL":"","Acc":"","TLM":""]
+            let titleString = " DateTime ; info ; iBeacon ; UID ; URL ; Acc ; TLM ;"
             
             do {
                 try "\(titleString)\n".write(to: fileBLEURL!, atomically: false, encoding: String.Encoding.utf8)

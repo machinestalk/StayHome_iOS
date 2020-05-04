@@ -318,14 +318,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        let snoozeAction = UNNotificationAction(identifier: "Snooze", title: "Snooze", options: [])
-        let deleteAction = UNNotificationAction(identifier: "DeleteAction", title: "Delete", options: [.destructive])
-        let category = UNNotificationCategory(identifier: categoryIdentifire,
-                                              actions: [snoozeAction, deleteAction],
-                                              intentIdentifiers: [],
-                                              options: [])
-        
-        notificationCenter.setNotificationCategories([category])
+//        let snoozeAction = UNNotificationAction(identifier: "Snooze", title: "Snooze", options: [])
+//        let deleteAction = UNNotificationAction(identifier: "DeleteAction", title: "Delete", options: [.destructive])
+//        let category = UNNotificationCategory(identifier: categoryIdentifire,
+//                                              actions: [snoozeAction, deleteAction],
+//                                              intentIdentifiers: [],
+//                                              options: [])
+//
+//        notificationCenter.setNotificationCategories([category])
     }
     
 }
