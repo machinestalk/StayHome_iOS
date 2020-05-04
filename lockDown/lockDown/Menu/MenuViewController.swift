@@ -11,9 +11,9 @@ import LGSideMenuController
 
 
 class MenuViewController: BaseController {
-    fileprivate var menuItems = ["home_txt","MyZone_txt" , "checkIn_txt","emergency_txt","", "tecSupport_txt", "aboutAs_txt","logout_txt"]
-    let menuIconsArray = ["home_black","zones_black","check_black","emergency_black","","support_black","about_black","logout_black"]
-    let menuSelectedIconsArray = ["home_green","zones_green","check_green","emergency_green","","support_green","about_green","logout_green"]
+    fileprivate var menuItems = ["home_txt","MyZone_txt" , "checkIn_txt","bracelet_txt","emergency_txt","", "tecSupport_txt", "aboutAs_txt","logout_txt"]
+    let menuIconsArray = ["home_black","zones_black","check_black","bracelet_black","emergency_black","","support_black","about_black","logout_black"]
+    let menuSelectedIconsArray = ["home_green","zones_green","check_green","bracelet_green","emergency_green","","support_green","about_green","logout_green"]
     var selectedItem = 0
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var VersionLbl: UILabel!
@@ -113,6 +113,19 @@ extension MenuViewController: UITableViewDelegate {
                 break
             }
         case 3:
+        do {
+            if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: BraceletViewController.self)) {
+                
+                
+                let vc = BraceletViewController(nibName: "BraceletViewController", bundle: nil)
+                let navC = self.sideMenuController?.rootViewController as! UINavigationController
+                navC.setViewControllers([vc], animated: true)
+                selectedItem = 3
+            }
+            hideMenu()
+            break
+        }
+        case 4:
             do {
                 if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: EmergencyViewController.self)) {
                     
@@ -120,12 +133,12 @@ extension MenuViewController: UITableViewDelegate {
                     let vc = EmergencyViewController(nibName: "EmergencyViewController", bundle: nil)
                     let navC = self.sideMenuController?.rootViewController as! UINavigationController
                     navC.setViewControllers([vc], animated: true)
-                    selectedItem = 3
+                    selectedItem = 4
                 }
                 hideMenu()
                 break
             }
-        case 4:
+        case 5:
             do {
                 
             }
@@ -133,7 +146,7 @@ extension MenuViewController: UITableViewDelegate {
             break
 
             
-        case 5:
+        case 6:
             do {
                 if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: ContactUsViewController.self)) {
                     
@@ -141,13 +154,13 @@ extension MenuViewController: UITableViewDelegate {
                     let vc = ContactUsViewController(nibName: "ContactUsViewController", bundle: nil)
                     let navC = self.sideMenuController?.rootViewController as! UINavigationController
                     navC.setViewControllers([vc], animated: true)
-                    selectedItem = 5
+                    selectedItem = 6
                 }
                 hideMenu()
                 break
                 
             }
-        case 6:
+        case 7:
             do {
                 if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: ContentViewController.self)) {
                     
@@ -155,18 +168,18 @@ extension MenuViewController: UITableViewDelegate {
                     let vc = ContentViewController(nibName: "ContentViewController", bundle: nil)
                     let navC = self.sideMenuController?.rootViewController as! UINavigationController
                     navC.setViewControllers([vc], animated: true)
-                    selectedItem = 6
+                    selectedItem = 7
                 }
                 
                 hideMenu()
                 break
                 
             }
-            case 7:
+            case 8:
             do {
                 //NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"logout"])
                 self.displayLogoutAlert()
-                 selectedItem = 7
+                 selectedItem = 8
                  
                 break
             }

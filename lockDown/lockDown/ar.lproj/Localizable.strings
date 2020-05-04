@@ -49,3 +49,15 @@
 // My zone
 "locationStoredTxt"   =  "تم تسجيل موقع منزلك بنجاح";
 
+// Bracelet
+
+"bracelet_txt"          = "سوار";
+"addBraceletTitle"      = "إضافة سوار";
+"addbeaconTxt"          = "من أجل سلامتك ، \n يرجى التأكد من توصيل سوارك \n والبقاء بالقرب من هاتفك.";
+"scanTxt"               ="مسح";
+"addmanuallyTxt"         = "إضافة يدويا";
+"addBraceletAlertTitle"  = "يرجى إضافة سوار الخاص بك";
+"nearByBluetoothTxt"     = "أجهزة البلوتوث القريبة";
+"scanBraceletTitle"      =  "مسح سوار";
+"beaconmacTxt"           = "عنوان الماك للسوار";
+"braceletStatusTitle"    = "حالة السوار";
