@@ -1083,7 +1083,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             
             if outOfZoneCounter == 3 {
                 outOfZoneCounter = 0
-                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
+                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone",zoneStatus:0, onSuccess: { (Msg) in
                     print(Msg)
                 } ,onFailure : { (error) in
                     print(error)
