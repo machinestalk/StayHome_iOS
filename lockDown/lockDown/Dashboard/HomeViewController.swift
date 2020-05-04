@@ -1083,7 +1083,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                  UserDefaults.standard.set(false, forKey: "didExitZone")
             }
             showAlertZoneWithEvent(eventType: .onExit)
-            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone", onSuccess: { (Msg) in
+            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0, raison: "user out of zone",zoneStatus:0, onSuccess: { (Msg) in
                 print(Msg)
             } ,onFailure : { (error) in
                 print(error)
@@ -1095,7 +1095,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                  UserDefaults.standard.set(false, forKey: "didEnterZone")
             }
             showAlertZoneWithEvent(eventType: .onEntry)
-            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
+            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone",zoneStatus:1, onSuccess: { (Msg) in
                 print(Msg)
             } ,onFailure : { (error) in
                 print(error)

@@ -51,7 +51,7 @@ class FailCheckInViewController: BaseController {
                 
                 desactivateTimer()
                 let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-                APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 0,raison:"not check In", onSuccess: { (Msg) in
+                APIClient.sendTelimetryWithoutZone(deviceToken: deviceToken!, iscomplaint: 0,raison:"not check In", onSuccess: { (Msg) in
                     print(Msg)
                 } ,onFailure : { (error) in
                     print(error)

@@ -40,6 +40,7 @@ struct LockDown {
         static let refreshToken = "refreshToken"
         static let iscomplaint = "compliant"
         static let raison = "reason"
+        static let zoneStatus = "zoneStatus"
         static let latitude = "latitude"
         static let longitude = "longitude"
         static let radius = "radius"
