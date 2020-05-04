@@ -248,12 +248,10 @@ class BiometricsAuthViewController: BaseController {
     }
     func setupSuccessBiometricsBottomVC(){
         
-        biometricsBottomVC.msgLbl.text = "Your face ID is successfully registered."
-        biometricsBottomVC.titleLbl.isHidden = true
-        biometricsBottomVC.successImage.image = UIImage(named: "big_green_check")
-        biometricsBottomVC.successImage.isHidden = false
-        biometricsBottomVC.nextBtn.setBackgroundImage(UIImage(named: "green_button"), for: .normal)
-        biometricsBottomVC.nextBtn.titleLabel?.text = "Next"
+       let FinishSignupVC = FinishSignupViewController(nibName: "FinishSignupViewController", bundle: nil)
+        FinishSignupVC.isFromCheckIn = self.isFromCheckIn
+        FinishSignupVC.isFromNotif = self.isFromNotif
+        self.navigationController!.pushViewController(FinishSignupVC, animated: true)
     }
 }
 
