@@ -242,8 +242,11 @@ class LoginViewController: BaseController {
                 let userDictionary = self.decode(jwtToken:userData.token!)
                 UserDefaults.standard.set(userDictionary["customerId"], forKey:"customerId")
                 UserDefaults.standard.set(userDictionary["tenantId"], forKey:"tenantId")
+                UserDefaults.standard.set(userDictionary["isANewDevice"], forKey: "isANewDevice")
+                    
                 self.finishLoading()
-                self.displayHomePage()
+                    self.displayHomePage(isNewDevice : (userDictionary["isANewDevice"] != nil))
+                    
             }, onFailure: {error in
                 let errorr = error as NSError
                 let errorDict = errorr.userInfo
@@ -284,12 +287,15 @@ class LoginViewController: BaseController {
         self.startLoading()
     }
     
-    func displayHomePage(){
-        
-        let welcomeViewController = TermsAndConditionViewController(nibName: "TermsAndConditionViewController", bundle: nil)
-        self.navigationController!.pushViewController(welcomeViewController, animated: true)
-//        let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
-//        appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()
+    func displayHomePage(isNewDevice :Bool){
+        if isNewDevice {
+            let welcomeViewController = TermsAndConditionViewController(nibName: "TermsAndConditionViewController", bundle: nil)
+            self.navigationController!.pushViewController(welcomeViewController, animated: true)
+        }
+        else {
+            let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()
+        }
     }
     
     func displayAlert(message: String, type: String) {

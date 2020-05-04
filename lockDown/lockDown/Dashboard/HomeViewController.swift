@@ -164,7 +164,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         
         self.navigationController?.navigationBar.isHidden = true
-        locationManager.startUpdatingLocation()
+       
 
         //is Battery Monitoring Enabled
         UIDevice.current.isBatteryMonitoringEnabled = true
@@ -207,6 +207,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         activityManager.startActivityScan()
         
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+         self.locationManager.delegate = self
+        locationManager.startUpdatingLocation()
     }
     override func viewWillAppear(_ animated: Bool) {
         
@@ -274,7 +279,14 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 self.dayQuarantine = date.interval(ofComponent: .day, fromDate: Date())
                 print("diff == > \(self.dayQuarantine)")
             }
-            
+            if let lat = customerData.latitude?.first!.value {
+                if let long = customerData.longitude?.first!.value {
+                    let locValue:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: Double((lat as! NSString).doubleValue), longitude: Double((long as! NSString).doubleValue))
+                    UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
+                    UserDefaults.standard.set(true, forKey: "isLocationSetted")
+                    UserDefaults.standard.set(true, forKey: "isSignedUp")
+                }
+            }
             self.getHomeTips()
             
         }, onFailure: {error in
