@@ -159,15 +159,12 @@ class LoginViewController: BaseController {
         }
         else
         {
-            //Case Phone Number
-            if phoneText.isDigits
-            {
-                if !phoneText.isValidSaoudiPhoneNumber
+              if !phoneText.isValidSaoudiPhoneNumber
                 {
                     self.displayAlert(message:"SgIn_SgIn_lbl_invalid_lenght_phone_number".localiz(), type: "phone")
                     return false
                 }
-            }
+            
 
         }
         
@@ -230,46 +227,50 @@ class LoginViewController: BaseController {
         self.startLoading()
         let deviceUDIDString = UIDevice.current.identifierForVendor!.uuidString
         let otpString = String(format:"%@%@%@%@%@%@", text1.text!, text2.text!, text3.text!, text4.text!, text5.text!, text6.text!)
-        let userDataFuture = APIClient.signIn(phoneNumber: UserDefaults.standard.value(forKey: "UserNameSignUp") as! String, phoneOtp: otpString, phoneUdid: deviceUDIDString)
-            userDataFuture.execute(onSuccess: { userData in
-            print("userData == > \(userData)")
-            UserDefaults.standard.set(true, forKey: "isLoggedIn")
-            UserDefaults.standard.set(userData.deviceToken, forKey:"DeviceToken")
-            UserDefaults.standard.set(userData.token, forKey:"Token")
-            UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
-            UserDefaults.standard.set(userData.deviceID, forKey:"deviceId")
-            
-            let userDictionary = self.decode(jwtToken:userData.token!)
-            UserDefaults.standard.set(userDictionary["customerId"], forKey:"customerId")
-            UserDefaults.standard.set(userDictionary["tenantId"], forKey:"tenantId")
-            self.finishLoading()
-            self.displayHomePage()
-        }, onFailure: {error in
-            let errorr = error as NSError
-            let errorDict = errorr.userInfo
-            self.finishLoading()
-            self.displayAlert(message:errorDict["message"] as! String, type: "login")
-        })
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.locale = NSLocale(localeIdentifier: "EN") as Locale?
+        if let finalotpString = formatter.number(from: otpString) {
+            let userDataFuture = APIClient.signIn(phoneNumber: UserDefaults.standard.value(forKey: "UserNameSignUp") as! String, phoneOtp: finalotpString.stringValue, phoneUdid: deviceUDIDString)
+                userDataFuture.execute(onSuccess: { userData in
+                print("userData == > \(userData)")
+                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                UserDefaults.standard.set(userData.deviceToken, forKey:"DeviceToken")
+                UserDefaults.standard.set(userData.token, forKey:"Token")
+                UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
+                UserDefaults.standard.set(userData.deviceID, forKey:"deviceId")
+                
+                let userDictionary = self.decode(jwtToken:userData.token!)
+                UserDefaults.standard.set(userDictionary["customerId"], forKey:"customerId")
+                UserDefaults.standard.set(userDictionary["tenantId"], forKey:"tenantId")
+                self.finishLoading()
+                self.displayHomePage()
+            }, onFailure: {error in
+                let errorr = error as NSError
+                let errorDict = errorr.userInfo
+                self.finishLoading()
+                self.displayAlert(message:errorDict["message"] as! String, type: "login")
+            })
+        }
     }
     
     @IBAction func LoginAction(_ sender: Any) {
         
         if self.validateFields() {
-            //Case Phone Number
-            if userNameInputView.text!.isDigits
-            {
                 self.startLoading()
                 let newCountrycode = kPhoneSubscriptWithZero.replacingOccurrences(of: "+", with: "00", options: .literal, range: nil)
                 let phoneString = newCountrycode + userNameInputView.text!
-                APIClient.singUp(phoneNumber: phoneString, onSuccess: {(success) in
-                    print(success)
-                    self.finishLoading()
-                    UserDefaults.standard.set(phoneString, forKey:"UserNameSignUp")
-                    self.changeView()
-                }, onFailure: {(error) in
-                    self.finishLoading()
-                    print(error)
-                })
+                let formatter: NumberFormatter = NumberFormatter()
+                formatter.locale = NSLocale(localeIdentifier: "EN") as Locale?
+            if let final = formatter.number(from: phoneString) {
+                    APIClient.singUp(phoneNumber: "00" + final.stringValue, onSuccess: {(success) in
+                        print(success)
+                        self.finishLoading()
+                        UserDefaults.standard.set( "00" + final.stringValue , forKey:"UserNameSignUp")
+                        self.changeView()
+                    }, onFailure: {(error) in
+                        self.finishLoading()
+                        print(error)
+                    })
             }
         }
     }

@@ -97,8 +97,8 @@ extension String {
 extension String {
     
     var isValidSaoudiPhoneNumber: Bool {
-        if self.count == 9 && self.hasPrefix("5"){
-            return true
+        if self.count == 9 && (self.hasPrefix("5") || self.hasPrefix("٥")){
+        return true
         }
         else
         {
