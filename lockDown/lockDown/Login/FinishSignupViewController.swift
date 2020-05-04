@@ -29,6 +29,10 @@ class FinishSignupViewController: BaseController {
             SignUpfinishedView.isHidden = false
             agreedButton.isHidden = true
             self.title = "Check In"
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { 
+               let homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+                self.navigationController!.pushViewController(homeVC, animated: true)
+            }
         }
         else {
             instrictionsView.isHidden = false
@@ -57,16 +61,11 @@ class FinishSignupViewController: BaseController {
     }
     */
     @IBAction func agreedBtnDidTap(_ sender: Any) {
-        let agreedButton = sender as! Button
-        if agreedButton.tag == 0 {
-            agreedButton.tag = 1
-            instrictionsView.isHidden = true
-            SignUpfinishedView.isHidden = false
-        } else {
+        
             UserDefaults.standard.set(true, forKey:"isSignedUp")
             let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
             appDelegate?.getInstance().window?.rootViewController = appDelegate?.getLandingPageWithSideMenu()
-        }
+        
          
     }
     

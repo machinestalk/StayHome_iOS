@@ -36,27 +36,27 @@
 		<true/>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Allow "StayhomeKSA" to access your bluetooth while your are using the app?</string>
+	<string>Allow &quot;StayhomeKSA&quot; to access your bluetooth while your are using the app?</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Allow "StayhomeKSA" to access your bluetooth while your are using the app?</string>
+	<string>Allow &quot;StayhomeKSA&quot; to access your bluetooth while your are using the app?</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow "stayhome KSA" to use camera </string>
+	<string>Allow &quot;stayhome KSA&quot; to use camera </string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This app needs Face ID to recognize you</string>
 	<key>NSLocationAlwaysAndWhenInUsageDescription</key>
-	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<string>Allow &quot;stayhome KSA&quot; to access your location while you are using the app?</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<string>Allow &quot;stayhome KSA&quot; to access your location while you are using the app?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<string>Allow &quot;stayhome KSA&quot; to access your location while you are using the app?</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<string>Allow &quot;stayhome KSA&quot; to access your location while you are using the app?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow "stayhome KSA" to access your location while you are using the app?</string>
+	<string>Allow &quot;stayhome KSA&quot; to access your location while you are using the app?</string>
 	<key>NSMotionUsageDescription</key>
-	<string>"stayhome KSA" use Motions to check activities</string>
+	<string>&quot;stayhome KSA&quot; use Motions to check activities</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow "stayhome KSA" to use Photo Library</string>
+	<string>Allow &quot;stayhome KSA&quot; to use Photo Library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Bold.ttf</string>
@@ -96,5 +96,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>

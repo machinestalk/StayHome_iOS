@@ -97,8 +97,8 @@ extension String {
 extension String {
     
     var isValidSaoudiPhoneNumber: Bool {
-        if self.count == 9 && self.hasPrefix("5"){
-            return true
+        if self.count == 9 && (self.hasPrefix("5") || self.hasPrefix("٥")){
+        return true
         }
         else
         {
@@ -1657,5 +1657,18 @@ extension String {
             return try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
         }
         return nil
+    }
+}
+extension String {
+    func inserting(separator: String, every n: Int) -> String {
+        var result: String = ""
+        let characters = Array(self)
+        stride(from: 0, to: characters.count, by: n).forEach {
+            result += String(characters[$0..<min($0+n, characters.count)])
+            if $0+n < characters.count {
+                result += separator
+            }
+        }
+        return result
     }
 }

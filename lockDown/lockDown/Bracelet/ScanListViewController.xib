@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScanListViewController" customModule="lockDown" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="8ws-gY-b8b" id="Ezt-hN-Jkx"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTM-mF-xkX" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="20.5" y="64" width="373" height="0.0"/>
+                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
+                    <color key="textColor" red="0.04714659601" green="0.83277946709999995" blue="0.56141996380000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="nearByBluetoothTxt"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8ws-gY-b8b">
+                    <rect key="frame" x="20.5" y="84" width="373" height="758"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="LHo-iA-j32"/>
+                        <outlet property="delegate" destination="-1" id="LNn-XM-hRp"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="uTM-mF-xkX" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.9" id="8SN-XU-DoA"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8ws-gY-b8b" secondAttribute="bottom" constant="20" id="YGD-mT-XFV"/>
+                <constraint firstItem="8ws-gY-b8b" firstAttribute="top" secondItem="uTM-mF-xkX" secondAttribute="bottom" constant="20" id="hLu-ih-jUZ"/>
+                <constraint firstItem="uTM-mF-xkX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="n5i-iG-r7Y"/>
+                <constraint firstItem="uTM-mF-xkX" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="rID-7k-ZOf"/>
+                <constraint firstItem="8ws-gY-b8b" firstAttribute="centerX" secondItem="uTM-mF-xkX" secondAttribute="centerX" id="z3P-s6-iu0"/>
+                <constraint firstItem="8ws-gY-b8b" firstAttribute="width" secondItem="uTM-mF-xkX" secondAttribute="width" id="zaK-01-ogU"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="133" y="88"/>
+        </view>
+    </objects>
+</document>

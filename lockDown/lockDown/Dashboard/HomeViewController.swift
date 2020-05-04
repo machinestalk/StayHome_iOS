@@ -125,6 +125,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var satBtn: UIButton!
     @IBOutlet weak var menuBtn: UIButton!
+    @IBOutlet weak var dayNumber: UILabel!
     
     @IBOutlet weak var homeImg: UIImageView!
     @IBOutlet weak var homeTip: UILabel!
@@ -164,7 +165,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         
         self.navigationController?.navigationBar.isHidden = true
-        locationManager.startUpdatingLocation()
+       
 
         //is Battery Monitoring Enabled
         UIDevice.current.isBatteryMonitoringEnabled = true
@@ -207,6 +208,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         activityManager.startActivityScan()
         
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+         self.locationManager.delegate = self
+        locationManager.startUpdatingLocation()
     }
     override func viewWillAppear(_ animated: Bool) {
         
@@ -255,7 +261,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if let title = dicHome!["title"] as? String {
                 self.homeTitle.text = title
             }
-            self.homeImg.image = UIImage(named: "day\(self.dayQuarantine)")
+            self.dayNumber.text = "\(self.dayQuarantine)"
             }, onFailure: {error in
                 let errorr = error as NSError
                 let errorDict = errorr.userInfo
@@ -274,7 +280,14 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 self.dayQuarantine = date.interval(ofComponent: .day, fromDate: Date())
                 print("diff == > \(self.dayQuarantine)")
             }
-            
+            if let lat = customerData.latitude?.first!.value {
+                if let long = customerData.longitude?.first!.value {
+                    let locValue:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: Double((lat as! NSString).doubleValue), longitude: Double((long as! NSString).doubleValue))
+                    UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
+                    UserDefaults.standard.set(true, forKey: "isLocationSetted")
+                    UserDefaults.standard.set(true, forKey: "isSignedUp")
+                }
+            }
             self.getHomeTips()
             
         }, onFailure: {error in
@@ -1082,7 +1095,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 UserDefaults.standard.set(false, forKey: "didEnterZone")
             }
             showAlertZoneWithEvent(eventType: .onEntry)
-            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone", onSuccess: { (Msg) in
+            APIClient.sendTelimetry(deviceToken: deviceToken!, iscomplaint: 1, raison: "user in zone",zoneStatus:1, onSuccess: { (Msg) in
                 print(Msg)
             } ,onFailure : { (error) in
                 print(error)

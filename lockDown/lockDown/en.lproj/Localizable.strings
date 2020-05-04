@@ -22,7 +22,7 @@
 "stayAthome_txt"                                                  ="You are out of your home please return back for your safety";
 "StayAthomeTitle"                                                   = "Stay at home";
 "instrutionsTxt"                                                  ="1.Stay at home \n\n2.Keep your Phone ON and had enough battery all the time \n\n3.Keep STAYHOME application working \n\n4.Keep your GPS,Wifi and Bluetooth activated";
-"instrutionsTitle"                                                  = "As per as the instructions of Ministry of Health,\n during the quarantine period,you must :";
+"instrutionsTitle"                                                  = "As per as the instructions of machinestalk,\n during the quarantine period,you must :";
 
 "agreedBtnTitle"                                                    = "Agreed";
 "agreeBtn_txt" = "I Agree";
@@ -81,11 +81,11 @@
 
 //Welcome Screen
 "startBtn_txt" = "Start" ;
-"welcome_lbl_text0_txt" = "Welcome to the STAYHOME application launched by the Saudi Ministry of Health to ensure your safety and health from COVID-19 VIRUS.";
+"welcome_lbl_text0_txt" = "Welcome to the STAYHOME application launched by the machinestalk to ensure your safety and health from COVID-19 VIRUS.";
 "welcome_lbl_text1_txt" = "Please start the Sign Up Process which will include adding your home location and Face ID to the application.";
 
 //Check In
-"CheckIn_text0_txt"        = "As per as the instructions of Ministry of Health, during the quarantine period,";
+"CheckIn_text0_txt"        = "As per as the instructions of machinestalk, during the quarantine period,";
 "CheckIn_text1_txt"        = "You must confirm your identity regularly.\n The data will be stored on your phone.";
 "checkIn_text2_txt"        = "Hi,are you there ?";
 "yesThere_txt"             = "Yes I'am here";
@@ -106,3 +106,20 @@
 "support_successMsg_txt" = "Your message has been sent successfully.";
 // My Zone
 "locationStoredTxt"   ="Your home location was stored successfully";
+
+// AboutUs
+
+
+// Bracelet
+
+"aboutUsTxt"        = "This app is dedicated to help to overcome the Corona Virus and it is an initiative from the tech industry to help the medical authorities in their fight.\n \n Machinestalk company (www.machinestalk.com),based in Riyadh Saudi Arabia developed this app and share it with medical authorities in Saudi Arabia or any country world wide as part of its social responsibilities for all humans in partnership with Attaa Digital Initiative created by Ministry of Communication and Information Technologies in Saudi Arabia.\n \n Machinestalk is the first Saudi IoT VNO specialized in providing smart solutions such as smart health, smart transportation, smart cities and smart industries.";
+"bracelet_txt"          = "Bracelet";
+"addbeaconTxt"          = "For your safety, \n Please make sure your bracelet is connected \n and stay close to your phone.";
+"addBraceletTitle"      = "Add Bracelet";
+"scanTxt"               ="Scan";
+"addmanuallyTxt"         = "Add manually";
+"addBraceletAlertTitle"  = "Please add your bracelet";
+"nearByBluetoothTxt"     = "Nearby Bluetooth devices";
+"scanBraceletTitle"      =  "Scan bracelet";
+"beaconmacTxt"           = "Bracelet mac address";
+"braceletStatusTitle"    = "Bracelet Status";
