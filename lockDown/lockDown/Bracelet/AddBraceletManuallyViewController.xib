@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddBraceletManuallyViewController" customModule="lockDown" customModuleProvider="target">
+            <connections>
+                <outlet property="msgLbl" destination="nug-bD-25m" id="jwb-TJ-Wv3"/>
+                <outlet property="text1" destination="nuN-58-UZA" id="CbS-dw-ttB"/>
+                <outlet property="text2" destination="ftD-ba-Pn2" id="DQL-LZ-n08"/>
+                <outlet property="text3" destination="Pec-ON-tk6" id="sBm-uL-QgT"/>
+                <outlet property="text4" destination="Zqf-q3-aAk" id="2cq-4W-L9O"/>
+                <outlet property="text5" destination="jOb-Rk-mce" id="9fy-Kb-jtP"/>
+                <outlet property="text6" destination="vLu-OW-xYU" id="Ihm-SN-kfM"/>
+                <outlet property="view" destination="lgn-nj-ezC" id="Z6o-xF-nKB"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lgn-nj-ezC">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bargreen" translatesAutoresizingMaskIntoConstraints="NO" id="dK9-Iy-5rD">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="graphic_bracelet" translatesAutoresizingMaskIntoConstraints="NO" id="wjN-Py-nSW">
+                    <rect key="frame" x="143" y="139" width="128" height="128"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="128" id="9dp-eL-PqE"/>
+                        <constraint firstAttribute="width" constant="128" id="kcZ-wy-IS5"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nug-bD-25m" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                    <rect key="frame" x="4" y="277" width="406" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="jh0-aP-woU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="enterMacTxt"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SXd-mu-tuP">
+                    <rect key="frame" x="41" y="322" width="332" height="47"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nuN-58-UZA">
+                            <rect key="frame" x="0.0" y="0.0" width="47" height="47"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="47" id="5Fw-E3-LGA"/>
+                                <constraint firstAttribute="height" constant="47" id="Kix-pE-G64"/>
+                            </constraints>
+                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="text1"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ftD-ba-Pn2" customClass="TextField" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="57" y="0.0" width="47" height="47"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="47" id="Tbr-Ib-4NO"/>
+                                <constraint firstAttribute="height" constant="47" id="Xjs-7s-zeh"/>
+                            </constraints>
+                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text2"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pec-ON-tk6" customClass="TextField" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="114" y="0.0" width="47" height="47"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="47" id="ClT-mL-QZB"/>
+                                <constraint firstAttribute="height" constant="47" id="oAc-XS-OIJ"/>
+                            </constraints>
+                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text3"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zqf-q3-aAk" customClass="TextField" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="171" y="0.0" width="47" height="47"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="47" id="Duf-w4-2ir"/>
+                                <constraint firstAttribute="width" constant="47" id="zi1-uc-fER"/>
+                            </constraints>
+                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text4"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jOb-Rk-mce" customClass="TextField" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="228" y="0.0" width="47" height="47"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="47" id="2B0-9o-Y3C"/>
+                                <constraint firstAttribute="width" constant="47" id="se9-RL-f6P"/>
+                            </constraints>
+                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text5"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="vLu-OW-xYU" customClass="TextField" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="285" y="0.0" width="47" height="47"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="47" id="tLZ-Yc-iP0"/>
+                                <constraint firstAttribute="height" constant="47" id="wte-m2-jsd"/>
+                            </constraints>
+                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text6"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="dK9-Iy-5rD" firstAttribute="centerX" secondItem="lgn-nj-ezC" secondAttribute="centerX" id="4Gh-y5-kTs"/>
+                <constraint firstItem="dK9-Iy-5rD" firstAttribute="centerY" secondItem="lgn-nj-ezC" secondAttribute="centerY" id="8AR-pU-J5w"/>
+                <constraint firstItem="SXd-mu-tuP" firstAttribute="centerX" secondItem="nug-bD-25m" secondAttribute="centerX" id="EvA-7I-8F8"/>
+                <constraint firstItem="SXd-mu-tuP" firstAttribute="top" secondItem="nug-bD-25m" secondAttribute="bottom" constant="20" id="FY0-sC-cza"/>
+                <constraint firstItem="nug-bD-25m" firstAttribute="centerX" secondItem="lgn-nj-ezC" secondAttribute="centerX" id="GEm-ob-XA2"/>
+                <constraint firstItem="dK9-Iy-5rD" firstAttribute="height" secondItem="lgn-nj-ezC" secondAttribute="height" id="NrY-Sd-gtL"/>
+                <constraint firstItem="nug-bD-25m" firstAttribute="top" secondItem="wjN-Py-nSW" secondAttribute="bottom" constant="10" id="dJO-V0-km7"/>
+                <constraint firstItem="wjN-Py-nSW" firstAttribute="top" secondItem="lgn-nj-ezC" secondAttribute="top" constant="139" id="jpd-ys-lwo"/>
+                <constraint firstItem="dK9-Iy-5rD" firstAttribute="width" secondItem="lgn-nj-ezC" secondAttribute="width" id="kmy-4c-g0g"/>
+                <constraint firstItem="wjN-Py-nSW" firstAttribute="centerX" secondItem="lgn-nj-ezC" secondAttribute="centerX" id="ptL-ac-1Z9"/>
+                <constraint firstItem="nug-bD-25m" firstAttribute="centerX" secondItem="wjN-Py-nSW" secondAttribute="centerX" id="qmM-i4-VqB"/>
+                <constraint firstItem="nug-bD-25m" firstAttribute="width" secondItem="lgn-nj-ezC" secondAttribute="width" multiplier="0.98" id="uBh-15-DT6"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Fv8-tM-Txn"/>
+            <point key="canvasLocation" x="132" y="88"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bargreen" width="571" height="601"/>
+        <image name="graphic_bracelet" width="142.5" height="143"/>
+    </resources>
+</document>

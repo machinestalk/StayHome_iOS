@@ -62,6 +62,8 @@ extension BraceletViewController : AddBraceletProtocol {
     
     func addBraceletManually() {
         print("addBraceletManually")
+        let AddBraceletVC = AddBraceletManuallyViewController(nibName: "AddBraceletManuallyViewController", bundle: nil)
+              self.navigationController!.pushViewController(AddBraceletVC, animated: true)
     }
     
     
