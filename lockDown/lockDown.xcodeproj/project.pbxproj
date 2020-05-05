@@ -1217,7 +1217,7 @@
 				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20050302;
+				CURRENT_PROJECT_VERSION = 20050501;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1248,7 +1248,7 @@
 				CODE_SIGN_ENTITLEMENTS = lockDown/lockDown.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20050302;
+				CURRENT_PROJECT_VERSION = 20050501;
 				DEVELOPMENT_TEAM = ST4BY654BM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

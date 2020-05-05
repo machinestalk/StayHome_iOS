@@ -91,30 +91,32 @@ class ScanListViewController: BaseController, UITableViewDataSource, UITableView
     
     func startScan() -> Void {
         manager.startScan { (devices) in
+            
+            self.startConnect()
         }
         scannerDevices = manager.scannedPeris
         //stopScan()
-        for key in manager.scannedPeris {
-            if let mac = key.framer.mac {
-                beaconNameListArray.append(mac.uppercased().inserting(separator: ":", every: 2))
-            }
-        }
-        beaconNameListArray.append("ac233f56b7ff".uppercased().inserting(separator: ":", every: 2))
-        self.tableView.reloadData()
+        
     }
     
     func startConnect() -> Void {
     //        print(manager.scannedPeris as Any)
             self.stopScan()
-            
             for key in manager.scannedPeris {
-    //            print(key.identifier as Any)
-
-                // Please enter the identifier that your want to connect.
-                //if key.identifier == "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0" {//Identifiers may change, it is recommended to use MacString
-                    self.connectDevice(peripheral: key)
-                //}
+                if let mac = key.framer.mac {
+                    beaconNameListArray.append(mac.uppercased().inserting(separator: ":", every: 2))
+                }
             }
+            beaconNameListArray.append("ac233f56b7ff".uppercased().inserting(separator: ":", every: 2))
+            self.tableView.reloadData()
+//            for key in manager.scannedPeris {
+//    //            print(key.identifier as Any)
+//
+//                // Please enter the identifier that your want to connect.
+//                //if key.identifier == "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0" {//Identifiers may change, it is recommended to use MacString
+//                    self.connectDevice(peripheral: key)
+//                //}
+//            }
         }
     
     func stopScan() -> Void {
