@@ -73,10 +73,25 @@ class ScanListViewController: BaseController, UITableViewDataSource, UITableView
 
     
     @objc func addBtnDidTap(sender : UIButton){
-        let braceletStatusVC = BraceletStatusViewController(nibName: "BraceletStatusViewController", bundle: nil)
-        braceletStatusVC.macAddress = self.beaconNameListArray[sender.tag]
-        self.navigationController!.pushViewController(braceletStatusVC, animated: true)
+//        let braceletStatusVC = BraceletStatusViewController(nibName: "BraceletStatusViewController", bundle: nil)
+//        braceletStatusVC.macAddress = self.beaconNameListArray[sender.tag]
+//        self.navigationController!.pushViewController(braceletStatusVC, animated: true)
+        checkMacAdress(macAdress: self.beaconNameListArray[sender.tag])
     }
+    
+    func checkMacAdress(macAdress: String) {
+           self.startLoading()
+           let dataBody = ["macAddress": macAdress ,"deviceId":UserDefaults.standard.value(forKey: "deviceId") as Any,"tenantId":UserDefaults.standard.string(forKey: "tenantId") as Any,"customerId":UserDefaults.standard.string(forKey: "customerId") as Any] as [String : Any]
+        
+            APIClient.checkBracelet(data: dataBody, onSuccess: { (success) in
+                          self.finishLoading()
+                          print(success)
+                      }) { (error) in
+                          self.finishLoading()
+                          print(error)
+                      }
+       }
+    
     /*
     // MARK: - Navigation
 
@@ -90,34 +105,42 @@ class ScanListViewController: BaseController, UITableViewDataSource, UITableView
     // MARK: Beacons
     
     func startScan() -> Void {
-        manager.startScan { (devices) in
-            
-            self.startConnect()
-        }
-        scannerDevices = manager.scannedPeris
-        //stopScan()
+        
+        self.startLoading()
+        
+//        manager.startScan { (devices) in
+//            
+//            self.startConnect()
+//        }
+//        scannerDevices = manager.scannedPeris
+//        //stopScan()
+        
+        manager.startScan({ peris in
+
+            self.beaconNameListArray.removeAll()
+            // Traverse the array，get instance of every device.
+            // ** you can also display them on views.
+            for i in 0..<(peris?.count ?? 0) {
+                let peri = peris?[i]
+
+                // get FrameHandler of a device.
+                // **some properties maybe nil
+                let framer = peri?.framer
+                let name = framer?.name // name of device, may nil
+                let rssi = framer?.rssi ?? 0 // rssi
+                let battery = framer?.battery ?? 0 // battery,may nil
+                if let mac = framer?.mac{
+                    self.beaconNameListArray.append(mac.uppercased().inserting(separator: ":", every: 2))
+                }else{
+                    self.beaconNameListArray.append("00:00:00:00:00:00")
+                }// mac address,may nil
+                let frames = framer?.advFrames // all data frames of device（such as:iBeacon，UID，URL...）
+            }
+            self.tableView.reloadData()
+            self.finishLoading()
+        })
         
     }
-    
-    func startConnect() -> Void {
-    //        print(manager.scannedPeris as Any)
-            self.stopScan()
-            for key in manager.scannedPeris {
-                if let mac = key.framer.mac {
-                    beaconNameListArray.append(mac.uppercased().inserting(separator: ":", every: 2))
-                }
-            }
-            beaconNameListArray.append("ac233f56b7ff".uppercased().inserting(separator: ":", every: 2))
-            self.tableView.reloadData()
-//            for key in manager.scannedPeris {
-//    //            print(key.identifier as Any)
-//
-//                // Please enter the identifier that your want to connect.
-//                //if key.identifier == "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0" {//Identifiers may change, it is recommended to use MacString
-//                    self.connectDevice(peripheral: key)
-//                //}
-//            }
-        }
     
     func stopScan() -> Void {
         manager.stopScan()

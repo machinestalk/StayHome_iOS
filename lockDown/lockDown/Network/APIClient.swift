@@ -107,7 +107,6 @@ class APIClient {
                     //failureCallback?(error.localizedDescription)
                     //completion(.failure(error))
                 }
-                
             }
         }
     }
