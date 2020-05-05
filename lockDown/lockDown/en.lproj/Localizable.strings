@@ -125,3 +125,4 @@
 "braceletStatusTitle"    = "Bracelet Status";
 "enterMacTxt"            = "Please enter your bracelet mac address";
 "errorAddBracelet"       = "Sorry,please verify your bracelet mac address";
+"addmanuallyTitle"       = "Add bracelet manually";

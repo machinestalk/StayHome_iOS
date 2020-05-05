@@ -65,3 +65,4 @@
 "braceletStatusTitle"    = "حالة السوار";
 "enterMacTxt"            = "الرجاء إدخال عنوان الماك للسوار الخاص بك";
 "errorAddBracelet"       = "عذرا ، يرجى التحقق من عنوان الماك للسوار الخاص بك";
+"addmanuallyTitle"       = "أضف السوار يدويًا";
