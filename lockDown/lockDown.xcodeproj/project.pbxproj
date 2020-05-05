@@ -31,10 +31,14 @@
 		FA04CA77245C55F1001A9591 /* ScanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA04CA75245C55F1001A9591 /* ScanTableViewCell.xib */; };
 		FA04CA7E245C663D001A9591 /* BraceletStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA7C245C663D001A9591 /* BraceletStatusViewController.swift */; };
 		FA04CA7F245C663D001A9591 /* BraceletStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA04CA7D245C663D001A9591 /* BraceletStatusViewController.xib */; };
-		FA04CA82245C759F001A9591 /* VerifyMacAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04CA80245C759F001A9591 /* VerifyMacAddressViewController.swift */; };
-		FA04CA83245C759F001A9591 /* VerifyMacAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA04CA81245C759F001A9591 /* VerifyMacAddressViewController.xib */; };
 		FA17C4BD243337B9000516EF /* BiometricsAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */; };
 		FA17C4BE243337B9000516EF /* BiometricsAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */; };
+		FA4217B124618EEA00090FA8 /* AddBraceletManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4217AF24618EEA00090FA8 /* AddBraceletManuallyViewController.swift */; };
+		FA4217B224618EEA00090FA8 /* AddBraceletManuallyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4217B024618EEA00090FA8 /* AddBraceletManuallyViewController.xib */; };
+		FA4217B52461A93E00090FA8 /* ConfirmationBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4217B32461A93D00090FA8 /* ConfirmationBottomViewController.swift */; };
+		FA4217B62461A93E00090FA8 /* ConfirmationBottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4217B42461A93E00090FA8 /* ConfirmationBottomViewController.xib */; };
+		FA4217B92461BEA900090FA8 /* ErrorBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4217B72461BEA900090FA8 /* ErrorBottomViewController.swift */; };
+		FA4217BA2461BEA900090FA8 /* ErrorBottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4217B82461BEA900090FA8 /* ErrorBottomViewController.xib */; };
 		FA46CF922459CF9900B2E790 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA46CF8C2459CA7900B2E790 /* iOSDFULibrary.framework */; };
 		FA46CF932459CF9900B2E790 /* iOSDFULibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA46CF8C2459CA7900B2E790 /* iOSDFULibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA46CF952459CF9C00B2E790 /* Pods_lockDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA45852916987272EE4010E3 /* Pods_lockDown.framework */; };
@@ -185,10 +189,14 @@
 		FA04CA75245C55F1001A9591 /* ScanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanTableViewCell.xib; sourceTree = "<group>"; };
 		FA04CA7C245C663D001A9591 /* BraceletStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraceletStatusViewController.swift; sourceTree = "<group>"; };
 		FA04CA7D245C663D001A9591 /* BraceletStatusViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BraceletStatusViewController.xib; sourceTree = "<group>"; };
-		FA04CA80245C759F001A9591 /* VerifyMacAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyMacAddressViewController.swift; sourceTree = "<group>"; };
-		FA04CA81245C759F001A9591 /* VerifyMacAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerifyMacAddressViewController.xib; sourceTree = "<group>"; };
 		FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsAuthViewController.swift; sourceTree = "<group>"; };
 		FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricsAuthViewController.xib; sourceTree = "<group>"; };
+		FA4217AF24618EEA00090FA8 /* AddBraceletManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBraceletManuallyViewController.swift; sourceTree = "<group>"; };
+		FA4217B024618EEA00090FA8 /* AddBraceletManuallyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddBraceletManuallyViewController.xib; sourceTree = "<group>"; };
+		FA4217B32461A93D00090FA8 /* ConfirmationBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationBottomViewController.swift; sourceTree = "<group>"; };
+		FA4217B42461A93E00090FA8 /* ConfirmationBottomViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmationBottomViewController.xib; sourceTree = "<group>"; };
+		FA4217B72461BEA900090FA8 /* ErrorBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBottomViewController.swift; sourceTree = "<group>"; };
+		FA4217B82461BEA900090FA8 /* ErrorBottomViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorBottomViewController.xib; sourceTree = "<group>"; };
 		FA46CF8B2459CA7800B2E790 /* MTBeaconPlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MTBeaconPlus.framework; sourceTree = "<group>"; };
 		FA46CF8C2459CA7900B2E790 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iOSDFULibrary.framework; sourceTree = "<group>"; };
 		FA46CF8D2459CA7900B2E790 /* ZIPFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZIPFoundation.framework; sourceTree = "<group>"; };
@@ -364,8 +372,12 @@
 				FA04CA75245C55F1001A9591 /* ScanTableViewCell.xib */,
 				FA04CA7C245C663D001A9591 /* BraceletStatusViewController.swift */,
 				FA04CA7D245C663D001A9591 /* BraceletStatusViewController.xib */,
-				FA04CA80245C759F001A9591 /* VerifyMacAddressViewController.swift */,
-				FA04CA81245C759F001A9591 /* VerifyMacAddressViewController.xib */,
+				FA4217AF24618EEA00090FA8 /* AddBraceletManuallyViewController.swift */,
+				FA4217B024618EEA00090FA8 /* AddBraceletManuallyViewController.xib */,
+				FA4217B32461A93D00090FA8 /* ConfirmationBottomViewController.swift */,
+				FA4217B42461A93E00090FA8 /* ConfirmationBottomViewController.xib */,
+				FA4217B72461BEA900090FA8 /* ErrorBottomViewController.swift */,
+				FA4217B82461BEA900090FA8 /* ErrorBottomViewController.xib */,
 			);
 			path = Bracelet;
 			sourceTree = "<group>";
@@ -767,6 +779,7 @@
 			files = (
 				FA6E98AB24329CEA000F2C2E /* LoginViewController.xib in Resources */,
 				FA04CA73245C53F0001A9591 /* ScanListViewController.xib in Resources */,
+				FA4217BA2461BEA900090FA8 /* ErrorBottomViewController.xib in Resources */,
 				FAB7F3E5243371E800061AE5 /* RequestLocationViewController.xib in Resources */,
 				FAB7F42024339B0600061AE5 /* OpenSans-Regular.ttf in Resources */,
 				FAB7F41A24339B0600061AE5 /* OpenSans-ExtraBold.ttf in Resources */,
@@ -783,11 +796,11 @@
 				FAB7F41E24339B0600061AE5 /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				FA04CA6F245B3001001A9591 /* AddBraceletBottomViewController.xib in Resources */,
 				FA7ED09B243762D200C0060D /* MenuTableViewCell.xib in Resources */,
+				FA4217B62461A93E00090FA8 /* ConfirmationBottomViewController.xib in Resources */,
 				FAD6CEDC2449101E007E4F57 /* CustomAlertViewController.xib in Resources */,
 				FA7ED09F24376D3B00C0060D /* ChangeLocationViewController.xib in Resources */,
 				FA6E98B524329DA0000F2C2E /* MenuViewController.xib in Resources */,
 				FAC81E7C243A1EB2002DBADE /* LandingViewController.xib in Resources */,
-				FA04CA83245C759F001A9591 /* VerifyMacAddressViewController.xib in Resources */,
 				FA6E9863243293FB000F2C2E /* LaunchScreen.storyboard in Resources */,
 				FAB7F3EC2433989F00061AE5 /* Localizable.strings in Resources */,
 				FAB7F41624339B0600061AE5 /* AvenirLTStd-Light.otf in Resources */,
@@ -795,6 +808,7 @@
 				FAC81E81243A84A7002DBADE /* ContentViewController.xib in Resources */,
 				FAB7F41F24339B0600061AE5 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				0039FC12243F859A0071486B /* AttentionAlertViewController.xib in Resources */,
+				FA4217B224618EEA00090FA8 /* AddBraceletManuallyViewController.xib in Resources */,
 				FAB7F41B24339B0600061AE5 /* OpenSans-LightItalic.ttf in Resources */,
 				FA17C4BE243337B9000516EF /* BiometricsAuthViewController.xib in Resources */,
 				FA6E9860243293FB000F2C2E /* Assets.xcassets in Resources */,
@@ -996,7 +1010,6 @@
 				FAB7F3E4243371E800061AE5 /* RequestLocationViewController.swift in Sources */,
 				FA6E98A224329B83000F2C2E /* Label.swift in Sources */,
 				FA04CA6A245B14A3001A9591 /* BraceletViewController.swift in Sources */,
-				FA04CA82245C759F001A9591 /* VerifyMacAddressViewController.swift in Sources */,
 				FAC36C8424375E50002B4928 /* BiometricsBottomViewController.swift in Sources */,
 				FA9E2379243F2CB300F0E6F2 /* ImagePicker.swift in Sources */,
 				FAC81E80243A84A7002DBADE /* ContentViewController.swift in Sources */,
@@ -1005,7 +1018,9 @@
 				FAB34AF5244275E600ACDF99 /* BluetoothManager.swift in Sources */,
 				FA66D6442434B8880036D137 /* BaseController.swift in Sources */,
 				FA012F112447134600E647B9 /* MyZoneViewController.swift in Sources */,
+				FA4217B92461BEA900090FA8 /* ErrorBottomViewController.swift in Sources */,
 				FAC81E7B243A1EB2002DBADE /* LandingViewController.swift in Sources */,
+				FA4217B52461A93E00090FA8 /* ConfirmationBottomViewController.swift in Sources */,
 				FA6E9857243293F5000F2C2E /* AppDelegate.swift in Sources */,
 				0039FC352440B0F40071486B /* AttentionOutZoneAlertViewController.swift in Sources */,
 				FAB7F3D82433674400061AE5 /* Extensions.swift in Sources */,
@@ -1017,6 +1032,7 @@
 				FAD6CED72448B508007E4F57 /* TermsAndConditionViewController.swift in Sources */,
 				0039FC11243F859A0071486B /* AttentionAlertViewController.swift in Sources */,
 				FAC81E762438CF29002DBADE /* ContactUsViewController.swift in Sources */,
+				FA4217B124618EEA00090FA8 /* AddBraceletManuallyViewController.swift in Sources */,
 				FA8B003A24462AD30097404A /* HomeViewController.swift in Sources */,
 				FADB80F4243DFDFB00A31CC1 /* FailCheckInViewController.swift in Sources */,
 				FA04CA662459B5A2001A9591 /* Config.swift in Sources */,

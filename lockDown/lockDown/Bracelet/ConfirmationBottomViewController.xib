@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConfirmationBottomViewController" customModule="lockDown" customModuleProvider="target">
+            <connections>
+                <outlet property="confirmBtn" destination="7m0-P8-Auv" id="1O9-Sy-Pul"/>
+                <outlet property="handleArea" destination="MJt-w1-NgB" id="beN-gf-GNW"/>
+                <outlet property="msgLbl" destination="5YO-cg-vqV" id="Z5C-cu-Ix2"/>
+                <outlet property="view" destination="fVP-Z8-Xfz" id="Uke-dy-GS5"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="fVP-Z8-Xfz">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="264"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MJt-w1-NgB">
+                    <rect key="frame" x="-12" y="0.0" width="438" height="253"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_shadow2" translatesAutoresizingMaskIntoConstraints="NO" id="aki-bU-sHB">
+                            <rect key="frame" x="0.0" y="8" width="438" height="253"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5YO-cg-vqV" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="20" y="47" width="398" height="100"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="Elt-Y0-gdA"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7m0-P8-Auv" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="154" y="163" width="130" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="130" id="80b-OM-YAc"/>
+                                <constraint firstAttribute="height" constant="45" id="ATl-QZ-tUC"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                            <state key="normal" backgroundImage="green_button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="ConfirmBtnDidTap:" destination="-1" eventType="touchUpInside" id="Ik3-xr-Z9a"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="7m0-P8-Auv" secondAttribute="bottom" constant="45" id="64n-ra-CxM"/>
+                        <constraint firstItem="7m0-P8-Auv" firstAttribute="centerX" secondItem="MJt-w1-NgB" secondAttribute="centerX" id="BWE-pe-iCK"/>
+                        <constraint firstAttribute="trailing" secondItem="aki-bU-sHB" secondAttribute="trailing" id="LYf-9M-IT7"/>
+                        <constraint firstAttribute="bottom" secondItem="aki-bU-sHB" secondAttribute="bottom" constant="-8" id="N56-F8-j9d"/>
+                        <constraint firstItem="5YO-cg-vqV" firstAttribute="leading" secondItem="MJt-w1-NgB" secondAttribute="leading" constant="20" id="Zxk-yX-XY6"/>
+                        <constraint firstAttribute="trailing" secondItem="5YO-cg-vqV" secondAttribute="trailing" constant="20" id="aAo-ib-pyX"/>
+                        <constraint firstItem="7m0-P8-Auv" firstAttribute="top" secondItem="5YO-cg-vqV" secondAttribute="bottom" constant="16" id="dBW-v6-0gc"/>
+                        <constraint firstItem="aki-bU-sHB" firstAttribute="leading" secondItem="MJt-w1-NgB" secondAttribute="leading" id="eHJ-1C-gKT"/>
+                        <constraint firstAttribute="height" constant="253" id="mQi-ez-1js"/>
+                        <constraint firstItem="aki-bU-sHB" firstAttribute="top" secondItem="MJt-w1-NgB" secondAttribute="top" constant="8" id="mWW-5A-wGA"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="MJt-w1-NgB" firstAttribute="trailing" secondItem="fVP-Z8-Xfz" secondAttribute="trailing" constant="12" id="Gzl-7T-XAo"/>
+                <constraint firstItem="MJt-w1-NgB" firstAttribute="top" secondItem="fVP-Z8-Xfz" secondAttribute="top" id="mF6-xq-hH4"/>
+                <constraint firstItem="MJt-w1-NgB" firstAttribute="leading" secondItem="fVP-Z8-Xfz" secondAttribute="leading" constant="-12" id="waW-Ov-qda"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="NTe-yY-CFK"/>
+            <point key="canvasLocation" x="463.768115942029" y="-403.125"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="card_shadow2" width="395" height="281.5"/>
+        <image name="green_button" width="134.5" height="47"/>
+    </resources>
+</document>
