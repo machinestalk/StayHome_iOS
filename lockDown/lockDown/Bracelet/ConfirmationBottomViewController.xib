@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConfirmationBottomViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
+                <outlet property="confirmBtn" destination="7m0-P8-Auv" id="1O9-Sy-Pul"/>
                 <outlet property="handleArea" destination="MJt-w1-NgB" id="beN-gf-GNW"/>
                 <outlet property="msgLbl" destination="5YO-cg-vqV" id="Z5C-cu-Ix2"/>
                 <outlet property="view" destination="fVP-Z8-Xfz" id="Uke-dy-GS5"/>
@@ -34,9 +35,6 @@
                             <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="key" value="ChangeLocation_txt"/>
-                            </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7m0-P8-Auv" customClass="Button" customModule="lockDown" customModuleProvider="target">
                             <rect key="frame" x="154" y="163" width="130" height="45"/>
@@ -48,9 +46,6 @@
                             <state key="normal" backgroundImage="green_button">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="key" value="contactUsTxt"/>
-                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="ConfirmBtnDidTap:" destination="-1" eventType="touchUpInside" id="Ik3-xr-Z9a"/>
                             </connections>

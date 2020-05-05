@@ -50,7 +50,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SXd-mu-tuP">
                     <rect key="frame" x="41" y="322" width="332" height="47"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nuN-58-UZA" customClass="TextField" customModule="lockDown" customModuleProvider="target">
+                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nuN-58-UZA">
                             <rect key="frame" x="0.0" y="0.0" width="47" height="47"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,7 +60,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                            <textInputTraits key="textInputTraits"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="text1"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
@@ -78,7 +78,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                            <textInputTraits key="textInputTraits"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text2"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
@@ -96,7 +96,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                            <textInputTraits key="textInputTraits"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text3"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
@@ -114,7 +114,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                            <textInputTraits key="textInputTraits"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text4"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
@@ -132,7 +132,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                            <textInputTraits key="textInputTraits"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text5"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
@@ -150,7 +150,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                            <textInputTraits key="textInputTraits"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text6"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">

@@ -20,6 +20,7 @@ protocol ConfirmationBottomProtocol {
 class ConfirmationBottomViewController: BottomPopupViewController {
     
     @IBOutlet weak var msgLbl: Label!
+    @IBOutlet weak var confirmBtn: Button!
     @IBOutlet weak var handleArea: UIView!
     var delegate: ConfirmationBottomProtocol?
     var fullView: CGFloat {

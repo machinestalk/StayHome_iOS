@@ -126,3 +126,4 @@
 "enterMacTxt"            = "Please enter your bracelet mac address";
 "errorAddBracelet"       = "Sorry,please verify your bracelet mac address";
 "addmanuallyTitle"       = "Add bracelet manually";
+"ConfirmBraceletTxt"    = "Are you sure this is the right \n mac address?";

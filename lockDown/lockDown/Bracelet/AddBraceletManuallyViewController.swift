@@ -9,7 +9,7 @@
 import UIKit
 
 class AddBraceletManuallyViewController: BaseController {
-    @IBOutlet weak var  text1: TextField!
+    @IBOutlet weak var  text1: UITextField!
     @IBOutlet weak var  text2: TextField!
     @IBOutlet weak var  text3: TextField!
     @IBOutlet weak var  text4: TextField!
@@ -26,6 +26,7 @@ class AddBraceletManuallyViewController: BaseController {
         text4.delegate = self
         text5.delegate = self
         text6.delegate = self
+        self.title = "addmanuallyTitle".localiz()
         // Do any additional setup after loading the view.
     }
 
@@ -33,7 +34,7 @@ class AddBraceletManuallyViewController: BaseController {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if string.count == 2 {
+        if string.count == 1 {
             if textField == text1 {
                 text2.becomeFirstResponder()
                 text1.text = textField.text
@@ -118,6 +119,8 @@ class AddBraceletManuallyViewController: BaseController {
         self.addChild(confirmationBottomVC)
         self.view.addSubview(confirmationBottomVC.view)
         confirmationBottomVC.didMove(toParent: self)
+        confirmationBottomVC.msgLbl.text = "ConfirmBraceletTxt".localiz()
+        confirmationBottomVC.confirmBtn.setTitle("logout0_btn_txt".localiz(), for: .normal)
         msgLbl.text = "beaconmacTxt".localiz()
     }
     
