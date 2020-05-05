@@ -23,13 +23,14 @@ enum APIRouter: URLRequestConvertible {
     case getTipsHome(tenantId : String)
     case getCustomerData(customerId : String)
     case sendBLEScanned(deviceToken : String, data:[String:Any])
+    case addBracelet(params:[String:Any])
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
         case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm, .sendBLEScanned, .sendIsComplaintWithoutZone:
             return .post
-        case .getTipsHome ,.getCustomerData:
+        case .getTipsHome,.addBracelet,.getCustomerData:
             return .get
         }
     }
@@ -40,6 +41,13 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .signIn:
             return "api/noauth/loginMobile"
+        case .addBracelet(let params):
+            let macAdress = params["macAddress"] as! String
+            let deviceID = params["deviceId"] as! String
+            let tenantID = params["tenantId"] as! String
+            let customerID = params["customerId"] as! String
+            
+            return "api/customer-bracelet/device?macAddress=\(macAdress)&deviceId=\(deviceID)&tenantId=\(tenantID)&customerId=\(customerID)"
         case .signUp:
             return "api/noauth/signInCustomer"
         case .refrechToken:
@@ -69,6 +77,8 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - Parameters
     private var parameters: Parameters? {
         switch self {
+        case .addBracelet:
+            return nil
         case .signIn(let phoneNumber, let phoneOtp, let phoneUdid):
             return [LockDown.APIParameterKey.phoneNumber: phoneNumber, LockDown.APIParameterKey.phoneOtp: phoneOtp, LockDown.APIParameterKey.phoneUdid:phoneUdid]
         case .signUp(let phoneNumber):

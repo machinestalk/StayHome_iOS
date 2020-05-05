@@ -101,8 +101,13 @@ class APIClient {
             else {
                 if response.response?.statusCode == 400 {
                     self.requestForGetNewAccessToken(route: route, onSuccess: successCallback, onFailure: failureCallback)
+                }else{
+                    //failureCallback?(response.result.error!.localizedDescription)
+                    let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result as? [String : Any])
+                    failureCallback?(error.localizedDescription)
+                    //completion(.failure(error))
                 }
-                //failureCallback?(response.result.error!.localizedDescription)
+                
             }
         }
     }
@@ -226,6 +231,19 @@ class APIClient {
                               onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
         return SendRequest(route: APIRouter.sendContactUsForm(data: data), onSuccess: { (responseObject: String) -> Void in
+            successCallback?("successMessage")
+        },
+           onFailure: {(errorMessage: String) -> Void in
+             print(errorMessage)
+             failureCallback?("errorMessage")
+        }
+        )
+    }
+    
+    static func checkBracelet(data:[String:Any],onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.addBracelet(params: data), onSuccess: { (responseObject: String) -> Void in
             successCallback?("successMessage")
         },
            onFailure: {(errorMessage: String) -> Void in

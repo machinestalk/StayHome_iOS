@@ -10,6 +10,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BraceletStatusViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
+                <outlet property="macLabel0" destination="y7R-Xg-BuM" id="cov-d9-bc1"/>
+                <outlet property="macLabel1" destination="2r2-3l-eSM" id="qk9-CF-lc9"/>
+                <outlet property="macLabel2" destination="bMa-SH-VYT" id="RPs-gV-7Pq"/>
+                <outlet property="macLabel3" destination="DB1-MB-h2d" id="khA-V8-lS1"/>
+                <outlet property="macLabel4" destination="A96-JQ-8Vr" id="NbS-t7-Yra"/>
+                <outlet property="macLabel5" destination="8ca-yY-2Wf" id="I89-dC-oky"/>
                 <outlet property="view" destination="Kqs-xw-pHi" id="qnS-S1-NtI"/>
             </connections>
         </placeholder>

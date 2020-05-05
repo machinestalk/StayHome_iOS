@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MTBeaconPlus
 
 class BraceletViewController: BaseController {
 
