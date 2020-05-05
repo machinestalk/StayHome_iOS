@@ -39,7 +39,7 @@ class ScanListViewController: BaseController, UITableViewDataSource, UITableView
         
         self.startScan()
         
-//        beaconNameListArray.append("aa:aa:aa:aa")
+        
 //        beaconNameListArray.append("aa:aa:aa:aa")
 //        beaconNameListArray.append("aa:aa:aa:aa")
         // Do any additional setup after loading the view.
@@ -73,25 +73,11 @@ class ScanListViewController: BaseController, UITableViewDataSource, UITableView
 
     
     @objc func addBtnDidTap(sender : UIButton){
-//        let braceletStatusVC = BraceletStatusViewController(nibName: "BraceletStatusViewController", bundle: nil)
-//        braceletStatusVC.macAddress = self.beaconNameListArray[sender.tag]
-//        self.navigationController!.pushViewController(braceletStatusVC, animated: true)
-        checkMacAdress(macAdress: self.beaconNameListArray[sender.tag])
+        let braceletStatusVC = BraceletStatusViewController(nibName: "BraceletStatusViewController", bundle: nil)
+        braceletStatusVC.macAddress = self.beaconNameListArray[sender.tag]
+        self.navigationController!.pushViewController(braceletStatusVC, animated: true)
+        //checkMacAdress(macAdress: self.beaconNameListArray[sender.tag])
     }
-    
-    func checkMacAdress(macAdress: String) {
-           self.startLoading()
-           let dataBody = ["macAddress": macAdress ,"deviceId":UserDefaults.standard.value(forKey: "deviceId") as Any,"tenantId":UserDefaults.standard.string(forKey: "tenantId") as Any,"customerId":UserDefaults.standard.string(forKey: "customerId") as Any] as [String : Any]
-        
-            APIClient.checkBracelet(data: dataBody, onSuccess: { (success) in
-                          self.finishLoading()
-                          print(success)
-                      }) { (error) in
-                          self.finishLoading()
-                          print(error)
-                      }
-       }
-    
     /*
     // MARK: - Navigation
 
@@ -134,8 +120,10 @@ class ScanListViewController: BaseController, UITableViewDataSource, UITableView
                 }else{
                     self.beaconNameListArray.append("00:00:00:00:00:00")
                 }// mac address,may nil
+                
                 let frames = framer?.advFrames // all data frames of device（such as:iBeacon，UID，URL...）
             }
+            self.beaconNameListArray.append("B8:B2:F8:5D:98:1E")
             self.tableView.reloadData()
             self.finishLoading()
         })

@@ -33,8 +33,21 @@ class BraceletStatusViewController: BaseController {
         macLabel5.text = characters[5]
         
         // Do any additional setup after loading the view.
+        self.startLoading()
+        checkMacAdress(macAdress: macAddress)
+    }
+    
+    func checkMacAdress(macAdress: String) {
         
-        //checkMacAdress(macAdress: "BC:23:3F:56:B6:2C")
+        let dataBody = ["macAddress": macAdress ,"deviceId":UserDefaults.standard.value(forKey: "deviceId") as Any,"tenantId":UserDefaults.standard.string(forKey: "tenantId") as Any,"customerId":UserDefaults.standard.string(forKey: "customerId") as Any] as [String : Any]
+     
+         APIClient.checkBracelet(data: dataBody, onSuccess: { (success) in
+                       self.finishLoading()
+                       print(success)
+                   }) { (error) in
+                       self.finishLoading()
+                       print(error)
+                   }
     }
 
     /*
