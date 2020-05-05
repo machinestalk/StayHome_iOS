@@ -63,3 +63,4 @@
 "scanBraceletTitle"      =  "مسح سوار";
 "beaconmacTxt"           = "عنوان الماك للسوار";
 "braceletStatusTitle"    = "حالة السوار";
+"enterMacTxt"            = "الرجاء إدخال عنوان الماك للسوار الخاص بك";
