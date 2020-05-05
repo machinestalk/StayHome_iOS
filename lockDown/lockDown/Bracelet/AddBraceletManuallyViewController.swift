@@ -130,7 +130,7 @@ class AddBraceletManuallyViewController: BaseController {
         self.addChild(errorBottomVC)
         self.view.addSubview(errorBottomVC.view)
         errorBottomVC.didMove(toParent: self)
-        msgLbl.text = "beaconmacTxt".localiz()
+        errorBottomVC.msgLbl.text = "errorAddBracelet".localiz()
     }
     
     /*

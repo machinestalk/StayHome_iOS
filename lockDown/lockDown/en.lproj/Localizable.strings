@@ -124,3 +124,4 @@
 "beaconmacTxt"           = "Bracelet mac address";
 "braceletStatusTitle"    = "Bracelet Status";
 "enterMacTxt"            = "Please enter your bracelet mac address";
+"errorAddBracelet"       = "Sorry,please verify your bracelet mac address";
