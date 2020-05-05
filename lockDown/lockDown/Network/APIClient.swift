@@ -103,8 +103,8 @@ class APIClient {
                     self.requestForGetNewAccessToken(route: route, onSuccess: successCallback, onFailure: failureCallback)
                 }else{
                     //failureCallback?(response.result.error!.localizedDescription)
-                    let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result as? [String : Any])
-                    failureCallback?(error.localizedDescription)
+                    //let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result as? [String : Any])
+                    //failureCallback?(error.localizedDescription)
                     //completion(.failure(error))
                 }
                 
