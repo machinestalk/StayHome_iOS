@@ -102,6 +102,13 @@ class APIClient {
                 if response.response?.statusCode == 400 {
                     self.requestForGetNewAccessToken(route: route, onSuccess: successCallback, onFailure: failureCallback)
                 }else{
+                    if response.result.error != nil  {
+                       let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result as? [String : Any])
+                        failureCallback?(error.localizedDescription)
+                    }
+                    else {
+                        failureCallback?("error message")
+                    }
                     //failureCallback?(response.result.error!.localizedDescription)
                     //let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result as? [String : Any])
                     //failureCallback?(error.localizedDescription)
@@ -243,11 +250,11 @@ class APIClient {
                               onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         
         return SendRequest(route: APIRouter.addBracelet(params: data), onSuccess: { (responseObject: String) -> Void in
-            successCallback?("successMessage")
+            successCallback?(responseObject)
         },
            onFailure: {(errorMessage: String) -> Void in
              print(errorMessage)
-             failureCallback?("errorMessage")
+             failureCallback?(errorMessage)
         }
         )
     }

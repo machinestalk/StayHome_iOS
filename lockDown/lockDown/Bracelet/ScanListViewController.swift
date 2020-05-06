@@ -123,7 +123,7 @@ class ScanListViewController: BaseController, UITableViewDataSource, UITableView
                 
                 let frames = framer?.advFrames // all data frames of device（such as:iBeacon，UID，URL...）
             }
-            self.beaconNameListArray.append("B8:B2:F8:5D:98:1E")
+            self.beaconNameListArray.append("BC:AF:AB:AC:45:AB")
             self.tableView.reloadData()
             self.finishLoading()
         })

@@ -10,7 +10,8 @@ import UIKit
 
 class BraceletStatusViewController: BaseController {
     var macAddress = ""
-    
+     var errorBottomVC = ErrorBottomViewController()
+     var BraceletConnectedBottomVC = BraceletConnectBottomViewController()
      @IBOutlet weak var macLabel0: UILabel!
      @IBOutlet weak var macLabel1: UILabel!
      @IBOutlet weak var macLabel2: UILabel!
@@ -41,23 +42,63 @@ class BraceletStatusViewController: BaseController {
         
         let dataBody = ["macAddress": macAdress ,"deviceId":UserDefaults.standard.value(forKey: "deviceId") as Any,"tenantId":UserDefaults.standard.string(forKey: "tenantId") as Any,"customerId":UserDefaults.standard.string(forKey: "customerId") as Any] as [String : Any]
      
-         APIClient.checkBracelet(data: dataBody, onSuccess: { (success) in
+         APIClient.checkBracelet(data: dataBody, onSuccess: { (successObject) in
                        self.finishLoading()
-                       print(success)
+                       print(successObject)
+            
+            if let objectDict = successObject.convertToDictionary(){
+                if let StimpStr =  objectDict["createdTime"] {
+                    print("dateStimp =::> \(StimpStr)")
+                     let date = Date(timeIntervalSince1970: StimpStr as! TimeInterval)
+                      
+                    print("dateStimp =::> \(date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))")
+                    self.setupBraceletconnectedBottomVC(dateStr: date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))
+                
+                    
+                }
+            }
+            
                    }) { (error) in
                        self.finishLoading()
+                    self.setupErrorBottomVC()
                        print(error)
                    }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    // MARK: - ErrorBottom View
+    func setupErrorBottomVC() {
+        errorBottomVC.delegate = self
+        let height = view.frame.height
+        let width  = view.frame.width
+        errorBottomVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        self.addChild(errorBottomVC)
+        self.view.addSubview(errorBottomVC.view)
+        errorBottomVC.didMove(toParent: self)
+        errorBottomVC.errorIcon.image = UIImage(named: "red_bluetooth")
+        errorBottomVC.msgLbl.text = "errorMsgConnection".localiz()
     }
-    */
+    
+    // MARK: - ErrorBottom View
+    func setupBraceletconnectedBottomVC(dateStr : String) {
+        BraceletConnectedBottomVC.delegate = self
+        let height = view.frame.height
+        let width  = view.frame.width
+        BraceletConnectedBottomVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        self.addChild(BraceletConnectedBottomVC)
+        self.view.addSubview(BraceletConnectedBottomVC.view)
+        BraceletConnectedBottomVC.didMove(toParent: self)
+        BraceletConnectedBottomVC.dateLbl.text = "sinceTxt".localiz() + " " + dateStr
+    }
+   
 
 }
+
+extension BraceletStatusViewController : ErrorBottomProtocol {
+    func ErrorDidAppear() {
+        
+    }
+    
+    
+}
+

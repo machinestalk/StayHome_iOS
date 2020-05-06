@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ErrorBottomViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
+                <outlet property="errorIcon" destination="8gA-fZ-9GH" id="d1h-yf-Zb0"/>
                 <outlet property="handleArea" destination="fXj-ev-2Rs" id="6he-uo-ChC"/>
                 <outlet property="msgLbl" destination="lGG-XV-Sey" id="8jb-QG-hkQ"/>
                 <outlet property="view" destination="QMI-9J-mcw" id="GSN-nl-N7r"/>
@@ -71,6 +72,6 @@
     </objects>
     <resources>
         <image name="card_shadow2" width="395" height="281.5"/>
-        <image name="red_fail" width="50" height="50"/>
+        <image name="red_fail" width="57" height="57"/>
     </resources>
 </document>

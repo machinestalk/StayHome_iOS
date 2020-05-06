@@ -18,6 +18,7 @@ protocol ErrorBottomProtocol {
 class ErrorBottomViewController: BottomPopupViewController {
     
     @IBOutlet weak var msgLbl: Label!
+    @IBOutlet weak var errorIcon: UIImageView!
     @IBOutlet weak var handleArea: UIView!
     var delegate: ErrorBottomProtocol?
     var fullView: CGFloat {

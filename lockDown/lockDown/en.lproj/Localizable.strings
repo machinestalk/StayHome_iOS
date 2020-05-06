@@ -127,3 +127,6 @@
 "errorAddBracelet"       = "Sorry,please verify your bracelet mac address";
 "addmanuallyTitle"       = "Add bracelet manually";
 "ConfirmBraceletTxt"    = "Are you sure this is the right \n mac address?";
+"connectTxt"            = "connected";
+"sinceTxt"              = "Since";
+"errorMsgConnection"     = "Your bracelet was not detected. \n Please make sure that your bracelet still close \n to your phone";
