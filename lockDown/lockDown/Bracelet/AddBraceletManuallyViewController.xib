@@ -11,12 +11,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddBraceletManuallyViewController" customModule="lockDown" customModuleProvider="target">
             <connections>
                 <outlet property="msgLbl" destination="nug-bD-25m" id="jwb-TJ-Wv3"/>
-                <outlet property="text1" destination="nuN-58-UZA" id="CbS-dw-ttB"/>
-                <outlet property="text2" destination="ftD-ba-Pn2" id="DQL-LZ-n08"/>
-                <outlet property="text3" destination="Pec-ON-tk6" id="sBm-uL-QgT"/>
-                <outlet property="text4" destination="Zqf-q3-aAk" id="2cq-4W-L9O"/>
-                <outlet property="text5" destination="jOb-Rk-mce" id="9fy-Kb-jtP"/>
-                <outlet property="text6" destination="vLu-OW-xYU" id="Ihm-SN-kfM"/>
+                <outlet property="text1" destination="Drl-hV-NIc" id="lJX-jf-ldM"/>
+                <outlet property="text2" destination="Rhm-S2-5md" id="hck-tJ-UNi"/>
+                <outlet property="text3" destination="qvR-Cj-Jy2" id="CHf-He-8qs"/>
+                <outlet property="text4" destination="vVm-HB-U5F" id="2hf-0P-bg8"/>
+                <outlet property="text5" destination="JE7-6P-uBx" id="z1i-ms-4gn"/>
+                <outlet property="text6" destination="U24-IP-RgM" id="5kH-W5-Y09"/>
                 <outlet property="view" destination="lgn-nj-ezC" id="Z6o-xF-nKB"/>
             </connections>
         </placeholder>
@@ -47,129 +47,180 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="key" value="enterMacTxt"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SXd-mu-tuP">
-                    <rect key="frame" x="41" y="322" width="332" height="47"/>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="hKN-8D-ZjG">
+                    <rect key="frame" x="57" y="322" width="300" height="60"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nuN-58-UZA">
-                            <rect key="frame" x="0.0" y="0.0" width="47" height="47"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ua-Rn-4cc">
+                            <rect key="frame" x="0.0" y="0.0" width="16.5" height="60"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="otp_case" translatesAutoresizingMaskIntoConstraints="NO" id="Gdo-0b-APL">
+                                    <rect key="frame" x="-26.5" y="-8" width="69.5" height="76.5"/>
+                                </imageView>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Drl-hV-NIc">
+                                    <rect key="frame" x="-16.5" y="5" width="50" height="50"/>
+                                    <color key="tintColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="0pP-t1-mao"/>
+                                        <constraint firstAttribute="height" constant="50" id="obd-2J-kh3"/>
+                                    </constraints>
+                                    <color key="textColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="47" id="5Fw-E3-LGA"/>
-                                <constraint firstAttribute="height" constant="47" id="Kix-pE-G64"/>
+                                <constraint firstItem="Drl-hV-NIc" firstAttribute="centerX" secondItem="1ua-Rn-4cc" secondAttribute="centerX" id="P8q-TD-lqS"/>
+                                <constraint firstItem="Drl-hV-NIc" firstAttribute="centerY" secondItem="1ua-Rn-4cc" secondAttribute="centerY" id="Pwc-Er-QH2"/>
+                                <constraint firstItem="Gdo-0b-APL" firstAttribute="centerY" secondItem="1ua-Rn-4cc" secondAttribute="centerY" id="dMH-NK-3e0"/>
+                                <constraint firstItem="Gdo-0b-APL" firstAttribute="centerX" secondItem="1ua-Rn-4cc" secondAttribute="centerX" id="snf-75-COX"/>
                             </constraints>
-                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="text1"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </textField>
-                        <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ftD-ba-Pn2">
-                            <rect key="frame" x="57" y="0.0" width="47" height="47"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kuv-sF-BJy">
+                            <rect key="frame" x="56.5" y="0.0" width="17" height="60"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="otp_case" translatesAutoresizingMaskIntoConstraints="NO" id="wOT-oh-fHu">
+                                    <rect key="frame" x="-26" y="-8" width="69.5" height="76.5"/>
+                                </imageView>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rhm-S2-5md">
+                                    <rect key="frame" x="-16.5" y="5" width="50" height="50"/>
+                                    <color key="tintColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="28D-s6-DMp"/>
+                                        <constraint firstAttribute="height" constant="50" id="9aI-pJ-Dpr"/>
+                                    </constraints>
+                                    <color key="textColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="47" id="Tbr-Ib-4NO"/>
-                                <constraint firstAttribute="height" constant="47" id="Xjs-7s-zeh"/>
+                                <constraint firstItem="wOT-oh-fHu" firstAttribute="centerY" secondItem="kuv-sF-BJy" secondAttribute="centerY" id="35H-QW-aNg"/>
+                                <constraint firstItem="Rhm-S2-5md" firstAttribute="centerX" secondItem="kuv-sF-BJy" secondAttribute="centerX" id="K76-ma-GIG"/>
+                                <constraint firstItem="Rhm-S2-5md" firstAttribute="centerY" secondItem="kuv-sF-BJy" secondAttribute="centerY" id="gfg-xz-3cX"/>
+                                <constraint firstItem="wOT-oh-fHu" firstAttribute="centerX" secondItem="kuv-sF-BJy" secondAttribute="centerX" id="mVl-Zc-ka3"/>
                             </constraints>
-                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text2"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </textField>
-                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pec-ON-tk6">
-                            <rect key="frame" x="114" y="0.0" width="47" height="47"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rGH-HU-dB0">
+                            <rect key="frame" x="113.5" y="0.0" width="16.5" height="60"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="otp_case" translatesAutoresizingMaskIntoConstraints="NO" id="ExY-Ku-k7C">
+                                    <rect key="frame" x="-26.5" y="-8" width="69.5" height="76.5"/>
+                                </imageView>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qvR-Cj-Jy2">
+                                    <rect key="frame" x="-17" y="5" width="50" height="50"/>
+                                    <color key="tintColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="75l-El-eLz"/>
+                                        <constraint firstAttribute="width" constant="50" id="Jy8-VA-URe"/>
+                                    </constraints>
+                                    <color key="textColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="47" id="ClT-mL-QZB"/>
-                                <constraint firstAttribute="height" constant="47" id="oAc-XS-OIJ"/>
+                                <constraint firstItem="qvR-Cj-Jy2" firstAttribute="centerX" secondItem="rGH-HU-dB0" secondAttribute="centerX" id="4To-Sk-Yym"/>
+                                <constraint firstItem="ExY-Ku-k7C" firstAttribute="centerY" secondItem="rGH-HU-dB0" secondAttribute="centerY" id="cV2-OR-XX4"/>
+                                <constraint firstItem="qvR-Cj-Jy2" firstAttribute="centerY" secondItem="rGH-HU-dB0" secondAttribute="centerY" id="kSs-B5-W2H"/>
+                                <constraint firstItem="ExY-Ku-k7C" firstAttribute="centerX" secondItem="rGH-HU-dB0" secondAttribute="centerX" id="mNg-Gc-coV"/>
                             </constraints>
-                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text3"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </textField>
-                        <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zqf-q3-aAk">
-                            <rect key="frame" x="171" y="0.0" width="47" height="47"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XZZ-tE-u3x">
+                            <rect key="frame" x="170" y="0.0" width="16.5" height="60"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="otp_case" translatesAutoresizingMaskIntoConstraints="NO" id="B5R-pT-G2s">
+                                    <rect key="frame" x="-26.5" y="-8" width="69.5" height="76.5"/>
+                                </imageView>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vVm-HB-U5F">
+                                    <rect key="frame" x="-16.5" y="5" width="50" height="50"/>
+                                    <color key="tintColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="EFO-yC-fEY"/>
+                                        <constraint firstAttribute="width" constant="50" id="wlg-Ew-Zp8"/>
+                                    </constraints>
+                                    <color key="textColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="47" id="Duf-w4-2ir"/>
-                                <constraint firstAttribute="width" constant="47" id="zi1-uc-fER"/>
+                                <constraint firstItem="B5R-pT-G2s" firstAttribute="centerY" secondItem="XZZ-tE-u3x" secondAttribute="centerY" id="3k6-WP-PYi"/>
+                                <constraint firstItem="vVm-HB-U5F" firstAttribute="centerY" secondItem="XZZ-tE-u3x" secondAttribute="centerY" id="cTN-nU-oWh"/>
+                                <constraint firstItem="vVm-HB-U5F" firstAttribute="centerX" secondItem="XZZ-tE-u3x" secondAttribute="centerX" id="dpb-jN-2Il"/>
+                                <constraint firstItem="B5R-pT-G2s" firstAttribute="centerX" secondItem="XZZ-tE-u3x" secondAttribute="centerX" id="mZn-fo-rdC"/>
                             </constraints>
-                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text4"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </textField>
-                        <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jOb-Rk-mce">
-                            <rect key="frame" x="228" y="0.0" width="47" height="47"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="468-k6-87F">
+                            <rect key="frame" x="226.5" y="0.0" width="17" height="60"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="otp_case" translatesAutoresizingMaskIntoConstraints="NO" id="Llc-xo-2Ro">
+                                    <rect key="frame" x="-26" y="-8" width="69.5" height="76.5"/>
+                                </imageView>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JE7-6P-uBx">
+                                    <rect key="frame" x="-16.5" y="5" width="50" height="50"/>
+                                    <color key="tintColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="5dN-ai-1UO"/>
+                                        <constraint firstAttribute="width" constant="50" id="tdG-zT-5Je"/>
+                                    </constraints>
+                                    <color key="textColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="47" id="2B0-9o-Y3C"/>
-                                <constraint firstAttribute="width" constant="47" id="se9-RL-f6P"/>
+                                <constraint firstItem="JE7-6P-uBx" firstAttribute="centerY" secondItem="468-k6-87F" secondAttribute="centerY" id="Glq-qM-TXz"/>
+                                <constraint firstItem="JE7-6P-uBx" firstAttribute="centerX" secondItem="468-k6-87F" secondAttribute="centerX" id="JuG-2z-CES"/>
+                                <constraint firstItem="Llc-xo-2Ro" firstAttribute="centerY" secondItem="468-k6-87F" secondAttribute="centerY" id="OUt-jW-m7m"/>
+                                <constraint firstItem="Llc-xo-2Ro" firstAttribute="centerX" secondItem="468-k6-87F" secondAttribute="centerX" id="a5E-oN-E0b"/>
                             </constraints>
-                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text5"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </textField>
-                        <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vLu-OW-xYU">
-                            <rect key="frame" x="285" y="0.0" width="47" height="47"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="tintColor" red="0.1343544126" green="0.56846868989999999" blue="0.53304117920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ONK-WK-q8n">
+                            <rect key="frame" x="283.5" y="0.0" width="16.5" height="60"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="otp_case" translatesAutoresizingMaskIntoConstraints="NO" id="lNR-LM-LYP">
+                                    <rect key="frame" x="-26.5" y="-8" width="69.5" height="76.5"/>
+                                </imageView>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="--" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U24-IP-RgM">
+                                    <rect key="frame" x="-17" y="5" width="50" height="50"/>
+                                    <color key="tintColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="S9g-xM-aS7"/>
+                                        <constraint firstAttribute="height" constant="50" id="dJU-hr-FG1"/>
+                                    </constraints>
+                                    <color key="textColor" red="0.074646182359999994" green="0.56512528660000005" blue="0.59993731979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="47" id="tLZ-Yc-iP0"/>
-                                <constraint firstAttribute="height" constant="47" id="wte-m2-jsd"/>
+                                <constraint firstItem="U24-IP-RgM" firstAttribute="centerY" secondItem="ONK-WK-q8n" secondAttribute="centerY" id="613-4K-ykD"/>
+                                <constraint firstItem="U24-IP-RgM" firstAttribute="centerX" secondItem="ONK-WK-q8n" secondAttribute="centerX" id="Wdi-GW-neR"/>
+                                <constraint firstItem="lNR-LM-LYP" firstAttribute="centerY" secondItem="ONK-WK-q8n" secondAttribute="centerY" id="gYe-vf-BAs"/>
+                                <constraint firstItem="lNR-LM-LYP" firstAttribute="centerX" secondItem="ONK-WK-q8n" secondAttribute="centerX" id="xZD-q7-nBY"/>
                             </constraints>
-                            <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text6"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </textField>
+                        </view>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="Vto-mQ-6nL"/>
+                        <constraint firstAttribute="width" constant="300" id="vtY-G8-b6I"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="dK9-Iy-5rD" firstAttribute="centerX" secondItem="lgn-nj-ezC" secondAttribute="centerX" id="4Gh-y5-kTs"/>
+                <constraint firstItem="hKN-8D-ZjG" firstAttribute="centerX" secondItem="Fv8-tM-Txn" secondAttribute="centerX" id="5xj-Nk-hQw"/>
                 <constraint firstItem="dK9-Iy-5rD" firstAttribute="centerY" secondItem="lgn-nj-ezC" secondAttribute="centerY" id="8AR-pU-J5w"/>
-                <constraint firstItem="SXd-mu-tuP" firstAttribute="centerX" secondItem="nug-bD-25m" secondAttribute="centerX" id="EvA-7I-8F8"/>
-                <constraint firstItem="SXd-mu-tuP" firstAttribute="top" secondItem="nug-bD-25m" secondAttribute="bottom" constant="20" id="FY0-sC-cza"/>
                 <constraint firstItem="nug-bD-25m" firstAttribute="centerX" secondItem="lgn-nj-ezC" secondAttribute="centerX" id="GEm-ob-XA2"/>
                 <constraint firstItem="dK9-Iy-5rD" firstAttribute="height" secondItem="lgn-nj-ezC" secondAttribute="height" id="NrY-Sd-gtL"/>
+                <constraint firstItem="hKN-8D-ZjG" firstAttribute="top" secondItem="nug-bD-25m" secondAttribute="bottom" constant="20" id="Uj5-bu-G0d"/>
                 <constraint firstItem="nug-bD-25m" firstAttribute="top" secondItem="wjN-Py-nSW" secondAttribute="bottom" constant="10" id="dJO-V0-km7"/>
                 <constraint firstItem="wjN-Py-nSW" firstAttribute="top" secondItem="lgn-nj-ezC" secondAttribute="top" constant="139" id="jpd-ys-lwo"/>
                 <constraint firstItem="dK9-Iy-5rD" firstAttribute="width" secondItem="lgn-nj-ezC" secondAttribute="width" id="kmy-4c-g0g"/>
@@ -184,5 +235,6 @@
     <resources>
         <image name="bargreen" width="571" height="601"/>
         <image name="graphic_bracelet" width="142.5" height="143"/>
+        <image name="otp_case" width="69.5" height="76.5"/>
     </resources>
 </document>
