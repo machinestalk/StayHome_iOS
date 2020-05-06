@@ -37,14 +37,16 @@ class AddBraceletManuallyViewController: BaseController {
     // MARK: - UITextField Delegate
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
+        self.confirmationBottomVC.view.removeFromSuperview()
+        self.errorBottomVC.view.removeFromSuperview()
+        self.msgLbl.text = "enterMacTxt".localiz()
         guard let textFieldText = textField.text,
             let rangeOfTextToReplace = Range(range, in: textFieldText) else {
                 return false
         }
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
-        
+         
         if count == 2 {
             if textField == text1 {
                 text1.text = (textField.text! + string).uppercased()
