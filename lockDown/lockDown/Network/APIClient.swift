@@ -103,8 +103,7 @@ class APIClient {
                     self.requestForGetNewAccessToken(route: route, onSuccess: successCallback, onFailure: failureCallback)
                 }else{
                     if response.result.error != nil  {
-                       let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result as? [String : Any])
-                        failureCallback?(error.localizedDescription)
+                        failureCallback?(response.result.error!.localizedDescription)
                     }
                     else {
                         failureCallback?("error message")
