@@ -252,17 +252,19 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         let homeDataFuture = APIClient.getTipsHome(tenantId: tenantId!)
         homeDataFuture.execute(onSuccess: { homeDataArray in
              self.finishLoading()
-            print("homeDataArray == > \(homeDataArray)")
-            let homeData = homeDataArray.filter{ $0.key == "Day \(self.dayQuarantine)" }
-            let stringJson = homeData[0].value as? String
-           let dicHome = stringJson?.convertToDictionary()
-            if let body = dicHome!["body"] as? String {
-                self.homeTip.text = body
+            if self.dayQuarantine > 0 {
+                print("homeDataArray == > \(homeDataArray)")
+                let homeData = homeDataArray.filter{ $0.key == "Day \(self.dayQuarantine)" }
+                let stringJson = homeData[0].value as? String
+                let dicHome = stringJson?.convertToDictionary()
+                if let body = dicHome!["body"] as? String {
+                    self.homeTip.text = body
+                }
+                if let title = dicHome!["title"] as? String {
+                    self.homeTitle.text = title
+                }
+                self.dayNumber.text = "\(self.dayQuarantine)"
             }
-            if let title = dicHome!["title"] as? String {
-                self.homeTitle.text = title
-            }
-            self.dayNumber.text = "\(self.dayQuarantine)"
             }, onFailure: {error in
                 self.finishLoading()
                 let errorr = error as NSError
