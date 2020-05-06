@@ -264,9 +264,10 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             }
             self.dayNumber.text = "\(self.dayQuarantine)"
             }, onFailure: {error in
+                self.finishLoading()
                 let errorr = error as NSError
                 let errorDict = errorr.userInfo
-                self.finishLoading()
+                
             })
         }
     
