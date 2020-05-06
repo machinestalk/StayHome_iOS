@@ -33,9 +33,17 @@ class BraceletStatusViewController: BaseController {
         macLabel4.text = characters[4]
         macLabel5.text = characters[5]
         
+        
         // Do any additional setup after loading the view.
         self.startLoading()
         checkMacAdress(macAdress: macAddress)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        self.navigationController!.navigationBar.isHidden = false
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
     }
     
     func checkMacAdress(macAdress: String) {
@@ -52,6 +60,7 @@ class BraceletStatusViewController: BaseController {
                      let date = Date(timeIntervalSince1970: StimpStr as! TimeInterval)
                       
                     print("dateStimp =::> \(date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))")
+                    UserDefaults.standard.set(macAdress, forKey:"connected_bracelet")
                     self.setupBraceletconnectedBottomVC(dateStr: date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))
                 
                     

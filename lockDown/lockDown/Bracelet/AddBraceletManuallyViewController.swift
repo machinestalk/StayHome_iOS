@@ -134,6 +134,13 @@ class AddBraceletManuallyViewController: BaseController {
     }
     // MARK: - ErrorBottom View
     func setupBraceletconnectedBottomVC(dateStr : String) {
+        
+        let image = UIImage(named: "ic_menu")?.withRenderingMode(.alwaysOriginal)
+               let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(menuButtonPressed))
+               let leftNavigationButtons = NSMutableArray(array: self.navigationBarLeftButtons())
+               leftNavigationButtons.add(button)
+               self.navigationItem.leftBarButtonItems  = (leftNavigationButtons as! [UIBarButtonItem])
+        
         BraceletConnectedBottomVC.delegate = self
         let height = view.frame.height
         let width  = view.frame.width
@@ -174,6 +181,7 @@ extension AddBraceletManuallyViewController:ConfirmationBottomProtocol{
                     
                     print("dateStimp =::> \(date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))")
                     self.confirmationBottomVC.view.removeFromSuperview()
+                    UserDefaults.standard.set(macAdress, forKey:"connected_bracelet")
                     self.setupBraceletconnectedBottomVC(dateStr: date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))
                     
                     
