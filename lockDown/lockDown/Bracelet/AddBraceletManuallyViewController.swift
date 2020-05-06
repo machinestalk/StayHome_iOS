@@ -31,11 +31,11 @@ class AddBraceletManuallyViewController: BaseController {
         text1.becomeFirstResponder()
         // Do any additional setup after loading the view.
     }
-
+    
     // MARK: - UITextField Delegate
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
+        
         guard let textFieldText = textField.text,
             let rangeOfTextToReplace = Range(range, in: textFieldText) else {
                 return false
@@ -65,7 +65,7 @@ class AddBraceletManuallyViewController: BaseController {
                 text6.becomeFirstResponder()
             }
             if textField == text6 {
-
+                
                 text6.text = (textField.text! + string).uppercased()
                 text6.resignFirstResponder()
                 
@@ -94,16 +94,16 @@ class AddBraceletManuallyViewController: BaseController {
                 text6.text = ""
                 text5.becomeFirstResponder()
             }
-
+            
         }
         return count <= 2
-
+        
     }
     
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-           self.view.endEditing(true)
-           return false
-       }
+        self.view.endEditing(true)
+        return false
+    }
     
     // MARK: - ConfirmationBottom View
     func setupConfirmationBottomVC() {
@@ -130,49 +130,27 @@ class AddBraceletManuallyViewController: BaseController {
         errorBottomVC.didMove(toParent: self)
         errorBottomVC.msgLbl.text = "errorAddBracelet".localiz()
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    func checkMacAdress(macAdress: String) {
-        self.startLoading()
-        let dataBody = ["macAddress": macAdress ,"deviceId":UserDefaults.standard.value(forKey: "deviceId") as Any,"tenantId":UserDefaults.standard.string(forKey: "tenantId") as Any,"customerId":UserDefaults.standard.string(forKey: "customerId") as Any] as [String : Any]
-        
-         APIClient.checkBracelet(data: dataBody, onSuccess: { (success) in
-                       self.finishLoading()
-                       print(success)
-                   }) { (error) in
-                       self.finishLoading()
-                    self.setupErrorBottomVC()
-                       print(error)
-                   }
-    }
 }
 extension AddBraceletManuallyViewController:ConfirmationBottomProtocol{
     func ConfirmBtnDidtap() {
         let macAdress = String(format:"%@:%@:%@:%@:%@:%@", text1.text!, text2.text!, text3.text!, text4.text!, text5.text!, text6.text!)
-       
+        
         self.startLoading()
         let dataBody = ["macAddress": macAdress ,"deviceId":UserDefaults.standard.value(forKey: "deviceId") as Any,"tenantId":UserDefaults.standard.string(forKey: "tenantId") as Any,"customerId":UserDefaults.standard.string(forKey: "customerId") as Any] as [String : Any]
-               
-        APIClient.checkBracelet(data: dataBody, onSuccess: { (success) in
-                              self.finishLoading()
-                              print(success)
-                          }) { (error) in
-                              self.finishLoading()
-                              print(error)
-                          }
-           }
         
+        APIClient.checkBracelet(data: dataBody, onSuccess: { (success) in
+            self.finishLoading()
+            print(success)
+        }) { (error) in
+            self.finishLoading()
+            self.setupErrorBottomVC()
+            print(error)
+        }
     }
     
-    
+}
+
+
 extension AddBraceletManuallyViewController : ErrorBottomProtocol{
     func ErrorDidAppear(){
         
