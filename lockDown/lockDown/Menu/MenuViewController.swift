@@ -114,13 +114,23 @@ extension MenuViewController: UITableViewDelegate {
             }
         case 3:
         do {
-            if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: BraceletViewController.self)) {
+            if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: BraceletViewController.self)) ||
+                !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: BraceletStatusViewController.self))
+            {
                 
                 
-                let vc = BraceletViewController(nibName: "BraceletViewController", bundle: nil)
-                let navC = self.sideMenuController?.rootViewController as! UINavigationController
-                navC.setViewControllers([vc], animated: true)
-                selectedItem = 3
+                if (UserDefaults.standard.string(forKey:"connected_bracelet") != nil) {
+                    let vc = BraceletStatusViewController(nibName: "BraceletStatusViewController", bundle: nil)
+                    vc.macAddress = UserDefaults.standard.string(forKey:"connected_bracelet")!
+                    let navC = self.sideMenuController?.rootViewController as! UINavigationController
+                    navC.setViewControllers([vc], animated: true)
+                    selectedItem = 3
+                } else {
+                    let vc = BraceletViewController(nibName: "BraceletViewController", bundle: nil)
+                    let navC = self.sideMenuController?.rootViewController as! UINavigationController
+                    navC.setViewControllers([vc], animated: true)
+                    selectedItem = 3
+                }
             }
             hideMenu()
             break

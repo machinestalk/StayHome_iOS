@@ -108,7 +108,9 @@ class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
                     viewController = (viewController as! LGSideMenuController).rootViewController!
                     
                     viewController = (viewController as! UINavigationController).visibleViewController!
-                    if(viewController is HomeViewController || viewController is FinishSignupViewController  || viewController is BraceletViewController || self.navigationController?.viewControllers.count == 1 ){
+                    if(viewController is HomeViewController || viewController is FinishSignupViewController  || viewController is BraceletViewController ||
+                        ((UserDefaults.standard.string(forKey:"connected_bracelet") != nil) && viewController is BraceletStatusViewController)
+                        || self.navigationController?.viewControllers.count == 1 ){
                         let image = UIImage(named: "ic_menu")?.withRenderingMode(.alwaysOriginal)
 
                         button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(menuButtonPressed))
