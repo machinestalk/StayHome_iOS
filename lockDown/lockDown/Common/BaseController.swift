@@ -122,6 +122,7 @@ class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
                             button = UIBarButtonItem(image: UIImage(named: "back-arrow"), style: .plain, target: self, action: #selector(backButtonPressed))
                         }
                     }
+                    
                     var leftNavigationButtons = NSMutableArray(array: self.navigationBarLeftButtons())
                     leftNavigationButtons.add(button)
                     self.navigationItem.leftBarButtonItems  = leftNavigationButtons as! [UIBarButtonItem]

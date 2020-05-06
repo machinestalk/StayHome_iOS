@@ -81,6 +81,13 @@ class BraceletStatusViewController: BaseController {
     
     // MARK: - ErrorBottom View
     func setupBraceletconnectedBottomVC(dateStr : String) {
+        
+        let image = UIImage(named: "ic_menu")?.withRenderingMode(.alwaysOriginal)
+        let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(menuButtonPressed))
+        let leftNavigationButtons = NSMutableArray(array: self.navigationBarLeftButtons())
+        leftNavigationButtons.add(button)
+        self.navigationItem.leftBarButtonItems  = (leftNavigationButtons as! [UIBarButtonItem])
+        
         BraceletConnectedBottomVC.delegate = self
         let height = view.frame.height
         let width  = view.frame.width
