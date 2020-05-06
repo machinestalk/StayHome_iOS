@@ -241,6 +241,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         carrier = getTelephonyInfo().first!.value
         self.startLoading()
+        //getBracelet()
         getCustomerData()
         
     }
@@ -300,6 +301,15 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             self.finishLoading()
         })
     }
+    
+    func getBracelet(){
+        let customerId = UserDefaults.standard.string(forKey: "customerId")
+        APIClient.getBracelet(customerId: customerId!,onSuccess: { (responseObject) in
+                print(responseObject)
+            } ,onFailure : { (error) in
+                print(error)
+            })
+        }
     
     
     
