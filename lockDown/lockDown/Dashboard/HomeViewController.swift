@@ -240,7 +240,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         //Create log file if not yet created
         
         carrier = getTelephonyInfo().first!.value
-        
+        self.startLoading()
         getCustomerData()
         
     }
@@ -251,6 +251,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         let tenantId = UserDefaults.standard.string(forKey: "tenantId")
         let homeDataFuture = APIClient.getTipsHome(tenantId: tenantId!)
         homeDataFuture.execute(onSuccess: { homeDataArray in
+             self.finishLoading()
             print("homeDataArray == > \(homeDataArray)")
             let homeData = homeDataArray.filter{ $0.key == "Day \(self.dayQuarantine)" }
             let stringJson = homeData[0].value as? String
