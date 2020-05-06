@@ -60,7 +60,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="text1"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
@@ -78,7 +78,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text2"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
@@ -96,7 +96,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text3"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
@@ -114,7 +114,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text4"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
@@ -132,7 +132,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text5"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
@@ -150,7 +150,7 @@
                             </constraints>
                             <color key="textColor" red="0.1224329248" green="0.49097645280000002" blue="0.54486304519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="namePhonePad"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="Text6"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxLength">

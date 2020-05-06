@@ -17,6 +17,8 @@ class AddBraceletManuallyViewController: BaseController {
     @IBOutlet weak var  text6: UITextField!
     @IBOutlet weak var msgLbl: Label!
     var confirmationBottomVC = ConfirmationBottomViewController()
+    var BraceletConnectedBottomVC = BraceletConnectBottomViewController()
+    
     var errorBottomVC = ErrorBottomViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,11 +132,19 @@ class AddBraceletManuallyViewController: BaseController {
         errorBottomVC.didMove(toParent: self)
         errorBottomVC.msgLbl.text = "errorAddBracelet".localiz()
     }
-}
-extension AddBraceletManuallyViewController:ConfirmationBottomProtocol{
-    func ConfirmBtnDidtap() {
-        let macAdress = String(format:"%@:%@:%@:%@:%@:%@", text1.text!, text2.text!, text3.text!, text4.text!, text5.text!, text6.text!)
-        
+    // MARK: - ErrorBottom View
+    func setupBraceletconnectedBottomVC(dateStr : String) {
+        BraceletConnectedBottomVC.delegate = self
+        let height = view.frame.height
+        let width  = view.frame.width
+        BraceletConnectedBottomVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        self.addChild(BraceletConnectedBottomVC)
+        self.view.addSubview(BraceletConnectedBottomVC.view)
+        BraceletConnectedBottomVC.didMove(toParent: self)
+        BraceletConnectedBottomVC.dateLbl.text = "sinceTxt".localiz() + " " + dateStr
+    }
+  
+    func checkMacAdress(macAdress: String) {
         self.startLoading()
         let dataBody = ["macAddress": macAdress ,"deviceId":UserDefaults.standard.value(forKey: "deviceId") as Any,"tenantId":UserDefaults.standard.string(forKey: "tenantId") as Any,"customerId":UserDefaults.standard.string(forKey: "customerId") as Any] as [String : Any]
         
@@ -143,6 +153,34 @@ extension AddBraceletManuallyViewController:ConfirmationBottomProtocol{
             print(success)
         }) { (error) in
             self.finishLoading()
+            self.setupErrorBottomVC()
+            print(error)
+        }
+    }
+}
+extension AddBraceletManuallyViewController:ConfirmationBottomProtocol{
+    func ConfirmBtnDidtap() {
+        let macAdress = String(format:"%@:%@:%@:%@:%@:%@", text1.text!, text2.text!, text3.text!, text4.text!, text5.text!, text6.text!)
+        
+        self.startLoading()
+        let dataBody = ["macAddress": macAdress ,"deviceId":UserDefaults.standard.value(forKey: "deviceId") as Any,"tenantId":UserDefaults.standard.string(forKey: "tenantId") as Any,"customerId":UserDefaults.standard.string(forKey: "customerId") as Any] as [String : Any]
+        
+        APIClient.checkBracelet(data: dataBody, onSuccess: { (successObject) in
+            self.finishLoading()
+            if let objectDict = successObject.convertToDictionary(){
+                if let StimpStr =  objectDict["createdTime"] {
+                    print("dateStimp =::> \(StimpStr)")
+                    let date = Date(timeIntervalSince1970: StimpStr as! TimeInterval)
+                    
+                    print("dateStimp =::> \(date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))")
+                    self.confirmationBottomVC.view.removeFromSuperview()
+                    self.setupBraceletconnectedBottomVC(dateStr: date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))
+                    
+                    
+                }}
+        }) { (error) in
+            self.finishLoading()
+            self.confirmationBottomVC.view.removeFromSuperview()
             self.setupErrorBottomVC()
             print(error)
         }
