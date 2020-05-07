@@ -596,7 +596,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 }
 
             }
-            if !braceletVisible {
+            if !braceletVisible && myMacAdress != nil {
                 showAlertBracelet()
             }
         }
