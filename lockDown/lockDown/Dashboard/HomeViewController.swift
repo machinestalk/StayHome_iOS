@@ -235,6 +235,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         if(!isInternetAvailable()){
             showAlertInternet()
         }
+        
+        getUserstatus()
+        
         //
         
         //Create log file if not yet created
@@ -517,6 +520,17 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
     }
     
+    func showAlertBracelet(){
+
+        //if !UserDefaults.standard.bool(forKey: "didShowAlertBluetooth") {
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bracelet"])
+            }
+            self.appDelegate.scheduleNotification(notificationType: "errorMsgConnection")
+            //UserDefaults.standard.set(true, forKey: "didShowAlertBluetooth")
+        //}
+    }
+    
     func showAlertBattery(){
         
         if !UserDefaults.standard.bool(forKey: "didShowAlertBattery") {
@@ -572,9 +586,33 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         if (batteryLevel  < 0.2 && batteryLevel > 0.0 ) {
             showAlertBattery()
         }
-//        let deviceId = UserDefaults.standard.string(forKey: "deviceId")
-//        bluetoothManager.delegate = self
-//        bluetoothManager.startAdvertising(with: "StayHomeKSA_\(deviceId ?? "")")
+
+        let myMacAdress = UserDefaults.standard.string(forKey:"connected_bracelet")
+        
+        if manager != nil {
+ 
+            var braceletVisible = false
+            for key in manager.scannedPeris {
+                var bleName = "Unknown"
+                var mac = "Unknown"
+                if key.framer.name != nil {
+                    bleName = key.framer.name
+                }
+
+                if key.framer.mac != nil {
+                    mac = key.framer.mac
+                    if mac.uppercased().inserting(separator: ":", every: 2) == myMacAdress{
+                        braceletVisible = true
+                        break
+                    }
+                }
+
+            }
+            if !braceletVisible && myMacAdress != nil {
+                showAlertBracelet()
+            }
+        }
+        
           
         
         if !bluetoothEnabled{

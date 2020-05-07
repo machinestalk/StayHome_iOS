@@ -238,14 +238,14 @@ class LoginViewController: BaseController {
                 UserDefaults.standard.set(userData.token, forKey:"Token")
                 UserDefaults.standard.set(userData.refreshToken, forKey:"RefreshToken")
                 UserDefaults.standard.set(userData.deviceID, forKey:"deviceId")
-                
+                UserDefaults.standard.set(userData.isNewDevice, forKey: "isANewDevice")
+                    
                 let userDictionary = self.decode(jwtToken:userData.token!)
                 UserDefaults.standard.set(userDictionary["customerId"], forKey:"customerId")
                 UserDefaults.standard.set(userDictionary["tenantId"], forKey:"tenantId")
-                UserDefaults.standard.set(userDictionary["isANewDevice"], forKey: "isANewDevice")
                     
                 self.finishLoading()
-                    self.displayHomePage(isNewDevice : (userDictionary["isANewDevice"] != nil))
+                    self.displayHomePage(isNewDevice :UserDefaults.standard.bool(forKey: "isANewDevice"))
                     
             }, onFailure: {error in
                 let errorr = error as NSError

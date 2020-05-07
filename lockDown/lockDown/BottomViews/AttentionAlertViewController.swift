@@ -64,6 +64,10 @@ class AttentionAlertViewController: UIViewController {
             stackView.isHidden = false
             alertImage.image = UIImage(named: "red_speaker")
             break
+        case"bracelet":
+            msgLbl.text = "errorMsgConnection".localiz()
+            alertImage.image = UIImage(named: "red_bluetooth")
+            break
         default:
             break
         }
