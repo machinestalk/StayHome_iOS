@@ -39,10 +39,10 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ic-DR-8oD" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                            <rect key="frame" x="10" y="116" width="375" height="50"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="4Ic-DR-8oD" customClass="Label" customModule="lockDown" customModuleProvider="target">
+                            <rect key="frame" x="10" y="108" width="375" height="58"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="50" id="dEo-fW-ixe"/>
+                                <constraint firstAttribute="height" constant="58" id="dEo-fW-ixe"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                             <nil key="textColor"/>
@@ -86,9 +86,9 @@
                         <constraint firstAttribute="trailing" secondItem="YiW-Ph-Qso" secondAttribute="trailing" id="FSD-6t-50E"/>
                         <constraint firstItem="rgv-3c-sFJ" firstAttribute="centerX" secondItem="5mD-ol-XRp" secondAttribute="centerX" id="HxG-Hd-2wA"/>
                         <constraint firstAttribute="trailing" secondItem="4Ic-DR-8oD" secondAttribute="trailing" constant="10" id="LNb-9b-c5Q"/>
-                        <constraint firstItem="4Ic-DR-8oD" firstAttribute="top" secondItem="5mD-ol-XRp" secondAttribute="bottom" constant="16" id="Oyn-9C-sug"/>
+                        <constraint firstItem="4Ic-DR-8oD" firstAttribute="top" secondItem="5mD-ol-XRp" secondAttribute="bottom" constant="8" id="Oyn-9C-sug"/>
                         <constraint firstAttribute="trailing" secondItem="5mD-ol-XRp" secondAttribute="trailing" constant="10" id="PYB-R4-kEp"/>
-                        <constraint firstItem="YiW-Ph-Qso" firstAttribute="centerY" secondItem="4Ic-DR-8oD" secondAttribute="centerY" constant="-6" id="QRY-jY-gbU"/>
+                        <constraint firstItem="YiW-Ph-Qso" firstAttribute="centerY" secondItem="4Ic-DR-8oD" secondAttribute="centerY" constant="-2" id="QRY-jY-gbU"/>
                         <constraint firstItem="4Ic-DR-8oD" firstAttribute="leading" secondItem="2Te-sJ-Z0a" secondAttribute="leading" constant="10" id="Rgp-h8-hhr"/>
                         <constraint firstItem="6Im-ix-Zhe" firstAttribute="centerX" secondItem="4Ic-DR-8oD" secondAttribute="centerX" id="aCc-oX-1x4"/>
                         <constraint firstItem="rgv-3c-sFJ" firstAttribute="centerX" secondItem="4Ic-DR-8oD" secondAttribute="centerX" id="hhB-LB-kY5"/>
