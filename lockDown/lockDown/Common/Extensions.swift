@@ -1672,3 +1672,9 @@ extension String {
         return result
     }
 }
+extension UserDefaults {
+
+func valueExists(forKey key: String) -> Bool {
+    return object(forKey: key) != nil
+}
+}

@@ -63,16 +63,17 @@ class BraceletStatusViewController: BaseController {
                        print(successObject)
             
             if let objectDict = successObject.convertToDictionary(){
-                if let StimpStr =  objectDict["createdTime"] {
-                    print("dateStimp =::> \(StimpStr)")
-                     let date = Date(timeIntervalSince1970: StimpStr as! TimeInterval)
-                      
-                    print("dateStimp =::> \(date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))")
-                    UserDefaults.standard.set(macAdress, forKey:"connected_bracelet")
-                    self.dateStr = date.toString(dateFormat: "dd.MM.yyyy HH:mm a")
-                    self.getBraceletStatus()
-                
-                    
+                if let objectInfo =  objectDict["additionalInfo"] as? NSDictionary{
+                  //  if let additionalInfo = (objectInfo as! String).convertToDictionary(){
+                    if let StimpStr = objectInfo.object(forKey: "connectDateTime") as? Double {
+                            print("dateStimp =::> \(StimpStr)")
+                             let date = Date(timeIntervalSince1970: StimpStr as! TimeInterval)
+                            print("dateStimp =::> \(date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))")
+                            UserDefaults.standard.set(macAdress, forKey:"connected_bracelet")
+                            self.dateStr = date.toString(dateFormat: "dd.MM.yyyy HH:mm a")
+                            self.getBraceletStatus()
+                        }
+                   // }
                 }
             }
             
