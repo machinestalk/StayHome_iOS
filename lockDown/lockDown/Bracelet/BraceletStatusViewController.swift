@@ -148,8 +148,7 @@ func getBraceletStatus () {
         }
         if !braceletVisible && myMacAdress != nil {
             if !self.errorBottomVC.view.isDescendant(of: self.view) {
-                //setupErrorBottomVC()
-                self.setupBraceletconnectedBottomVC(dateStr: dateStr)
+                setupErrorBottomVC()
             }
           
         }
