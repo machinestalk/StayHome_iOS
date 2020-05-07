@@ -71,7 +71,7 @@ enum APIRouter: URLRequestConvertible {
         case .getCustomerData(let customerId):
             return "api/plugins/telemetry/CUSTOMER/\(customerId)/values/timeseries?limit=1"
         case .getBracelet(let customerId):
-                   return "api/customer/\(customerId)/devices?limit=100&type='Bracelet'"
+                   return "api/customer/\(customerId)/devices?limit=100&type=Bracelet"
         }
         
     }

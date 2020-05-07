@@ -28,7 +28,7 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_page_bg" translatesAutoresizingMaskIntoConstraints="NO" id="e2m-n9-IaI">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="406"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAYS LEFT IN QUARQNTAINE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkI-Ll-8P6">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkI-Ll-8P6" customClass="Label" customModule="lockDown" customModuleProvider="target">
                             <rect key="frame" x="102.66666666666669" y="200" width="170" height="70"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="70" id="8TS-T3-H4u"/>
@@ -37,6 +37,9 @@
                             <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="key" value="daysLeftTxt"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tS2-vU-UW2">
                             <rect key="frame" x="10" y="52" width="43" height="43"/>
