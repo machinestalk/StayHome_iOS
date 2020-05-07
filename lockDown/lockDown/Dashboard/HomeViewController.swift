@@ -313,7 +313,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     if let data =  objectDict["data"] as? NSArray{
                         if let braceletDict = data.firstObject as? [String : Any] {
                             if let macAddress =  braceletDict["name"] as? String {
+                                if UserDefaults.standard.valueExists(forKey: "connected_bracelet"){
+                                    UserDefaults.standard.removeObject(forKey: "connected_bracelet")
+                                }
                                 UserDefaults.standard.set(macAddress, forKey:"connected_bracelet")
+                             
                             }
                         }
                     }}

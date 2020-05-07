@@ -33,15 +33,8 @@
                                 <constraint firstAttribute="height" constant="37" id="jrx-Un-81c"/>
                             </constraints>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bluetooth_blue-1" translatesAutoresizingMaskIntoConstraints="NO" id="QjY-g9-y7w">
-                            <rect key="frame" x="99" y="97" width="100" height="25"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="25" id="L8Q-29-9Mf"/>
-                                <constraint firstAttribute="width" constant="100" id="OIF-86-BbD"/>
-                            </constraints>
-                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1yb-NQ-N6A" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                            <rect key="frame" x="219" y="97" width="100" height="25"/>
+                            <rect key="frame" x="169" y="87" width="100" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="1ec-co-coC"/>
                                 <constraint firstAttribute="width" constant="100" id="PNZ-8J-vey"/>
@@ -54,7 +47,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99m-J5-Cg8" customClass="Label" customModule="lockDown" customModuleProvider="target">
-                            <rect key="frame" x="11" y="142" width="416" height="23.5"/>
+                            <rect key="frame" x="11" y="132" width="416" height="23.5"/>
                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -63,19 +56,17 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="vVx-jC-CQo" firstAttribute="top" secondItem="zUG-6h-bmy" secondAttribute="top" constant="8" id="2Po-E4-3Qo"/>
-                        <constraint firstItem="1yb-NQ-N6A" firstAttribute="centerY" secondItem="QjY-g9-y7w" secondAttribute="centerY" id="3t8-NG-lcO"/>
                         <constraint firstItem="vVx-jC-CQo" firstAttribute="leading" secondItem="zUG-6h-bmy" secondAttribute="leading" id="Adf-SJ-4VW"/>
-                        <constraint firstItem="QjY-g9-y7w" firstAttribute="leading" secondItem="zUG-6h-bmy" secondAttribute="leading" constant="99" id="Eyj-g8-sHD"/>
-                        <constraint firstItem="QjY-g9-y7w" firstAttribute="top" secondItem="4Qd-67-ORl" secondAttribute="bottom" constant="30" id="GF0-vH-jRz"/>
                         <constraint firstAttribute="height" constant="253" id="M5S-IH-dkr"/>
                         <constraint firstItem="4Qd-67-ORl" firstAttribute="top" secondItem="zUG-6h-bmy" secondAttribute="top" constant="30" id="TzQ-uk-PxT"/>
                         <constraint firstItem="99m-J5-Cg8" firstAttribute="centerX" secondItem="4Qd-67-ORl" secondAttribute="centerX" id="eOE-ai-8zx"/>
+                        <constraint firstItem="1yb-NQ-N6A" firstAttribute="centerX" secondItem="zUG-6h-bmy" secondAttribute="centerX" id="eqG-za-Tsn"/>
                         <constraint firstItem="99m-J5-Cg8" firstAttribute="top" secondItem="1yb-NQ-N6A" secondAttribute="bottom" constant="20" id="jkF-Ed-0ov"/>
                         <constraint firstAttribute="bottom" secondItem="vVx-jC-CQo" secondAttribute="bottom" constant="-8" id="lUs-SK-Maj"/>
                         <constraint firstAttribute="trailing" secondItem="vVx-jC-CQo" secondAttribute="trailing" id="oLB-om-yxo"/>
                         <constraint firstItem="4Qd-67-ORl" firstAttribute="centerX" secondItem="zUG-6h-bmy" secondAttribute="centerX" id="pKU-yT-v4l"/>
+                        <constraint firstItem="1yb-NQ-N6A" firstAttribute="top" secondItem="4Qd-67-ORl" secondAttribute="bottom" constant="20" id="sh1-Yd-FPe"/>
                         <constraint firstItem="99m-J5-Cg8" firstAttribute="width" secondItem="zUG-6h-bmy" secondAttribute="width" multiplier="0.95" id="vDL-C1-S9A"/>
-                        <constraint firstItem="1yb-NQ-N6A" firstAttribute="leading" secondItem="QjY-g9-y7w" secondAttribute="trailing" constant="20" id="wVR-hB-YcN"/>
                     </constraints>
                 </view>
             </subviews>
@@ -91,8 +82,7 @@
         </view>
     </objects>
     <resources>
-        <image name="big_green_check" width="57" height="57"/>
-        <image name="bluetooth_blue-1" width="147.5" height="39"/>
+        <image name="big_green_check" width="50" height="50"/>
         <image name="card_shadow2" width="395" height="281.5"/>
     </resources>
 </document>
