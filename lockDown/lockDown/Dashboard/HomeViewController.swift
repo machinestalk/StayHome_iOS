@@ -244,6 +244,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         carrier = getTelephonyInfo().first!.value
         self.startLoading()
+        getBracelet()
         getCustomerData()
         
     }
@@ -259,7 +260,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 print("homeDataArray == > \(homeDataArray)")
                 let homeData = homeDataArray.filter{ $0.key == "Day \(self.dayQuarantine)" }
                 let stringJson = homeData[0].value as? String
-               let dicHome = stringJson?.convertToDictionary()
+                let dicHome = stringJson?.convertToDictionary()
                 if let body = dicHome!["body"] as? String {
                     self.homeTip.text = body
                 }
@@ -303,6 +304,23 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             self.finishLoading()
         })
     }
+    
+    func getBracelet(){
+        let customerId = UserDefaults.standard.string(forKey: "customerId")
+        APIClient.getBracelet(customerId: customerId!,onSuccess: { (responseObject) in
+                            self.finishLoading()
+                if let objectDict = responseObject.convertToDictionary(){
+                    if let data =  objectDict["data"] as? NSArray{
+                        if let braceletDict = data.firstObject as? [String : Any] {
+                            if let macAddress =  braceletDict["name"] as? String {
+                                UserDefaults.standard.set(macAddress, forKey:"connected_bracelet")
+                            }
+                        }
+                    }}
+            } ,onFailure : { (error) in
+                print(error)
+            })
+        }
     
     
     

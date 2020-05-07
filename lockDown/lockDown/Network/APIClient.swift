@@ -166,7 +166,18 @@ class APIClient {
         return performRequest(route: APIRouter.refrechToken(refreshToken: refreshToken))
     }
     
-    
+    static func getBracelet(customerId :String,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.getBracelet(customerId: customerId), onSuccess: { (responseObject: String) -> Void in
+            successCallback?(responseObject)
+        },
+           onFailure: {(errorMessage: String) -> Void in
+             print(errorMessage)
+             failureCallback?(errorMessage)
+        }
+        )
+    }
     static func sendTelimetry(deviceToken : String , iscomplaint : Int ,raison : String,zoneStatus: Int,onSuccess successCallback: ((_ successMessage: String) -> Void)?,
                               onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
         

@@ -118,7 +118,7 @@ class ScanListViewController: BaseController, UITableViewDataSource, UITableView
                 if let mac = framer?.mac{
                     self.beaconNameListArray.append(mac.uppercased().inserting(separator: ":", every: 2))
                 }else{
-                    self.beaconNameListArray.append("00:00:00:00:00:00")
+                    //self.beaconNameListArray.append("00:00:00:00:00:00")
                 }// mac address,may nil
                 
                 let frames = framer?.advFrames // all data frames of device（such as:iBeacon，UID，URL...）

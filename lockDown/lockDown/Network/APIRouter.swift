@@ -24,13 +24,13 @@ enum APIRouter: URLRequestConvertible {
     case getCustomerData(customerId : String)
     case sendBLEScanned(deviceToken : String, data:[String:Any])
     case addBracelet(params:[String:Any])
-    
+    case getBracelet(customerId : String)
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
         case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm, .sendBLEScanned, .sendIsComplaintWithoutZone:
             return .post
-        case .getTipsHome,.addBracelet,.getCustomerData:
+        case .getTipsHome,.addBracelet,.getCustomerData,.getBracelet:
             return .get
         }
     }
@@ -70,6 +70,8 @@ enum APIRouter: URLRequestConvertible {
             return "api/plugins/telemetry/TENANT/\(tenantId)/values/attributes/SERVER_SCOPE"
         case .getCustomerData(let customerId):
             return "api/plugins/telemetry/CUSTOMER/\(customerId)/values/timeseries?limit=1"
+        case .getBracelet(let customerId):
+                   return "api/customer/\(customerId)/devices?limit=100&type=Bracelet"
         }
         
     }
@@ -102,6 +104,8 @@ enum APIRouter: URLRequestConvertible {
         case .getTipsHome(let tenantId):
             return nil
         case .getCustomerData(let customerId):
+            return nil
+        case .getBracelet(let customerId):
             return nil
         }
     }

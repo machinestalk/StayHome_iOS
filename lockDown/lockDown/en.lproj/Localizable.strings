@@ -57,7 +57,7 @@
 "contactUsTxt"                                  = "Contact Us";
 "contactSupportTxt"                             = "Contact support";
 "logout_txt" = "Logout";
-
+"daysLeftTxt" = "DAYS LEFT IN QUARANTINE";
 //Login Screen
 "SgIn_SgIn_Lbl_login_verifyPin" = "Enter OTP";
 "SgIn_SgIn_Lbl_login_pin" = "Enter the OTP send to verification by email or phone number.";
