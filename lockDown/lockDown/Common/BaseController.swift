@@ -67,7 +67,8 @@ class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
                     viewController = (viewController as! LGSideMenuController).rootViewController!
                     
                     viewController = (viewController as! UINavigationController).visibleViewController!
-                    if(viewController is HomeViewController ) {
+                    
+                    if(viewController is HomeViewController) {
                         if !alertIsShown {
                             alertIsShown = true
                             attentionAlertViewController = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
