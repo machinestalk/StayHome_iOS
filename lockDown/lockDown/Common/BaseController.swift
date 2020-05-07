@@ -56,16 +56,31 @@ class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
     //MARK:- Show popup
     
     @objc func showPopUpAlertWithType(notification: Notification){
-
-            if !alertIsShown{
-                alertIsShown = true
-                attentionAlertViewController = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
-                attentionAlertViewController.type = notification.userInfo!["type"] as! String
-                attentionAlertViewController.delegate = self
-                attentionAlertViewController.modalPresentationStyle = .overCurrentContext
-                attentionAlertViewController.modalTransitionStyle = .crossDissolve
-                appDelegate.window?.rootViewController!.present(attentionAlertViewController, animated: true, completion: nil)
-                //self.navigationController?.visibleViewController!
+        if let window = UIApplication.shared.delegate?.window {
+            if var viewController = window?.rootViewController {
+                // handle navigation controllers
+                if(viewController is UINavigationController){
+                    viewController = (viewController as! UINavigationController).visibleViewController!
+                }
+                if(viewController is LGSideMenuController){
+                    
+                    viewController = (viewController as! LGSideMenuController).rootViewController!
+                    
+                    viewController = (viewController as! UINavigationController).visibleViewController!
+                    if(viewController is HomeViewController ) {
+                        if !alertIsShown {
+                            alertIsShown = true
+                            attentionAlertViewController = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
+                            attentionAlertViewController.type = notification.userInfo!["type"] as! String
+                            attentionAlertViewController.delegate = self
+                            attentionAlertViewController.modalPresentationStyle = .overCurrentContext
+                            attentionAlertViewController.modalTransitionStyle = .crossDissolve
+                            appDelegate.window?.rootViewController!.present(attentionAlertViewController, animated: true, completion: nil)
+                            //self.navigationController?.visibleViewController!
+                        }
+                    }
+                }
+            }
         }
     }
     
