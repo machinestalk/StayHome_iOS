@@ -71,11 +71,12 @@ class BraceletStatusViewController: BaseController {
                             print("dateStimp =::> \(date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))")
                             UserDefaults.standard.set(macAdress, forKey:"connected_bracelet")
                             self.dateStr = date.toString(dateFormat: "dd.MM.yyyy HH:mm a")
-                            self.getBraceletStatus()
+                            
                         }
                    // }
                 }
             }
+            self.getBraceletStatus()
             
                    }) { (error) in
                        self.finishLoading()
@@ -147,7 +148,8 @@ func getBraceletStatus () {
         }
         if !braceletVisible && myMacAdress != nil {
             if !self.errorBottomVC.view.isDescendant(of: self.view) {
-                setupErrorBottomVC()
+                //setupErrorBottomVC()
+                self.setupBraceletconnectedBottomVC(dateStr: dateStr)
             }
           
         }
