@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.set(false, forKey: "didShowAlertBluetooth")
         UserDefaults.standard.set(false, forKey: "didShowAlertBattery")
         UserDefaults.standard.set(false, forKey: "didShowAlertInternet")
+        UserDefaults.standard.set(false, forKey: "didShowAlertBracelet")
         
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)

@@ -52,6 +52,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     private lazy var bluetoothManager = CoreBluetoothManager()
     
     var peripherals = Array<[String:Any]>()
+    var braceletArray = Array<MTPeripheral>()
     
     var alertBluetoothIsOpen = false
     var alertBatteryIsOpen = false
@@ -530,13 +531,13 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     func showAlertBracelet(){
 
-        //if !UserDefaults.standard.bool(forKey: "didShowAlertBluetooth") {
+        if !UserDefaults.standard.bool(forKey: "didShowAlertBracelet") {
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bracelet"])
             }
             self.appDelegate.scheduleNotification(notificationType: "errorMsgConnection")
-            //UserDefaults.standard.set(true, forKey: "didShowAlertBluetooth")
-        //}
+            UserDefaults.standard.set(true, forKey: "didShowAlertBracelet")
+        }
     }
     
     func showAlertBattery(){
@@ -618,10 +619,10 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             }
             if !braceletVisible && myMacAdress != nil {
                 showAlertBracelet()
+            }else{
+                UserDefaults.standard.set(false, forKey: "didShowAlertBracelet")
             }
         }
-        
-          
         
         if !bluetoothEnabled{
             showAlertBluetooth()
@@ -976,8 +977,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             }
             
             if manager != nil {
-                
-                for key in manager.scannedPeris {
+                stopScan()
+                braceletArray = manager.scannedPeris
+                for key in braceletArray {
                     var bleName = "Unknown"
                     var mac = "Unknown"
                     if key.framer.name != nil {
@@ -995,6 +997,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     sendScannedDataFrames(frames: key.framer.advFrames,deviceName: bleName,deviceMac:mac)
                     
                 }
+                braceletArray.removeAll()
+                startScan()
             }
             
             
