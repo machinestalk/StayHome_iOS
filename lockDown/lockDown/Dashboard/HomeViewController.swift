@@ -80,7 +80,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     var alertComeBackIsOpen = false
     var outOfZoneCounter : Int = 0
-    
+    var zoneRadius : Int = 100
     //show Alert Bluetooth
     func showAlertComeBack(){
         if !alertComeBackIsOpen{
@@ -296,6 +296,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     UserDefaults.standard.set(true, forKey: "isLocationSetted")
                     UserDefaults.standard.set(true, forKey: "isSignedUp")
                 }
+            }
+            if let radious = customerData.radius?.first?.value {
+                print("radious == > \(radious)")
+                self.zoneRadius = Int(radious) ?? 100
+                UserDefaults.standard.set(self.zoneRadius, forKey: "zoneRadius")
             }
             self.getHomeTips()
             
@@ -1140,7 +1145,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
         let myLocation : CLLocation =  CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
         let distance = Circleloc.distance(from: myLocation)
-        if(distance >= 100)
+        if(Int(distance) >= self.zoneRadius)
         {
             outOfZoneCounter += 1
             
