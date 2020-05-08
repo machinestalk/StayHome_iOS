@@ -271,11 +271,16 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 }
                 self.dayNumber.text = "\(self.dayQuarantine)"
             }
-            let version = homeDataArray.filter{ $0.key == "lastVersionIOS"}
+          /*  let version = homeDataArray.filter{ $0.key == "lastVersionIOS"}
             if let versionValue = version.first?.value as? String {
                 print("versionValue ==> \(versionValue)")
                 self.checkAppVersion(version: versionValue)
             }
+            let urlobject = homeDataArray.filter{ $0.key == "url-app-ios"}
+            if let url = urlobject.first?.value as? String {
+                print("versionValue ==> \(url)")
+                self.checkAppVersion(version: versionValue)
+            }*/
             
             }, onFailure: {error in
                 self.finishLoading()
@@ -339,7 +344,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             })
         }
     
-    func checkAppVersion(version : String ){
+    func checkAppVersion(version : String , urlStr :String  ){
         if let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             if  version != versionNumber  {
                 print("Version is Supported")
@@ -349,7 +354,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 
                 // Button to Open Settings
                 alert.addAction(UIAlertAction(title: "Ok_text".localiz(), style: UIAlertAction.Style.default, handler: { action in
-                    let urlStr = "https://apps.apple.com/us/app/carsharing-ar/id1490266017?ls=1"
+                  
                     if #available(iOS 10.0, *) {
                         UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
                         

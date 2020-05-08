@@ -272,7 +272,16 @@ class LoginViewController: BaseController {
                         self.changeView()
                     }, onFailure: {(error) in
                         self.finishLoading()
-                        print(error)
+                        let errorr = error as NSError
+                        let errorDict = errorr.userInfo
+                        if let msg = errorDict["message"] as? String {
+                            self.displayAlert(message:msg, type: "login")
+                        }
+                        else {
+                            if let msg = errorDict["NSLocalizedDescription"] as? String {
+                             self.displayAlert(message: msg, type: "login")
+                            }
+                        }
                     })
             }
         }
