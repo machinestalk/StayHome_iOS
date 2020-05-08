@@ -133,7 +133,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     @IBOutlet weak var homeTitle: UILabel!
     var activityManager = ActivityManager()
     var batteryLevel: Float { UIDevice.current.batteryLevel }
-    
+    var window: UIWindow?
     
     //Beacons
     
@@ -144,6 +144,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        self.window = UIWindow(frame:UIScreen.main.bounds)
         createLogFile()
         createBLELogFile()
         
@@ -270,6 +271,12 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 }
                 self.dayNumber.text = "\(self.dayQuarantine)"
             }
+            let version = homeDataArray.filter{ $0.key == "lastVersionIOS"}
+            if let versionValue = version.first?.value as? String {
+                print("versionValue ==> \(versionValue)")
+                self.checkAppVersion(version: versionValue)
+            }
+            
             }, onFailure: {error in
                 self.finishLoading()
                 let errorr = error as NSError
@@ -332,7 +339,30 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             })
         }
     
-    
+    func checkAppVersion(version : String ){
+        if let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            if  version != versionNumber  {
+                print("Version is Supported")
+            }
+            else {
+                let alert = UIAlertController(title: "", message: "versionUpdate_txt".localiz(), preferredStyle: UIAlertController.Style.alert)
+                
+                // Button to Open Settings
+                alert.addAction(UIAlertAction(title: "Ok_text".localiz(), style: UIAlertAction.Style.default, handler: { action in
+                    let urlStr = "https://apps.apple.com/us/app/carsharing-ar/id1490266017?ls=1"
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
+                        
+                    } else {
+                        UIApplication.shared.openURL(URL(string: urlStr)!)
+                    }
+                }))
+              
+                self.present(alert, animated: true, completion: nil)
+               
+            }
+        }
+    }
     
     @objc func batteryLevelDidChange(_ notification: Notification) {
         
@@ -547,6 +577,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             self.appDelegate.scheduleNotification(notificationType: "errorMsgConnection")
             UserDefaults.standard.set(true, forKey: "didShowAlertBracelet")
         }
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"braceletStatus"])
+        }
     }
     
     func showAlertBattery(){
@@ -619,7 +652,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
 
                 if key.framer.mac != nil {
                     mac = key.framer.mac
-                    if mac.uppercased().inserting(separator: ":", every: 2) == myMacAdress{
+                    if mac.uppercased().inserting(separator: ":", every: 2) == myMacAdress {
                         braceletVisible = true
                         break
                     }
@@ -977,11 +1010,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     
                     logToBLEFile(value: String(format:" %@ ; StayHomeApp_%@ ; %@ ; %@ ; %@ ; %@ ; %f ; \n", Date() as NSDate, data, Constants.SERVICE_UUID.rawValue, uid,"","",batteryLevel))
 
-                    APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dataDictToSend, onSuccess: { (Msg) in
+                    /*APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dataDictToSend, onSuccess: { (Msg) in
                         print(Msg)
                     } ,onFailure : { (error) in
                         print(error)
-                    })
+                    })*/
                 }
             }
             
@@ -1109,11 +1142,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         dictParams!["info"] = String(format:"%@, %@", deviceName, deviceMac)
         logToBLEFile(value: String(format:"%@ ; %@ ; %@ ; %@ ; %@ ; %@ ; %@ ; \n", Date() as NSDate, dictParams!["info"] as! String, dictParams!["iBeacon"] as! String,dictParams!["UID"] as! String,dictParams!["URL"] as! String,dictParams!["Acc"] as! String,dictParams!["TLM"] as! String))
         
-        APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dictParams as! [String : Any], onSuccess: { (Msg) in
+        /*APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dictParams as! [String : Any], onSuccess: { (Msg) in
             print(Msg)
         } ,onFailure : { (error) in
             print(error)
-        })
+        })*/
     }
     
     //MARK : Add Timer

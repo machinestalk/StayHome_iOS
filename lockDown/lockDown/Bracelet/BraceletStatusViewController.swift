@@ -121,7 +121,7 @@ class BraceletStatusViewController: BaseController {
    
    @objc func checkIfBraceletConnected(notification: Notification){
     let type = notification.userInfo!["type"] as! String
-    if type == "bracelet" {
+    if type == "braceletStatus" {
         getBraceletStatus()
     }
     }
@@ -130,35 +130,39 @@ func getBraceletStatus () {
     if manager != nil {
         
         var braceletVisible = false
-        for key in manager.scannedPeris {
-            var bleName = "Unknown"
-            var mac = "Unknown"
-            if key.framer.name != nil {
-                bleName = key.framer.name
-            }
-            
-            if key.framer.mac != nil {
-                mac = key.framer.mac
-                if mac.uppercased().inserting(separator: ":", every: 2) == myMacAdress{
-                    braceletVisible = true
-                    break
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+            for key in self.manager.scannedPeris {
+                var bleName = "Unknown"
+                var mac = "Unknown"
+                if key.framer.name != nil {
+                    bleName = key.framer.name
                 }
+                
+                if key.framer.mac != nil {
+                    mac = key.framer.mac
+                    if mac.uppercased().inserting(separator: ":", every: 2) == myMacAdress{
+                        braceletVisible = true
+                        break
+                    }
+                }
+                
             }
-            
-        }
-        if !braceletVisible && myMacAdress != nil {
-            if !self.errorBottomVC.view.isDescendant(of: self.view) {
-                setupErrorBottomVC()
+            self.errorBottomVC.view.removeFromSuperview()
+            self.BraceletConnectedBottomVC.view.removeFromSuperview()
+            if !braceletVisible && myMacAdress != nil {
+             
+                self.setupErrorBottomVC()
+               
+              
             }
-          
-        }
-        else {
-            UserDefaults.standard.set(macAddress, forKey:"connected_bracelet")
-             if !self.BraceletConnectedBottomVC.view.isDescendant(of: self.view) {
-                self.setupBraceletconnectedBottomVC(dateStr: dateStr)
+            else {
+                UserDefaults.standard.set(self.macAddress, forKey:"connected_bracelet")
+                self.setupBraceletconnectedBottomVC(dateStr: self.dateStr)
+                
             }
-        }
+        })
     }
+        
 }
 }
 extension BraceletStatusViewController : ErrorBottomProtocol {

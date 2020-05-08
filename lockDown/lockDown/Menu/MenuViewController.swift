@@ -11,9 +11,9 @@ import LGSideMenuController
 
 
 class MenuViewController: BaseController {
-    fileprivate var menuItems = ["home_txt","MyZone_txt" , "checkIn_txt","bracelet_txt","emergency_txt","", "tecSupport_txt", "aboutAs_txt","logout_txt"]
-    let menuIconsArray = ["home_black","zones_black","check_black","bracelet_black","emergency_black","","support_black","about_black","logout_black"]
-    let menuSelectedIconsArray = ["home_green","zones_green","check_green","bracelet_green","emergency_green","","support_green","about_green","logout_green"]
+    fileprivate var menuItems = ["home_txt","MyZone_txt" , "checkIn_txt","bracelet_txt","emergency_txt","", "tecSupport_txt","logout_txt"]
+    let menuIconsArray = ["home_black","zones_black","check_black","bracelet_black","emergency_black","","support_black","logout_black"]
+    let menuSelectedIconsArray = ["home_green","zones_green","check_green","bracelet_green","emergency_green","","support_green","logout_green"]
     var selectedItem = 0
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var VersionLbl: UILabel!
@@ -170,7 +170,7 @@ extension MenuViewController: UITableViewDelegate {
                 break
                 
             }
-        case 7:
+     /*   case 7:
             do {
                 if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: ContentViewController.self)) {
                     
@@ -184,12 +184,12 @@ extension MenuViewController: UITableViewDelegate {
                 hideMenu()
                 break
                 
-            }
-            case 8:
+            }*/
+            case 7:
             do {
                 //NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"logout"])
                 self.displayLogoutAlert()
-                 selectedItem = 8
+                 selectedItem = 7
                  
                 break
             }

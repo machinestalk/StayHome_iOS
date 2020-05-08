@@ -25,6 +25,8 @@
 "SignUpTitle"                           ="التسجيل";
 "covidUserTXT"                            = "COVID USER";
 "daysLeftTxt" = "الأيام المتبقية في المحجر";
+"versionUpdate_txt"                                                     = "هناك تحديث جديد، الرجاء تحديث إصدارك";
+
 //"BiometricsAuth_title_txt" = "Please verify your identity"
 //"BiometricsAuth_msg_txt" = "* Please note that your face ID will not be shared or stored in any server expect your phone"
 "MyZone_txt"                                = "منطقتي";
