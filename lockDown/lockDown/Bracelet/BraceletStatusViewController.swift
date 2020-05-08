@@ -59,7 +59,7 @@ class BraceletStatusViewController: BaseController {
         let dataBody = ["macAddress": macAdress ,"deviceId":UserDefaults.standard.value(forKey: "deviceId") as Any,"tenantId":UserDefaults.standard.string(forKey: "tenantId") as Any,"customerId":UserDefaults.standard.string(forKey: "customerId") as Any] as [String : Any]
      
          APIClient.checkBracelet(data: dataBody, onSuccess: { (successObject) in
-                       self.finishLoading()
+                       
                        print(successObject)
             
             if let objectDict = successObject.convertToDictionary(){
@@ -147,6 +147,7 @@ func getBraceletStatus () {
                 }
                 
             }
+            self.finishLoading()
             self.errorBottomVC.view.removeFromSuperview()
             self.BraceletConnectedBottomVC.view.removeFromSuperview()
             if !braceletVisible && myMacAdress != nil {
