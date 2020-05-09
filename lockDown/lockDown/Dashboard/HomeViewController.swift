@@ -346,7 +346,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     func checkAppVersion(version : String , urlStr :String  ){
         if let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            if  version != versionNumber  {
+            if  version == versionNumber  {
                 print("Version is Supported")
             }
             else {
