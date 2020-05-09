@@ -271,16 +271,16 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 }
                 self.dayNumber.text = "\(self.dayQuarantine)"
             }
-          /*  let version = homeDataArray.filter{ $0.key == "lastVersionIOS"}
+            let version = homeDataArray.filter{ $0.key == "lastVersionIOS"}
             if let versionValue = version.first?.value as? String {
                 print("versionValue ==> \(versionValue)")
-                self.checkAppVersion(version: versionValue)
+               let urlobject = homeDataArray.filter{ $0.key == "url-app-ios"}
+               if let url = urlobject.first?.value as? String {
+                   print("versionValue ==> \(url)")
+                   self.checkAppVersion(version: versionValue , urlStr: url)
+               }
             }
-            let urlobject = homeDataArray.filter{ $0.key == "url-app-ios"}
-            if let url = urlobject.first?.value as? String {
-                print("versionValue ==> \(url)")
-                self.checkAppVersion(version: versionValue)
-            }*/
+            
             
             }, onFailure: {error in
                 self.finishLoading()
@@ -362,8 +362,12 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                         UIApplication.shared.openURL(URL(string: urlStr)!)
                     }
                 }))
-              
-                self.present(alert, animated: true, completion: nil)
+              var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+              if let navigationController = rootViewController as? UINavigationController {
+                  rootViewController = navigationController.viewControllers.first
+              }
+                rootViewController?.present(alert, animated: true, completion: nil)
+
                
             }
         }
