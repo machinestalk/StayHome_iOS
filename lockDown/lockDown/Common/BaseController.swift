@@ -220,7 +220,9 @@ class BaseController: UIViewController ,UITextFieldDelegate, AlertProtocol  {
         let defaults = UserDefaults.standard
         let dictionary = defaults.dictionaryRepresentation()
         dictionary.keys.forEach { key in
-            defaults.removeObject(forKey: key)
+            if key != "firebaseToken" {
+                defaults.removeObject(forKey: key)
+            }
         }
     }
    

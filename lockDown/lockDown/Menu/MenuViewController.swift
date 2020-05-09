@@ -17,7 +17,7 @@ class MenuViewController: BaseController {
     var selectedItem = 0
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var VersionLbl: UILabel!
-    
+      var sideController: LGSideMenuController!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setMenu(menuItems: self.menuItems as NSArray)
@@ -188,7 +188,16 @@ extension MenuViewController: UITableViewDelegate {
             case 7:
             do {
                 //NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"logout"])
-                self.displayLogoutAlert()
+                if UserDefaults.standard.valueExists(forKey: "dayQuarantine"){
+                    let dayQuarantine = UserDefaults.standard.integer(forKey: "dayQuarantine")
+                    if dayQuarantine > 0 {
+                        self.displayLogoutAlert()
+                    }
+                    else {
+                        logout()
+                    }
+                }
+                
                  selectedItem = 7
                  
                 break
@@ -204,6 +213,28 @@ extension MenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
     }
+    
+    func logout(){
+        APIClient.logout(onSuccess: { (responseObject) in
+                self.finishLoading()
+            if self.sideMenuController != nil {
+                    let vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
+                    let navC = self.sideMenuController?.rootViewController as! UINavigationController
+                    vc.modalPresentationStyle = .fullScreen
+                    navC.present(vc, animated: true, completion: nil)
+                    self.resetDefaults()
+                    //Remove Side Menu
+                    self.sideMenuController?.leftView = nil
+                    self.sideMenuController?.rightView = nil
+                }
+            print("responseObject \(responseObject)")
+            } ,onFailure : { (error) in
+                self.finishLoading()
+                print("error \(error)")
+            })
+        }
+    
+    
 }
 
 extension MenuViewController: UITableViewDataSource {

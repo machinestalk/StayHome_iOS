@@ -300,6 +300,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 let date = Date(timeIntervalSince1970: Double(lastDay) as! TimeInterval)
                 self.dayQuarantine = date.interval(ofComponent: .day, fromDate: Date())
                 print("diff == > \(self.dayQuarantine)")
+                UserDefaults.standard.set(self.dayQuarantine, forKey: "dayQuarantine")
             }
             if let lat = customerData.latitude?.first!.value {
                 if let long = customerData.longitude?.first!.value {

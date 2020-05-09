@@ -187,6 +187,20 @@ class APIClient {
     static func signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String) -> Future<UserData> {
         return performRequest(route: APIRouter.signIn(phoneNumber: phoneNumber, phoneOtp: phoneOtp, phoneUdid: phoneUdid))
     }
+    
+    static func logout(onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.logout(customerId: ""), onSuccess: { (responseObject: String) -> Void in
+            successCallback?(responseObject)
+        },
+           onFailure: {(errorMessage: String) -> Void in
+             print(errorMessage)
+             failureCallback?(errorMessage)
+        }
+        )
+    }
+    
     static func getRefreshToken(refreshToken : String) -> Future<UserData> {
         return performRequest(route: APIRouter.refrechToken(refreshToken: refreshToken))
     }

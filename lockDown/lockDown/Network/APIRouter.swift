@@ -25,10 +25,11 @@ enum APIRouter: URLRequestConvertible {
     case sendBLEScanned(deviceToken : String, data:[String:Any])
     case addBracelet(params:[String:Any])
     case getBracelet(customerId : String)
+    case logout(customerId : String)
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm, .sendBLEScanned, .sendIsComplaintWithoutZone:
+        case .signUp,.signIn,.sendIsComplaint, .sendZoneLocations , .sendFirebaseToken, .sendSurvey, .refrechToken, .sendContactUsForm, .sendBLEScanned, .sendIsComplaintWithoutZone, .logout:
             return .post
         case .getTipsHome,.addBracelet,.getCustomerData,.getBracelet:
             return .get
@@ -72,6 +73,8 @@ enum APIRouter: URLRequestConvertible {
             return "api/plugins/telemetry/CUSTOMER/\(customerId)/values/timeseries?limit=1"
         case .getBracelet(let customerId):
                    return "api/customer/\(customerId)/devices?limit=100&type=Bracelet"
+        case .logout(let customerId):
+            return "api/auth/logout"
         }
         
     }
@@ -107,6 +110,8 @@ enum APIRouter: URLRequestConvertible {
             return nil
         case .getBracelet(let customerId):
             return nil
+        case .logout(let customerId) :
+            return nil 
         }
     }
     // MARK: - URLRequestConvertible
