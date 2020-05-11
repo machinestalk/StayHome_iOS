@@ -108,6 +108,31 @@ class APIClient {
                 }
         }
     }
+    
+    
+     private static func SendSignUpRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((NSError) -> Void)?) {
+            Alamofire.request(route).responseString { response in
+    //            if response.response?.statusCode == 200 {
+                    switch response.result {
+                    case .success(let value):
+                        
+                        if response.response?.statusCode == 200 {
+                           successCallback?(value)
+                            }else{
+                            let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result.value?.convertToDictionary())
+                            failureCallback?(error)
+                        }
+                        
+                        
+                        
+                    case .failure(let error):
+                        
+                        failureCallback?(error as NSError)
+                    }
+            }
+        }
+    
+    
 //            }
 //            else {
 //                if response.response?.statusCode == 400 {
@@ -150,18 +175,32 @@ class APIClient {
     
     
     
-    static func singUp(phoneNumber : String ,onSuccess successCallback: ((_ successMessage: String) -> Void)?, onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+    static func singUp(phoneNumber : String ,onSuccess successCallback: ((_ successMessage: String) -> Void)?, onFailure failureCallback: ((_ errorMessage: NSError) -> Void)?) {
         
-        return SendRequest(route: APIRouter.signUp(phoneNumber: phoneNumber), onSuccess: { (responseObject: String) -> Void in
+        return SendSignUpRequest(route: APIRouter.signUp(phoneNumber: phoneNumber), onSuccess: { (responseObject: String) -> Void in
             successCallback?("successMessage")
-        },onFailure: {(errorMessage: String) -> Void in
-            failureCallback?("errorMessage")
+        },onFailure: {(errorMessage: NSError) -> Void in
+            (failureCallback?(errorMessage))!
         })
     }
     
     static func signIn(phoneNumber:String, phoneOtp:String, phoneUdid:String) -> Future<UserData> {
         return performRequest(route: APIRouter.signIn(phoneNumber: phoneNumber, phoneOtp: phoneOtp, phoneUdid: phoneUdid))
     }
+    
+    static func logout(onSuccess successCallback: ((_ successMessage: String) -> Void)?,
+                              onFailure failureCallback: ((_ errorMessage: String) -> Void)?) {
+        
+        return SendRequest(route: APIRouter.logout(customerId: ""), onSuccess: { (responseObject: String) -> Void in
+            successCallback?(responseObject)
+        },
+           onFailure: {(errorMessage: String) -> Void in
+             print(errorMessage)
+             failureCallback?(errorMessage)
+        }
+        )
+    }
+    
     static func getRefreshToken(refreshToken : String) -> Future<UserData> {
         return performRequest(route: APIRouter.refrechToken(refreshToken: refreshToken))
     }

@@ -11,13 +11,13 @@ import LGSideMenuController
 
 
 class MenuViewController: BaseController {
-    fileprivate var menuItems = ["home_txt","MyZone_txt" , "checkIn_txt","bracelet_txt","emergency_txt","", "tecSupport_txt", "aboutAs_txt","logout_txt"]
-    let menuIconsArray = ["home_black","zones_black","check_black","bracelet_black","emergency_black","","support_black","about_black","logout_black"]
-    let menuSelectedIconsArray = ["home_green","zones_green","check_green","bracelet_green","emergency_green","","support_green","about_green","logout_green"]
+    fileprivate var menuItems = ["home_txt","MyZone_txt" , "checkIn_txt","bracelet_txt","emergency_txt","", "tecSupport_txt","logout_txt"]
+    let menuIconsArray = ["home_black","zones_black","check_black","bracelet_black","emergency_black","","support_black","logout_black"]
+    let menuSelectedIconsArray = ["home_green","zones_green","check_green","bracelet_green","emergency_green","","support_green","logout_green"]
     var selectedItem = 0
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var VersionLbl: UILabel!
-    
+      var sideController: LGSideMenuController!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setMenu(menuItems: self.menuItems as NSArray)
@@ -170,7 +170,7 @@ extension MenuViewController: UITableViewDelegate {
                 break
                 
             }
-        case 7:
+     /*   case 7:
             do {
                 if !((self.sideMenuController?.rootViewController as! UINavigationController).visibleViewController!.isKind(of: ContentViewController.self)) {
                     
@@ -184,12 +184,21 @@ extension MenuViewController: UITableViewDelegate {
                 hideMenu()
                 break
                 
-            }
-            case 8:
+            }*/
+            case 7:
             do {
                 //NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"logout"])
-                self.displayLogoutAlert()
-                 selectedItem = 8
+                if UserDefaults.standard.valueExists(forKey: "dayQuarantine"){
+                    let dayQuarantine = UserDefaults.standard.integer(forKey: "dayQuarantine")
+                    if dayQuarantine > 0 {
+                        self.displayLogoutAlert()
+                    }
+                    else {
+                        logout()
+                    }
+                }
+                
+                 selectedItem = 7
                  
                 break
             }
@@ -204,6 +213,28 @@ extension MenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
     }
+    
+    func logout(){
+        APIClient.logout(onSuccess: { (responseObject) in
+                self.finishLoading()
+            if self.sideMenuController != nil {
+                    let vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
+                    let navC = self.sideMenuController?.rootViewController as! UINavigationController
+                    vc.modalPresentationStyle = .fullScreen
+                    navC.present(vc, animated: true, completion: nil)
+                    self.resetDefaults()
+                    //Remove Side Menu
+                    self.sideMenuController?.leftView = nil
+                    self.sideMenuController?.rightView = nil
+                }
+            print("responseObject \(responseObject)")
+            } ,onFailure : { (error) in
+                self.finishLoading()
+                print("error \(error)")
+            })
+        }
+    
+    
 }
 
 extension MenuViewController: UITableViewDataSource {

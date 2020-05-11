@@ -20,6 +20,7 @@ class AddBraceletManuallyViewController: BaseController {
     var BraceletConnectedBottomVC = BraceletConnectBottomViewController()
     
     var errorBottomVC = ErrorBottomViewController()
+    var dateStr : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         text1.delegate = self
@@ -177,17 +178,20 @@ extension AddBraceletManuallyViewController:ConfirmationBottomProtocol{
         APIClient.checkBracelet(data: dataBody, onSuccess: { (successObject) in
             self.finishLoading()
             if let objectDict = successObject.convertToDictionary(){
-                if let StimpStr =  objectDict["createdTime"] {
-                    print("dateStimp =::> \(StimpStr)")
-                    let date = Date(timeIntervalSince1970: StimpStr as! TimeInterval)
-                    
-                    print("dateStimp =::> \(date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))")
-                    self.confirmationBottomVC.view.removeFromSuperview()
-                    UserDefaults.standard.set(macAdress, forKey:"connected_bracelet")
-                    self.setupBraceletconnectedBottomVC(dateStr: date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))
-                    
-                    
-                }}
+                if let objectInfo =  objectDict["additionalInfo"] as? NSDictionary{
+                    //  if let additionalInfo = (objectInfo as! String).convertToDictionary(){
+                    if let StimpStr = objectInfo.object(forKey: "connectDateTime") as? Double {
+                        print("dateStimp =::> \(StimpStr)")
+                        let date = Date(timeIntervalSince1970: StimpStr as! TimeInterval)
+                        print("dateStimp =::> \(date.toString(dateFormat: "dd.MM.yyyy HH:mm a"))")
+                        UserDefaults.standard.set(macAdress, forKey:"connected_bracelet")
+                        self.dateStr = date.toString(dateFormat: "dd.MM.yyyy HH:mm a")
+                        self.setupBraceletconnectedBottomVC(dateStr:self.dateStr)
+                    }
+                    // }
+                }
+                
+            }
         }) { (error) in
             self.finishLoading()
             self.confirmationBottomVC.view.removeFromSuperview()

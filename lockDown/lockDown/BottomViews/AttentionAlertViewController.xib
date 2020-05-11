@@ -12,6 +12,7 @@
                 <outlet property="alertImage" destination="rgv-3c-sFJ" id="wPj-hG-gzL"/>
                 <outlet property="msgLbl" destination="4Ic-DR-8oD" id="bwz-QL-T0U"/>
                 <outlet property="okBtn" destination="6Im-ix-Zhe" id="Apt-Sv-yrd"/>
+                <outlet property="stackView" destination="ES0-k8-jsV" id="qDN-94-FPE"/>
                 <outlet property="titleLbl" destination="5mD-ol-XRp" id="BX7-1R-c5x"/>
                 <outlet property="view" destination="xHO-cM-URh" id="8Sb-fA-gJE"/>
             </connections>
@@ -75,6 +76,37 @@
                                 <constraint firstAttribute="height" constant="40" id="zju-Fo-sUy"/>
                             </constraints>
                         </imageView>
+                        <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ES0-k8-jsV">
+                            <rect key="frame" x="55" y="175" width="285" height="47"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OwU-nx-8TS" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="134.5" height="47"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                                    <state key="normal" backgroundImage="red_button">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="emergencyBtn_txt"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="emergencyBtnDidTap:" destination="-1" eventType="touchUpInside" id="Kze-T7-1rk"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMD-gE-w0B" customClass="Button" customModule="lockDown" customModuleProvider="target">
+                                    <rect key="frame" x="150.5" y="0.0" width="134.5" height="47"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                                    <state key="normal" backgroundImage="green_button">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="key" value="okayBtn_txt"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="OKBtnAction:" destination="-1" eventType="touchUpInside" id="qzZ-h1-phz"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -92,7 +124,9 @@
                         <constraint firstItem="4Ic-DR-8oD" firstAttribute="leading" secondItem="2Te-sJ-Z0a" secondAttribute="leading" constant="10" id="Rgp-h8-hhr"/>
                         <constraint firstItem="6Im-ix-Zhe" firstAttribute="centerX" secondItem="4Ic-DR-8oD" secondAttribute="centerX" id="aCc-oX-1x4"/>
                         <constraint firstItem="rgv-3c-sFJ" firstAttribute="centerX" secondItem="4Ic-DR-8oD" secondAttribute="centerX" id="hhB-LB-kY5"/>
+                        <constraint firstItem="ES0-k8-jsV" firstAttribute="centerX" secondItem="6Im-ix-Zhe" secondAttribute="centerX" id="k1I-zW-XD7"/>
                         <constraint firstAttribute="height" constant="282" id="kRy-Qr-i1C"/>
+                        <constraint firstItem="ES0-k8-jsV" firstAttribute="centerY" secondItem="6Im-ix-Zhe" secondAttribute="centerY" id="npx-8N-Sla"/>
                         <constraint firstItem="rgv-3c-sFJ" firstAttribute="leading" secondItem="2Te-sJ-Z0a" secondAttribute="leading" constant="177.5" id="sHZ-nY-maZ"/>
                         <constraint firstItem="YiW-Ph-Qso" firstAttribute="top" secondItem="2Te-sJ-Z0a" secondAttribute="top" constant="8" id="vYO-N3-ebp"/>
                         <constraint firstItem="rgv-3c-sFJ" firstAttribute="centerX" secondItem="2Te-sJ-Z0a" secondAttribute="centerX" id="vgs-Uy-2qb"/>
@@ -119,5 +153,6 @@
         <image name="card_shadow2" width="395" height="281.5"/>
         <image name="green_button" width="134.5" height="47"/>
         <image name="red_bluetooth" width="22" height="37"/>
+        <image name="red_button" width="134.5" height="47"/>
     </resources>
 </document>

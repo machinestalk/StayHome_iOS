@@ -17,9 +17,12 @@ class LanguageManger {
     /// Returns the currnet language
     var currentLanguage: Languages {
         get {
-            
-            guard let currentLang = UserDefaults.standard.string(forKey: "selectedLanguage") else {
-                fatalError("Did you set the default language for the app ?")
+            var currentLang = ""
+            if UserDefaults.standard.valueExists(forKey: "selectedLanguage"){
+                currentLang = UserDefaults.standard.string(forKey: "selectedLanguage")!
+            }
+            else {
+                currentLang = Languages.en.rawValue
             }
             return Languages(rawValue: currentLang)!
         }

@@ -31,7 +31,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
     var ChangeLocationVC = ChangeLocationViewController()
     var biometricsBottomVc = BiometricsBottomViewController()
     var isNextBtnTapped = false
-
+    var zoneRadius : Int = 100
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
@@ -50,6 +50,12 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationLocation"), object: nil)
         self.navigationItem.rightBarButtonItem = nil
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "Bg_navBar")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0 ,right: 0), resizingMode: .stretch), for: .default)
+        if UserDefaults.standard.valueExists(forKey: "zoneRadius") {
+            self.zoneRadius =  UserDefaults.standard.integer(forKey: "zoneRadius")
+        }
+        
+        
+        
         if  !UserDefaults.standard.bool(forKey: "isSignedUp")  {
             setLocationView()
         }
@@ -136,7 +142,7 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
                 marker.map = self.mapView
                 getAddressFromLatLon(pdblLatitude: locValue!.latitude, withLongitude: locValue!.longitude)
                 circle = GMSCircle()
-                circle.radius = 100 // Meters
+                circle.radius = CLLocationDistance(self.zoneRadius) // Meters
                 circle.position = marker.position // user  position
                 circle.fillColor = UIColorFromHex(hex: "#FBBBBC").withAlphaComponent(0.8)
                 circle.strokeColor = .clear
@@ -527,7 +533,7 @@ extension MyZoneViewController: RequestLocationProtocol {
         locValue = self.mapView.projection.coordinate(for: self.markerPosition)
         UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
         circle = GMSCircle()
-        circle.radius = 100 // Meters
+        circle.radius = CLLocationDistance(self.zoneRadius) // Meters
         circle.position = marker.position // user  position
         circle.fillColor = UIColorFromHex(hex: "#FBBBBC").withAlphaComponent(0.8)
         circle.strokeColor = .clear
@@ -542,7 +548,7 @@ extension MyZoneViewController: RequestLocationProtocol {
         //UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
         let customerId = UserDefaults.standard.string(forKey: "customerId")
         
-        APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
+        APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "\(self.zoneRadius)", onSuccess: { (Msg) in
             print(Msg)
             self.biometricsBottomVc.view.removeFromSuperview()
         } ,onFailure : { (error) in
@@ -571,7 +577,7 @@ extension MyZoneViewController : BiometricsAuthProtocol{
         //UserDefaults.standard.set(location:locValue, forKey:"myhomeLocation")
         let customerId = UserDefaults.standard.string(forKey: "customerId")
         
-        APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "100", onSuccess: { (Msg) in
+        APIClient.sendLocationTelimetry(deviceid: customerId!, latitude: String(locValue!.latitude), longitude: String(locValue!.longitude), radius: "\(self.zoneRadius)", onSuccess: { (Msg) in
             print(Msg)
             self.biometricsBottomVc.view.removeFromSuperview()
         } ,onFailure : { (error) in
