@@ -90,69 +90,42 @@ class APIClient {
     
     private static func SendRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         Alamofire.request(route).responseString { response in
-//            if response.response?.statusCode == 200 {
-                switch response.result {
-                case .success(let value):
-                    
-                    if response.response?.statusCode == 200 {
-                       successCallback?(value)
-                        }else{
-                        let error = NSError(domain:"", code:response.response!.statusCode, userInfo:["value":value])
-                        failureCallback?(error.localizedDescription)
-                    }
-                    
-                    
-                    
-                case .failure(let error):
+            switch response.result {
+            case .success(let value):
+                
+                if response.response?.statusCode == 200 {
+                    successCallback?(value)
+                }else if response.response?.statusCode == 401 {
+                    self.requestForGetNewAccessToken(route: route, onSuccess: successCallback, onFailure: failureCallback)
+                }else{
+                    let error = NSError(domain:"", code:response.response!.statusCode, userInfo:["value":value])
                     failureCallback?(error.localizedDescription)
                 }
+            case .failure(let error):
+                failureCallback?(error.localizedDescription)
+            }
         }
     }
     
     
-     private static func SendSignUpRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((NSError) -> Void)?) {
-            Alamofire.request(route).responseString { response in
-    //            if response.response?.statusCode == 200 {
-                    switch response.result {
-                    case .success(let value):
-                        
-                        if response.response?.statusCode == 200 {
-                           successCallback?(value)
-                            }else{
-                            let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result.value?.convertToDictionary())
-                            failureCallback?(error)
-                        }
-                        
-                        
-                        
-                    case .failure(let error):
-                        
-                        failureCallback?(error as NSError)
-                    }
+    private static func SendSignUpRequest (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((NSError) -> Void)?) {
+        Alamofire.request(route).responseString { response in
+            switch response.result {
+            case .success(let value):
+                
+                if response.response?.statusCode == 200 {
+                    successCallback?(value)
+                }else{
+                    let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result.value?.convertToDictionary())
+                    failureCallback?(error)
+                }
+            case .failure(let error):
+                
+                failureCallback?(error as NSError)
             }
         }
-    
-    
-//            }
-//            else {
-//                if response.response?.statusCode == 400 {
-//                    self.requestForGetNewAccessToken(route: route, onSuccess: successCallback, onFailure: failureCallback)
-//                }else{
-//                    if response.result.error != nil  {
-//                       let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result as? [String : Any])
-//                        failureCallback?(error.localizedDescription)
-//                    }
-//                    else {
-//                        failureCallback?("error message")
-//                    }
-//                    //failureCallback?(response.result.error!.localizedDescription)
-//                    //let error = NSError(domain:"", code:response.response!.statusCode, userInfo:response.result as? [String : Any])
-//                    //failureCallback?(error.localizedDescription)
-//                    //completion(.failure(error))
-//                }
-//            }
-//        }
-    //}
+    }
+
     
     private static func getData (route: URLRequestConvertible,onSuccess successCallback: ((String) -> Void)?, onFailure failureCallback: ((String) -> Void)?) {
         Alamofire.request(route).responseString { response in
@@ -165,10 +138,9 @@ class APIClient {
                 }
             }
             else {
-                if response.response?.statusCode == 400 {
+                if response.response?.statusCode == 401 {
                     self.requestForGetNewAccessToken(route: route, onSuccess: successCallback, onFailure: failureCallback)
                 }
-                //failureCallback?(response.result.error!.localizedDescription)
             }
         }
     }
