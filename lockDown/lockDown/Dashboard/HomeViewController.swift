@@ -17,14 +17,14 @@ import CoreTelephony
 import MTBeaconPlus
 
 struct PreferencesKeys {
-  static let savedItems = "savedItems"
+    static let savedItems = "savedItems"
 }
 
-class HomeViewController: BaseController, CLLocationManagerDelegate{
-    
+class HomeViewController: BaseController, CLLocationManagerDelegate, ReachabilityObserverDelegate{
+
     enum EventType: String {
-      case onEntry = "On Entry"
-      case onExit = "On Exit"
+        case onEntry = "On Entry"
+        case onExit = "On Exit"
     }
     
     enum CardState {
@@ -34,8 +34,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var requestLocationVC = RequestLocationViewController()
     var ChangeLocationVC = ChangeLocationViewController()
     var biometricsBottomVc = BiometricsBottomViewController()
-    var attentionAlertViewControllerOutZone = AttentionOutZoneAlertViewController()
-    var attentionAlertViewControllerBluetooth : AttentionAlertViewController!
+    var attentionAlertViewControllerOutZone = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
+    var attentionAlertViewControllerBluetooth = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
     var attentionAlertViewControllerInternet = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
     var attentionAlertViewControllerBattery = AttentionAlertViewController(nibName: "AttentionAlertViewController", bundle: nil)
     let customTimer = CustomTimer(timeInterval: 60)
@@ -47,52 +47,22 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var nextState:CardState {
         return cardVisible ? .collapsed : .expanded
     }
-    //Bluetooth
-    
     private lazy var bluetoothManager = CoreBluetoothManager()
-    
     var peripherals = Array<[String:Any]>()
     var braceletArray = Array<MTPeripheral>()
-    
     var alertBluetoothIsOpen = false
     var alertBatteryIsOpen = false
     var alertInternetIsOpen = false
     var isInternetOK = true
     var bluetoothEnabled = true
-    
     var carrier = CTCarrier()
-    
     var userMotionActivity: CMMotionActivity!
     var userMotionManager: CMMotionManager!
     var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     var dayQuarantine : Int = 0
-    func getTelephonyInfo() -> Dictionary<String, CTCarrier>{
-        
-        let networkInfo = CTTelephonyNetworkInfo()
-        if #available(iOS 12.0, *) {
-            let serviceSubscriberCellularProviders = networkInfo.serviceSubscriberCellularProviders
-            return serviceSubscriberCellularProviders!
-        }
-        return ["Not found":CTCarrier()]
-    }
-    
-    
-    
     var alertComeBackIsOpen = false
     var outOfZoneCounter : Int = 0
     var zoneRadius : Int = 100
-    //show Alert Bluetooth
-    func showAlertComeBack(){
-        if !alertComeBackIsOpen{
-            let height = view.frame.height
-            let width  = view.frame.width
-            attentionAlertViewControllerOutZone.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-            attentionAlertViewControllerOutZone.delegate = self
-            self.addChild(attentionAlertViewControllerOutZone)
-            self.view.addSubview(attentionAlertViewControllerOutZone.view)
-            attentionAlertViewControllerOutZone.didMove(toParent: self)
-        }
-    }
     var currentNetworkInfos: Array<NetworkInfo>? {
         get {
             return  SSID.fetchNetworkInfo()
@@ -103,96 +73,57 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     var locValue: CLLocationCoordinate2D!
     var navigatedToMyLocation : Bool! = false
     private lazy var locationManager: CLLocationManager = {
-      let manager = CLLocationManager()
-      manager.desiredAccuracy = kCLLocationAccuracyBest
-      manager.delegate = self
-      manager.requestAlwaysAuthorization()
-      manager.startUpdatingLocation()
-      manager.startMonitoringSignificantLocationChanges()
-      manager.allowsBackgroundLocationUpdates = true
-      return manager
+        let manager = CLLocationManager()
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.delegate = self
+        manager.requestAlwaysAuthorization()
+        manager.startUpdatingLocation()
+        manager.startMonitoringSignificantLocationChanges()
+        manager.allowsBackgroundLocationUpdates = true
+        return manager
     }()
     var currentLocation: CLLocationCoordinate2D!
-
     var countdownTimer: Timer!
     var totalTime : Int!
     var fileURL : URL?
     var fileBLEURL : URL?
     var Colons = [String]()
-    
-    @IBOutlet weak var statusImg: UIImageView!
-    @IBOutlet weak var statusImgTop: NSLayoutConstraint!
-    @IBOutlet weak var searchtxt: TextField!
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var satBtn: UIButton!
-    @IBOutlet weak var menuBtn: UIButton!
-    @IBOutlet weak var dayNumber: UILabel!
-    
-    @IBOutlet weak var homeImg: UIImageView!
-    @IBOutlet weak var homeTip: UILabel!
-    @IBOutlet weak var homeTitle: UILabel!
     var activityManager = ActivityManager()
     var batteryLevel: Float { UIDevice.current.batteryLevel }
     var window: UIWindow?
-    
-    //Beacons
-    
     var manager : MTCentralManager!
     var scannerDevices : Array<MTPeripheral>!
     var currentPeripheral:MTPeripheral?
     
+    @IBOutlet weak var statusImg: UIImageView!
+    @IBOutlet weak var statusImgTop: NSLayoutConstraint!
+    @IBOutlet weak var menuBtn: UIButton!
+    @IBOutlet weak var dayNumber: UILabel!
+    @IBOutlet weak var homeImg: UIImageView!
+    @IBOutlet weak var homeTip: UILabel!
+    @IBOutlet weak var homeTitle: UILabel!
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         self.window = UIWindow(frame:UIScreen.main.bounds)
         createLogFile()
         createBLELogFile()
-        
-        
-        //Beacons
-        
         manager = MTCentralManager.sharedInstance()
-        
         manager?.stateBlock = { (state) in
             
             if state != .poweredOn {
                 print("the iphone bluetooth state error")
             }
         }
+        DispatchQueue.main.async {
+            self.startScan()
+        }
         
-        self.startScan()
-        
-        //Beacons
-        
-        
-        
-        self.navigationController?.navigationBar.isHidden = true
-       
-
-        //is Battery Monitoring Enabled
         UIDevice.current.isBatteryMonitoringEnabled = true
         NotificationCenter.default.addObserver(self, selector: #selector(batteryLevelDidChange), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
         startCustomTimer()
-        
-        // wifi changed
-        do{
-            Network.reachability = try CustomReachability(hostname: "www.google.com")
-            NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged), name: .flagsChanged, object: Network.reachability)
-            
-            do {
-                try Network.reachability?.start()
-            } catch let error as Network.Error {
-                print(error)
-            } catch {
-                print(error)
-            }
-        } catch {
-            print(error)
-        }
-        if(!isInternetAvailable()){
-            showAlertInternet()
-        }
-        
         let deviceId = UserDefaults.standard.value(forKey: "deviceId") as! String
         let start = deviceId.index(deviceId.endIndex, offsetBy: -26)
         let range = start..<deviceId.endIndex
@@ -201,29 +132,21 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         bluetoothManager.startAdvertising(with:miniID)
         bluetoothManager.initLocalBeacon()
         self.perform(#selector(self.startScanningBTDevices), with: nil, afterDelay: 2.0)
-        
-        
-        //getSpeed
-        // Do any additional setup after loading the view, typically from a nib.
-        
         activityManager.delegate = self
         activityManager.startActivityScan()
-        
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-         self.locationManager.delegate = self
+        self.locationManager.delegate = self
         locationManager.startUpdatingLocation()
     }
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)
+        try? addReachabilityObserver()
         NotificationCenter.default.addObserver(self, selector: #selector(self.getNotificationNoneLocation(notification:)), name: Notification.Name("NotificationNoneLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationLocation"), object: nil)
         self.navigationItem.rightBarButtonItem = nil
-
-        
         setLocation()
         let deviceId = UserDefaults.standard.string(forKey: "deviceId")
         let firebaseToken = UserDefaults.standard.string(forKey: "firebaseToken")
@@ -231,33 +154,33 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             print(Msg)
         } ,onFailure : { (error) in
             print(error)
-        }
-        )
-        //show Alert Internet when is Internet not Available
-        if(!isInternetAvailable()){
-            showAlertInternet()
-        }
-        
-        getUserstatus()
-        
-        //
-        
-        //Create log file if not yet created
-        
-        carrier = getTelephonyInfo().first!.value
+        })
         self.startLoading()
+        getUserstatus()
         getBracelet()
         getCustomerData()
-        
     }
     
-    
+    func reachabilityChanged(_ isReachable: Bool, status: String) {
+        
+        if isReachable {
+            if status == "cellular" {
+                isInternetOK = false
+                showAlertInternet()
+            } else {
+                isInternetOK = true
+            }
+        } else {
+            isInternetOK = false
+            showAlertInternet()
+        }
+    }
     
     func getHomeTips(){
         let tenantId = UserDefaults.standard.string(forKey: "tenantId")
         let homeDataFuture = APIClient.getTipsHome(tenantId: tenantId!)
         homeDataFuture.execute(onSuccess: { homeDataArray in
-             self.finishLoading()
+            self.finishLoading()
             if self.dayQuarantine > 0 {
                 print("homeDataArray == > \(homeDataArray)")
                 let homeData = homeDataArray.filter{ $0.key == "Day \(self.dayQuarantine)" }
@@ -274,21 +197,21 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             let version = homeDataArray.filter{ $0.key == "lastVersionIOS"}
             if let versionValue = version.first?.value as? String {
                 print("versionValue ==> \(versionValue)")
-               let urlobject = homeDataArray.filter{ $0.key == "url-app-ios"}
-               if let url = urlobject.first?.value as? String {
-                   print("versionValue ==> \(url)")
-                   self.checkAppVersion(version: versionValue , urlStr: url)
-               }
+                let urlobject = homeDataArray.filter{ $0.key == "url-app-ios"}
+                if let url = urlobject.first?.value as? String {
+                    print("versionValue ==> \(url)")
+                    self.checkAppVersion(version: versionValue , urlStr: url)
+                }
             }
+            self.checkAllServicesActivityFromBackground()
             
-            
-            }, onFailure: {error in
-                self.finishLoading()
-                let errorr = error as NSError
-                let errorDict = errorr.userInfo
-                
-            })
-        }
+        }, onFailure: {error in
+            self.finishLoading()
+            let errorr = error as NSError
+            let errorDict = errorr.userInfo
+            self.checkAllServicesActivityFromBackground()
+        })
+    }
     
     
     func getCustomerData(){
@@ -327,23 +250,23 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     func getBracelet(){
         let customerId = UserDefaults.standard.string(forKey: "customerId")
         APIClient.getBracelet(customerId: customerId!,onSuccess: { (responseObject) in
-                            self.finishLoading()
-                if let objectDict = responseObject.convertToDictionary(){
-                    if let data =  objectDict["data"] as? NSArray{
-                        if let braceletDict = data.firstObject as? [String : Any] {
-                            if let macAddress =  braceletDict["name"] as? String {
-                                if UserDefaults.standard.valueExists(forKey: "connected_bracelet"){
-                                    UserDefaults.standard.removeObject(forKey: "connected_bracelet")
-                                }
-                                UserDefaults.standard.set(macAddress, forKey:"connected_bracelet")
-                             
+            self.finishLoading()
+            if let objectDict = responseObject.convertToDictionary(){
+                if let data =  objectDict["data"] as? NSArray{
+                    if let braceletDict = data.firstObject as? [String : Any] {
+                        if let macAddress =  braceletDict["name"] as? String {
+                            if UserDefaults.standard.valueExists(forKey: "connected_bracelet"){
+                                UserDefaults.standard.removeObject(forKey: "connected_bracelet")
                             }
+                            UserDefaults.standard.set(macAddress, forKey:"connected_bracelet")
+                            
                         }
-                    }}
-            } ,onFailure : { (error) in
-                print(error)
-            })
-        }
+                    }
+                }}
+        } ,onFailure : { (error) in
+            print(error)
+        })
+    }
     
     func checkAppVersion(version : String , urlStr :String  ){
         if let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
@@ -355,7 +278,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 
                 // Button to Open Settings
                 alert.addAction(UIAlertAction(title: "Ok_text".localiz(), style: UIAlertAction.Style.default, handler: { action in
-                  
+                    
                     if #available(iOS 10.0, *) {
                         UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
                         
@@ -363,13 +286,13 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                         UIApplication.shared.openURL(URL(string: urlStr)!)
                     }
                 }))
-              var rootViewController = UIApplication.shared.keyWindow?.rootViewController
-              if let navigationController = rootViewController as? UINavigationController {
-                  rootViewController = navigationController.viewControllers.first
-              }
+                var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+                if let navigationController = rootViewController as? UINavigationController {
+                    rootViewController = navigationController.viewControllers.first
+                }
                 rootViewController?.present(alert, animated: true, completion: nil)
-
-               
+                
+                
             }
         }
     }
@@ -386,232 +309,217 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         scannerDevices = manager.scannedPeris
     }
     
-    func startConnect() -> Void {
-    //        print(manager.scannedPeris as Any)
-            self.stopScan()
-            
-            for key in manager.scannedPeris {
-    //            print(key.identifier as Any)
-
-                // Please enter the identifier that your want to connect.
-                //if key.identifier == "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0" {//Identifiers may change, it is recommended to use MacString
-                    self.connectDevice(peripheral: key)
-                //}
-            }
-        }
-    
     func stopScan() -> Void {
         manager.stopScan()
     }
     
     func connectDevice(peripheral : MTPeripheral) -> Void {
-         
-         currentPeripheral = peripheral
-         
-         peripheral.connector.statusChangedHandler = { (status, error) in
-             
-             if error != nil {
-                 print(error as Any)
-             }
-          
-             switch status {
-             case .StatusCompleted:
-                 self.writeFrame(peripheral: peripheral)
-                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0, execute: {
-                     self.getAllSlot()
-                     self.getTrigger()
-                     self.setLineBeacon()
-                     self.writeTrigger(peripheral: peripheral)
-                 })
-                 
-                 self.stopScan()
-                 
-                 break
-
-             case .StatusDisconnected:
-                 
-                 print("disconnected")
-                 break
-                 
-             case .StatusConnectFailed:
-                 
-                 print("connect failed")
-                 break
-                 
-             case .StatusUndifined:
-                 break
-                 
-             default:
-                 break
-             }
-         }
-         
-         manager.connect(toPeriperal:peripheral, passwordRequire: { (pass) in
-             
-             pass!("minew123")
-         })
-     }
-     
-     func disconnect(peripheral : MTPeripheral) -> Void {
-         manager.disconnect(fromPeriperal: peripheral)
-     }
-     
-     func getAllSlot() -> Void {
-         for frame in (currentPeripheral?.connector.allFrames)! {
-             self.getBroadcastContent(frame: frame)
-         }
-     }
-     
-
-     
-     func getBroadcastContent(frame:MinewFrame) -> Void {
-                 
-         switch frame.frameType {
-         case .FrameiBeacon:
-             let iBeacon = frame as! MinewiBeacon
-             print("iBeacon:\(iBeacon.major)--\(String(describing: iBeacon.uuid))--\( iBeacon.minor)")
-             break
-         // Same thing with MTSensorPIRData/MTSensorHTData
-         case .FrameLineBeacon:
-             let lineBeaconLotKey:MTLineBeaconData = currentPeripheral?.connector?.sensorHandler.lineBeaconLotKeyDataDic["lineBeaconLotKeyDataDic"] as! MTLineBeaconData
-             let lineBeaconHwidAndVendorKey:MTLineBeaconData = currentPeripheral?.connector?.sensorHandler.lineBeaconDataDic["lineBeaconDataDic"] as! MTLineBeaconData
-         print("LineBeacon:\(lineBeaconLotKey.lotKey)--\(lineBeaconHwidAndVendorKey.hwId)--\(lineBeaconHwidAndVendorKey.vendorKey)")
-             
-             break
-         case .FrameURL:
-             let url = frame as! MinewURL
-             print("URL:\(url.urlString ?? "nil")")
-             break
-         case .FrameUID:
-             let uid = frame as! MinewUID
-             print("UID:\(uid.namespaceId ?? "nil")--\(uid.instanceId ?? "nil")")
-             break
-         case .FrameTLM:
-             print("TLM")
-             break
-         case .FrameDeviceInfo:
-             print("DeviceInfo")
-             break
-         default:
-             print("Unauthenticated Frame")
-             break
-         }
-     }
-     
-     func writeFrame(peripheral : MTPeripheral) -> Void {
-         let ib = MinewiBeacon.init()
-         ib.slotNumber = 0;
-         ib.uuid = "47410a54-99dd-49f9-a2f4-e1a7efe03c13";
-         ib.major = 300;
-         ib.minor = 30;
-         ib.slotAdvInterval = 400;
-         ib.slotAdvTxpower = -62;
-         ib.slotRadioTxpower = -4;
-         
-         peripheral.connector.write(ib, completion: { (success, error) in
-             if success {
-                 print("write success,%d",ib.slotRadioTxpower)
-             }
-             else {
-                 print(error as Any)
-             }
-         })
-         
-     }
-     
-     func setLineBeacon() -> Void {
+        
+        currentPeripheral = peripheral
+        
+        peripheral.connector.statusChangedHandler = { (status, error) in
+            
+            if error != nil {
+                print(error as Any)
+            }
+            
+            switch status {
+            case .StatusCompleted:
+                self.writeFrame(peripheral: peripheral)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0, execute: {
+                    self.getAllSlot()
+                    self.getTrigger()
+                    self.setLineBeacon()
+                    self.writeTrigger(peripheral: peripheral)
+                })
+                
+                self.stopScan()
+                
+                break
+                
+            case .StatusDisconnected:
+                
+                print("disconnected")
+                break
+                
+            case .StatusConnectFailed:
+                
+                print("connect failed")
+                break
+                
+            case .StatusUndifined:
+                break
+                
+            default:
+                break
+            }
+        }
+        
+        manager.connect(toPeriperal:peripheral, passwordRequire: { (pass) in
+            
+            pass!("minew123")
+        })
+    }
     
-         currentPeripheral?.connector.setLineBeaconLotkey("0011223344556600", completion: { (success, error) in
-             if error == nil {
-                 print("Set LineBeacon's lotKey success")
-             } else {
-                 print("Set LineBeacon's lotKey fail")
-             }
-         })
-         
-         currentPeripheral?.connector.setLineBeaconHWID("0011223300", vendorKey: "00112200", completion: { (success, error) in
-             if error == nil {
-                 if error == nil {
-                     print("Set LineBeacon's hwid and vendorKey success")
-                 } else {
-                     print("Set LineBeacon's hwid and vendorKey fail")
-                 }
-             }
-         })
-     }
-     
-     func getTrigger() -> Void {
-         let triggerData:MTTriggerData =  currentPeripheral?.connector.triggers[1] ?? MTTriggerData()
-         
-         print("TriggerData \n type:\(triggerData.type)--advertisingSecond:\(String(describing: triggerData.value))--alwaysAdvertise:\( triggerData.always)--advInterval:\(triggerData.advInterval)--radioTxpower:\(triggerData.radioTxpower)")
-
-     }
-     
-     func writeTrigger(peripheral : MTPeripheral) -> Void {
-         // Tips:Use the correct initialization method for MTTriggerData
-         let triggerData = MTTriggerData.init(slot: 1, paramSupport: true, triggerType: TriggerType.btnDtapLater, value: 30)
-         triggerData?.always = true;
-         triggerData?.advInterval = 100;
-         triggerData?.radioTxpower = -20;
-         
-         peripheral.connector.writeTrigger(triggerData) { (success) in
-             if success {
-                 print("write triggerData success")
-             }
-             else {
-                 print("write triggerData failed")
-             }
-         }
-     }
+    func disconnect(peripheral : MTPeripheral) -> Void {
+        manager.disconnect(fromPeriperal: peripheral)
+    }
+    
+    func getAllSlot() -> Void {
+        for frame in (currentPeripheral?.connector.allFrames)! {
+            self.getBroadcastContent(frame: frame)
+        }
+    }
+    
+    
+    
+    func getBroadcastContent(frame:MinewFrame) -> Void {
+        
+        switch frame.frameType {
+        case .FrameiBeacon:
+            let iBeacon = frame as! MinewiBeacon
+            print("iBeacon:\(iBeacon.major)--\(String(describing: iBeacon.uuid))--\( iBeacon.minor)")
+            break
+        // Same thing with MTSensorPIRData/MTSensorHTData
+        case .FrameLineBeacon:
+            let lineBeaconLotKey:MTLineBeaconData = currentPeripheral?.connector?.sensorHandler.lineBeaconLotKeyDataDic["lineBeaconLotKeyDataDic"] as! MTLineBeaconData
+            let lineBeaconHwidAndVendorKey:MTLineBeaconData = currentPeripheral?.connector?.sensorHandler.lineBeaconDataDic["lineBeaconDataDic"] as! MTLineBeaconData
+            print("LineBeacon:\(lineBeaconLotKey.lotKey)--\(lineBeaconHwidAndVendorKey.hwId)--\(lineBeaconHwidAndVendorKey.vendorKey)")
+            
+            break
+        case .FrameURL:
+            let url = frame as! MinewURL
+            print("URL:\(url.urlString ?? "nil")")
+            break
+        case .FrameUID:
+            let uid = frame as! MinewUID
+            print("UID:\(uid.namespaceId ?? "nil")--\(uid.instanceId ?? "nil")")
+            break
+        case .FrameTLM:
+            print("TLM")
+            break
+        case .FrameDeviceInfo:
+            print("DeviceInfo")
+            break
+        default:
+            print("Unauthenticated Frame")
+            break
+        }
+    }
+    
+    func writeFrame(peripheral : MTPeripheral) -> Void {
+        let ib = MinewiBeacon.init()
+        ib.slotNumber = 0;
+        ib.uuid = "47410a54-99dd-49f9-a2f4-e1a7efe03c13";
+        ib.major = 300;
+        ib.minor = 30;
+        ib.slotAdvInterval = 400;
+        ib.slotAdvTxpower = -62;
+        ib.slotRadioTxpower = -4;
+        
+        peripheral.connector.write(ib, completion: { (success, error) in
+            if success {
+                print("write success,%d",ib.slotRadioTxpower)
+            }
+            else {
+                print(error as Any)
+            }
+        })
+        
+    }
+    
+    func setLineBeacon() -> Void {
+        
+        currentPeripheral?.connector.setLineBeaconLotkey("0011223344556600", completion: { (success, error) in
+            if error == nil {
+                print("Set LineBeacon's lotKey success")
+            } else {
+                print("Set LineBeacon's lotKey fail")
+            }
+        })
+        
+        currentPeripheral?.connector.setLineBeaconHWID("0011223300", vendorKey: "00112200", completion: { (success, error) in
+            if error == nil {
+                if error == nil {
+                    print("Set LineBeacon's hwid and vendorKey success")
+                } else {
+                    print("Set LineBeacon's hwid and vendorKey fail")
+                }
+            }
+        })
+    }
+    
+    func getTrigger() -> Void {
+        let triggerData:MTTriggerData =  currentPeripheral?.connector.triggers[1] ?? MTTriggerData()
+        
+        print("TriggerData \n type:\(triggerData.type)--advertisingSecond:\(String(describing: triggerData.value))--alwaysAdvertise:\( triggerData.always)--advInterval:\(triggerData.advInterval)--radioTxpower:\(triggerData.radioTxpower)")
+        
+    }
+    
+    func writeTrigger(peripheral : MTPeripheral) -> Void {
+        // Tips:Use the correct initialization method for MTTriggerData
+        let triggerData = MTTriggerData.init(slot: 1, paramSupport: true, triggerType: TriggerType.btnDtapLater, value: 30)
+        triggerData?.always = true;
+        triggerData?.advInterval = 100;
+        triggerData?.radioTxpower = -20;
+        
+        peripheral.connector.writeTrigger(triggerData) { (success) in
+            if success {
+                print("write triggerData success")
+            }
+            else {
+                print("write triggerData failed")
+            }
+        }
+    }
     
     
     // MARK: Show Alerts
-
+    
     func showAlertBluetooth(){
-
+        
         if !UserDefaults.standard.bool(forKey: "didShowAlertBluetooth") {
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bluetooth"])
-            }
+            
             self.appDelegate.scheduleNotification(notificationType: "Alert_bluetooth_msg_txt")
             UserDefaults.standard.set(true, forKey: "didShowAlertBluetooth")
+        }
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bluetooth"])
         }
     }
     
     func showAlertBracelet(){
-
+        
         if !UserDefaults.standard.bool(forKey: "didShowAlertBracelet") {
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bracelet"])
-            }
             self.appDelegate.scheduleNotification(notificationType: "errorMsgConnection")
             UserDefaults.standard.set(true, forKey: "didShowAlertBracelet")
         }
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"braceletStatus"])
+            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"bracelet"])
         }
     }
     
     func showAlertBattery(){
         
         if !UserDefaults.standard.bool(forKey: "didShowAlertBattery") {
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"battery"])
-            }
+            
             self.appDelegate.scheduleNotification(notificationType: "Alert_battery_msg_txt")
             UserDefaults.standard.set(true, forKey: "didShowAlertBattery")
+        }
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"battery"])
         }
     }
     
     func showAlertInternet(){
         
         if !UserDefaults.standard.bool(forKey: "didShowAlertInternet") {
-             DispatchQueue.main.async {
-                       NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"internet"])
-                       
-                   }
-                   self.appDelegate.scheduleNotification(notificationType: "Alert_wifi_msg_txt")
+            self.appDelegate.scheduleNotification(notificationType: "Alert_wifi_msg_txt")
             UserDefaults.standard.set(true, forKey: "didShowAlertInternet")
+        }
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"internet"])
+            
         }
     }
     
@@ -620,9 +528,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         switch eventType {
         case .onEntry:
             if !UserDefaults.standard.bool(forKey: "didEnterZone") {
-//                DispatchQueue.main.async {
-//                    NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone_entry"])
-//                }
+                //                DispatchQueue.main.async {
+                //                    NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone_entry"])
+                //                }
                 self.appDelegate.scheduleNotification(notificationType: "Alert_in_zone_msg_txt")
                 UserDefaults.standard.set(true, forKey: "didEnterZone")
                 UserDefaults.standard.set(false, forKey: "didExitZone")
@@ -630,15 +538,17 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         case .onExit:
             
             if !UserDefaults.standard.bool(forKey: "didExitZone") {
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone_exit"])
-                }
                 self.appDelegate.scheduleNotification(notificationType: "Alert_out_zone_msg_txt")
                 UserDefaults.standard.set(true, forKey: "didExitZone")
                 UserDefaults.standard.set(false, forKey: "didEnterZone")
             }
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: Notification.Name("Alerts"), object: nil, userInfo:["type":"zone_exit"])
+            }
         }
     }
+    
+    // MARK: Check All Services
     
     func checkAllServicesActivityFromBackground()  {
         
@@ -647,11 +557,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         if (batteryLevel  < 0.2 && batteryLevel > 0.0 ) {
             showAlertBattery()
         }
-
+        
         let myMacAdress = UserDefaults.standard.string(forKey:"connected_bracelet")
         
         if manager != nil {
- 
+            
             var braceletVisible = false
             for key in manager.scannedPeris {
                 var bleName = "Unknown"
@@ -659,7 +569,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                 if key.framer.name != nil {
                     bleName = key.framer.name
                 }
-
+                
                 if key.framer.mac != nil {
                     mac = key.framer.mac
                     if mac.uppercased().inserting(separator: ":", every: 2) == myMacAdress {
@@ -667,7 +577,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                         break
                     }
                 }
-
+                
             }
             if !braceletVisible && myMacAdress != nil {
                 showAlertBracelet()
@@ -684,21 +594,11 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         activityManager.delegate = self
         activityManager.startActivityScan()
         
-        
-        guard let status = Network.reachability?.status else { return }
-        
-        switch status {
-        case .unreachable, .wwan:
-            showAlertInternet()
-            break
-        case .wifi:
-            break
-        }
-        
     }
     
     
     // MARK: getAllWiFiNameList
+    
     func getAllWiFiNameList() -> String? {
         var ssid: String?
         if let interfaces = CNCopySupportedInterfaces() as NSArray? {
@@ -760,8 +660,8 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             if CLLocationManager.authorizationStatus() == .authorizedAlways {
                 
                 locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
-
-               // scheduledTimerWithTimeInterval()
+                
+                // scheduledTimerWithTimeInterval()
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -770,9 +670,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         }
         else {
             if CLLocationManager.authorizationStatus() == .authorizedAlways {
-
+                
                 locValue = UserDefaults.standard.location(forKey:"myhomeLocation")
-
+                
             }
             else {
                 locValue = CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
@@ -819,47 +719,18 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             // Enable features that require location services here.
             
             locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
-
+            
             break
         }
         
     }
-    
-    
-    
-    
-    
-    
     @objc func getNotificationNoneLocation(notification: Notification) {
         setLocation()
-        
     }
     @objc func methodOfReceivedNotification(notification: Notification) {
         setLocation()
         
-        
     }
-    func isInternetAvailable() -> Bool
-    {
-        var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
-        zeroAddress.sin_family = sa_family_t(AF_INET)
-        
-        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
-            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
-                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
-            }
-        }
-        
-        var flags = SCNetworkReachabilityFlags()
-        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
-            return false
-        }
-        let isReachable = flags.contains(.reachable)
-        let needsConnection = flags.contains(.connectionRequired)
-        return (isReachable && !needsConnection)
-    }
-
     @IBAction func menuDidTap(_ sender: Any) {
         if(LanguageManger.shared.isRightToLeft==true){
             
@@ -872,9 +743,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     }
     
     //MARK: Location Manager delegates
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
+        
         if let lastLocation = locations.last {
             currentLocation = lastLocation.coordinate
         }
@@ -905,93 +776,15 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             break
         case .authorizedAlways :
             
-                locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
-
-                
+            locValue = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude :0.0,longitude : 0.0)
+            
+            
             break
         default: break
             // Permission denied, do something else
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-      if region is CLCircularRegion {
-        handleEvent(for: region)
-      }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-      if region is CLCircularRegion {
-        handleEvent(for: region)
-      }
-    }
-    
-    //MARK: Helpers
-    let motionManager = CMMotionManager()
-    func showAlertSpeed(){
-//        if(bluetoothEnabled == false){
-//            let alert = UIAlertController(title: "speed", message: "Please your speed > 10K/H", preferredStyle: .alert)
-//
-//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//
-//            self.present(alert, animated: true)
-//        }
-    }
-    @objc func getSpeed(){
-        
-        
-//        let speed = Double((locationManager.location?.speed)!)
-//
-//        print(String(format: "%.0f km/h", speed * 3.6)) //Current speed in km/h
-//
-//        //If speed is over 10 km/h
-//        if(speed * 3.6 > 10 ){
-//            showAlertSpeed()
-//            //Getting the accelerometer data
-//            if motionManager.isAccelerometerAvailable{
-//                let queue = OperationQueue()
-//                motionManager.startAccelerometerUpdates(to: queue, withHandler:
-//                    {data, error in
-//
-//                        guard let data = data else{
-//                            return
-//                        }
-//
-//                        print("X = \(data.acceleration.x)")
-//                        print("Y = \(data.acceleration.y)")
-//                        print("Z = \(data.acceleration.z)")
-//
-//                }
-//                )
-//            } else {
-//                print("Accelerometer is not available")
-//            }
-//
-//        }
-    }
-    
-   
-    //internet state change
-    
-    @objc func reachabilityChanged(_ note: NSNotification) {
-        //V1
-        guard let status = Network.reachability?.status else { return }
-        switch status {
-        case .unreachable:
-            isInternetOK = false
-            print("Not reachable")
-            showAlertInternet()
-        case .wifi:
-            isInternetOK = true
-            print("wifi reachable")
-        case .wwan:
-            showAlertInternet()
-            isInternetOK = false
-            print("wwan reachable")
-        }
-        
-    }
-
     func writeDataToLogFile() {
         
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
@@ -1010,21 +803,15 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     
                     let uid = String(format:"%@, %@",bleName ,bleRSSI as! NSNumber)
                     let info = String(format:"StayHomeApp_%@",data)
-
-                    let dataDictToSend = ["info":info,"iBeacon":Constants.SERVICE_UUID.rawValue,"UID":uid,"URL":"","Acc":"","TLM":batteryLevel] as [String : Any]//["name":bleName,"rssi":bleRSSI as Any]
-
-//                    let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
-//                    let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
-                    //logToBLEFile(value: "\(Date()) ; StayHomeApp_\(data) ; \(bleUID ?? "") ; \(bleRSSI ?? 0) ;\(bleName); \n")
-                   //["info":"","iBeacon":"","UID":"","URL":"","Acc":"","TLM":""]
                     
+                    let dataDictToSend = ["info":info,"iBeacon":Constants.SERVICE_UUID.rawValue,"UID":uid,"URL":"","Acc":"","TLM":batteryLevel] as [String : Any]
                     logToBLEFile(value: String(format:" %@ ; StayHomeApp_%@ ; %@ ; %@ ; %@ ; %@ ; %f ; \n", Date() as NSDate, data, Constants.SERVICE_UUID.rawValue, uid,"","",batteryLevel))
-
+                    
                     /*APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dataDictToSend, onSuccess: { (Msg) in
-                        print(Msg)
-                    } ,onFailure : { (error) in
-                        print(error)
-                    })*/
+                     print(Msg)
+                     } ,onFailure : { (error) in
+                     print(error)
+                     })*/
                 }
             }
             
@@ -1037,32 +824,28 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
                     if key.framer.name != nil {
                         bleName = key.framer.name
                     }
-//                    let bleUID = key.identifier
-//                    let bleRSSI = String(key.framer.rssi)
                     if key.framer.mac != nil {
                         mac = key.framer.mac
                     }
-
-//                    let data = ["battery":key.framer.battery,"mac":mac,"connectable":key.framer.connectable,"frames":key.framer.advFrames ?? []] as [String : Any]
-//                    let stringWithoutLineBreak = data.debugDescription.replacingOccurrences(of: "\\n", with: "", options: .regularExpression)
-//                    let stringWithoutLineComma = stringWithoutLineBreak.replacingOccurrences(of: ";", with: "", options: .regularExpression)
                     sendScannedDataFrames(frames: key.framer.advFrames,deviceName: bleName,deviceMac:mac)
                     
                 }
                 braceletArray.removeAll()
-                startScan()
+                DispatchQueue.main.async {
+                    self.startScan()
+                }
             }
             
             
             createLogFile()
             if userMotionActivity != nil  {
-                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetAvailable()) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
+                logToFile(value: "\(Date()) ; \(userMotionActivity ?? CMMotionActivity()) ; user in zone ;  \(locValue.latitude) ; \(locValue.longitude) ; \(peripherals)) ; \(currentNetworkInfos?.first?.ssid ??  "nil") ; \(batteryLevel) ; \(checkIfLocationEnabled()) ; \(bluetoothEnabled) ; \(isInternetOK) ; \(locationManager.location?.horizontalAccuracy ?? 0) ; \(userMotionManager.accelerometerData) ; \(userMotionManager.gyroData) ; \(userMotionManager.magnetometerData) ; \(userMotionManager.deviceMotion)\n")
             }
             peripherals.removeAll()
             startScanningBTDevices()
         }
     }
-
+    
     // MARK : Send Data to the Server
     
     func sendScannedDataFrames(frames: [MinewFrame] ,deviceName: String,deviceMac: String){
@@ -1153,10 +936,10 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         logToBLEFile(value: String(format:"%@ ; %@ ; %@ ; %@ ; %@ ; %@ ; %@ ; \n", Date() as NSDate, dictParams!["info"] as! String, dictParams!["iBeacon"] as! String,dictParams!["UID"] as! String,dictParams!["URL"] as! String,dictParams!["Acc"] as! String,dictParams!["TLM"] as! String))
         
         /*APIClient.sendBLEScannedTelimetry(deviceToken:deviceToken! , data: dictParams as! [String : Any], onSuccess: { (Msg) in
-            print(Msg)
-        } ,onFailure : { (error) in
-            print(error)
-        })*/
+         print(Msg)
+         } ,onFailure : { (error) in
+         print(error)
+         })*/
     }
     
     //MARK : Add Timer
@@ -1165,23 +948,17 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
         customTimer.eventHandler = {
             if self.locationManager.location != nil && self.locValue != nil {
-                //self.getUserstatus()
                 self.checkAllServicesActivityFromBackground()
             }
             self.registerBackgroundTask()
         }
         customTimer.resume()
     }
-    
-    // MARK : Desactivate Timer
-    func desactivateTimer()  {
-        if(countdownTimer != nil ){
-            countdownTimer.invalidate()
-            countdownTimer = nil
-        }
-    }
+
     //MARK : Check User out of zone
+    
     func getUserstatus(){
+        
         let deviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         let myhomeLocation = UserDefaults.standard.location(forKey:"myhomeLocation")
         let Circleloc : CLLocation =  CLLocation(latitude: myhomeLocation?.latitude ?? 0.0, longitude: myhomeLocation?.longitude ?? 0.0)
@@ -1223,7 +1000,6 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
     
     // MARK : Log in File
     
-    //create file
     func createLogFile(){
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let url = URL(fileURLWithPath: path)
@@ -1253,6 +1029,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             }
         }
     }
+    
     func createBLELogFile(){
         
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
@@ -1272,7 +1049,7 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             print("FILE AVAILABLE")
         } else {
             print("FILE NOT AVAILABLE")
-           // ["info":"","iBeacon":"","UID":"","URL":"","Acc":"","TLM":""]
+            
             let titleString = " DateTime ; info ; iBeacon ; UID ; URL ; Acc ; TLM ;"
             
             do {
@@ -1282,10 +1059,9 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
             }
         }
     }
-    //add data to log file
+    
     func logToFile(value : String)  {
-        
-        //writing
+
         do {
             let fileHandle = try FileHandle(forWritingTo: fileURL!)
             fileHandle.seekToEndOfFile()
@@ -1294,12 +1070,10 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         } catch {
             print("Error writing to file \(error)")
         }
-        
     }
     
     func logToBLEFile(value : String)  {
         
-        //writing
         if fileBLEURL != nil {
             do {
                 let fileHandle = try FileHandle(forWritingTo: fileBLEURL!)
@@ -1313,41 +1087,20 @@ class HomeViewController: BaseController, CLLocationManagerDelegate{
         
     }
     
-   func registerBackgroundTask() {
-             backgroundTask = UIApplication.shared.beginBackgroundTask {
-             [unowned self] in
-                 self.endBackgroundTask()
-             }
-             assert(backgroundTask != UIBackgroundTaskIdentifier.invalid)
-         }
-
-         func endBackgroundTask() {
-             NSLog("Background task ended.")
-             UIApplication.shared.endBackgroundTask(backgroundTask)
-             backgroundTask = UIBackgroundTaskIdentifier.invalid
-         }
-      
-    
-      func handleEvent(for region: CLRegion!) {
-        // Show an alert if application is active
-        if UIApplication.shared.applicationState == .active {
-          guard let message = note(from: region.identifier) else { return }
-        } else {
-          // Otherwise present a local notification
-          guard let body = note(from: region.identifier) else { return }
-         
+    func registerBackgroundTask() {
+        backgroundTask = UIApplication.shared.beginBackgroundTask {
+            [unowned self] in
+            self.endBackgroundTask()
         }
-      }
-      
-      func note(from identifier: String) -> String? {
-        let geotifications = Geotification.allGeotifications()
-        guard let matched = geotifications.filter({
-          $0.identifier == identifier
-        }).first else { return nil }
-        return matched.note
-      }
-      
+        assert(backgroundTask != UIBackgroundTaskIdentifier.invalid)
     }
+    
+    func endBackgroundTask() {
+        NSLog("Background task ended.")
+        UIApplication.shared.endBackgroundTask(backgroundTask)
+        backgroundTask = UIBackgroundTaskIdentifier.invalid
+    }
+}
 
 extension HomeViewController : BiometricsAuthProtocol{
     func requestRecognition(){

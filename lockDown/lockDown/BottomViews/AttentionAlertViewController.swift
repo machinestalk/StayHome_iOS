@@ -54,19 +54,15 @@ class AttentionAlertViewController: UIViewController {
             break
         case "zone_exit":
             msgLbl.text = "Alert_out_zone_msg_txt".localiz()
-            okBtn.isHidden = true
-            stackView.isHidden = false
             alertImage.image = UIImage(named: "red_speaker")
             break
         case "zone_entry":
             msgLbl.text = "Alert_in_zone_msg_txt".localiz()
-            okBtn.isHidden = true
-            stackView.isHidden = false
             alertImage.image = UIImage(named: "red_speaker")
             break
         case"bracelet":
             msgLbl.text = "errorMsgConnection".localiz()
-            alertImage.image = UIImage(named: "red_bluetooth")
+            alertImage.image = UIImage(named: "bracelet_red_alert")
             break
         default:
             break
