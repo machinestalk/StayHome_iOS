@@ -309,20 +309,6 @@ class HomeViewController: BaseController, CLLocationManagerDelegate, Reachabilit
         scannerDevices = manager.scannedPeris
     }
     
-    func startConnect() -> Void {
-        //        print(manager.scannedPeris as Any)
-        self.stopScan()
-        
-        for key in manager.scannedPeris {
-            //            print(key.identifier as Any)
-            
-            // Please enter the identifier that your want to connect.
-            //if key.identifier == "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0" {//Identifiers may change, it is recommended to use MacString
-            self.connectDevice(peripheral: key)
-            //}
-        }
-    }
-    
     func stopScan() -> Void {
         manager.stopScan()
     }
