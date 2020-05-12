@@ -12,7 +12,6 @@
 		0039FC352440B0F40071486B /* AttentionOutZoneAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039FC332440B0F30071486B /* AttentionOutZoneAlertViewController.swift */; };
 		0039FC362440B0F40071486B /* AttentionOutZoneAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0039FC342440B0F30071486B /* AttentionOutZoneAlertViewController.xib */; };
 		00AF8DCC243B58F6002AD458 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AF8DCB243B58F6002AD458 /* CoreBluetooth.framework */; };
-		00E0FEBD243E6D0700FD3DCB /* CustomReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0FEBC243E6D0700FD3DCB /* CustomReachability.swift */; };
 		469911621E7D434DEE14800B /* Pods_lockDown_lockDownUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07CA6D2D03D9DFBEFA5E85B7 /* Pods_lockDown_lockDownUITests.framework */; };
 		C127F5BF6723479FAE29EC8B /* Pods_lockDownTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BCCF1BC0A16076FE3EF369 /* Pods_lockDownTests.framework */; };
 		FA012F112447134600E647B9 /* MyZoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA012F0F2447134600E647B9 /* MyZoneViewController.swift */; };
@@ -33,6 +32,7 @@
 		FA04CA7F245C663D001A9591 /* BraceletStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA04CA7D245C663D001A9591 /* BraceletStatusViewController.xib */; };
 		FA17C4BD243337B9000516EF /* BiometricsAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */; };
 		FA17C4BE243337B9000516EF /* BiometricsAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */; };
+		FA3534A6246A9D3B00F5EE6A /* ReachabilityObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3534A5246A9D3B00F5EE6A /* ReachabilityObserverDelegate.swift */; };
 		FA4217B124618EEA00090FA8 /* AddBraceletManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4217AF24618EEA00090FA8 /* AddBraceletManuallyViewController.swift */; };
 		FA4217B224618EEA00090FA8 /* AddBraceletManuallyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4217B024618EEA00090FA8 /* AddBraceletManuallyViewController.xib */; };
 		FA4217B52461A93E00090FA8 /* ConfirmationBottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4217B32461A93D00090FA8 /* ConfirmationBottomViewController.swift */; };
@@ -166,7 +166,6 @@
 		0039FC332440B0F30071486B /* AttentionOutZoneAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttentionOutZoneAlertViewController.swift; sourceTree = "<group>"; };
 		0039FC342440B0F30071486B /* AttentionOutZoneAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AttentionOutZoneAlertViewController.xib; sourceTree = "<group>"; };
 		00AF8DCB243B58F6002AD458 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		00E0FEBC243E6D0700FD3DCB /* CustomReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomReachability.swift; sourceTree = "<group>"; };
 		07CA6D2D03D9DFBEFA5E85B7 /* Pods_lockDown_lockDownUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lockDown_lockDownUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C13EC0E87A2759A3921A8D /* Pods-lockDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDownTests.release.xcconfig"; path = "Target Support Files/Pods-lockDownTests/Pods-lockDownTests.release.xcconfig"; sourceTree = "<group>"; };
 		2344FD5529BBC0EA5178F562 /* Pods-lockDown-lockDownUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lockDown-lockDownUITests.release.xcconfig"; path = "Target Support Files/Pods-lockDown-lockDownUITests/Pods-lockDown-lockDownUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +192,7 @@
 		FA04CA7D245C663D001A9591 /* BraceletStatusViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BraceletStatusViewController.xib; sourceTree = "<group>"; };
 		FA17C4BB243337B9000516EF /* BiometricsAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsAuthViewController.swift; sourceTree = "<group>"; };
 		FA17C4BC243337B9000516EF /* BiometricsAuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiometricsAuthViewController.xib; sourceTree = "<group>"; };
+		FA3534A5246A9D3B00F5EE6A /* ReachabilityObserverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserverDelegate.swift; sourceTree = "<group>"; };
 		FA4217AF24618EEA00090FA8 /* AddBraceletManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBraceletManuallyViewController.swift; sourceTree = "<group>"; };
 		FA4217B024618EEA00090FA8 /* AddBraceletManuallyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddBraceletManuallyViewController.xib; sourceTree = "<group>"; };
 		FA4217B32461A93D00090FA8 /* ConfirmationBottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationBottomViewController.swift; sourceTree = "<group>"; };
@@ -476,7 +476,7 @@
 			children = (
 				FA6E989224329B7B000F2C2E /* APIClient.swift */,
 				FA6E989324329B7B000F2C2E /* APIRouter.swift */,
-				00E0FEBC243E6D0700FD3DCB /* CustomReachability.swift */,
+				FA3534A5246A9D3B00F5EE6A /* ReachabilityObserverDelegate.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -999,7 +999,6 @@
 				FA6E98B424329DA0000F2C2E /* MenuViewController.swift in Sources */,
 				FA6E98A024329B83000F2C2E /* Constants.swift in Sources */,
 				FA6E989524329B7B000F2C2E /* APIRouter.swift in Sources */,
-				00E0FEBD243E6D0700FD3DCB /* CustomReachability.swift in Sources */,
 				FA04CA7E245C663D001A9591 /* BraceletStatusViewController.swift in Sources */,
 				FA6E98A424329B83000F2C2E /* TextField.swift in Sources */,
 				FA8B001F2444AE290097404A /* ActivityManager.swift in Sources */,
@@ -1044,6 +1043,7 @@
 				FA8B003A24462AD30097404A /* HomeViewController.swift in Sources */,
 				FADB80F4243DFDFB00A31CC1 /* FailCheckInViewController.swift in Sources */,
 				FA04CA662459B5A2001A9591 /* Config.swift in Sources */,
+				FA3534A6246A9D3B00F5EE6A /* ReachabilityObserverDelegate.swift in Sources */,
 				FA6E98AA24329CEA000F2C2E /* LoginViewController.swift in Sources */,
 				FAC36C812435DCFC002B4928 /* UserData.swift in Sources */,
 				FA6E98A624329B83000F2C2E /* Button.swift in Sources */,

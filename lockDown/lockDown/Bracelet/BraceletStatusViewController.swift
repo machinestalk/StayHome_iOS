@@ -80,14 +80,15 @@ class BraceletStatusViewController: BaseController {
             
                    }) { (error) in
                        self.finishLoading()
-                    self.setupErrorBottomVC()
-                       print(error)
+                    if let objectDict = error.convertToDictionary(){
+                        self.setupErrorBottomVC(message: objectDict["message"] as! String)
+                    }
                    }
     }
 
     
     // MARK: - ErrorBottom View
-    func setupErrorBottomVC() {
+    func setupErrorBottomVC(message: String) {
         //self.BraceletConnectedBottomVC.view.removeFromSuperview()
         errorBottomVC.delegate = self
         let height = view.frame.height
@@ -97,7 +98,7 @@ class BraceletStatusViewController: BaseController {
         self.view.addSubview(errorBottomVC.view)
         errorBottomVC.didMove(toParent: self)
         errorBottomVC.errorIcon.image = UIImage(named: "red_bluetooth")
-        errorBottomVC.msgLbl.text = "errorMsgConnection".localiz()
+        errorBottomVC.msgLbl.text = message//"errorMsgConnection".localiz()
     }
     
     // MARK: - ErrorBottom View
@@ -152,7 +153,7 @@ func getBraceletStatus () {
             self.BraceletConnectedBottomVC.view.removeFromSuperview()
             if !braceletVisible && myMacAdress != nil {
              
-                self.setupErrorBottomVC()
+                self.setupErrorBottomVC(message:"errorMsgConnection".localiz())
                
               
             }
