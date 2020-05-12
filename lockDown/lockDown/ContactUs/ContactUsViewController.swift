@@ -102,7 +102,7 @@ class ContactUsViewController: BaseController, UITextViewDelegate {
         }
     // MARK: - APIs call
         
-        let dataBody = ["phoneNumber":UserDefaults.standard.value(forKey: "UserNameSignUp") as! String ,"subject":"tecSupport_txt".localiz(),"message":textView.text as
+        let dataBody = ["phoneNumber":UserDefaults.standard.value(forKey: "UserNameSignUp") as! String ,"subject":textfield.text as Any,"message":textView.text as
             Any,"attachement":attachementDict as Any] as [String : Any]
         
         if !textView.text.isEmpty && textView.textColor != UIColor.lightGray {

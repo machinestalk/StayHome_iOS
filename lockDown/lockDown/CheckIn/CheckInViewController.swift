@@ -47,7 +47,7 @@ class CheckInViewController: BaseController {
             countdownTimer.invalidate()
             countdownTimer = nil
         }
-        totalTime = 60
+        totalTime = 300
         countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
     

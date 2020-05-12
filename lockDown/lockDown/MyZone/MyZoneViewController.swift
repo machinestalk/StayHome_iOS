@@ -341,69 +341,45 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
         }
             print("didEndDrag")
        }
-    
-    
-    
-    
-    //
-       func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
-         DispatchQueue.main.async {
+
+    func getAddressFromLatLon(pdblLatitude: Double, withLongitude pdblLongitude: Double) {
+        DispatchQueue.main.async {
             var addressStr = " "
-     let geoCoder = CLGeocoder()
-           let location = CLLocation(latitude: pdblLatitude , longitude: pdblLongitude)
-           geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            let geoCoder = CLGeocoder()
+            let location = CLLocation(latitude: pdblLatitude , longitude: pdblLongitude)
+            geoCoder.reverseGeocodeLocation(location, preferredLocale:Locale.init(identifier: "en_US"),  completionHandler: { (placemarks, error) -> Void in
+                
+                var placeMark: CLPlacemark!
+                placeMark = placemarks?[0]
+                
+                if let street = placeMark.addressDictionary!["Street"] as? String{
 
-               print("Response GeoLocation : \(placemarks)")
-               var placeMark: CLPlacemark!
-               placeMark = placemarks?[0]
-            if (placeMark != nil) {
-               // Country
-               if let country = placeMark.addressDictionary!["Country"] as? String {
-                   print("Country :- \(country)")
-                addressStr = addressStr  + country
-                   // City
-                   if let city = placeMark.addressDictionary!["City"] as? String {
-                       print("City :- \(city)")
-                       // State
-                    addressStr = addressStr + " , " + city
-                       if let state = placeMark.addressDictionary!["State"] as? String{
-                           print("State :- \(state)")
-                           // Street
-                           if let street = placeMark.addressDictionary!["Street"] as? String{
-                               print("Street :- \(street)")
-                            addressStr = addressStr + " , " + street
-                               let str = street
-                               if let streetNumber = str.components(
-                                separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "") as? String {
-                               print("streetNumber :- \(streetNumber)" as Any)
-                            
-                                if streetNumber != "" {
-                                    addressStr = addressStr + " , " + streetNumber
-                                }
-                                
-                                }
-                               // ZIP
-                               if let zip = placeMark.addressDictionary!["ZIP"] as? String{
-                                   print("ZIP :- \(zip)")
-                                   // Location name
-                                   if let locationName = placeMark?.addressDictionary?["Name"] as? String {
-                                       print("Location Name :- \(locationName)")
-                                       // Street address
-                                       if let thoroughfare = placeMark?.addressDictionary!["Thoroughfare"] as? NSString {
-                                       print("Thoroughfare :- \(thoroughfare)")
-
-                                       }
-                                   }
-                               }
-                           }
-                       }
-                   }
-               }
-            }
-            self.addressLbl.text = addressStr
-           })
+                    if let streetNumber = street.components(
+                        separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "") as? String {
+                        print("streetNumber :- \(streetNumber)" as Any)
+                        
+                        if streetNumber != "" {
+                            addressStr = addressStr +  streetNumber
+                        }
+                    }
+                    addressStr = addressStr + " " +  street
+                    
+                }
+                
+                if let city = placeMark.addressDictionary!["City"] as? String {
+                    addressStr = addressStr + " " + city
+                }
+                
+                if (placeMark != nil) {
+                    if let country = placeMark.addressDictionary!["Country"] as? String {
+                        print("Country :- \(country)")
+                        addressStr = addressStr  + " " + country
+                    }
+                }
+                self.addressLbl.text = addressStr
+            })
         }
-       }
+    }
        
        
        @IBAction  func changeMapStatus() {
