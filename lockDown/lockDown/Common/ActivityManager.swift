@@ -70,15 +70,17 @@ class ActivityManager: NSObject{
             acts = acts.filter {act in act.overallAct() != blank}
             acts = acts.filter {act in act.confidence == .high}
             acts = acts.filter {act in !(act.automotive && act.stationary)}
-            for i in (1..<acts.count).reversed() {
-                if acts[i].overallAct() == acts[i-1].overallAct() {
-                    print("removing act identical to previous")
-                    acts.remove(at:i)
+            if acts.count > 0 {
+                for i in (1..<acts.count).reversed() {
+                    if acts[i].overallAct() == acts[i-1].overallAct() {
+                        print("removing act identical to previous")
+                        acts.remove(at:i)
+                    }
                 }
-            }
-            DispatchQueue.main.async {
-                self.data = acts
-                self.delegate?.activityDidUpdate(data: self.data.last!, motionManager: self.motionManager)
+                DispatchQueue.main.async {
+                    self.data = acts
+                    self.delegate?.activityDidUpdate(data: self.data.last!, motionManager: self.motionManager)
+                }
             }
         }
     }

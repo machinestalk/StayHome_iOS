@@ -328,7 +328,7 @@ extension LoginViewController: CustomAlertViewDelegate {
             userNameInputView.text = ""
         }else if customAlert.type == "login"{
             clearTextFieldOTP()
-            
+            self.navigationController?.popViewController(animated: true)
         }else{
             self.navigationController?.popViewController(animated: true)
         }
@@ -340,7 +340,8 @@ extension LoginViewController: CustomAlertViewDelegate {
             userNameInputView.text = ""
             
         }else if customAlert.type == "login"{
-            clearTextFieldOTP()            
+            clearTextFieldOTP()
+            self.navigationController?.popViewController(animated: true)
         }else{
             self.navigationController?.popViewController(animated: true)
         }
