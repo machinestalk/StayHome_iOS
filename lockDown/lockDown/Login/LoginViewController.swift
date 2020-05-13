@@ -53,12 +53,6 @@ class LoginViewController: BaseController {
         // For keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        if !isItIPhoneX() {
-            heightErrorView.constant = 70
-            errorLblTop.constant = 0
-            errorLbl.frame.size.height = errorView.frame.size.height
-        }
     }
 
 
