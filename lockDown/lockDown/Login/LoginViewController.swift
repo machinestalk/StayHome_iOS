@@ -192,6 +192,21 @@ class LoginViewController: BaseController {
         clearTextFieldOTP()
     }
     
+    func resetView(){
+
+        titleLabel.text = "SgIn_SgIn_Lbl_login_enterPhone".localiz()
+        titleTextField.text = "SgIn_SgIn_Lbl_login_phone".localiz()
+        dialCodeHolder.isHidden = false
+        userNameInputView.isHidden = false
+        otpStackView.isHidden = true
+        recentPinBtn.isHidden = true
+        loginBtn.isHidden = false
+        usernameSeparator.isHidden = false
+        userNameInputView.text = ""
+        userNameInputView.becomeFirstResponder()
+        
+    }
+    
     func clearTextFieldOTP(){
         
         text1.text = ""
