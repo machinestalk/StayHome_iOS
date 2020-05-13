@@ -29,11 +29,8 @@ class LoginViewController: BaseController {
     @IBOutlet weak var  dialCodeWidth: NSLayoutConstraint!
     @IBOutlet weak var  otpStackView: UIStackView!
     @IBOutlet weak var  scrollView: UIScrollView!
-    @IBOutlet weak var errorLbl: UILabel!
     @IBOutlet weak var usernameSeparator : UILabel!
-    @IBOutlet weak var errorView: UIView!
-    @IBOutlet weak var heightErrorView: NSLayoutConstraint!
-    @IBOutlet weak var errorLblTop: NSLayoutConstraint!
+
   
     let kPhoneSubscriptWithZero = "+966"
 
