@@ -97,7 +97,7 @@ class BraceletStatusViewController: BaseController {
         self.addChild(errorBottomVC)
         self.view.addSubview(errorBottomVC.view)
         errorBottomVC.didMove(toParent: self)
-        errorBottomVC.errorIcon.image = UIImage(named: "red_bluetooth")
+        errorBottomVC.errorIcon.image = UIImage(named: "bracelet_red_alert")
         errorBottomVC.msgLbl.text = message//"errorMsgConnection".localiz()
     }
     

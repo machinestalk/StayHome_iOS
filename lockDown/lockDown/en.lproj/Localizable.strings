@@ -61,6 +61,10 @@
 "versionUpdate_txt"                                                     = "A new update is available, please update your version";
 
 //Login Screen
+
+"SgIn_SgIn_Lbl_login_enterPhone" = "Enter your phone";
+"SgIn_SgIn_Lbl_login_phone" = "Phone";
+
 "SgIn_SgIn_Lbl_login_verifyPin" = "Enter OTP";
 "SgIn_SgIn_Lbl_login_pin" = "Enter the OTP send to verification by email or phone number.";
 "SgIn_SgIn_SuBtn_ResendPin" = "Resend OTP";

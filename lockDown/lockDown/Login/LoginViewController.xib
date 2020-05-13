@@ -17,10 +17,6 @@
                 <outlet property="dialCodeHolder" destination="Ydf-J4-3b6" id="KVJ-OW-8q8"/>
                 <outlet property="dialCodeLbl" destination="vCh-6t-GZE" id="LC1-sw-xDO"/>
                 <outlet property="dialCodeWidth" destination="DJc-Xm-eTZ" id="gAp-VL-Rlc"/>
-                <outlet property="errorLbl" destination="QLF-0o-53c" id="GSW-dD-q9j"/>
-                <outlet property="errorLblTop" destination="4S5-MB-Q9M" id="ymn-ON-HuE"/>
-                <outlet property="errorView" destination="PdS-Y3-MlN" id="Zem-h3-w41"/>
-                <outlet property="heightErrorView" destination="MUs-67-UAa" id="tXH-9t-eRo"/>
                 <outlet property="loginBtn" destination="iTh-wG-aRK" id="tsb-9v-bIF"/>
                 <outlet property="otpStackView" destination="e7L-cX-E93" id="auo-dY-7JV"/>
                 <outlet property="recentPinBtn" destination="Dkp-eK-2AL" id="W2z-Uu-Tjh"/>
@@ -427,39 +423,15 @@
                         <constraint firstItem="0Xi-28-WQf" firstAttribute="centerX" secondItem="eGa-ni-kCG" secondAttribute="centerX" id="o0y-C0-ThF"/>
                     </constraints>
                 </scrollView>
-                <view hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PdS-Y3-MlN">
-                    <rect key="frame" x="20" y="20" width="374" height="90"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QLF-0o-53c">
-                            <rect key="frame" x="8" y="20" width="358" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="XSa-Dl-5Ci"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
-                            <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <constraints>
-                        <constraint firstItem="QLF-0o-53c" firstAttribute="top" secondItem="PdS-Y3-MlN" secondAttribute="top" constant="20" id="4S5-MB-Q9M"/>
-                        <constraint firstItem="QLF-0o-53c" firstAttribute="leading" secondItem="PdS-Y3-MlN" secondAttribute="leading" constant="8" id="LMu-cv-ymq"/>
-                        <constraint firstAttribute="height" constant="90" id="MUs-67-UAa"/>
-                        <constraint firstAttribute="trailing" secondItem="QLF-0o-53c" secondAttribute="trailing" constant="8" id="ePo-9u-VOK"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="gnT-w0-ALB" secondAttribute="trailing" constant="-29" id="7oA-vh-Mmu"/>
                 <constraint firstAttribute="bottom" secondItem="eGa-ni-kCG" secondAttribute="bottom" id="AS0-kV-D2Z"/>
                 <constraint firstItem="gnT-w0-ALB" firstAttribute="leading" secondItem="B2r-T6-Pcm" secondAttribute="leading" id="Axh-Wc-3rm"/>
-                <constraint firstItem="PdS-Y3-MlN" firstAttribute="leading" secondItem="B2r-T6-Pcm" secondAttribute="leading" constant="20" symbolic="YES" id="J3N-07-bAr"/>
                 <constraint firstItem="eGa-ni-kCG" firstAttribute="top" secondItem="B2r-T6-Pcm" secondAttribute="top" id="LMM-B5-pKj"/>
                 <constraint firstItem="eGa-ni-kCG" firstAttribute="leading" secondItem="B2r-T6-Pcm" secondAttribute="leading" id="YL5-Gz-unz"/>
                 <constraint firstAttribute="trailing" secondItem="eGa-ni-kCG" secondAttribute="trailing" id="kr0-Jn-qOQ"/>
-                <constraint firstAttribute="trailing" secondItem="PdS-Y3-MlN" secondAttribute="trailing" constant="20" symbolic="YES" id="sZh-gG-wPZ"/>
-                <constraint firstItem="PdS-Y3-MlN" firstAttribute="top" secondItem="B2r-T6-Pcm" secondAttribute="top" constant="20" symbolic="YES" id="tUX-t1-8bQ"/>
                 <constraint firstItem="gnT-w0-ALB" firstAttribute="top" secondItem="B2r-T6-Pcm" secondAttribute="top" id="thw-5j-4qp"/>
                 <constraint firstAttribute="bottom" secondItem="gnT-w0-ALB" secondAttribute="bottom" id="uzc-Pn-Sx1"/>
             </constraints>

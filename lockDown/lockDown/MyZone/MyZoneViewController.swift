@@ -349,35 +349,36 @@ class MyZoneViewController: BaseController , GMSMapViewDelegate , CLLocationMana
             let location = CLLocation(latitude: pdblLatitude , longitude: pdblLongitude)
             geoCoder.reverseGeocodeLocation(location, preferredLocale:Locale.init(identifier: "en_US"),  completionHandler: { (placemarks, error) -> Void in
                 
-                var placeMark: CLPlacemark!
-                placeMark = placemarks?[0]
-                
-                if let street = placeMark.addressDictionary!["Street"] as? String{
-
-                    if let streetNumber = street.components(
-                        separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "") as? String {
-                        print("streetNumber :- \(streetNumber)" as Any)
+                if let placeMark = placemarks?[0] {
+                    
+                    if let street = placeMark.addressDictionary!["Street"] as? String{
                         
-                        if streetNumber != "" {
-                            addressStr = addressStr +  streetNumber
+                        if let streetNumber = street.components(
+                            separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "") as? String {
+                            print("streetNumber :- \(streetNumber)" as Any)
+                            
+                            if streetNumber != "" {
+                                addressStr = addressStr +  streetNumber
+                            }
+                        }
+                        addressStr = addressStr + " " +  street
+                        
+                    }
+                    
+                    if let city = placeMark.addressDictionary!["City"] as? String {
+                        addressStr = addressStr + " " + city
+                    }
+                    
+                    if (placeMark != nil) {
+                        if let country = placeMark.addressDictionary!["Country"] as? String {
+                            print("Country :- \(country)")
+                            addressStr = addressStr  + " " + country
                         }
                     }
-                    addressStr = addressStr + " " +  street
-                    
+                    self.addressLbl.text = addressStr
                 }
-                
-                if let city = placeMark.addressDictionary!["City"] as? String {
-                    addressStr = addressStr + " " + city
-                }
-                
-                if (placeMark != nil) {
-                    if let country = placeMark.addressDictionary!["Country"] as? String {
-                        print("Country :- \(country)")
-                        addressStr = addressStr  + " " + country
-                    }
-                }
-                self.addressLbl.text = addressStr
             })
+            
         }
     }
        
